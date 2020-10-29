@@ -2044,29 +2044,37 @@ EFI_STATUS PeiCreateHobEntryPoint(
     return EFI_SUCCESS;
 &#125;</code></pre>
 <ul>
-<li>DxeFindHob.c<pre><code>#include &lt;AmiDxeLib.h&gt;
+<li>DxeFindHob.c</li>
+</ul>
+<pre><code>#include &lt;AmiDxeLib.h&gt;
 #include &lt;Library/HobLib.h&gt;
 #include &lt;OemHob.h&gt;
-</code></pre>
-</li>
-</ul>
-<p>EFI_STATUS DxeFindHobEntryPoint(<br>    IN EFI_HANDLE ImageHandle,<br>    IN EFI_SYSTEM_TABLE *SystemTable<br>)<br>{<br>    EFI_STATUS      Status = EFI_SUCCESS;<br>    EFI_GUID        OemHobGuid = OEM_HOB_GUID;<br>    OEM_HOB         *pHob = NULL;</p>
-<pre><code>InitAmiLib (ImageHandle , SystemTable) ;
-pHob = (OEM_HOB*)GetFirstGuidHob (&amp;OemHobGuid);
 
-if (pHob == NULL)
-    &#123;
-        DEBUG((-1,&quot;\n Elder Dxe Phase return OemHob Data Error!\n&quot;));
-    &#125;
-else
-    &#123;
-        DEBUG((-1,&quot;\n Elder OemHob Address = %p\n&quot;,pHob));    
-        DEBUG((-1,&quot;\n Elder Dxe Phase has been got HobData OemString = %s\n&quot;,pHob-&gt;OemString));
-        DEBUG((-1,&quot;\n Elder Dxe Phase has been got HobData MemorySpace = %d MB\n&quot;,pHob-&gt;MemorySpace));
-    &#125;
+EFI_STATUS DxeFindHobEntryPoint(
+    IN EFI_HANDLE ImageHandle,
+    IN EFI_SYSTEM_TABLE *SystemTable
+)
+&#123;
+    EFI_STATUS      Status = EFI_SUCCESS;
+    EFI_GUID        OemHobGuid = OEM_HOB_GUID;
+    OEM_HOB         *pHob = NULL;
 
-return EFI_SUCCESS;</code></pre>
-<p>}<br>```</p>
+    InitAmiLib (ImageHandle , SystemTable) ;
+    pHob = (OEM_HOB*)GetFirstGuidHob (&amp;OemHobGuid);
+
+    if (pHob == NULL)
+        &#123;
+            DEBUG((-1,&quot;\n Elder Dxe Phase return OemHob Data Error!\n&quot;));
+        &#125;
+    else
+        &#123;
+            DEBUG((-1,&quot;\n Elder OemHob Address = %p\n&quot;,pHob));    
+            DEBUG((-1,&quot;\n Elder Dxe Phase has been got HobData OemString = %s\n&quot;,pHob-&gt;OemString));
+            DEBUG((-1,&quot;\n Elder Dxe Phase has been got HobData MemorySpace = %d MB\n&quot;,pHob-&gt;MemorySpace));
+        &#125;
+
+    return EFI_SUCCESS;
+&#125;</code></pre>
 
             </div>
             <hr/>
