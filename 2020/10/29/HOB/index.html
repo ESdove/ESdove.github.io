@@ -384,15 +384,15 @@
 <h1 id="HOB简介"><a href="#HOB简介" class="headerlink" title="HOB简介"></a>HOB简介</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>HOB是Hand-Off Block的缩写。是PEI阶段向DXE传递系统信息的手段。PEI阶段构建一些HOB结构，然后将其作为参数传给DXE阶段函数，DXE Core会根据其使用平台相关资源。</p>
 <p>HOB是系列的连续的内存结构体，可以认为其由三部分构成：第一部分，是PHIT头，它描述了HOB的起始地址以及总的内存使用；第二部分是各个Hob列表，DXE阶段会根据这一部分获取相关资源；第三部分是结束部分。</p>
 <hr>
-<p>   <img src="./images/1602726289957.png"></p>
-<p>  <img src="./images/1602726784823.png" alt="HOB List"></p>
+<p>   <img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603960797897.png"></p>
+<p>  <img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603960797878.png" alt="HOB List"></p>
 <hr>
 <h2 id="相关Spec"><a href="#相关Spec" class="headerlink" title="相关Spec"></a>相关Spec</h2><ul>
 <li>PI Spec(卷一 4.4 HOB Services小节，规范HOB相关的方法)</li>
 <li><a target="_blank" rel="noopener" href="https://www.intel.cn/content/www/cn/zh/architecture-and-technology/unified-extensible-firmware-interface/efi-specifications-general-technology.html">EFI Spec</a>（规范HOB的数据结构）</li>
 </ul>
-<h1 id="HOB的数据结构表征-PiHob-h"><a href="#HOB的数据结构表征-PiHob-h" class="headerlink" title="HOB的数据结构表征(==PiHob.h==)"></a>HOB的数据结构表征(==PiHob.h==)</h1><h2 id="EFI-HOB-GENERIC-HEADER"><a href="#EFI-HOB-GENERIC-HEADER" class="headerlink" title="EFI_HOB_GENERIC_HEADER"></a>EFI_HOB_GENERIC_HEADER</h2><blockquote>
-<p>==描述HOB内部数据的格式和大小,所有HOB都必须包含此通用HOB标头,以便可以找到下一个HOB==</p>
+<h1 id="HOB的数据结构表征-PiHob-h"><a href="#HOB的数据结构表征-PiHob-h" class="headerlink" title="HOB的数据结构表征(PiHob.h)"></a>HOB的数据结构表征(PiHob.h)</h1><h2 id="EFI-HOB-GENERIC-HEADER"><a href="#EFI-HOB-GENERIC-HEADER" class="headerlink" title="EFI_HOB_GENERIC_HEADER"></a>EFI_HOB_GENERIC_HEADER</h2><blockquote>
+<p>描述HOB内部数据的格式和大小,所有HOB都必须包含此通用HOB标头,以便可以找到下一个HOB</p>
 </blockquote>
 <pre class="line-numbers language-c++"><code class="language-c++">///
 /// Describes the format and size of the data inside the HOB.
@@ -412,7 +412,7 @@ typedef struct &#123;
   ///
   UINT32    Reserved;
 &#125; EFI_HOB_GENERIC_HEADER;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="HobType"><a href="#HobType" class="headerlink" title="HobType"></a>HobType</h2><pre><code>//
+<h2 id="HobType"><a href="#HobType" class="headerlink" title="HobType"></a>HobType</h2><pre class="line-numbers language-c++"><code class="language-c++">//
 // HobType of EFI_HOB_GENERIC_HEADER.
 //
 #define EFI_HOB_TYPE_HANDOFF              0x0001
@@ -427,7 +427,7 @@ typedef struct &#123;
 #define EFI_HOB_TYPE_UEFI_CAPSULE         0x000B
 #define EFI_HOB_TYPE_FV3                  0x000C
 #define EFI_HOB_TYPE_UNUSED               0xFFFE
-#define EFI_HOB_TYPE_END_OF_HOB_LIST      0xFFFF</code></pre>
+#define EFI_HOB_TYPE_END_OF_HOB_LIST      0xFFFF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="PHIT-HOB"><a href="#PHIT-HOB" class="headerlink" title="PHIT HOB"></a>PHIT HOB</h2><pre><code>///
 /// Contains general state information used by the HOB producer phase.
 /// This HOB must be the first one in the HOB list.
@@ -565,63 +565,64 @@ typedef struct &#123;
   EFI_HOB_MEMORY_ALLOCATION_HEADER  AllocDescriptor<span class="token punctuation">;</span>
 <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> EFI_HOB_MEMORY_ALLOCATION_BSP_STORE<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="EFI-HOB-MEMORY-ALLOCATION-MODULE"><a href="#EFI-HOB-MEMORY-ALLOCATION-MODULE" class="headerlink" title="EFI_HOB_MEMORY_ALLOCATION_MODULE"></a>EFI_HOB_MEMORY_ALLOCATION_MODULE</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">///</span>
-<span class="token comment" spellcheck="true">/// Defines the location and entry point of the HOB consumer phase.</span>
-<span class="token comment" spellcheck="true">///</span>
-<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The HOB generic header. Header.HobType = EFI_HOB_TYPE_MEMORY_ALLOCATION.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_HOB_GENERIC_HEADER            Header<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// An instance of the EFI_HOB_MEMORY_ALLOCATION_HEADER that describes the</span>
-  <span class="token comment" spellcheck="true">/// various attributes of the logical memory allocation.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_HOB_MEMORY_ALLOCATION_HEADER  MemoryAllocationHeader<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The GUID specifying the values of the firmware file system name</span>
-  <span class="token comment" spellcheck="true">/// that contains the HOB consumer phase component.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_GUID                          ModuleName<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The address of the memory-mapped firmware volume</span>
-  <span class="token comment" spellcheck="true">/// that contains the HOB consumer phase firmware file.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_PHYSICAL_ADDRESS              EntryPoint<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> EFI_HOB_MEMORY_ALLOCATION_MODULE<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="EFI-HOB-RESOURCE-DESCRIPTOR"><a href="#EFI-HOB-RESOURCE-DESCRIPTOR" class="headerlink" title="EFI_HOB_RESOURCE_DESCRIPTOR"></a>EFI_HOB_RESOURCE_DESCRIPTOR</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">///</span>
-<span class="token comment" spellcheck="true">/// Describes the resource properties of all fixed,</span>
-<span class="token comment" spellcheck="true">/// nonrelocatable resource ranges found on the processor</span>
-<span class="token comment" spellcheck="true">/// host bus during the HOB producer phase.</span>
-<span class="token comment" spellcheck="true">///</span>
-<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The HOB generic header. Header.HobType = EFI_HOB_TYPE_RESOURCE_DESCRIPTOR.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_HOB_GENERIC_HEADER      Header<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// A GUID representing the owner of the resource. This GUID is used by HOB</span>
-  <span class="token comment" spellcheck="true">/// consumer phase components to correlate device ownership of a resource.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_GUID                    Owner<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The resource type enumeration as defined by EFI_RESOURCE_TYPE.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_RESOURCE_TYPE           ResourceType<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// Resource attributes as defined by EFI_RESOURCE_ATTRIBUTE_TYPE.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_RESOURCE_ATTRIBUTE_TYPE ResourceAttribute<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The physical start address of the resource region.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_PHYSICAL_ADDRESS        PhysicalStart<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The number of bytes of the resource region.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  UINT64                      ResourceLength<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> EFI_HOB_RESOURCE_DESCRIPTOR<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="EFI-HOB-GUID-TYPE"><a href="#EFI-HOB-GUID-TYPE" class="headerlink" title="EFI_HOB_GUID_TYPE"></a>EFI_HOB_GUID_TYPE</h2><pre class="line-numbers language-c///"><code class="language-c///">/// Allows writers of executable content in the HOB producer phase to
+<h2 id="EFI-HOB-MEMORY-ALLOCATION-MODULE"><a href="#EFI-HOB-MEMORY-ALLOCATION-MODULE" class="headerlink" title="EFI_HOB_MEMORY_ALLOCATION_MODULE"></a>EFI_HOB_MEMORY_ALLOCATION_MODULE</h2><pre><code>///
+/// Defines the location and entry point of the HOB consumer phase.
+///
+typedef struct &#123;
+  ///
+  /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_MEMORY_ALLOCATION.
+  ///
+  EFI_HOB_GENERIC_HEADER            Header;
+  ///
+  /// An instance of the EFI_HOB_MEMORY_ALLOCATION_HEADER that describes the
+  /// various attributes of the logical memory allocation.
+  ///
+  EFI_HOB_MEMORY_ALLOCATION_HEADER  MemoryAllocationHeader;
+  ///
+  /// The GUID specifying the values of the firmware file system name
+  /// that contains the HOB consumer phase component.
+  ///
+  EFI_GUID                          ModuleName;
+  ///
+  /// The address of the memory-mapped firmware volume
+  /// that contains the HOB consumer phase firmware file.
+  ///
+  EFI_PHYSICAL_ADDRESS              EntryPoint;
+&#125; EFI_HOB_MEMORY_ALLOCATION_MODULE;</code></pre>
+<h2 id="EFI-HOB-RESOURCE-DESCRIPTOR"><a href="#EFI-HOB-RESOURCE-DESCRIPTOR" class="headerlink" title="EFI_HOB_RESOURCE_DESCRIPTOR"></a>EFI_HOB_RESOURCE_DESCRIPTOR</h2><pre><code>///
+/// Describes the resource properties of all fixed,
+/// nonrelocatable resource ranges found on the processor
+/// host bus during the HOB producer phase.
+///
+typedef struct &#123;
+  ///
+  /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_RESOURCE_DESCRIPTOR.
+  ///
+  EFI_HOB_GENERIC_HEADER      Header;
+  ///
+  /// A GUID representing the owner of the resource. This GUID is used by HOB
+  /// consumer phase components to correlate device ownership of a resource.
+  ///
+  EFI_GUID                    Owner;
+  ///
+  /// The resource type enumeration as defined by EFI_RESOURCE_TYPE.
+  ///
+  EFI_RESOURCE_TYPE           ResourceType;
+  ///
+  /// Resource attributes as defined by EFI_RESOURCE_ATTRIBUTE_TYPE.
+  ///
+  EFI_RESOURCE_ATTRIBUTE_TYPE ResourceAttribute;
+  ///
+  /// The physical start address of the resource region.
+  ///
+  EFI_PHYSICAL_ADDRESS        PhysicalStart;
+  ///
+  /// The number of bytes of the resource region.
+  ///
+  UINT64                      ResourceLength;
+&#125; EFI_HOB_RESOURCE_DESCRIPTOR;</code></pre>
+<h2 id="EFI-HOB-GUID-TYPE"><a href="#EFI-HOB-GUID-TYPE" class="headerlink" title="EFI_HOB_GUID_TYPE"></a>EFI_HOB_GUID_TYPE</h2><pre><code>///
+/// Allows writers of executable content in the HOB producer phase to
 /// maintain and manage HOBs with specific GUID.
 ///
 typedef struct &#123;
@@ -636,50 +637,50 @@ typedef struct &#123;
   //
   // Guid specific data goes here
   //
-&#125; EFI_HOB_GUID_TYPE;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="EFI-HOB-FIRMWARE-VOLUME"><a href="#EFI-HOB-FIRMWARE-VOLUME" class="headerlink" title="EFI_HOB_FIRMWARE_VOLUME"></a>EFI_HOB_FIRMWARE_VOLUME</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">///</span>
-<span class="token comment" spellcheck="true">/// Details the location of firmware volumes that contain firmware files.</span>
-<span class="token comment" spellcheck="true">///</span>
-<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The HOB generic header. Header.HobType = EFI_HOB_TYPE_FV.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_HOB_GENERIC_HEADER Header<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The physical memory-mapped base address of the firmware volume.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_PHYSICAL_ADDRESS   BaseAddress<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The length in bytes of the firmware volume.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  UINT64                 Length<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> EFI_HOB_FIRMWARE_VOLUME<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="EFI-HOB-FIRMWARE-VOLUME2"><a href="#EFI-HOB-FIRMWARE-VOLUME2" class="headerlink" title="EFI_HOB_FIRMWARE_VOLUME2"></a>EFI_HOB_FIRMWARE_VOLUME2</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">///</span>
-<span class="token comment" spellcheck="true">/// Details the location of a firmware volume that was extracted</span>
-<span class="token comment" spellcheck="true">/// from a file within another firmware volume.</span>
-<span class="token comment" spellcheck="true">///</span>
-<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The HOB generic header. Header.HobType = EFI_HOB_TYPE_FV2.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_HOB_GENERIC_HEADER  Header<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The physical memory-mapped base address of the firmware volume.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_PHYSICAL_ADDRESS    BaseAddress<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The length in bytes of the firmware volume.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  UINT64                  Length<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The name of the firmware volume.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_GUID                FvName<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The name of the firmware file that contained this firmware volume.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_GUID                FileName<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> EFI_HOB_FIRMWARE_VOLUME2<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125; EFI_HOB_GUID_TYPE;</code></pre>
+<h2 id="EFI-HOB-FIRMWARE-VOLUME"><a href="#EFI-HOB-FIRMWARE-VOLUME" class="headerlink" title="EFI_HOB_FIRMWARE_VOLUME"></a>EFI_HOB_FIRMWARE_VOLUME</h2><pre><code>///
+/// Details the location of firmware volumes that contain firmware files.
+///
+typedef struct &#123;
+  ///
+  /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_FV.
+  ///
+  EFI_HOB_GENERIC_HEADER Header;
+  ///
+  /// The physical memory-mapped base address of the firmware volume.
+  ///
+  EFI_PHYSICAL_ADDRESS   BaseAddress;
+  ///
+  /// The length in bytes of the firmware volume.
+  ///
+  UINT64                 Length;
+&#125; EFI_HOB_FIRMWARE_VOLUME;</code></pre>
+<h2 id="EFI-HOB-FIRMWARE-VOLUME2"><a href="#EFI-HOB-FIRMWARE-VOLUME2" class="headerlink" title="EFI_HOB_FIRMWARE_VOLUME2"></a>EFI_HOB_FIRMWARE_VOLUME2</h2><pre><code>///
+/// Details the location of a firmware volume that was extracted
+/// from a file within another firmware volume.
+///
+typedef struct &#123;
+  ///
+  /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_FV2.
+  ///
+  EFI_HOB_GENERIC_HEADER  Header;
+  ///
+  /// The physical memory-mapped base address of the firmware volume.
+  ///
+  EFI_PHYSICAL_ADDRESS    BaseAddress;
+  ///
+  /// The length in bytes of the firmware volume.
+  ///
+  UINT64                  Length;
+  ///
+  /// The name of the firmware volume.
+  ///
+  EFI_GUID                FvName;
+  ///
+  /// The name of the firmware file that contained this firmware volume.
+  ///
+  EFI_GUID                FileName;
+&#125; EFI_HOB_FIRMWARE_VOLUME2;</code></pre>
 <h2 id="EFI-HOB-FIRMWARE-VOLUME3"><a href="#EFI-HOB-FIRMWARE-VOLUME3" class="headerlink" title="EFI_HOB_FIRMWARE_VOLUME3"></a>EFI_HOB_FIRMWARE_VOLUME3</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">///</span>
 <span class="token comment" spellcheck="true">/// Details the location of a firmware volume that was extracted</span>
 <span class="token comment" spellcheck="true">/// from a file within another firmware volume.</span>
@@ -792,20 +793,20 @@ typedef struct &#123;
   UINT8                               <span class="token operator">*</span>Raw<span class="token punctuation">;</span>
 <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> EFI_PEI_HOB_POINTERS<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="HOB相关方法的声明（-HobLib-h-）"><a href="#HOB相关方法的声明（-HobLib-h-）" class="headerlink" title="HOB相关方法的声明（==HobLib.h==）"></a>HOB相关方法的声明（==HobLib.h==）</h1><h2 id="增"><a href="#增" class="headerlink" title="增"></a>增</h2><ul>
-<li>==BuildModuleHob==</li>
-<li>==BuildResourceDescriptorWithOwnerHob==</li>
-<li>==BuildResourceDescriptorHob==</li>
-<li>==BuildGuidHob==</li>
-<li>==BuildGuidDataHob==</li>
-<li>==BuildFvHob==</li>
-<li>==BuildFv2Hob==</li>
-<li>==BuildFv3Hob==</li>
-<li>==BuildCvHob==</li>
-<li>==BuildCpuHob==</li>
-<li>==BuildStackHob==</li>
-<li>==BuildBspStoreHob==</li>
-<li>==BuildMemoryAllocationHob==</li>
+<h1 id="HOB相关方法的声明（HobLib-h）"><a href="#HOB相关方法的声明（HobLib-h）" class="headerlink" title="HOB相关方法的声明（HobLib.h）"></a>HOB相关方法的声明（HobLib.h）</h1><h2 id="增"><a href="#增" class="headerlink" title="增"></a>增</h2><ul>
+<li>BuildModuleHob</li>
+<li>BuildResourceDescriptorWithOwnerHob</li>
+<li>BuildResourceDescriptorHob</li>
+<li>BuildGuidHob</li>
+<li>BuildGuidDataHob</li>
+<li>BuildFvHob</li>
+<li>BuildFv2Hob</li>
+<li>BuildFv3Hob</li>
+<li>BuildCvHob</li>
+<li>BuildCpuHob</li>
+<li>BuildStackHob</li>
+<li>BuildBspStoreHob</li>
+<li>BuildMemoryAllocationHob</li>
 </ul>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
   Builds a HOB for a loaded PE32 module.
@@ -1128,20 +1129,20 @@ EFIAPI
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="删"><a href="#删" class="headerlink" title="删"></a>删</h2><blockquote>
-<p>==无此方法==</p>
+<p>无此方法</p>
 </blockquote>
 <h2 id="查"><a href="#查" class="headerlink" title="查"></a>查</h2><ul>
-<li><p>==GetHobList==</p>
+<li><p>GetHobList</p>
 </li>
-<li><p>==GetNextHob==</p>
+<li><p>GetNextHob</p>
 </li>
-<li><p>==GetFirstHob==</p>
+<li><p>GetFirstHob</p>
 </li>
-<li><p>==GetFirstGuidHob==</p>
+<li><p>GetFirstGuidHob</p>
 </li>
-<li><p>==GetNextGuidHob==</p>
+<li><p>GetNextGuidHob</p>
 </li>
-<li><p>==GetBootModeHob==</p>
+<li><p>GetBootModeHob</p>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token operator">/</span><span class="token operator">*</span><span class="token operator">*</span>
 Returns the pointer to the HOB list<span class="token punctuation">.</span>
 
@@ -1192,22 +1193,22 @@ If the pointer to the HOB list is <span class="token constant">NULL</span><span 
 <p>**/<br>EFI_BOOT_MODE<br>EFIAPI<br>GetBootModeHob (<br>  VOID<br>  );</p>
 <pre><code>
 ## 改
-&gt; ==未提供方法，一般是先找到感兴趣的Hob，再修改Block中的数据==
+&gt; 未提供方法，一般是先找到感兴趣的Hob，再修改Block中的数据
 ----
 # HOB相关接口的实现
-- ==HobLib.h #F44336==
-- ==MdePkg\Library\PeiHobLib\HobLib.c #F44336==
-- ==MdePkg\Library\DxeHobLib\HobLib.c #F44336==
-- ==MdePkg\Library\DxeCoreHobLib\HobLib.c #F44336==
-- ==IntelFrameworkPkg\Library\PeiHobLibFramework\HobLib.c #F44336==
+- HobLib.h #F44336==
+- MdePkg\Library\PeiHobLib\HobLib.c #F44336
+- MdePkg\Library\DxeHobLib\HobLib.c #F44336
+- MdePkg\Library\DxeCoreHobLib\HobLib.c #F44336
+- IntelFrameworkPkg\Library\PeiHobLibFramework\HobLib.c #F44336
 
 ## 相关宏函数
-- ==GET_HOB_TYPE==
-- ==GET_HOB_LENGTH==
-- ==GET_NEXT_HOB==
-- ==END_OF_HOB_LIST==
-- ==GET_GUID_HOB_DATA==
-- ==GET_GUID_HOB_DATA_SIZE==
+- GET_HOB_TYPE
+- GET_HOB_LENGTH
+- GET_NEXT_HOB
+- END_OF_HOB_LIST
+- GET_GUID_HOB_DATAET_GUID_HOB_DATA
+- GET_GUID_HOB_DATA_SIZE
 ```c
 /**
   Returns the type of a HOB.
@@ -1293,7 +1294,7 @@ If the pointer to the HOB list is <span class="token constant">NULL</span><span 
 #define GET_GUID_HOB_DATA_SIZE(HobStart) \
   (UINT16)(GET_HOB_LENGTH (HobStart) - sizeof (EFI_HOB_GUID_TYPE))</code></pre>
 <h2 id="CreateHob-仅PEI阶段有效"><a href="#CreateHob-仅PEI阶段有效" class="headerlink" title="CreateHob(仅PEI阶段有效)"></a>CreateHob(仅PEI阶段有效)</h2><ul>
-<li>==MdeModulePkg\Core\Pei\PeiMain.h==</li>
+<li>MdeModulePkg\Core\Pei\PeiMain.h</li>
 </ul>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
   Add a new HOB to the HOB List.
@@ -1318,7 +1319,7 @@ EFIAPI
   IN OUT VOID          <span class="token operator">*</span><span class="token operator">*</span>Hob
   <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li><p>==MdeModulePkg\Core\Pei\Hob\Hob.c==</p>
+<li><p>MdeModulePkg\Core\Pei\Hob\Hob.c</p>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token operator">/</span><span class="token operator">*</span><span class="token operator">*</span>
 Add a new HOB to the HOB List<span class="token punctuation">.</span>
 
@@ -1344,7 +1345,7 @@ Add a new HOB to the HOB List<span class="token punctuation">.</span>
 <p>  HobEnd = (EFI_HOB_GENERIC_HEADER*) ((UINTN) *Hob + Length);<br>  HandOffHob-&gt;EfiEndOfHobList = (EFI_PHYSICAL_ADDRESS) (UINTN) HobEnd;</p>
 <p>  HobEnd-&gt;HobType   = EFI_HOB_TYPE_END_OF_HOB_LIST;<br>  HobEnd-&gt;HobLength = (UINT16) sizeof (EFI_HOB_GENERIC_HEADER);<br>  HobEnd-&gt;Reserved  = 0;<br>  HobEnd++;<br>  HandOffHob-&gt;EfiFreeMemoryBottom = (EFI_PHYSICAL_ADDRESS) (UINTN) HobEnd;</p>
 <p>  return EFI_SUCCESS;<br>} </p>
-<pre><code>- ==MdePkg\Include\Pi\PiPeiCis.h==
+<pre><code>- MdePkg\Include\Pi\PiPeiCis.h
 ```c
 /**
   This service, published by the PEI Foundation, abstracts the creation of a Hand-Off Block&#39;s (HOB&#39;s) headers.
@@ -1448,7 +1449,7 @@ struct _EFI_PEI_SERVICES &#123;
   EFI_PEI_FREE_PAGES              FreePages;
 &#125;;</code></pre>
 <ul>
-<li><p>==MdeModulePkg\Core\Pei\PeiMain\PeiMain.c==</p>
+<li><p>MdeModulePkg\Core\Pei\PeiMain\PeiMain.c</p>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/// Pei service instance</span>
 <span class="token comment" spellcheck="true">///</span>
 EFI_PEI_SERVICES  gPs <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
@@ -1829,7 +1830,7 @@ EFI_STATUS
 <p>头和尾HOB建立后，CreateHob会覆盖尾HOB，再将尾HOB后移，此时PEI阶段的模块会相继创建各种类型的HOB，我们可以在PEI阶段自己创建HOB传递一些数据，也可以在PEI和DXE阶段找到感兴趣的HOB块，对其BLOCK数据块进行操作，但是理论上在DXE阶段使用Get方法，不建议在PEI阶段使用，是因为不确定Get的HOB是否已经建立，即无法判断两个Pei ModulePart的执行顺序，当然也可以通过Deepx来限定ModulePart跑的顺序</p>
 </blockquote>
 <hr>
-<h1 id="作业Demo"><a href="#作业Demo" class="headerlink" title="作业Demo"></a>作业Demo</h1><p><img src="./images/1602756011241.png" alt="HOB Homework"></p>
+<h1 id="作业Demo"><a href="#作业Demo" class="headerlink" title="作业Demo"></a>作业Demo</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603960797904.png" alt="HOB Homework"></p>
 <ul>
 <li>==OemHob.h==</li>
 </ul>
@@ -1969,7 +1970,7 @@ EFI_STATUS DxeFindHobEntryPoint(
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2020/10/28/Hob/">http://holychen.cn/2020/10/28/Hob/</a>
+                    <a href="http://holychen.cn/2020/10/29/HOB/">http://holychen.cn/2020/10/29/HOB/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -2050,62 +2051,18 @@ EFI_STATUS DxeFindHobEntryPoint(
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/10/28/Hexo/">
+                <a href="/2020/10/29/HOB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Hexo博客搭建">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="HOB">
                         
-                        <span class="card-title">Hexo博客搭建</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-28
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Holy Chen
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8-%E5%9F%9F%E5%90%8D-hexo-markdown-%E5%9B%BE%E5%BA%8A/">
-                        <span class="chip bg-color">服务器,域名,hexo,markdown,图床</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/10/28/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">HOB</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -2116,7 +2073,7 @@ EFI_STATUS DxeFindHobEntryPoint(
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-29
                             </span>
                         <span class="publish-author">
                             
@@ -2125,6 +2082,61 @@ EFI_STATUS DxeFindHobEntryPoint(
                             
                         </span>
                     </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A6%82%E5%BF%B5-code-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BD%BF%E7%94%A8/">
+                        <span class="chip bg-color">概念,code,数据结构,使用</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/10/29/HOB/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="HOB">
+                        
+                        <span class="card-title">HOB</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Holy Chen
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A6%82%E5%BF%B5-code-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BD%BF%E7%94%A8/">
+                        <span class="chip bg-color">概念,code,数据结构,使用</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -2275,7 +2287,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">8.4k</span>&nbsp;字
+                class="white-color">7.2k</span>&nbsp;字
             
             
             
