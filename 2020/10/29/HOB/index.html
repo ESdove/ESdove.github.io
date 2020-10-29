@@ -1629,169 +1629,427 @@ EFI_PEI_SERVICES  gPs = &#123;
   PeiFreePages,
 &#125;;</code></pre>
 <h2 id="GetHobList-PEI阶段实现"><a href="#GetHobList-PEI阶段实现" class="headerlink" title="GetHobList(PEI阶段实现)"></a>GetHobList(PEI阶段实现)</h2><ul>
-<li><p>MdeModulePkg\Core\Pei\PeiMain.h</p>
+<li>MdeModulePkg\Core\Pei\PeiMain.h</li>
+</ul>
 <pre><code>/**
 
-Gets the pointer to the HOB List.
+  Gets the pointer to the HOB List.
 
+
+  @param PeiServices                   An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.
+  @param HobList                       Pointer to the HOB List.
+
+  @retval EFI_SUCCESS                  Get the pointer of HOB List
+  @retval EFI_NOT_AVAILABLE_YET        the HOB List is not yet published
+  @retval EFI_INVALID_PARAMETER        HobList is NULL (in debug mode)
+
+**/
+EFI_STATUS
+EFIAPI
+PeiGetHobList (
+  IN CONST EFI_PEI_SERVICES  **PeiServices,
+  IN OUT VOID          **HobList
+  );
+</code></pre>
+<ul>
+<li>MdeModulePkg\Core\Pei\Hob\Hob.c</li>
+</ul>
+<pre><code>/** 
+  Gets the pointer to the HOB List.
+
+  @param PeiServices                   An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.
+  @param HobList                       Pointer to the HOB List.
+
+  @retval EFI_SUCCESS                  Get the pointer of HOB List
+  @retval EFI_NOT_AVAILABLE_YET        the HOB List is not yet published
+  @retval EFI_INVALID_PARAMETER        HobList is NULL (in debug mode) 
+**/
+EFI_STATUS
+EFIAPI
+PeiGetHobList (
+  IN CONST EFI_PEI_SERVICES  **PeiServices,
+  IN OUT VOID          **HobList
+  )
+&#123;
+  PEI_CORE_INSTANCE *PrivateData;
+
+  //
+  // Only check this parameter in debug mode
+  //
+
+  DEBUG_CODE_BEGIN ();
+    if (HobList == NULL) &#123;
+      return EFI_INVALID_PARAMETER;
+    &#125;
+  DEBUG_CODE_END ();
+
+  PrivateData = PEI_CORE_INSTANCE_FROM_PS_THIS(PeiServices);
+
+  *HobList    = PrivateData-&gt;HobList.Raw;
+
+  return EFI_SUCCESS;
+&#125;</code></pre>
+<ul>
+<li>PeiMain.h</li>
+</ul>
+<blockquote>
+<p>这个宏的作用是根据一个结构体成员变量的的地址获得该结构体基地址</p>
+</blockquote>
+<p>定义形式：<br>#define _CR(Record, TYPE, Field) <br>((TYPE *) ((CHAR8 *) (Record) - (CHAR8 *) &amp;(((TYPE *) 0)-&gt;Field)))<br>功能是：找出TYPE类型结构体成员Field所在结构体的地址,Record是Field的地址。</p>
+<p>具体实现：<br>1.(CHAR8 *) (Record)：Field的地址以CHAR8 *类型进行运算。</p>
+<p>2.(CHAR8 *) &amp;(((TYPE *) 0)-&gt;Field))：重点就是(TYPE *) 0)了，ANSI C标准允许值为0的常量被强制转换成任何一种类型的指针，并且转换结果是一个NULL指针，因此((type *)0)的结果就是一个类型为type *的NULL指针。如果利用这NULL指针来访问type的成员当然是非法的，但&amp;( ((type *)0)-&gt;field )的意图仅仅是计算field字段的地址。聪明的编译器根本就不生成访问type的代码，而仅仅是根据type的内存布局和结构体实例首址在编译期计算这个（常量）地址，这样就完全避免了通过NULL指针访问内存的问题。又因为首址为0，所以这个地址的值就是字段相对于结构体基址的偏移。以上方法避免了实例化一个type对象，并且求值在编译期进行，没有运行期负担。这样，就得到了Field在它的结构体中的偏移地址并同样以CHAR8 *类型进行运算。</p>
+<p>3.((TYPE *) ：最后求得的地址转成原有结构体类型。<br>用1得到的变量地址减去2得到的变量偏移地址，得到的基地址通过3转换回原来的类型。大功告成！<br>重点就是  ((TYPE *) 0)-&gt;Field)。</p>
+<pre><code> ///
+/// Pei Core Instance Data Macros
+///
+#define PEI_CORE_INSTANCE_FROM_PS_THIS(a) \
+  CR(a, PEI_CORE_INSTANCE, Ps, PEI_CORE_HANDLE_SIGNATURE)
+</code></pre>
+<h2 id="GetHobList-DXE阶段实现"><a href="#GetHobList-DXE阶段实现" class="headerlink" title="GetHobList(DXE阶段实现)"></a>GetHobList(DXE阶段实现)</h2><ul>
+<li>MdePkg\Library\DxeHobLib\HobLib.c</li>
+</ul>
+<pre><code>VOID  *mHobList = NULL;
+
+/**
+  Returns the pointer to the HOB list.
+
+  This function returns the pointer to first HOB in the list.
+  For PEI phase, the PEI service GetHobList() can be used to retrieve the pointer
+  to the HOB list.  For the DXE phase, the HOB list pointer can be retrieved through
+  the EFI System Table by looking up theHOB list GUID in the System Configuration Table.
+  Since the System Configuration Table does not exist that the time the DXE Core is
+  launched, the DXE Core uses a global variable from the DXE Core Entry Point Library
+  to manage the pointer to the HOB list.
+
+  If the pointer to the HOB list is NULL, then ASSERT().
+
+  This function also caches the pointer to the HOB list retrieved.
+
+  @return The pointer to the HOB list.
+
+**/
+VOID *
+EFIAPI
+GetHobList (
+  VOID
+  )
+&#123;
+  EFI_STATUS  Status;
+
+  if (mHobList == NULL) &#123;
+    Status = EfiGetSystemConfigurationTable (&amp;gEfiHobListGuid, &amp;mHobList);
+    ASSERT_EFI_ERROR (Status);
+    ASSERT (mHobList != NULL);
+  &#125;
+  return mHobList;
+&#125;</code></pre>
+<pre><code>/**
+  Retrieves a pointer to the system configuration table from the EFI System Table
+  based on a specified GUID.
+
+  This function searches the list of configuration tables stored in the EFI System Table
+  for a table with a GUID that matches TableGuid.  If a match is found, then a pointer to
+  the configuration table is returned in Table., and EFI_SUCCESS is returned. If a matching GUID
+  is not found, then EFI_NOT_FOUND is returned.
+  If TableGuid is NULL, then ASSERT().
+  If Table is NULL, then ASSERT().
+
+  @param  TableGuid       The pointer to table&#39;s GUID type.
+  @param  Table           The pointer to the table associated with TableGuid in the EFI System Table.
+
+  @retval EFI_SUCCESS     A configuration table matching TableGuid was found.
+  @retval EFI_NOT_FOUND   A configuration table matching TableGuid could not be found.
+
+**/
+EFI_STATUS
+EFIAPI
+EfiGetSystemConfigurationTable (
+  IN  EFI_GUID  *TableGuid,
+  OUT VOID      **Table
+  )
+&#123;
+  EFI_SYSTEM_TABLE  *SystemTable;
+  UINTN             Index;
+
+  ASSERT (TableGuid != NULL);
+  ASSERT (Table != NULL);
+
+  SystemTable = gST;
+  *Table = NULL;
+  for (Index = 0; Index &lt; SystemTable-&gt;NumberOfTableEntries; Index++) &#123;
+    if (CompareGuid (TableGuid, &amp;(SystemTable-&gt;ConfigurationTable[Index].VendorGuid))) &#123;
+      *Table = SystemTable-&gt;ConfigurationTable[Index].VendorTable;
+      return EFI_SUCCESS;
+    &#125;
+  &#125;
+
+  return EFI_NOT_FOUND;
+&#125;</code></pre>
+<h2 id="GetNextHob"><a href="#GetNextHob" class="headerlink" title="GetNextHob"></a>GetNextHob</h2><pre><code>/**
+  Returns the next instance of a HOB type from the starting HOB.
+
+  This function searches the first instance of a HOB type from the starting HOB pointer.
+  If there does not exist such HOB type from the starting HOB pointer, it will return NULL.
+  In contrast with macro GET_NEXT_HOB(), this function does not skip the starting HOB pointer
+  unconditionally: it returns HobStart back if HobStart itself meets the requirement;
+  caller is required to use GET_NEXT_HOB() if it wishes to skip current HobStart.
+
+  If HobStart is NULL, then ASSERT().
+
+  @param  Type          The HOB type to return.
+  @param  HobStart      The starting HOB pointer to search from.
+
+  @return The next instance of a HOB type from the starting HOB.
+
+**/
+VOID *
+EFIAPI
+GetNextHob (
+  IN UINT16                 Type,
+  IN CONST VOID             *HobStart
+  )
+&#123;
+  EFI_PEI_HOB_POINTERS  Hob;
+
+  ASSERT (HobStart != NULL);
+
+  Hob.Raw = (UINT8 *) HobStart;
+  //
+  // Parse the HOB list until end of list or matching type is found.
+  //
+  while (!END_OF_HOB_LIST (Hob)) &#123;
+    if (Hob.Header-&gt;HobType == Type) &#123;
+      return Hob.Raw;
+    &#125;
+    Hob.Raw = GET_NEXT_HOB (Hob);
+  &#125;
+  return NULL;
+&#125;</code></pre>
+<h2 id="GetFirstHob"><a href="#GetFirstHob" class="headerlink" title="GetFirstHob"></a>GetFirstHob</h2><pre><code>/**
+  Returns the first instance of a HOB type among the whole HOB list.
+
+  This function searches the first instance of a HOB type among the whole HOB list.
+  If there does not exist such HOB type in the HOB list, it will return NULL.
+
+  If the pointer to the HOB list is NULL, then ASSERT().
+
+  @param  Type          The HOB type to return.
+
+  @return The next instance of a HOB type from the starting HOB.
+
+**/
+VOID *
+EFIAPI
+GetFirstHob (
+  IN UINT16                 Type
+  )
+&#123;
+  VOID      *HobList;
+
+  HobList = GetHobList ();
+  return GetNextHob (Type, HobList);
+&#125;
+</code></pre>
+<h2 id="GetNextGuidHob"><a href="#GetNextGuidHob" class="headerlink" title="GetNextGuidHob"></a>GetNextGuidHob</h2><pre><code>/**
+  Returns the next instance of the matched GUID HOB from the starting HOB.
+
+  This function searches the first instance of a HOB from the starting HOB pointer.
+  Such HOB should satisfy two conditions:
+  its HOB type is EFI_HOB_TYPE_GUID_EXTENSION and its GUID Name equals to the input Guid.
+  If there does not exist such HOB from the starting HOB pointer, it will return NULL.
+  Caller is required to apply GET_GUID_HOB_DATA () and GET_GUID_HOB_DATA_SIZE ()
+  to extract the data section and its size information, respectively.
+  In contrast with macro GET_NEXT_HOB(), this function does not skip the starting HOB pointer
+  unconditionally: it returns HobStart back if HobStart itself meets the requirement;
+  caller is required to use GET_NEXT_HOB() if it wishes to skip current HobStart.
+
+  If Guid is NULL, then ASSERT().
+  If HobStart is NULL, then ASSERT().
+
+  @param  Guid          The GUID to match with in the HOB list.
+  @param  HobStart      A pointer to a Guid.
+
+  @return The next instance of the matched GUID HOB from the starting HOB.
+
+**/
+VOID *
+EFIAPI
+GetNextGuidHob (
+  IN CONST EFI_GUID         *Guid,
+  IN CONST VOID             *HobStart
+  )
+&#123;
+  EFI_PEI_HOB_POINTERS  GuidHob;
+
+  GuidHob.Raw = (UINT8 *) HobStart;
+  while ((GuidHob.Raw = GetNextHob (EFI_HOB_TYPE_GUID_EXTENSION, GuidHob.Raw)) != NULL) &#123;
+    if (CompareGuid (Guid, &amp;GuidHob.Guid-&gt;Name)) &#123;
+      break;
+    &#125;
+    GuidHob.Raw = GET_NEXT_HOB (GuidHob);
+  &#125;
+  return GuidHob.Raw;
+&#125;</code></pre>
+<h2 id="GetFirstGuidHob"><a href="#GetFirstGuidHob" class="headerlink" title="GetFirstGuidHob"></a>GetFirstGuidHob</h2><pre><code>/**
+  Returns the first instance of the matched GUID HOB among the whole HOB list.
+
+  This function searches the first instance of a HOB among the whole HOB list.
+  Such HOB should satisfy two conditions:
+  its HOB type is EFI_HOB_TYPE_GUID_EXTENSION and its GUID Name equals to the input Guid.
+  If there does not exist such HOB from the starting HOB pointer, it will return NULL.
+  Caller is required to apply GET_GUID_HOB_DATA () and GET_GUID_HOB_DATA_SIZE ()
+  to extract the data section and its size information, respectively.
+
+  If the pointer to the HOB list is NULL, then ASSERT().
+  If Guid is NULL, then ASSERT().
+
+  @param  Guid          The GUID to match with in the HOB list.
+
+  @return The first instance of the matched GUID HOB among the whole HOB list.
+
+**/
+VOID *
+EFIAPI
+GetFirstGuidHob (
+  IN CONST EFI_GUID         *Guid
+  )
+&#123;
+  VOID      *HobList;
+
+  HobList = GetHobList ();
+  return GetNextGuidHob (Guid, HobList);
+&#125;</code></pre>
+<hr>
+<h1 id="HOB生产消费流程"><a href="#HOB生产消费流程" class="headerlink" title="HOB生产消费流程"></a>HOB生产消费流程</h1><h2 id="PHIT-HOB的建立"><a href="#PHIT-HOB的建立" class="headerlink" title="PHIT HOB的建立"></a>PHIT HOB的建立</h2><ul>
+<li> MdeModulePkg\Core\Pei\Hob\Hob.c</li>
+</ul>
+<pre><code>/**
+
+  Builds a Handoff Information Table HOB
+
+  @param BootMode        - Current Bootmode
+  @param MemoryBegin     - Start Memory Address.
+  @param MemoryLength    - Length of Memory.
+
+  @return EFI_SUCCESS Always success to initialize HOB.
+
+**/
+EFI_STATUS
+PeiCoreBuildHobHandoffInfoTable (
+  IN EFI_BOOT_MODE         BootMode,
+  IN EFI_PHYSICAL_ADDRESS  MemoryBegin,
+  IN UINT64                MemoryLength
+  )
+&#123;
+  EFI_HOB_HANDOFF_INFO_TABLE   *Hob;
+  EFI_HOB_GENERIC_HEADER       *HobEnd;
+
+  Hob                      = (VOID *)(UINTN)MemoryBegin;
+  HobEnd                   = (EFI_HOB_GENERIC_HEADER*) (Hob+1);
+  Hob-&gt;Header.HobType      = EFI_HOB_TYPE_HANDOFF;
+  Hob-&gt;Header.HobLength    = (UINT16) sizeof (EFI_HOB_HANDOFF_INFO_TABLE);
+  Hob-&gt;Header.Reserved     = 0;
+
+  HobEnd-&gt;HobType          = EFI_HOB_TYPE_END_OF_HOB_LIST;
+  HobEnd-&gt;HobLength        = (UINT16) sizeof (EFI_HOB_GENERIC_HEADER);
+  HobEnd-&gt;Reserved         = 0;
+
+  Hob-&gt;Version             = EFI_HOB_HANDOFF_TABLE_VERSION;
+  Hob-&gt;BootMode            = BootMode;
+
+  Hob-&gt;EfiMemoryTop        = MemoryBegin + MemoryLength;
+  Hob-&gt;EfiMemoryBottom     = MemoryBegin;
+  Hob-&gt;EfiFreeMemoryTop    = MemoryBegin + MemoryLength;
+  Hob-&gt;EfiFreeMemoryBottom = (EFI_PHYSICAL_ADDRESS) (UINTN) (HobEnd + 1);
+  Hob-&gt;EfiEndOfHobList     = (EFI_PHYSICAL_ADDRESS) (UINTN) HobEnd;
+
+  return EFI_SUCCESS;
+&#125;</code></pre>
+<blockquote>
+<p>头和尾HOB建立后，CreateHob会覆盖尾HOB，再将尾HOB后移，此时PEI阶段的模块会相继创建各种类型的HOB，我们可以在PEI阶段自己创建HOB传递一些数据，也可以在PEI和DXE阶段找到感兴趣的HOB块，对其BLOCK数据块进行操作，但是理论上在DXE阶段使用Get方法，不建议在PEI阶段使用，是因为不确定Get的HOB是否已经建立，即无法判断两个Pei ModulePart的执行顺序，当然也可以通过Deepx来限定ModulePart跑的顺序</p>
+</blockquote>
+<h1 id="作业Demo"><a href="#作业Demo" class="headerlink" title="作业Demo"></a>作业Demo</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603960797904.png" alt="HOB Homework"></p>
+<ul>
+<li>OemHob.h</li>
+</ul>
+<pre><code>#ifndef __OEM_HOB_H__
+#define __OEM_HOB_H__
+#ifdef __cplusplus
+extern &quot;C&quot; &#123;
+#endif
+
+
+#define OEM_HOB_GUID \
+    &#123;0xe73e6c2b, 0xaa9a, 0x4b51, 0x94, 0x56, 0x50, 0xd2, 0x8b, 0xcc, 0x57, 0xf3&#125;
+
+typedef struct _OEM_HOB&#123;   
+
+    EFI_HOB_GUID_TYPE GuidExtension;
+    CHAR8 OemString[10];
+    UINT16 MemorySpace;  
+
+&#125; OEM_HOB;
+/****** DO NOT WRITE BELOW THIS LINE *******/
+#ifdef __cplusplus
+&#125;
+#endif
+#endif</code></pre>
+<ul>
+<li>PeiCreateHob.c</li>
+</ul>
+<pre><code>#include &lt;AmiPeiLib.h&gt;
+#include &lt;Library/PeiServicesLib.h&gt;
+#include &lt;Library/HobLib.h&gt;
+#include &lt;OemHob.h&gt;
+#include &lt;MemInfoHob.h&gt;
+
+extern EFI_GUID gSiMemoryInfoDataGuid;
+
+EFI_STATUS PeiCreateHobEntryPoint(
+   IN EFI_PEI_FILE_HANDLE   FileHandle,
+   IN CONST EFI_PEI_SERVICES  **PeiServices
+)
+&#123;
+    EFI_STATUS    Status = EFI_SUCCESS;
+    OEM_HOB       *pHob     = NULL;
+    VOID          *Memory_Hob  = NULL;
+    EFI_GUID      OemHobGuid = OEM_HOB_GUID;
+    EFI_GUID      MemoryInfoDataGuid = gSiMemoryInfoDataGuid;
+    //CHAR8         BIOSVersion[] = CONVERT_TO_STRING(PLATFORM_NAME);
+    CHAR8         BIOSVersion[10]=&quot;kabylake&quot;;
+    UINT16        MemorySize = 0;
+
+    // Get physical address bits supported.
+    Memory_Hob = GetFirstGuidHob(&amp;MemoryInfoDataGuid);
+    if (Memory_Hob != NULL) &#123;
+        MemorySize = ((MEMORY_INFO_DATA_HOB *) Memory_Hob)-&gt;TotalPhysicalMemorySize;
+        DEBUG((-1,&quot;\nElder has been got MemoryInfoDataHob in Pei Phase!&quot;));
+        DEBUG((-1,&quot;\nMemoryInfoDataHob Address : %p&quot;,Memory_Hob));
+      &#125; 
+
+
+    //create HOB for DXE
+    Status = (*PeiServices)-&gt;CreateHob (PeiServices,
+                                        EFI_HOB_TYPE_GUID_EXTENSION, 
+                                        sizeof(OEM_HOB), 
+                                        &amp;pHob);
+    if (!EFI_ERROR(Status))&#123;
+
+           pHob-&gt;GuidExtension.Name = OemHobGuid;
+           Strcpy(pHob-&gt;OemString,BIOSVersion);
+           pHob-&gt;MemorySpace = MemorySize;           
+           DEBUG((-1,&quot;\nElder has been Created OemHob Success in Pei Phase!&quot;));           
+       &#125;
+
+    return EFI_SUCCESS;
+&#125;</code></pre>
+<ul>
+<li>DxeFindHob.c<pre><code>#include &lt;AmiDxeLib.h&gt;
+#include &lt;Library/HobLib.h&gt;
+#include &lt;OemHob.h&gt;
 </code></pre>
 </li>
 </ul>
-<p>  @param PeiServices                   An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.<br>  @param HobList                       Pointer to the HOB List.</p>
-<p>  @retval EFI_SUCCESS                  Get the pointer of HOB List<br>  @retval EFI_NOT_AVAILABLE_YET        the HOB List is not yet published<br>  @retval EFI_INVALID_PARAMETER        HobList is NULL (in debug mode)</p>
-<p>**/<br>EFI_STATUS<br>EFIAPI<br>PeiGetHobList (<br>  IN CONST EFI_PEI_SERVICES  **PeiServices,<br>  IN OUT VOID          **HobList<br>  );</p>
-<pre><code>
-- MdeModulePkg\Core\Pei\Hob\Hob.c
-</code></pre>
-<p>/**<br>  Gets the pointer to the HOB List.</p>
-<p>  @param PeiServices                   An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.<br>  @param HobList                       Pointer to the HOB List.</p>
-<p>  @retval EFI_SUCCESS                  Get the pointer of HOB List<br>  @retval EFI_NOT_AVAILABLE_YET        the HOB List is not yet published<br>  @retval EFI_INVALID_PARAMETER        HobList is NULL (in debug mode)<br>**/<br>EFI_STATUS<br>EFIAPI<br>PeiGetHobList (<br>  IN CONST EFI_PEI_SERVICES  **PeiServices,<br>  IN OUT VOID          **HobList<br>  )<br>{<br>  PEI_CORE_INSTANCE *PrivateData;</p>
-<p>  //<br>  // Only check this parameter in debug mode<br>  //</p>
-<p>  DEBUG_CODE_BEGIN ();<br>    if (HobList == NULL) {<br>      return EFI_INVALID_PARAMETER;<br>    }<br>  DEBUG_CODE_END ();</p>
-<p>  PrivateData = PEI_CORE_INSTANCE_FROM_PS_THIS(PeiServices);</p>
-<p>  *HobList    = PrivateData-&gt;HobList.Raw;</p>
-<p>  return EFI_SUCCESS;<br>}</p>
-<pre><code>- PeiMain.h
-
-&gt; 这个宏的作用是根据一个结构体成员变量的的地址获得该结构体基地址
-
-定义形式：
-#define _CR(Record, TYPE, Field) \
-((TYPE *) ((CHAR8 *) (Record) - (CHAR8 *) &amp;(((TYPE *) 0)-&gt;Field)))
-功能是：找出TYPE类型结构体成员Field所在结构体的地址,Record是Field的地址。
-
-具体实现：
-1.(CHAR8 *) (Record)：Field的地址以CHAR8 *类型进行运算。
-
-2.(CHAR8 *) &amp;(((TYPE *) 0)-&gt;Field))：重点就是(TYPE *) 0)了，ANSI C标准允许值为0的常量被强制转换成任何一种类型的指针，并且转换结果是一个NULL指针，因此((type *)0)的结果就是一个类型为type *的NULL指针。如果利用这NULL指针来访问type的成员当然是非法的，但&amp;( ((type *)0)-&gt;field )的意图仅仅是计算field字段的地址。聪明的编译器根本就不生成访问type的代码，而仅仅是根据type的内存布局和结构体实例首址在编译期计算这个（常量）地址，这样就完全避免了通过NULL指针访问内存的问题。又因为首址为0，所以这个地址的值就是字段相对于结构体基址的偏移。以上方法避免了实例化一个type对象，并且求值在编译期进行，没有运行期负担。这样，就得到了Field在它的结构体中的偏移地址并同样以CHAR8 *类型进行运算。
-
-3.((TYPE *) ：最后求得的地址转成原有结构体类型。
-用1得到的变量地址减去2得到的变量偏移地址，得到的基地址通过3转换回原来的类型。大功告成！
-重点就是  ((TYPE *) 0)-&gt;Field)。
-</code></pre>
-<p> ///<br>/// Pei Core Instance Data Macros<br>///<br>#define PEI_CORE_INSTANCE_FROM_PS_THIS(a) <br>  CR(a, PEI_CORE_INSTANCE, Ps, PEI_CORE_HANDLE_SIGNATURE)</p>
-<pre><code>## GetHobList(DXE阶段实现)
-
-- MdePkg\Library\DxeHobLib\HobLib.c
-</code></pre>
-<p>VOID  *mHobList = NULL;</p>
-<p>/**<br>  Returns the pointer to the HOB list.</p>
-<p>  This function returns the pointer to first HOB in the list.<br>  For PEI phase, the PEI service GetHobList() can be used to retrieve the pointer<br>  to the HOB list.  For the DXE phase, the HOB list pointer can be retrieved through<br>  the EFI System Table by looking up theHOB list GUID in the System Configuration Table.<br>  Since the System Configuration Table does not exist that the time the DXE Core is<br>  launched, the DXE Core uses a global variable from the DXE Core Entry Point Library<br>  to manage the pointer to the HOB list.</p>
-<p>  If the pointer to the HOB list is NULL, then ASSERT().</p>
-<p>  This function also caches the pointer to the HOB list retrieved.</p>
-<p>  @return The pointer to the HOB list.</p>
-<p>**/<br>VOID *<br>EFIAPI<br>GetHobList (<br>  VOID<br>  )<br>{<br>  EFI_STATUS  Status;</p>
-<p>  if (mHobList == NULL) {<br>    Status = EfiGetSystemConfigurationTable (&amp;gEfiHobListGuid, &amp;mHobList);<br>    ASSERT_EFI_ERROR (Status);<br>    ASSERT (mHobList != NULL);<br>  }<br>  return mHobList;<br>}</p>
-<pre><code></code></pre>
-<p>/**<br>  Retrieves a pointer to the system configuration table from the EFI System Table<br>  based on a specified GUID.</p>
-<p>  This function searches the list of configuration tables stored in the EFI System Table<br>  for a table with a GUID that matches TableGuid.  If a match is found, then a pointer to<br>  the configuration table is returned in Table., and EFI_SUCCESS is returned. If a matching GUID<br>  is not found, then EFI_NOT_FOUND is returned.<br>  If TableGuid is NULL, then ASSERT().<br>  If Table is NULL, then ASSERT().</p>
-<p>  @param  TableGuid       The pointer to table’s GUID type.<br>  @param  Table           The pointer to the table associated with TableGuid in the EFI System Table.</p>
-<p>  @retval EFI_SUCCESS     A configuration table matching TableGuid was found.<br>  @retval EFI_NOT_FOUND   A configuration table matching TableGuid could not be found.</p>
-<p>*<em>/<br>EFI_STATUS<br>EFIAPI<br>EfiGetSystemConfigurationTable (<br>  IN  EFI_GUID  *TableGuid,<br>  OUT VOID      *</em>Table<br>  )<br>&#123;<br>  EFI_SYSTEM_TABLE  *SystemTable;<br>  UINTN             Index;</p>
-<p>  ASSERT (TableGuid != NULL);<br>  ASSERT (Table != NULL);</p>
-<p>  SystemTable = gST;<br>  *Table = NULL;<br>  for (Index = 0; Index &lt; SystemTable-&gt;NumberOfTableEntries; Index++) &#123;<br>    if (CompareGuid (TableGuid, &amp;(SystemTable-&gt;ConfigurationTable[Index].VendorGuid))) &#123;<br>      *Table = SystemTable-&gt;ConfigurationTable[Index].VendorTable;<br>      return EFI_SUCCESS;<br>    &#125;<br>  &#125;</p>
-<p>  return EFI_NOT_FOUND;<br>&#125;</p>
-<pre><code>## GetNextHob
-</code></pre>
-<p>/**<br>  Returns the next instance of a HOB type from the starting HOB.</p>
-<p>  This function searches the first instance of a HOB type from the starting HOB pointer.<br>  If there does not exist such HOB type from the starting HOB pointer, it will return NULL.<br>  In contrast with macro GET_NEXT_HOB(), this function does not skip the starting HOB pointer<br>  unconditionally: it returns HobStart back if HobStart itself meets the requirement;<br>  caller is required to use GET_NEXT_HOB() if it wishes to skip current HobStart.</p>
-<p>  If HobStart is NULL, then ASSERT().</p>
-<p>  @param  Type          The HOB type to return.<br>  @param  HobStart      The starting HOB pointer to search from.</p>
-<p>  @return The next instance of a HOB type from the starting HOB.</p>
-<p>**/<br>VOID *<br>EFIAPI<br>GetNextHob (<br>  IN UINT16                 Type,<br>  IN CONST VOID             *HobStart<br>  )<br>{<br>  EFI_PEI_HOB_POINTERS  Hob;</p>
-<p>  ASSERT (HobStart != NULL);</p>
-<p>  Hob.Raw = (UINT8 *) HobStart;<br>  //<br>  // Parse the HOB list until end of list or matching type is found.<br>  //<br>  while (!END_OF_HOB_LIST (Hob)) {<br>    if (Hob.Header-&gt;HobType == Type) {<br>      return Hob.Raw;<br>    }<br>    Hob.Raw = GET_NEXT_HOB (Hob);<br>  }<br>  return NULL;<br>}</p>
-<pre><code>
-## GetFirstHob
-</code></pre>
-<p>/**<br>  Returns the first instance of a HOB type among the whole HOB list.</p>
-<p>  This function searches the first instance of a HOB type among the whole HOB list.<br>  If there does not exist such HOB type in the HOB list, it will return NULL.</p>
-<p>  If the pointer to the HOB list is NULL, then ASSERT().</p>
-<p>  @param  Type          The HOB type to return.</p>
-<p>  @return The next instance of a HOB type from the starting HOB.</p>
-<p>**/<br>VOID *<br>EFIAPI<br>GetFirstHob (<br>  IN UINT16                 Type<br>  )<br>{<br>  VOID      *HobList;</p>
-<p>  HobList = GetHobList ();<br>  return GetNextHob (Type, HobList);<br>}</p>
-<pre><code>
-## GetNextGuidHob
-</code></pre>
-<p>/**<br>  Returns the next instance of the matched GUID HOB from the starting HOB.</p>
-<p>  This function searches the first instance of a HOB from the starting HOB pointer.<br>  Such HOB should satisfy two conditions:<br>  its HOB type is EFI_HOB_TYPE_GUID_EXTENSION and its GUID Name equals to the input Guid.<br>  If there does not exist such HOB from the starting HOB pointer, it will return NULL.<br>  Caller is required to apply GET_GUID_HOB_DATA () and GET_GUID_HOB_DATA_SIZE ()<br>  to extract the data section and its size information, respectively.<br>  In contrast with macro GET_NEXT_HOB(), this function does not skip the starting HOB pointer<br>  unconditionally: it returns HobStart back if HobStart itself meets the requirement;<br>  caller is required to use GET_NEXT_HOB() if it wishes to skip current HobStart.</p>
-<p>  If Guid is NULL, then ASSERT().<br>  If HobStart is NULL, then ASSERT().</p>
-<p>  @param  Guid          The GUID to match with in the HOB list.<br>  @param  HobStart      A pointer to a Guid.</p>
-<p>  @return The next instance of the matched GUID HOB from the starting HOB.</p>
-<p>**/<br>VOID *<br>EFIAPI<br>GetNextGuidHob (<br>  IN CONST EFI_GUID         *Guid,<br>  IN CONST VOID             *HobStart<br>  )<br>{<br>  EFI_PEI_HOB_POINTERS  GuidHob;</p>
-<p>  GuidHob.Raw = (UINT8 *) HobStart;<br>  while ((GuidHob.Raw = GetNextHob (EFI_HOB_TYPE_GUID_EXTENSION, GuidHob.Raw)) != NULL) {<br>    if (CompareGuid (Guid, &amp;GuidHob.Guid-&gt;Name)) {<br>      break;<br>    }<br>    GuidHob.Raw = GET_NEXT_HOB (GuidHob);<br>  }<br>  return GuidHob.Raw;<br>}</p>
-<pre><code>
-## GetFirstGuidHob</code></pre>
-<p>/**<br>  Returns the first instance of the matched GUID HOB among the whole HOB list.</p>
-<p>  This function searches the first instance of a HOB among the whole HOB list.<br>  Such HOB should satisfy two conditions:<br>  its HOB type is EFI_HOB_TYPE_GUID_EXTENSION and its GUID Name equals to the input Guid.<br>  If there does not exist such HOB from the starting HOB pointer, it will return NULL.<br>  Caller is required to apply GET_GUID_HOB_DATA () and GET_GUID_HOB_DATA_SIZE ()<br>  to extract the data section and its size information, respectively.</p>
-<p>  If the pointer to the HOB list is NULL, then ASSERT().<br>  If Guid is NULL, then ASSERT().</p>
-<p>  @param  Guid          The GUID to match with in the HOB list.</p>
-<p>  @return The first instance of the matched GUID HOB among the whole HOB list.</p>
-<p>**/<br>VOID *<br>EFIAPI<br>GetFirstGuidHob (<br>  IN CONST EFI_GUID         *Guid<br>  )<br>{<br>  VOID      *HobList;</p>
-<p>  HobList = GetHobList ();<br>  return GetNextGuidHob (Guid, HobList);<br>}</p>
-<pre><code>----
-# HOB生产消费流程
-## PHIT HOB的建立
--  MdeModulePkg\Core\Pei\Hob\Hob.c
-</code></pre>
-<p>/**</p>
-<p>  Builds a Handoff Information Table HOB</p>
-<p>  @param BootMode        - Current Bootmode<br>  @param MemoryBegin     - Start Memory Address.<br>  @param MemoryLength    - Length of Memory.</p>
-<p>  @return EFI_SUCCESS Always success to initialize HOB.</p>
-<p>**/<br>EFI_STATUS<br>PeiCoreBuildHobHandoffInfoTable (<br>  IN EFI_BOOT_MODE         BootMode,<br>  IN EFI_PHYSICAL_ADDRESS  MemoryBegin,<br>  IN UINT64                MemoryLength<br>  )<br>{<br>  EFI_HOB_HANDOFF_INFO_TABLE   *Hob;<br>  EFI_HOB_GENERIC_HEADER       *HobEnd;</p>
-<p>  Hob                      = (VOID <em>)(UINTN)MemoryBegin;<br>  HobEnd                   = (EFI_HOB_GENERIC_HEADER</em>) (Hob+1);<br>  Hob-&gt;Header.HobType      = EFI_HOB_TYPE_HANDOFF;<br>  Hob-&gt;Header.HobLength    = (UINT16) sizeof (EFI_HOB_HANDOFF_INFO_TABLE);<br>  Hob-&gt;Header.Reserved     = 0;</p>
-<p>  HobEnd-&gt;HobType          = EFI_HOB_TYPE_END_OF_HOB_LIST;<br>  HobEnd-&gt;HobLength        = (UINT16) sizeof (EFI_HOB_GENERIC_HEADER);<br>  HobEnd-&gt;Reserved         = 0;</p>
-<p>  Hob-&gt;Version             = EFI_HOB_HANDOFF_TABLE_VERSION;<br>  Hob-&gt;BootMode            = BootMode;</p>
-<p>  Hob-&gt;EfiMemoryTop        = MemoryBegin + MemoryLength;<br>  Hob-&gt;EfiMemoryBottom     = MemoryBegin;<br>  Hob-&gt;EfiFreeMemoryTop    = MemoryBegin + MemoryLength;<br>  Hob-&gt;EfiFreeMemoryBottom = (EFI_PHYSICAL_ADDRESS) (UINTN) (HobEnd + 1);<br>  Hob-&gt;EfiEndOfHobList     = (EFI_PHYSICAL_ADDRESS) (UINTN) HobEnd;</p>
-<p>  return EFI_SUCCESS;<br>}</p>
-<pre><code>&gt; 头和尾HOB建立后，CreateHob会覆盖尾HOB，再将尾HOB后移，此时PEI阶段的模块会相继创建各种类型的HOB，我们可以在PEI阶段自己创建HOB传递一些数据，也可以在PEI和DXE阶段找到感兴趣的HOB块，对其BLOCK数据块进行操作，但是理论上在DXE阶段使用Get方法，不建议在PEI阶段使用，是因为不确定Get的HOB是否已经建立，即无法判断两个Pei ModulePart的执行顺序，当然也可以通过Deepx来限定ModulePart跑的顺序
-
-
-# 作业Demo
-![HOB Homework](http://tc.holychen.cn/小书匠/1603960797904.png)
-
-- OemHob.h
-</code></pre>
-<p>#ifndef <strong>OEM_HOB_H</strong><br>#define <strong>OEM_HOB_H</strong><br>#ifdef __cplusplus<br>extern “C” {<br>#endif</p>
-<p>#define OEM_HOB_GUID <br>    {0xe73e6c2b, 0xaa9a, 0x4b51, 0x94, 0x56, 0x50, 0xd2, 0x8b, 0xcc, 0x57, 0xf3}</p>
-<p>typedef struct _OEM_HOB{   </p>
-<pre><code>EFI_HOB_GUID_TYPE GuidExtension;
-CHAR8 OemString[10];
-UINT16 MemorySpace;  </code></pre>
-<p>} OEM_HOB;<br>/<strong>**</strong> DO NOT WRITE BELOW THIS LINE *<strong>**</strong>/<br>#ifdef __cplusplus<br>}<br>#endif<br>#endif</p>
-<pre><code>- PeiCreateHob.c
-</code></pre>
-<p>#include &lt;AmiPeiLib.h&gt;<br>#include &lt;Library/PeiServicesLib.h&gt;<br>#include &lt;Library/HobLib.h&gt;<br>#include &lt;OemHob.h&gt;<br>#include &lt;MemInfoHob.h&gt;</p>
-<p>extern EFI_GUID gSiMemoryInfoDataGuid;</p>
-<p>EFI_STATUS PeiCreateHobEntryPoint(<br>   IN EFI_PEI_FILE_HANDLE   FileHandle,<br>   IN CONST EFI_PEI_SERVICES  **PeiServices<br>)<br>{<br>    EFI_STATUS    Status = EFI_SUCCESS;<br>    OEM_HOB       *pHob     = NULL;<br>    VOID          *Memory_Hob  = NULL;<br>    EFI_GUID      OemHobGuid = OEM_HOB_GUID;<br>    EFI_GUID      MemoryInfoDataGuid = gSiMemoryInfoDataGuid;<br>    //CHAR8         BIOSVersion[] = CONVERT_TO_STRING(PLATFORM_NAME);<br>    CHAR8         BIOSVersion[10]=”kabylake”;<br>    UINT16        MemorySize = 0;</p>
-<pre><code>// Get physical address bits supported.
-Memory_Hob = GetFirstGuidHob(&amp;MemoryInfoDataGuid);
-if (Memory_Hob != NULL) &#123;
-    MemorySize = ((MEMORY_INFO_DATA_HOB *) Memory_Hob)-&gt;TotalPhysicalMemorySize;
-    DEBUG((-1,&quot;\nElder has been got MemoryInfoDataHob in Pei Phase!&quot;));
-    DEBUG((-1,&quot;\nMemoryInfoDataHob Address : %p&quot;,Memory_Hob));
-  &#125; 
-
-
-//create HOB for DXE
-Status = (*PeiServices)-&gt;CreateHob (PeiServices,
-                                    EFI_HOB_TYPE_GUID_EXTENSION, 
-                                    sizeof(OEM_HOB), 
-                                    &amp;pHob);
-if (!EFI_ERROR(Status))&#123;
-
-       pHob-&gt;GuidExtension.Name = OemHobGuid;
-       Strcpy(pHob-&gt;OemString,BIOSVersion);
-       pHob-&gt;MemorySpace = MemorySize;           
-       DEBUG((-1,&quot;\nElder has been Created OemHob Success in Pei Phase!&quot;));           
-   &#125;
-
-return EFI_SUCCESS;</code></pre>
-<p>}</p>
-<pre><code>
-- DxeFindHob.c</code></pre>
-<p>#include &lt;AmiDxeLib.h&gt;<br>#include &lt;Library/HobLib.h&gt;<br>#include &lt;OemHob.h&gt;</p>
 <p>EFI_STATUS DxeFindHobEntryPoint(<br>    IN EFI_HANDLE ImageHandle,<br>    IN EFI_SYSTEM_TABLE *SystemTable<br>)<br>{<br>    EFI_STATUS      Status = EFI_SUCCESS;<br>    EFI_GUID        OemHobGuid = OEM_HOB_GUID;<br>    OEM_HOB         *pHob = NULL;</p>
 <pre><code>InitAmiLib (ImageHandle , SystemTable) ;
 pHob = (OEM_HOB*)GetFirstGuidHob (&amp;OemHobGuid);
