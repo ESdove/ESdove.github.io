@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="汇编/C/C++/QT/UEFI">
+    <meta name="keywords" content="Ventoy, 汇编/C/C++/QT/UEFI">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>尘世浮沉HolyChen</title>
+    <title>Ventoy | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -215,12 +215,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Ventoy</h1>
                 </div>
             </div>
         </div>
@@ -353,7 +353,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    430
                 </div>
                 
 
@@ -375,7 +375,61 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>[TOC]</p>
+<h1 id="Ventoy简介"><a href="#Ventoy简介" class="headerlink" title="Ventoy简介"></a>Ventoy简介</h1><p> Ventoy是一个制作可启动U盘的开源工具。有了Ventoy你就无需反复地格式化U盘，你只需要把ISO文件拷贝到U盘里面就可以启动了，无需其他操作。 你可以一次性拷贝很多个不同类型的ISO文件，在启动时Ventoy会显示一个菜单来选择(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/screenshot.html">截图</a>)。 无差异支持Legacy BIOS和UEFI模式。目前已经测试了各类超过260+ 个ISO文件(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/isolist.html">列表</a>). 同时提出了”Ventoy Compatible”的概念，若被支持则理论上可以启动任何ISO文件.</p>
+<h1 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ventoy/Ventoy">Github开源地址</a></p>
+<ul>
+<li> <a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/download.html">下载地址</a></li>
+</ul>
+</li>
+<li><p> 安装到启动盘</p>
+</li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967090645.png" alt="安装到U盘"></p>
+<h1 id="放置ISO镜像文件"><a href="#放置ISO镜像文件" class="headerlink" title="放置ISO镜像文件"></a>放置ISO镜像文件</h1><h2 id="镜像下载站点"><a href="#镜像下载站点" class="headerlink" title="镜像下载站点"></a>镜像下载站点</h2><ul>
+<li>  <a target="_blank" rel="noopener" href="https://next.itellyou.cn/">MSDN</a></li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531519.png"></p>
+<ul>
+<li>  <a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/">阿里云镜像站</a></li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531520.png"></p>
+<h2 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h2><blockquote>
+<p>镜像可放在根目录，也可建立文件夹管理，可按需求分类</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967174941.png"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967207747.png"></p>
+<h1 id="配置json文件和主题（可忽略）"><a href="#配置json文件和主题（可忽略）" class="headerlink" title="配置json文件和主题（可忽略）"></a>配置json文件和主题（可忽略）</h1><ul>
+<li><p>  <a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/plugin_entry.html">官方教程</a></p>
+</li>
+<li><p>  个人示例</p>
+</li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967274942.png"></p>
+<ul>
+<li>ventoy.json<pre class="line-numbers language-json"><code class="language-json">&amp;#<span class="token number">123</span><span class="token punctuation">;</span>
+   <span class="token property">"theme"</span><span class="token operator">:</span> &amp;#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token property">"file"</span><span class="token operator">:</span> <span class="token string">"/ventoy/theme/theme.txt"</span><span class="token punctuation">,</span>
+      <span class="token property">"gfxmode"</span><span class="token operator">:</span> <span class="token string">"1024x768"</span><span class="token punctuation">,</span>
+      <span class="token property">"ventoy_left"</span><span class="token operator">:</span> <span class="token string">"42%"</span><span class="token punctuation">,</span>
+      <span class="token property">"ventoy_top"</span><span class="token operator">:</span> <span class="token string">"100%"</span><span class="token punctuation">,</span>
+      <span class="token property">"ventoy_color"</span><span class="token operator">:</span> <span class="token string">"#000000"</span>
+  &amp;#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token punctuation">,</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>“menu_alias” :<br>    [<br>        {<br>            “image”: “/ISO/18363.418.191007-0143.19h2_release_svc_refresh_CLIENT_CONSUMER_x64FRE_en-us.iso”,<br>            “alias”: “Win10 19H2英文版”<br>        },<br>        {<br>            “image”: “/ISO/19041.208.200420-2019.vb_release_svc_refresh_CLIENT_BUSINESS_VOL_x64FRE_en-us.iso”,<br>            “alias”: “Win10 20H1英文版”<br>        },<br>        {<br>            “image”: “/ISO/cn_windows_10_business_editions_version_1909_updated_jan_2020_x64_dvd_b3e1f3a6.iso”,<br>            “alias”: “Win10 1909中文版”<br>        },<br>        {<br>            “image”: “/ISO/rhel-8.1-x86_64-dvd.iso”,<br>            “alias”: “ReaHat 8.1”<br>        },<br>        {<br>            “image”: “/ISO/ubuntu-18.04.3-desktop-amd64.iso”,<br>            “alias”: “Ubuntu 18.04.03”<br>        },<br>        {<br>            “image”: “/ISO/ubuntu-20.04-desktop-amd64.iso”,<br>            “alias”: “Ubuntu 20.04”<br>        },<br>        {<br>            “image”: “/ISO/wepe_64.iso”,<br>            “alias”: “微PE”<br>        },<br>        {<br>            “image”: “/ISO/EasyU_v3.3.iso”,<br>            “alias”: “优启通PE”<br>        },<br>        {<br>            “image”: “/19H2_Bak.wim”,<br>            “alias”: “Win10 19H2英文系统备份”<br>        },<br>        {<br>            “image”: “/1909_Zh_Cn_Backup.wim”,<br>            “alias”: “Win10 19H2中文系统备份”<br>        },<br>        {<br>            “image”: “/ISO/en_windows_server_2016_x64_dvd_9718492.iso”,<br>            “alias”: “Win10 Server 2016”<br>        }<br>    ]<br>}</p>
+<p>```</p>
+<ul>
+<li>  <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1009236/">主题地址</a></li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531602.png"></p>
+<h1 id="显示效果"><a href="#显示效果" class="headerlink" title="显示效果"></a>显示效果</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531607.png"></p>
+<blockquote>
+<p>通过主板快捷键可以从制作的VentoyU盘启动，选择可启动镜像即可进入OS安装或PE等维护工具</p>
+</blockquote>
+
             </div>
             <hr/>
 
@@ -486,9 +540,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Ventoy">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Ventoy</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -704,7 +758,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">7.2k</span>&nbsp;字
+                class="white-color">7.6k</span>&nbsp;字
             
             
             
