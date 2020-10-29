@@ -1287,61 +1287,100 @@ EFIAPI
 <li>IntelFrameworkPkg\Library\PeiHobLibFramework\HobLib.c </li>
 </ul>
 <h2 id="相关宏函数"><a href="#相关宏函数" class="headerlink" title="相关宏函数"></a>相关宏函数</h2><ul>
-<li><p>GET_HOB_TYPE</p>
-</li>
-<li><p>GET_HOB_LENGTH</p>
-</li>
-<li><p>GET_NEXT_HOB</p>
-</li>
-<li><p>END_OF_HOB_LIST</p>
-</li>
-<li><p>GET_GUID_HOB_DATAET_GUID_HOB_DATA</p>
-</li>
-<li><p>GET_GUID_HOB_DATA_SIZE</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token operator">/</span><span class="token operator">*</span><span class="token operator">*</span>
-Returns the type of a HOB<span class="token punctuation">.</span>
-
-This macro returns the HobType field from the HOB header <span class="token keyword">for</span> the
-HOB specified by HobStart<span class="token punctuation">.</span>
-
-@param  HobStart   A pointer to a HOB<span class="token punctuation">.</span>
-
-@<span class="token keyword">return</span> HobType<span class="token punctuation">.</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<li>GET_HOB_TYPE</li>
+<li>GET_HOB_LENGTH</li>
+<li>GET_NEXT_HOB</li>
+<li>END_OF_HOB_LIST</li>
+<li>GET_GUID_HOB_DATAET_GUID_HOB_DATA</li>
+<li>GET_GUID_HOB_DATA_SIZE</li>
 </ul>
-<p>*<em>/<br>#define GET_HOB_TYPE(HobStart) <br>  ((</em>(EFI_HOB_GENERIC_HEADER **)&amp;(HobStart))-&gt;HobType)</p>
-<p>/**<br>  Returns the length, in bytes, of a HOB.</p>
-<p>  This macro returns the HobLength field from the HOB header for the<br>  HOB specified by HobStart.</p>
-<p>  @param  HobStart   A pointer to a HOB.</p>
-<p>  @return HobLength.</p>
-<p>*<em>/<br>#define GET_HOB_LENGTH(HobStart) <br>  ((</em>(EFI_HOB_GENERIC_HEADER **)&amp;(HobStart))-&gt;HobLength)</p>
-<p>/**<br>  Returns a pointer to the next HOB in the HOB list.</p>
-<p>  This macro returns a pointer to HOB that follows the<br>  HOB specified by HobStart in the HOB List.</p>
-<p>  @param  HobStart   A pointer to a HOB.</p>
-<p>  @return A pointer to the next HOB in the HOB list.</p>
-<p>**/<br>#define GET_NEXT_HOB(HobStart) <br>  (VOID <em>)(</em>(UINT8 **)&amp;(HobStart) + GET_HOB_LENGTH (HobStart))</p>
-<p>/**<br>  Determines if a HOB is the last HOB in the HOB list.</p>
-<p>  This macro determine if the HOB specified by HobStart is the<br>  last HOB in the HOB list.  If HobStart is last HOB in the HOB list,<br>  then TRUE is returned.  Otherwise, FALSE is returned.</p>
-<p>  @param  HobStart   A pointer to a HOB.</p>
-<p>  @retval TRUE       The HOB specified by HobStart is the last HOB in the HOB list.<br>  @retval FALSE      The HOB specified by HobStart is not the last HOB in the HOB list.</p>
-<p>**/<br>#define END_OF_HOB_LIST(HobStart)  (GET_HOB_TYPE (HobStart) == (UINT16)EFI_HOB_TYPE_END_OF_HOB_LIST)</p>
-<p>/**<br>  Returns a pointer to data buffer from a HOB of type EFI_HOB_TYPE_GUID_EXTENSION.</p>
-<p>  This macro returns a pointer to the data buffer in a HOB specified by HobStart.<br>  HobStart is assumed to be a HOB of type EFI_HOB_TYPE_GUID_EXTENSION.</p>
-<p>  @param   GuidHob   A pointer to a HOB.</p>
-<p>  @return  A pointer to the data buffer in a HOB.</p>
-<p>**/<br>#define GET_GUID_HOB_DATA(HobStart) <br>  (VOID <em>)(</em>(UINT8 **)&amp;(HobStart) + sizeof (EFI_HOB_GUID_TYPE))</p>
-<p>/**<br>  Returns the size of the data buffer from a HOB of type EFI_HOB_TYPE_GUID_EXTENSION.</p>
-<p>  This macro returns the size, in bytes, of the data buffer in a HOB specified by HobStart.<br>  HobStart is assumed to be a HOB of type EFI_HOB_TYPE_GUID_EXTENSION.</p>
-<p>  @param   GuidHob   A pointer to a HOB.</p>
-<p>  @return  The size of the data buffer.<br>**/<br>#define GET_GUID_HOB_DATA_SIZE(HobStart) <br>  (UINT16)(GET_HOB_LENGTH (HobStart) - sizeof (EFI_HOB_GUID_TYPE))</p>
-<pre><code>
-## CreateHob(仅PEI阶段有效)
+<pre><code>/**
+  Returns the type of a HOB.
 
-- MdeModulePkg\Core\Pei\PeiMain.h
+  This macro returns the HobType field from the HOB header for the
+  HOB specified by HobStart.
 
-```c
+  @param  HobStart   A pointer to a HOB.
+
+  @return HobType.
+
+**/
+#define GET_HOB_TYPE(HobStart) \
+  ((*(EFI_HOB_GENERIC_HEADER **)&amp;(HobStart))-&gt;HobType)
+
 /**
+  Returns the length, in bytes, of a HOB.
+
+  This macro returns the HobLength field from the HOB header for the
+  HOB specified by HobStart.
+
+  @param  HobStart   A pointer to a HOB.
+
+  @return HobLength.
+
+**/
+#define GET_HOB_LENGTH(HobStart) \
+  ((*(EFI_HOB_GENERIC_HEADER **)&amp;(HobStart))-&gt;HobLength)
+
+/**
+  Returns a pointer to the next HOB in the HOB list.
+
+  This macro returns a pointer to HOB that follows the
+  HOB specified by HobStart in the HOB List.
+
+  @param  HobStart   A pointer to a HOB.
+
+  @return A pointer to the next HOB in the HOB list.
+
+**/
+#define GET_NEXT_HOB(HobStart) \
+  (VOID *)(*(UINT8 **)&amp;(HobStart) + GET_HOB_LENGTH (HobStart))
+
+/**
+  Determines if a HOB is the last HOB in the HOB list.
+
+  This macro determine if the HOB specified by HobStart is the
+  last HOB in the HOB list.  If HobStart is last HOB in the HOB list,
+  then TRUE is returned.  Otherwise, FALSE is returned.
+
+  @param  HobStart   A pointer to a HOB.
+
+  @retval TRUE       The HOB specified by HobStart is the last HOB in the HOB list.
+  @retval FALSE      The HOB specified by HobStart is not the last HOB in the HOB list.
+
+**/
+#define END_OF_HOB_LIST(HobStart)  (GET_HOB_TYPE (HobStart) == (UINT16)EFI_HOB_TYPE_END_OF_HOB_LIST)
+
+/**
+  Returns a pointer to data buffer from a HOB of type EFI_HOB_TYPE_GUID_EXTENSION.
+
+  This macro returns a pointer to the data buffer in a HOB specified by HobStart.
+  HobStart is assumed to be a HOB of type EFI_HOB_TYPE_GUID_EXTENSION.
+
+  @param   GuidHob   A pointer to a HOB.
+
+  @return  A pointer to the data buffer in a HOB.
+
+**/
+#define GET_GUID_HOB_DATA(HobStart) \
+  (VOID *)(*(UINT8 **)&amp;(HobStart) + sizeof (EFI_HOB_GUID_TYPE))
+
+/**
+  Returns the size of the data buffer from a HOB of type EFI_HOB_TYPE_GUID_EXTENSION.
+
+  This macro returns the size, in bytes, of the data buffer in a HOB specified by HobStart.
+  HobStart is assumed to be a HOB of type EFI_HOB_TYPE_GUID_EXTENSION.
+
+  @param   GuidHob   A pointer to a HOB.
+
+  @return  The size of the data buffer.
+**/
+#define GET_GUID_HOB_DATA_SIZE(HobStart) \
+  (UINT16)(GET_HOB_LENGTH (HobStart) - sizeof (EFI_HOB_GUID_TYPE))</code></pre>
+<h2 id="CreateHob-仅PEI阶段有效"><a href="#CreateHob-仅PEI阶段有效" class="headerlink" title="CreateHob(仅PEI阶段有效)"></a>CreateHob(仅PEI阶段有效)</h2><ul>
+<li>MdeModulePkg\Core\Pei\PeiMain.h</li>
+</ul>
+<pre><code>/**
   Add a new HOB to the HOB List.
 
   @param PeiServices        An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.
@@ -1366,7 +1405,7 @@ PeiCreateHob (
 <ul>
 <li>MdeModulePkg\Core\Pei\Hob\Hob.c</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
+<pre><code>/**
   Add a new HOB to the HOB List.
 
   @param PeiServices      An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.
@@ -1379,68 +1418,68 @@ PeiCreateHob (
   @retval  EFI_NOT_AVAILABLE_YET if HobList is still not available.
   @retval  EFI_OUT_OF_RESOURCES  if there is no more memory to grow the Hoblist.
 
-**/</span>
+**/
 EFI_STATUS
 EFIAPI
-<span class="token function">PeiCreateHob</span> <span class="token punctuation">(</span>
-  IN CONST EFI_PEI_SERVICES  <span class="token operator">*</span><span class="token operator">*</span>PeiServices<span class="token punctuation">,</span>
-  IN UINT16            Type<span class="token punctuation">,</span>
-  IN UINT16            Length<span class="token punctuation">,</span>
-  IN OUT VOID          <span class="token operator">*</span><span class="token operator">*</span>Hob
-  <span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  EFI_STATUS                           Status<span class="token punctuation">;</span>
-  EFI_HOB_HANDOFF_INFO_TABLE           <span class="token operator">*</span>HandOffHob<span class="token punctuation">;</span>
-  EFI_HOB_GENERIC_HEADER               <span class="token operator">*</span>HobEnd<span class="token punctuation">;</span>
-  EFI_PHYSICAL_ADDRESS                 FreeMemory<span class="token punctuation">;</span>
+PeiCreateHob (
+  IN CONST EFI_PEI_SERVICES  **PeiServices,
+  IN UINT16            Type,
+  IN UINT16            Length,
+  IN OUT VOID          **Hob
+  )
+&#123;
+  EFI_STATUS                           Status;
+  EFI_HOB_HANDOFF_INFO_TABLE           *HandOffHob;
+  EFI_HOB_GENERIC_HEADER               *HobEnd;
+  EFI_PHYSICAL_ADDRESS                 FreeMemory;
 
 
-  Status <span class="token operator">=</span> <span class="token function">PeiGetHobList</span> <span class="token punctuation">(</span>PeiServices<span class="token punctuation">,</span> Hob<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">EFI_ERROR</span><span class="token punctuation">(</span>Status<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> Status<span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  Status = PeiGetHobList (PeiServices, Hob);
+  if (EFI_ERROR(Status)) &#123;
+    return Status;
+  &#125;
 
-  HandOffHob <span class="token operator">=</span> <span class="token operator">*</span>Hob<span class="token punctuation">;</span>
+  HandOffHob = *Hob;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// Check Length to avoid data overflow.</span>
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0x10000</span> <span class="token operator">-</span> Length <span class="token operator">&lt;=</span> <span class="token number">0x7</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> EFI_INVALID_PARAMETER<span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  Length     <span class="token operator">=</span> <span class="token punctuation">(</span>UINT16<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Length <span class="token operator">+</span> <span class="token number">0x7</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token operator">~</span><span class="token number">0x7</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  //
+  // Check Length to avoid data overflow.
+  //
+  if (0x10000 - Length &lt;= 0x7) &#123;
+    return EFI_INVALID_PARAMETER;
+  &#125;
+  Length     = (UINT16)((Length + 0x7) &amp; (~0x7));
 
-  FreeMemory <span class="token operator">=</span> HandOffHob<span class="token operator">-></span>EfiFreeMemoryTop <span class="token operator">-</span>
-               HandOffHob<span class="token operator">-></span>EfiFreeMemoryBottom<span class="token punctuation">;</span>
+  FreeMemory = HandOffHob-&gt;EfiFreeMemoryTop -
+               HandOffHob-&gt;EfiFreeMemoryBottom;
 
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>FreeMemory <span class="token operator">&lt;</span> Length<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token function">DEBUG</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>EFI_D_ERROR<span class="token punctuation">,</span> <span class="token string">"PeiCreateHob fail: Length - 0x%08x\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span>Length<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">DEBUG</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>EFI_D_ERROR<span class="token punctuation">,</span> <span class="token string">"  FreeMemoryTop    - 0x%08x\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span>HandOffHob<span class="token operator">-></span>EfiFreeMemoryTop<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">DEBUG</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>EFI_D_ERROR<span class="token punctuation">,</span> <span class="token string">"  FreeMemoryBottom - 0x%08x\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span>HandOffHob<span class="token operator">-></span>EfiFreeMemoryBottom<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> EFI_OUT_OF_RESOURCES<span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  if (FreeMemory &lt; Length) &#123;
+    DEBUG ((EFI_D_ERROR, &quot;PeiCreateHob fail: Length - 0x%08x\n&quot;, (UINTN)Length));
+    DEBUG ((EFI_D_ERROR, &quot;  FreeMemoryTop    - 0x%08x\n&quot;, (UINTN)HandOffHob-&gt;EfiFreeMemoryTop));
+    DEBUG ((EFI_D_ERROR, &quot;  FreeMemoryBottom - 0x%08x\n&quot;, (UINTN)HandOffHob-&gt;EfiFreeMemoryBottom));
+    return EFI_OUT_OF_RESOURCES;
+  &#125;
 
-  <span class="token operator">*</span>Hob <span class="token operator">=</span> <span class="token punctuation">(</span>VOID<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span> HandOffHob<span class="token operator">-></span>EfiEndOfHobList<span class="token punctuation">;</span>
-  <span class="token punctuation">(</span><span class="token punctuation">(</span>EFI_HOB_GENERIC_HEADER<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">*</span>Hob<span class="token punctuation">)</span><span class="token operator">-></span>HobType   <span class="token operator">=</span> Type<span class="token punctuation">;</span>
-  <span class="token punctuation">(</span><span class="token punctuation">(</span>EFI_HOB_GENERIC_HEADER<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">*</span>Hob<span class="token punctuation">)</span><span class="token operator">-></span>HobLength <span class="token operator">=</span> Length<span class="token punctuation">;</span>
-  <span class="token punctuation">(</span><span class="token punctuation">(</span>EFI_HOB_GENERIC_HEADER<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">*</span>Hob<span class="token punctuation">)</span><span class="token operator">-></span>Reserved  <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  *Hob = (VOID*) (UINTN) HandOffHob-&gt;EfiEndOfHobList;
+  ((EFI_HOB_GENERIC_HEADER*) *Hob)-&gt;HobType   = Type;
+  ((EFI_HOB_GENERIC_HEADER*) *Hob)-&gt;HobLength = Length;
+  ((EFI_HOB_GENERIC_HEADER*) *Hob)-&gt;Reserved  = 0;
 
-  HobEnd <span class="token operator">=</span> <span class="token punctuation">(</span>EFI_HOB_GENERIC_HEADER<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span> <span class="token operator">*</span>Hob <span class="token operator">+</span> Length<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  HandOffHob<span class="token operator">-></span>EfiEndOfHobList <span class="token operator">=</span> <span class="token punctuation">(</span>EFI_PHYSICAL_ADDRESS<span class="token punctuation">)</span> <span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span> HobEnd<span class="token punctuation">;</span>
+  HobEnd = (EFI_HOB_GENERIC_HEADER*) ((UINTN) *Hob + Length);
+  HandOffHob-&gt;EfiEndOfHobList = (EFI_PHYSICAL_ADDRESS) (UINTN) HobEnd;
 
-  HobEnd<span class="token operator">-></span>HobType   <span class="token operator">=</span> EFI_HOB_TYPE_END_OF_HOB_LIST<span class="token punctuation">;</span>
-  HobEnd<span class="token operator">-></span>HobLength <span class="token operator">=</span> <span class="token punctuation">(</span>UINT16<span class="token punctuation">)</span> <span class="token keyword">sizeof</span> <span class="token punctuation">(</span>EFI_HOB_GENERIC_HEADER<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  HobEnd<span class="token operator">-></span>Reserved  <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  HobEnd<span class="token operator">++</span><span class="token punctuation">;</span>
-  HandOffHob<span class="token operator">-></span>EfiFreeMemoryBottom <span class="token operator">=</span> <span class="token punctuation">(</span>EFI_PHYSICAL_ADDRESS<span class="token punctuation">)</span> <span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span> HobEnd<span class="token punctuation">;</span>
+  HobEnd-&gt;HobType   = EFI_HOB_TYPE_END_OF_HOB_LIST;
+  HobEnd-&gt;HobLength = (UINT16) sizeof (EFI_HOB_GENERIC_HEADER);
+  HobEnd-&gt;Reserved  = 0;
+  HobEnd++;
+  HandOffHob-&gt;EfiFreeMemoryBottom = (EFI_PHYSICAL_ADDRESS) (UINTN) HobEnd;
 
-  <span class="token keyword">return</span> EFI_SUCCESS<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  return EFI_SUCCESS;
+&#125; </code></pre>
 <ul>
 <li>MdePkg\Include\Pi\PiPeiCis.h</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
-  This service, published by the PEI Foundation, abstracts the creation of a Hand-Off Block's (HOB's) headers.
+<pre><code>/**
+  This service, published by the PEI Foundation, abstracts the creation of a Hand-Off Block&#39;s (HOB&#39;s) headers.
 
   @param  PeiServices      An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.
   @param  Type             The type of HOB to be installed.
@@ -1450,152 +1489,152 @@ EFIAPI
   @retval EFI_SUCCESS           The HOB was successfully created.
   @retval EFI_OUT_OF_RESOURCES  There is no additional space for HOB creation.
 
-**/</span>
-<span class="token keyword">typedef</span>
-<span class="token function">EFI_STATUS</span>
-<span class="token punctuation">(</span>EFIAPI <span class="token operator">*</span>EFI_PEI_CREATE_HOB<span class="token punctuation">)</span><span class="token punctuation">(</span>
-  IN CONST EFI_PEI_SERVICES            <span class="token operator">*</span><span class="token operator">*</span>PeiServices<span class="token punctuation">,</span>
-  IN UINT16                            Type<span class="token punctuation">,</span>
-  IN UINT16                            Length<span class="token punctuation">,</span>
-  IN OUT VOID                          <span class="token operator">*</span><span class="token operator">*</span>Hob
-  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+**/
+typedef
+EFI_STATUS
+(EFIAPI *EFI_PEI_CREATE_HOB)(
+  IN CONST EFI_PEI_SERVICES            **PeiServices,
+  IN UINT16                            Type,
+  IN UINT16                            Length,
+  IN OUT VOID                          **Hob
+  );
 
 
-<span class="token comment" spellcheck="true">/// EFI_PEI_SERVICES is a collection of functions whose implementation is provided by the PEI</span>
-<span class="token comment" spellcheck="true">/// Foundation. These services fall into various classes, including the following:</span>
-<span class="token comment" spellcheck="true">/// - Managing the boot mode</span>
-<span class="token comment" spellcheck="true">/// - Allocating both early and permanent memory</span>
-<span class="token comment" spellcheck="true">/// - Supporting the Firmware File System (FFS)</span>
-<span class="token comment" spellcheck="true">/// - Abstracting the PPI database abstraction</span>
-<span class="token comment" spellcheck="true">/// - Creating Hand-Off Blocks (HOBs).</span>
-<span class="token comment" spellcheck="true">///</span>
-<span class="token keyword">struct</span> _EFI_PEI_SERVICES <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The table header for the PEI Services Table.</span>
-  <span class="token comment" spellcheck="true">///</span>
-  EFI_TABLE_HEADER                Hdr<span class="token punctuation">;</span>
+/// EFI_PEI_SERVICES is a collection of functions whose implementation is provided by the PEI
+/// Foundation. These services fall into various classes, including the following:
+/// - Managing the boot mode
+/// - Allocating both early and permanent memory
+/// - Supporting the Firmware File System (FFS)
+/// - Abstracting the PPI database abstraction
+/// - Creating Hand-Off Blocks (HOBs).
+///
+struct _EFI_PEI_SERVICES &#123;
+  ///
+  /// The table header for the PEI Services Table.
+  ///
+  EFI_TABLE_HEADER                Hdr;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// PPI Functions</span>
-  <span class="token comment" spellcheck="true">//</span>
-  EFI_PEI_INSTALL_PPI             InstallPpi<span class="token punctuation">;</span>
-  EFI_PEI_REINSTALL_PPI           ReInstallPpi<span class="token punctuation">;</span>
-  EFI_PEI_LOCATE_PPI              LocatePpi<span class="token punctuation">;</span>
-  EFI_PEI_NOTIFY_PPI              NotifyPpi<span class="token punctuation">;</span>
+  //
+  // PPI Functions
+  //
+  EFI_PEI_INSTALL_PPI             InstallPpi;
+  EFI_PEI_REINSTALL_PPI           ReInstallPpi;
+  EFI_PEI_LOCATE_PPI              LocatePpi;
+  EFI_PEI_NOTIFY_PPI              NotifyPpi;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// Boot Mode Functions</span>
-  <span class="token comment" spellcheck="true">//</span>
-  EFI_PEI_GET_BOOT_MODE           GetBootMode<span class="token punctuation">;</span>
-  EFI_PEI_SET_BOOT_MODE           SetBootMode<span class="token punctuation">;</span>
+  //
+  // Boot Mode Functions
+  //
+  EFI_PEI_GET_BOOT_MODE           GetBootMode;
+  EFI_PEI_SET_BOOT_MODE           SetBootMode;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// HOB Functions</span>
-  <span class="token comment" spellcheck="true">//</span>
-  EFI_PEI_GET_HOB_LIST            GetHobList<span class="token punctuation">;</span>
-  EFI_PEI_CREATE_HOB              CreateHob<span class="token punctuation">;</span>
+  //
+  // HOB Functions
+  //
+  EFI_PEI_GET_HOB_LIST            GetHobList;
+  EFI_PEI_CREATE_HOB              CreateHob;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// Firmware Volume Functions</span>
-  <span class="token comment" spellcheck="true">//</span>
-  EFI_PEI_FFS_FIND_NEXT_VOLUME2   FfsFindNextVolume<span class="token punctuation">;</span>
-  EFI_PEI_FFS_FIND_NEXT_FILE2     FfsFindNextFile<span class="token punctuation">;</span>
-  EFI_PEI_FFS_FIND_SECTION_DATA2  FfsFindSectionData<span class="token punctuation">;</span>
+  //
+  // Firmware Volume Functions
+  //
+  EFI_PEI_FFS_FIND_NEXT_VOLUME2   FfsFindNextVolume;
+  EFI_PEI_FFS_FIND_NEXT_FILE2     FfsFindNextFile;
+  EFI_PEI_FFS_FIND_SECTION_DATA2  FfsFindSectionData;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// PEI Memory Functions</span>
-  <span class="token comment" spellcheck="true">//</span>
-  EFI_PEI_INSTALL_PEI_MEMORY      InstallPeiMemory<span class="token punctuation">;</span>
-  EFI_PEI_ALLOCATE_PAGES          AllocatePages<span class="token punctuation">;</span>
-  EFI_PEI_ALLOCATE_POOL           AllocatePool<span class="token punctuation">;</span>
-  EFI_PEI_COPY_MEM                CopyMem<span class="token punctuation">;</span>
-  EFI_PEI_SET_MEM                 SetMem<span class="token punctuation">;</span>
+  //
+  // PEI Memory Functions
+  //
+  EFI_PEI_INSTALL_PEI_MEMORY      InstallPeiMemory;
+  EFI_PEI_ALLOCATE_PAGES          AllocatePages;
+  EFI_PEI_ALLOCATE_POOL           AllocatePool;
+  EFI_PEI_COPY_MEM                CopyMem;
+  EFI_PEI_SET_MEM                 SetMem;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// Status Code</span>
-  <span class="token comment" spellcheck="true">//</span>
-  EFI_PEI_REPORT_STATUS_CODE      ReportStatusCode<span class="token punctuation">;</span>
+  //
+  // Status Code
+  //
+  EFI_PEI_REPORT_STATUS_CODE      ReportStatusCode;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// Reset</span>
-  <span class="token comment" spellcheck="true">//</span>
-  EFI_PEI_RESET_SYSTEM            ResetSystem<span class="token punctuation">;</span>
+  //
+  // Reset
+  //
+  EFI_PEI_RESET_SYSTEM            ResetSystem;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// (the following interfaces are installed by publishing PEIM)</span>
-  <span class="token comment" spellcheck="true">// I/O Abstractions</span>
-  <span class="token comment" spellcheck="true">//</span>
-  EFI_PEI_CPU_IO_PPI              <span class="token operator">*</span>CpuIo<span class="token punctuation">;</span>
-  EFI_PEI_PCI_CFG2_PPI            <span class="token operator">*</span>PciCfg<span class="token punctuation">;</span>
+  //
+  // (the following interfaces are installed by publishing PEIM)
+  // I/O Abstractions
+  //
+  EFI_PEI_CPU_IO_PPI              *CpuIo;
+  EFI_PEI_PCI_CFG2_PPI            *PciCfg;
 
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// Future Installed Services</span>
-  <span class="token comment" spellcheck="true">//</span>
-  EFI_PEI_FFS_FIND_BY_NAME        FfsFindFileByName<span class="token punctuation">;</span>
-  EFI_PEI_FFS_GET_FILE_INFO       FfsGetFileInfo<span class="token punctuation">;</span>
-  EFI_PEI_FFS_GET_VOLUME_INFO     FfsGetVolumeInfo<span class="token punctuation">;</span>
-  EFI_PEI_REGISTER_FOR_SHADOW     RegisterForShadow<span class="token punctuation">;</span>
-  EFI_PEI_FFS_FIND_SECTION_DATA3  FindSectionData3<span class="token punctuation">;</span>
-  EFI_PEI_FFS_GET_FILE_INFO2      FfsGetFileInfo2<span class="token punctuation">;</span>
-  EFI_PEI_RESET2_SYSTEM           ResetSystem2<span class="token punctuation">;</span>
-  EFI_PEI_FREE_PAGES              FreePages<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  //
+  // Future Installed Services
+  //
+  EFI_PEI_FFS_FIND_BY_NAME        FfsFindFileByName;
+  EFI_PEI_FFS_GET_FILE_INFO       FfsGetFileInfo;
+  EFI_PEI_FFS_GET_VOLUME_INFO     FfsGetVolumeInfo;
+  EFI_PEI_REGISTER_FOR_SHADOW     RegisterForShadow;
+  EFI_PEI_FFS_FIND_SECTION_DATA3  FindSectionData3;
+  EFI_PEI_FFS_GET_FILE_INFO2      FfsGetFileInfo2;
+  EFI_PEI_RESET2_SYSTEM           ResetSystem2;
+  EFI_PEI_FREE_PAGES              FreePages;
+&#125;;</code></pre>
 <ul>
 <li>MdeModulePkg\Core\Pei\PeiMain\PeiMain.c</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/// Pei service instance</span>
-<span class="token comment" spellcheck="true">///</span>
-EFI_PEI_SERVICES  gPs <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    PEI_SERVICES_SIGNATURE<span class="token punctuation">,</span>
-    PEI_SERVICES_REVISION<span class="token punctuation">,</span>
-    <span class="token keyword">sizeof</span> <span class="token punctuation">(</span>EFI_PEI_SERVICES<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token number">0</span><span class="token punctuation">,</span>
-    <span class="token number">0</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
-  PeiInstallPpi<span class="token punctuation">,</span>
-  PeiReInstallPpi<span class="token punctuation">,</span>
-  PeiLocatePpi<span class="token punctuation">,</span>
-  PeiNotifyPpi<span class="token punctuation">,</span>
+<pre><code>/// Pei service instance
+///
+EFI_PEI_SERVICES  gPs = &#123;
+  &#123;
+    PEI_SERVICES_SIGNATURE,
+    PEI_SERVICES_REVISION,
+    sizeof (EFI_PEI_SERVICES),
+    0,
+    0
+  &#125;,
+  PeiInstallPpi,
+  PeiReInstallPpi,
+  PeiLocatePpi,
+  PeiNotifyPpi,
 
-  PeiGetBootMode<span class="token punctuation">,</span>
-  PeiSetBootMode<span class="token punctuation">,</span>
+  PeiGetBootMode,
+  PeiSetBootMode,
 
-  PeiGetHobList<span class="token punctuation">,</span>
-  PeiCreateHob<span class="token punctuation">,</span>
+  PeiGetHobList,
+  PeiCreateHob,
 
-  PeiFfsFindNextVolume<span class="token punctuation">,</span>
-  PeiFfsFindNextFile<span class="token punctuation">,</span>
-  PeiFfsFindSectionData<span class="token punctuation">,</span>
+  PeiFfsFindNextVolume,
+  PeiFfsFindNextFile,
+  PeiFfsFindSectionData,
 
-  PeiInstallPeiMemory<span class="token punctuation">,</span>
-  PeiAllocatePages<span class="token punctuation">,</span>
-  PeiAllocatePool<span class="token punctuation">,</span>
-  <span class="token punctuation">(</span>EFI_PEI_COPY_MEM<span class="token punctuation">)</span>CopyMem<span class="token punctuation">,</span>
-  <span class="token punctuation">(</span>EFI_PEI_SET_MEM<span class="token punctuation">)</span>SetMem<span class="token punctuation">,</span>
+  PeiInstallPeiMemory,
+  PeiAllocatePages,
+  PeiAllocatePool,
+  (EFI_PEI_COPY_MEM)CopyMem,
+  (EFI_PEI_SET_MEM)SetMem,
 
-  PeiReportStatusCode<span class="token punctuation">,</span>
-  PeiResetSystem<span class="token punctuation">,</span>
+  PeiReportStatusCode,
+  PeiResetSystem,
 
-  <span class="token operator">&amp;</span>gPeiDefaultCpuIoPpi<span class="token punctuation">,</span>
-  <span class="token operator">&amp;</span>gPeiDefaultPciCfg2Ppi<span class="token punctuation">,</span>
+  &amp;gPeiDefaultCpuIoPpi,
+  &amp;gPeiDefaultPciCfg2Ppi,
 
-  PeiFfsFindFileByName<span class="token punctuation">,</span>
-  PeiFfsGetFileInfo<span class="token punctuation">,</span>
-  PeiFfsGetVolumeInfo<span class="token punctuation">,</span>
-  PeiRegisterForShadow<span class="token punctuation">,</span>
-  PeiFfsFindSectionData3<span class="token punctuation">,</span>
-  PeiFfsGetFileInfo2<span class="token punctuation">,</span>
-  PeiResetSystem2<span class="token punctuation">,</span>
-  PeiFreePages<span class="token punctuation">,</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  PeiFfsFindFileByName,
+  PeiFfsGetFileInfo,
+  PeiFfsGetVolumeInfo,
+  PeiRegisterForShadow,
+  PeiFfsFindSectionData3,
+  PeiFfsGetFileInfo2,
+  PeiResetSystem2,
+  PeiFreePages,
+&#125;;</code></pre>
 <h2 id="GetHobList-PEI阶段实现"><a href="#GetHobList-PEI阶段实现" class="headerlink" title="GetHobList(PEI阶段实现)"></a>GetHobList(PEI阶段实现)</h2><ul>
 <li><p>MdeModulePkg\Core\Pei\PeiMain.h</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token operator">/</span><span class="token operator">*</span><span class="token operator">*</span>
+<pre><code>/**
 
-Gets the pointer to the HOB List<span class="token punctuation">.</span>
+Gets the pointer to the HOB List.
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 </li>
 </ul>
 <p>  @param PeiServices                   An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.<br>  @param HobList                       Pointer to the HOB List.</p>
@@ -1603,98 +1642,74 @@ Gets the pointer to the HOB List<span class="token punctuation">.</span>
 <p>**/<br>EFI_STATUS<br>EFIAPI<br>PeiGetHobList (<br>  IN CONST EFI_PEI_SERVICES  **PeiServices,<br>  IN OUT VOID          **HobList<br>  );</p>
 <pre><code>
 - MdeModulePkg\Core\Pei\Hob\Hob.c
+</code></pre>
+<p>/**<br>  Gets the pointer to the HOB List.</p>
+<p>  @param PeiServices                   An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.<br>  @param HobList                       Pointer to the HOB List.</p>
+<p>  @retval EFI_SUCCESS                  Get the pointer of HOB List<br>  @retval EFI_NOT_AVAILABLE_YET        the HOB List is not yet published<br>  @retval EFI_INVALID_PARAMETER        HobList is NULL (in debug mode)<br>**/<br>EFI_STATUS<br>EFIAPI<br>PeiGetHobList (<br>  IN CONST EFI_PEI_SERVICES  **PeiServices,<br>  IN OUT VOID          **HobList<br>  )<br>{<br>  PEI_CORE_INSTANCE *PrivateData;</p>
+<p>  //<br>  // Only check this parameter in debug mode<br>  //</p>
+<p>  DEBUG_CODE_BEGIN ();<br>    if (HobList == NULL) {<br>      return EFI_INVALID_PARAMETER;<br>    }<br>  DEBUG_CODE_END ();</p>
+<p>  PrivateData = PEI_CORE_INSTANCE_FROM_PS_THIS(PeiServices);</p>
+<p>  *HobList    = PrivateData-&gt;HobList.Raw;</p>
+<p>  return EFI_SUCCESS;<br>}</p>
+<pre><code>- PeiMain.h
 
-```c 
-/** 
-Gets the pointer to the HOB List.
+&gt; 这个宏的作用是根据一个结构体成员变量的的地址获得该结构体基地址
 
-@param PeiServices                   An indirect pointer to the EFI_PEI_SERVICES table published by the PEI Foundation.
-@param HobList                       Pointer to the HOB List.
+定义形式：
+#define _CR(Record, TYPE, Field) \
+((TYPE *) ((CHAR8 *) (Record) - (CHAR8 *) &amp;(((TYPE *) 0)-&gt;Field)))
+功能是：找出TYPE类型结构体成员Field所在结构体的地址,Record是Field的地址。
 
-@retval EFI_SUCCESS                  Get the pointer of HOB List
-@retval EFI_NOT_AVAILABLE_YET        the HOB List is not yet published
-@retval EFI_INVALID_PARAMETER        HobList is NULL (in debug mode) 
+具体实现：
+1.(CHAR8 *) (Record)：Field的地址以CHAR8 *类型进行运算。
+
+2.(CHAR8 *) &amp;(((TYPE *) 0)-&gt;Field))：重点就是(TYPE *) 0)了，ANSI C标准允许值为0的常量被强制转换成任何一种类型的指针，并且转换结果是一个NULL指针，因此((type *)0)的结果就是一个类型为type *的NULL指针。如果利用这NULL指针来访问type的成员当然是非法的，但&amp;( ((type *)0)-&gt;field )的意图仅仅是计算field字段的地址。聪明的编译器根本就不生成访问type的代码，而仅仅是根据type的内存布局和结构体实例首址在编译期计算这个（常量）地址，这样就完全避免了通过NULL指针访问内存的问题。又因为首址为0，所以这个地址的值就是字段相对于结构体基址的偏移。以上方法避免了实例化一个type对象，并且求值在编译期进行，没有运行期负担。这样，就得到了Field在它的结构体中的偏移地址并同样以CHAR8 *类型进行运算。
+
+3.((TYPE *) ：最后求得的地址转成原有结构体类型。
+用1得到的变量地址减去2得到的变量偏移地址，得到的基地址通过3转换回原来的类型。大功告成！
+重点就是  ((TYPE *) 0)-&gt;Field)。
+</code></pre>
+<p> ///<br>/// Pei Core Instance Data Macros<br>///<br>#define PEI_CORE_INSTANCE_FROM_PS_THIS(a) <br>  CR(a, PEI_CORE_INSTANCE, Ps, PEI_CORE_HANDLE_SIGNATURE)</p>
+<pre><code>## GetHobList(DXE阶段实现)
+- MdePkg\Library\DxeHobLib\HobLib.c
+
+```c
+
+VOID  *mHobList = NULL;
+
+/**
+Returns the pointer to the HOB list.
+
+This function returns the pointer to first HOB in the list.
+For PEI phase, the PEI service GetHobList() can be used to retrieve the pointer
+to the HOB list.  For the DXE phase, the HOB list pointer can be retrieved through
+the EFI System Table by looking up theHOB list GUID in the System Configuration Table.
+Since the System Configuration Table does not exist that the time the DXE Core is
+launched, the DXE Core uses a global variable from the DXE Core Entry Point Library
+to manage the pointer to the HOB list.
+
+If the pointer to the HOB list is NULL, then ASSERT().
+
+This function also caches the pointer to the HOB list retrieved.
+
+@return The pointer to the HOB list.
+
 **/
-EFI_STATUS
+VOID *
 EFIAPI
-PeiGetHobList (
-IN CONST EFI_PEI_SERVICES  **PeiServices,
-IN OUT VOID          **HobList
+GetHobList (
+VOID
 )
 &#123;
-PEI_CORE_INSTANCE *PrivateData;
+EFI_STATUS  Status;
 
-//
-// Only check this parameter in debug mode
-//
-
-DEBUG_CODE_BEGIN ();
-  if (HobList == NULL) &#123;
-    return EFI_INVALID_PARAMETER;
-  &#125;
-DEBUG_CODE_END ();
-
-PrivateData = PEI_CORE_INSTANCE_FROM_PS_THIS(PeiServices);
-
-*HobList    = PrivateData-&gt;HobList.Raw;
-
-return EFI_SUCCESS;
+if (mHobList == NULL) &#123;
+  Status = EfiGetSystemConfigurationTable (&amp;gEfiHobListGuid, &amp;mHobList);
+  ASSERT_EFI_ERROR (Status);
+  ASSERT (mHobList != NULL);
+&#125;
+return mHobList;
 &#125;</code></pre>
-<ul>
-<li>PeiMain.h</li>
-</ul>
-<blockquote>
-<p>这个宏的作用是根据一个结构体成员变量的的地址获得该结构体基地址</p>
-</blockquote>
-<p>定义形式：<br>#define _CR(Record, TYPE, Field) <br>((TYPE *) ((CHAR8 *) (Record) - (CHAR8 *) &amp;(((TYPE *) 0)-&gt;Field)))<br>功能是：找出TYPE类型结构体成员Field所在结构体的地址,Record是Field的地址。</p>
-<p>具体实现：<br>1.(CHAR8 *) (Record)：Field的地址以CHAR8 *类型进行运算。</p>
-<p>2.(CHAR8 *) &amp;(((TYPE *) 0)-&gt;Field))：重点就是(TYPE *) 0)了，ANSI C标准允许值为0的常量被强制转换成任何一种类型的指针，并且转换结果是一个NULL指针，因此((type *)0)的结果就是一个类型为type *的NULL指针。如果利用这NULL指针来访问type的成员当然是非法的，但&amp;( ((type *)0)-&gt;field )的意图仅仅是计算field字段的地址。聪明的编译器根本就不生成访问type的代码，而仅仅是根据type的内存布局和结构体实例首址在编译期计算这个（常量）地址，这样就完全避免了通过NULL指针访问内存的问题。又因为首址为0，所以这个地址的值就是字段相对于结构体基址的偏移。以上方法避免了实例化一个type对象，并且求值在编译期进行，没有运行期负担。这样，就得到了Field在它的结构体中的偏移地址并同样以CHAR8 *类型进行运算。</p>
-<p>3.((TYPE *) ：最后求得的地址转成原有结构体类型。<br>用1得到的变量地址减去2得到的变量偏移地址，得到的基地址通过3转换回原来的类型。大功告成！<br>重点就是  ((TYPE *) 0)-&gt;Field)。</p>
-<pre class="line-numbers language-c"><code class="language-c"> <span class="token comment" spellcheck="true">///</span>
-<span class="token comment" spellcheck="true">/// Pei Core Instance Data Macros</span>
-<span class="token comment" spellcheck="true">///</span>
-<span class="token macro property">#<span class="token directive keyword">define</span> PEI_CORE_INSTANCE_FROM_PS_THIS(a) \
-  CR(a, PEI_CORE_INSTANCE, Ps, PEI_CORE_HANDLE_SIGNATURE)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="GetHobList-DXE阶段实现"><a href="#GetHobList-DXE阶段实现" class="headerlink" title="GetHobList(DXE阶段实现)"></a>GetHobList(DXE阶段实现)</h2><ul>
-<li>MdePkg\Library\DxeHobLib\HobLib.c</li>
-</ul>
-<pre class="line-numbers language-c"><code class="language-c">
-VOID  <span class="token operator">*</span>mHobList <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">/**
-  Returns the pointer to the HOB list.
-
-  This function returns the pointer to first HOB in the list.
-  For PEI phase, the PEI service GetHobList() can be used to retrieve the pointer
-  to the HOB list.  For the DXE phase, the HOB list pointer can be retrieved through
-  the EFI System Table by looking up theHOB list GUID in the System Configuration Table.
-  Since the System Configuration Table does not exist that the time the DXE Core is
-  launched, the DXE Core uses a global variable from the DXE Core Entry Point Library
-  to manage the pointer to the HOB list.
-
-  If the pointer to the HOB list is NULL, then ASSERT().
-
-  This function also caches the pointer to the HOB list retrieved.
-
-  @return The pointer to the HOB list.
-
-**/</span>
-VOID <span class="token operator">*</span>
-EFIAPI
-<span class="token function">GetHobList</span> <span class="token punctuation">(</span>
-  VOID
-  <span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  EFI_STATUS  Status<span class="token punctuation">;</span>
-
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>mHobList <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    Status <span class="token operator">=</span> <span class="token function">EfiGetSystemConfigurationTable</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>gEfiHobListGuid<span class="token punctuation">,</span> <span class="token operator">&amp;</span>mHobList<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">ASSERT_EFI_ERROR</span> <span class="token punctuation">(</span>Status<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">ASSERT</span> <span class="token punctuation">(</span>mHobList <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> mHobList<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
   Retrieves a pointer to the system configuration table from the EFI System Table
   based on a specified GUID.
@@ -1737,7 +1752,7 @@ EFIAPI
 
   <span class="token keyword">return</span> EFI_NOT_FOUND<span class="token punctuation">;</span>
 <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="GetNextHob"><a href="#GetNextHob" class="headerlink" title="GetNextHob"></a>GetNextHob</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
+<h2 id="GetNextHob"><a href="#GetNextHob" class="headerlink" title="GetNextHob"></a>GetNextHob</h2><pre><code>/**
   Returns the next instance of a HOB type from the starting HOB.
 
   This function searches the first instance of a HOB type from the starting HOB pointer.
@@ -1753,32 +1768,32 @@ EFIAPI
 
   @return The next instance of a HOB type from the starting HOB.
 
-**/</span>
-VOID <span class="token operator">*</span>
+**/
+VOID *
 EFIAPI
-<span class="token function">GetNextHob</span> <span class="token punctuation">(</span>
-  IN UINT16                 Type<span class="token punctuation">,</span>
-  IN CONST VOID             <span class="token operator">*</span>HobStart
-  <span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  EFI_PEI_HOB_POINTERS  Hob<span class="token punctuation">;</span>
+GetNextHob (
+  IN UINT16                 Type,
+  IN CONST VOID             *HobStart
+  )
+&#123;
+  EFI_PEI_HOB_POINTERS  Hob;
 
-  <span class="token function">ASSERT</span> <span class="token punctuation">(</span>HobStart <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  ASSERT (HobStart != NULL);
 
-  Hob<span class="token punctuation">.</span>Raw <span class="token operator">=</span> <span class="token punctuation">(</span>UINT8 <span class="token operator">*</span><span class="token punctuation">)</span> HobStart<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token comment" spellcheck="true">// Parse the HOB list until end of list or matching type is found.</span>
-  <span class="token comment" spellcheck="true">//</span>
-  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">END_OF_HOB_LIST</span> <span class="token punctuation">(</span>Hob<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>Hob<span class="token punctuation">.</span>Header<span class="token operator">-></span>HobType <span class="token operator">==</span> Type<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span> Hob<span class="token punctuation">.</span>Raw<span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    Hob<span class="token punctuation">.</span>Raw <span class="token operator">=</span> <span class="token function">GET_NEXT_HOB</span> <span class="token punctuation">(</span>Hob<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="GetFirstHob"><a href="#GetFirstHob" class="headerlink" title="GetFirstHob"></a>GetFirstHob</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
+  Hob.Raw = (UINT8 *) HobStart;
+  //
+  // Parse the HOB list until end of list or matching type is found.
+  //
+  while (!END_OF_HOB_LIST (Hob)) &#123;
+    if (Hob.Header-&gt;HobType == Type) &#123;
+      return Hob.Raw;
+    &#125;
+    Hob.Raw = GET_NEXT_HOB (Hob);
+  &#125;
+  return NULL;
+&#125;
+</code></pre>
+<h2 id="GetFirstHob"><a href="#GetFirstHob" class="headerlink" title="GetFirstHob"></a>GetFirstHob</h2><pre><code>/**
   Returns the first instance of a HOB type among the whole HOB list.
 
   This function searches the first instance of a HOB type among the whole HOB list.
@@ -1790,21 +1805,21 @@ EFIAPI
 
   @return The next instance of a HOB type from the starting HOB.
 
-**/</span>
-VOID <span class="token operator">*</span>
+**/
+VOID *
 EFIAPI
-<span class="token function">GetFirstHob</span> <span class="token punctuation">(</span>
+GetFirstHob (
   IN UINT16                 Type
-  <span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  VOID      <span class="token operator">*</span>HobList<span class="token punctuation">;</span>
+  )
+&#123;
+  VOID      *HobList;
 
-  HobList <span class="token operator">=</span> <span class="token function">GetHobList</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token function">GetNextHob</span> <span class="token punctuation">(</span>Type<span class="token punctuation">,</span> HobList<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  HobList = GetHobList ();
+  return GetNextHob (Type, HobList);
+&#125;
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="GetNextGuidHob"><a href="#GetNextGuidHob" class="headerlink" title="GetNextGuidHob"></a>GetNextGuidHob</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
+</code></pre>
+<h2 id="GetNextGuidHob"><a href="#GetNextGuidHob" class="headerlink" title="GetNextGuidHob"></a>GetNextGuidHob</h2><pre><code>/**
   Returns the next instance of the matched GUID HOB from the starting HOB.
 
   This function searches the first instance of a HOB from the starting HOB pointer.
@@ -1825,26 +1840,26 @@ EFIAPI
 
   @return The next instance of the matched GUID HOB from the starting HOB.
 
-**/</span>
-VOID <span class="token operator">*</span>
+**/
+VOID *
 EFIAPI
-<span class="token function">GetNextGuidHob</span> <span class="token punctuation">(</span>
-  IN CONST EFI_GUID         <span class="token operator">*</span>Guid<span class="token punctuation">,</span>
-  IN CONST VOID             <span class="token operator">*</span>HobStart
-  <span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  EFI_PEI_HOB_POINTERS  GuidHob<span class="token punctuation">;</span>
+GetNextGuidHob (
+  IN CONST EFI_GUID         *Guid,
+  IN CONST VOID             *HobStart
+  )
+&#123;
+  EFI_PEI_HOB_POINTERS  GuidHob;
 
-  GuidHob<span class="token punctuation">.</span>Raw <span class="token operator">=</span> <span class="token punctuation">(</span>UINT8 <span class="token operator">*</span><span class="token punctuation">)</span> HobStart<span class="token punctuation">;</span>
-  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>GuidHob<span class="token punctuation">.</span>Raw <span class="token operator">=</span> <span class="token function">GetNextHob</span> <span class="token punctuation">(</span>EFI_HOB_TYPE_GUID_EXTENSION<span class="token punctuation">,</span> GuidHob<span class="token punctuation">.</span>Raw<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">CompareGuid</span> <span class="token punctuation">(</span>Guid<span class="token punctuation">,</span> <span class="token operator">&amp;</span>GuidHob<span class="token punctuation">.</span>Guid<span class="token operator">-></span>Name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-      <span class="token keyword">break</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    GuidHob<span class="token punctuation">.</span>Raw <span class="token operator">=</span> <span class="token function">GET_NEXT_HOB</span> <span class="token punctuation">(</span>GuidHob<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> GuidHob<span class="token punctuation">.</span>Raw<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="GetFirstGuidHob"><a href="#GetFirstGuidHob" class="headerlink" title="GetFirstGuidHob"></a>GetFirstGuidHob</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
+  GuidHob.Raw = (UINT8 *) HobStart;
+  while ((GuidHob.Raw = GetNextHob (EFI_HOB_TYPE_GUID_EXTENSION, GuidHob.Raw)) != NULL) &#123;
+    if (CompareGuid (Guid, &amp;GuidHob.Guid-&gt;Name)) &#123;
+      break;
+    &#125;
+    GuidHob.Raw = GET_NEXT_HOB (GuidHob);
+  &#125;
+  return GuidHob.Raw;
+&#125;</code></pre>
+<h2 id="GetFirstGuidHob"><a href="#GetFirstGuidHob" class="headerlink" title="GetFirstGuidHob"></a>GetFirstGuidHob</h2><pre><code>/**
   Returns the first instance of the matched GUID HOB among the whole HOB list.
 
   This function searches the first instance of a HOB among the whole HOB list.
@@ -1861,23 +1876,23 @@ EFIAPI
 
   @return The first instance of the matched GUID HOB among the whole HOB list.
 
-**/</span>
-VOID <span class="token operator">*</span>
+**/
+VOID *
 EFIAPI
-<span class="token function">GetFirstGuidHob</span> <span class="token punctuation">(</span>
-  IN CONST EFI_GUID         <span class="token operator">*</span>Guid
-  <span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  VOID      <span class="token operator">*</span>HobList<span class="token punctuation">;</span>
+GetFirstGuidHob (
+  IN CONST EFI_GUID         *Guid
+  )
+&#123;
+  VOID      *HobList;
 
-  HobList <span class="token operator">=</span> <span class="token function">GetHobList</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token function">GetNextGuidHob</span> <span class="token punctuation">(</span>Guid<span class="token punctuation">,</span> HobList<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  HobList = GetHobList ();
+  return GetNextGuidHob (Guid, HobList);
+&#125;</code></pre>
 <hr>
 <h1 id="HOB生产消费流程"><a href="#HOB生产消费流程" class="headerlink" title="HOB生产消费流程"></a>HOB生产消费流程</h1><h2 id="PHIT-HOB的建立"><a href="#PHIT-HOB的建立" class="headerlink" title="PHIT HOB的建立"></a>PHIT HOB的建立</h2><ul>
 <li> ==MdeModulePkg\Core\Pei\Hob\Hob.c==</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/**
+<pre><code>/**
 
   Builds a Handoff Information Table HOB
 
@@ -1887,38 +1902,38 @@ EFIAPI
 
   @return EFI_SUCCESS Always success to initialize HOB.
 
-**/</span>
+**/
 EFI_STATUS
-<span class="token function">PeiCoreBuildHobHandoffInfoTable</span> <span class="token punctuation">(</span>
-  IN EFI_BOOT_MODE         BootMode<span class="token punctuation">,</span>
-  IN EFI_PHYSICAL_ADDRESS  MemoryBegin<span class="token punctuation">,</span>
+PeiCoreBuildHobHandoffInfoTable (
+  IN EFI_BOOT_MODE         BootMode,
+  IN EFI_PHYSICAL_ADDRESS  MemoryBegin,
   IN UINT64                MemoryLength
-  <span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  EFI_HOB_HANDOFF_INFO_TABLE   <span class="token operator">*</span>Hob<span class="token punctuation">;</span>
-  EFI_HOB_GENERIC_HEADER       <span class="token operator">*</span>HobEnd<span class="token punctuation">;</span>
+  )
+&#123;
+  EFI_HOB_HANDOFF_INFO_TABLE   *Hob;
+  EFI_HOB_GENERIC_HEADER       *HobEnd;
 
-  Hob                      <span class="token operator">=</span> <span class="token punctuation">(</span>VOID <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span>MemoryBegin<span class="token punctuation">;</span>
-  HobEnd                   <span class="token operator">=</span> <span class="token punctuation">(</span>EFI_HOB_GENERIC_HEADER<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>Hob<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  Hob<span class="token operator">-></span>Header<span class="token punctuation">.</span>HobType      <span class="token operator">=</span> EFI_HOB_TYPE_HANDOFF<span class="token punctuation">;</span>
-  Hob<span class="token operator">-></span>Header<span class="token punctuation">.</span>HobLength    <span class="token operator">=</span> <span class="token punctuation">(</span>UINT16<span class="token punctuation">)</span> <span class="token keyword">sizeof</span> <span class="token punctuation">(</span>EFI_HOB_HANDOFF_INFO_TABLE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  Hob<span class="token operator">-></span>Header<span class="token punctuation">.</span>Reserved     <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  Hob                      = (VOID *)(UINTN)MemoryBegin;
+  HobEnd                   = (EFI_HOB_GENERIC_HEADER*) (Hob+1);
+  Hob-&gt;Header.HobType      = EFI_HOB_TYPE_HANDOFF;
+  Hob-&gt;Header.HobLength    = (UINT16) sizeof (EFI_HOB_HANDOFF_INFO_TABLE);
+  Hob-&gt;Header.Reserved     = 0;
 
-  HobEnd<span class="token operator">-></span>HobType          <span class="token operator">=</span> EFI_HOB_TYPE_END_OF_HOB_LIST<span class="token punctuation">;</span>
-  HobEnd<span class="token operator">-></span>HobLength        <span class="token operator">=</span> <span class="token punctuation">(</span>UINT16<span class="token punctuation">)</span> <span class="token keyword">sizeof</span> <span class="token punctuation">(</span>EFI_HOB_GENERIC_HEADER<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  HobEnd<span class="token operator">-></span>Reserved         <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  HobEnd-&gt;HobType          = EFI_HOB_TYPE_END_OF_HOB_LIST;
+  HobEnd-&gt;HobLength        = (UINT16) sizeof (EFI_HOB_GENERIC_HEADER);
+  HobEnd-&gt;Reserved         = 0;
 
-  Hob<span class="token operator">-></span>Version             <span class="token operator">=</span> EFI_HOB_HANDOFF_TABLE_VERSION<span class="token punctuation">;</span>
-  Hob<span class="token operator">-></span>BootMode            <span class="token operator">=</span> BootMode<span class="token punctuation">;</span>
+  Hob-&gt;Version             = EFI_HOB_HANDOFF_TABLE_VERSION;
+  Hob-&gt;BootMode            = BootMode;
 
-  Hob<span class="token operator">-></span>EfiMemoryTop        <span class="token operator">=</span> MemoryBegin <span class="token operator">+</span> MemoryLength<span class="token punctuation">;</span>
-  Hob<span class="token operator">-></span>EfiMemoryBottom     <span class="token operator">=</span> MemoryBegin<span class="token punctuation">;</span>
-  Hob<span class="token operator">-></span>EfiFreeMemoryTop    <span class="token operator">=</span> MemoryBegin <span class="token operator">+</span> MemoryLength<span class="token punctuation">;</span>
-  Hob<span class="token operator">-></span>EfiFreeMemoryBottom <span class="token operator">=</span> <span class="token punctuation">(</span>EFI_PHYSICAL_ADDRESS<span class="token punctuation">)</span> <span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span> <span class="token punctuation">(</span>HobEnd <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  Hob<span class="token operator">-></span>EfiEndOfHobList     <span class="token operator">=</span> <span class="token punctuation">(</span>EFI_PHYSICAL_ADDRESS<span class="token punctuation">)</span> <span class="token punctuation">(</span>UINTN<span class="token punctuation">)</span> HobEnd<span class="token punctuation">;</span>
+  Hob-&gt;EfiMemoryTop        = MemoryBegin + MemoryLength;
+  Hob-&gt;EfiMemoryBottom     = MemoryBegin;
+  Hob-&gt;EfiFreeMemoryTop    = MemoryBegin + MemoryLength;
+  Hob-&gt;EfiFreeMemoryBottom = (EFI_PHYSICAL_ADDRESS) (UINTN) (HobEnd + 1);
+  Hob-&gt;EfiEndOfHobList     = (EFI_PHYSICAL_ADDRESS) (UINTN) HobEnd;
 
-  <span class="token keyword">return</span> EFI_SUCCESS<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  return EFI_SUCCESS;
+&#125;</code></pre>
 <blockquote>
 <p>头和尾HOB建立后，CreateHob会覆盖尾HOB，再将尾HOB后移，此时PEI阶段的模块会相继创建各种类型的HOB，我们可以在PEI阶段自己创建HOB传递一些数据，也可以在PEI和DXE阶段找到感兴趣的HOB块，对其BLOCK数据块进行操作，但是理论上在DXE阶段使用Get方法，不建议在PEI阶段使用，是因为不确定Get的HOB是否已经建立，即无法判断两个Pei ModulePart的执行顺序，当然也可以通过Deepx来限定ModulePart跑的顺序</p>
 </blockquote>
@@ -1927,7 +1942,7 @@ EFI_STATUS
 <ul>
 <li>OemHob.h</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token operator">/</span><span class="token comment" spellcheck="true">/***********************************************************************
+<pre><code>//***********************************************************************
 //*                                                                     *
 //*   Copyright (c) 1985-2019, American Megatrends International LLC.   *
 //*                                                                     *
@@ -1937,68 +1952,86 @@ EFI_STATUS
 #ifndef __OEM_HOB_H__
 #define __OEM_HOB_H__
 #ifdef __cplusplus
-extern "C" &amp;#123;
+extern &quot;C&quot; &#123;
 #endif
 
 
 #define OEM_HOB_GUID \
-    &amp;#123;0xe73e6c2b, 0xaa9a, 0x4b51, 0x94, 0x56, 0x50, 0xd2, 0x8b, 0xcc, 0x57, 0xf3&amp;#125;
+    &#123;0xe73e6c2b, 0xaa9a, 0x4b51, 0x94, 0x56, 0x50, 0xd2, 0x8b, 0xcc, 0x57, 0xf3&#125;
 
-typedef struct _OEM_HOB&amp;#123;   
+typedef struct _OEM_HOB&#123;   
 
     EFI_HOB_GUID_TYPE GuidExtension;
     CHAR8 OemString[10];
     UINT16 MemorySpace;  
 
-&amp;#125; OEM_HOB;
-/****** DO NOT WRITE BELOW THIS LINE *******/</span>
-<span class="token macro property">#<span class="token directive keyword">ifdef</span> __cplusplus</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token macro property">#<span class="token directive keyword">endif</span></span>
-<span class="token macro property">#<span class="token directive keyword">endif</span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125; OEM_HOB;
+/****** DO NOT WRITE BELOW THIS LINE *******/
+#ifdef __cplusplus
+&#125;
+#endif
+#endif</code></pre>
 <ul>
-<li>PeiCreateHob.c<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//***********************************************************************</span>
-<span class="token comment" spellcheck="true">//*                                                                     *</span>
-<span class="token comment" spellcheck="true">//*   Copyright (c) 1985-2019, American Megatrends International LLC.   *</span>
-<span class="token comment" spellcheck="true">//*                                                                     *</span>
-<span class="token comment" spellcheck="true">//*      All rights reserved. Subject to AMI licensing agreement.       *</span>
-<span class="token comment" spellcheck="true">//*                                                                     *</span>
-<span class="token comment" spellcheck="true">//***********************************************************************</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<li>PeiCreateHob.c</li>
 </ul>
-<p>#include &lt;AmiPeiLib.h&gt;<br>#include &lt;Library/PeiServicesLib.h&gt;<br>#include &lt;Library/HobLib.h&gt;<br>#include &lt;OemHob.h&gt;<br>#include &lt;MemInfoHob.h&gt;</p>
-<p>extern EFI_GUID gSiMemoryInfoDataGuid;</p>
-<p>EFI_STATUS PeiCreateHobEntryPoint(<br>   IN EFI_PEI_FILE_HANDLE   FileHandle,<br>   IN CONST EFI_PEI_SERVICES  **PeiServices<br>)<br>{<br>    EFI_STATUS    Status = EFI_SUCCESS;<br>    OEM_HOB       *pHob     = NULL;<br>    VOID          *Memory_Hob  = NULL;<br>    EFI_GUID      OemHobGuid = OEM_HOB_GUID;<br>    EFI_GUID      MemoryInfoDataGuid = gSiMemoryInfoDataGuid;<br>    //CHAR8         BIOSVersion[] = CONVERT_TO_STRING(PLATFORM_NAME);<br>    CHAR8         BIOSVersion[10]=”kabylake”;<br>    UINT16        MemorySize = 0;</p>
-<pre><code>// Get physical address bits supported.
-Memory_Hob = GetFirstGuidHob(&amp;MemoryInfoDataGuid);
-if (Memory_Hob != NULL) &#123;
-    MemorySize = ((MEMORY_INFO_DATA_HOB *) Memory_Hob)-&gt;TotalPhysicalMemorySize;
-    DEBUG((-1,&quot;\nElder has been got MemoryInfoDataHob in Pei Phase!&quot;));
-    DEBUG((-1,&quot;\nMemoryInfoDataHob Address : %p&quot;,Memory_Hob));
-  &#125; 
-
-
-//create HOB for DXE
-Status = (*PeiServices)-&gt;CreateHob (PeiServices,
-                                    EFI_HOB_TYPE_GUID_EXTENSION, 
-                                    sizeof(OEM_HOB), 
-                                    &amp;pHob);
-if (!EFI_ERROR(Status))&#123;
-
-       pHob-&gt;GuidExtension.Name = OemHobGuid;
-       Strcpy(pHob-&gt;OemString,BIOSVersion);
-       pHob-&gt;MemorySpace = MemorySize;           
-       DEBUG((-1,&quot;\nElder has been Created OemHob Success in Pei Phase!&quot;));           
-   &#125;
-
-return EFI_SUCCESS;</code></pre>
-<p>}</p>
-<pre><code>- DxeFindHob.c
-
-```c
+<pre><code>//***********************************************************************
+//*                                                                     *
+//*   Copyright (c) 1985-2019, American Megatrends International LLC.   *
+//*                                                                     *
+//*      All rights reserved. Subject to AMI licensing agreement.       *
+//*                                                                     *
 //***********************************************************************
+
+#include &lt;AmiPeiLib.h&gt;
+#include &lt;Library/PeiServicesLib.h&gt;
+#include &lt;Library/HobLib.h&gt;
+#include &lt;OemHob.h&gt;
+#include &lt;MemInfoHob.h&gt;
+
+extern EFI_GUID gSiMemoryInfoDataGuid;
+
+EFI_STATUS PeiCreateHobEntryPoint(
+   IN EFI_PEI_FILE_HANDLE   FileHandle,
+   IN CONST EFI_PEI_SERVICES  **PeiServices
+)
+&#123;
+    EFI_STATUS    Status = EFI_SUCCESS;
+    OEM_HOB       *pHob     = NULL;
+    VOID          *Memory_Hob  = NULL;
+    EFI_GUID      OemHobGuid = OEM_HOB_GUID;
+    EFI_GUID      MemoryInfoDataGuid = gSiMemoryInfoDataGuid;
+    //CHAR8         BIOSVersion[] = CONVERT_TO_STRING(PLATFORM_NAME);
+    CHAR8         BIOSVersion[10]=&quot;kabylake&quot;;
+    UINT16        MemorySize = 0;
+
+    // Get physical address bits supported.
+    Memory_Hob = GetFirstGuidHob(&amp;MemoryInfoDataGuid);
+    if (Memory_Hob != NULL) &#123;
+        MemorySize = ((MEMORY_INFO_DATA_HOB *) Memory_Hob)-&gt;TotalPhysicalMemorySize;
+        DEBUG((-1,&quot;\nElder has been got MemoryInfoDataHob in Pei Phase!&quot;));
+        DEBUG((-1,&quot;\nMemoryInfoDataHob Address : %p&quot;,Memory_Hob));
+      &#125; 
+
+
+    //create HOB for DXE
+    Status = (*PeiServices)-&gt;CreateHob (PeiServices,
+                                        EFI_HOB_TYPE_GUID_EXTENSION, 
+                                        sizeof(OEM_HOB), 
+                                        &amp;pHob);
+    if (!EFI_ERROR(Status))&#123;
+
+           pHob-&gt;GuidExtension.Name = OemHobGuid;
+           Strcpy(pHob-&gt;OemString,BIOSVersion);
+           pHob-&gt;MemorySpace = MemorySize;           
+           DEBUG((-1,&quot;\nElder has been Created OemHob Success in Pei Phase!&quot;));           
+       &#125;
+
+    return EFI_SUCCESS;
+&#125;</code></pre>
+<ul>
+<li>DxeFindHob.c</li>
+</ul>
+<pre><code>//***********************************************************************
 //*                                                                     *
 //*   Copyright (c) 1985-2019, American Megatrends International LLC.   *
 //*                                                                     *
