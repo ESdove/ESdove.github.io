@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Ventoy, 汇编/C/C++/QT/UEFI">
+    <meta name="keywords" content="StatusCode分析, 汇编/C/C++/QT/UEFI">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Ventoy | 尘世浮沉HolyChen</title>
+    <title>StatusCode分析 | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -220,7 +220,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Ventoy</h1>
+                    <h1 class="description center-align post-title">StatusCode分析</h1>
                 </div>
             </div>
         </div>
@@ -353,14 +353,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    562
+                    1.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    8 分
                 </div>
                 
 
@@ -376,102 +376,195 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[TOC]</p>
-<h1 id="Ventoy简介"><a href="#Ventoy简介" class="headerlink" title="Ventoy简介"></a>Ventoy简介</h1><p> Ventoy是一个制作可启动U盘的开源工具。有了Ventoy你就无需反复地格式化U盘，你只需要把ISO文件拷贝到U盘里面就可以启动了，无需其他操作。 你可以一次性拷贝很多个不同类型的ISO文件，在启动时Ventoy会显示一个菜单来选择(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/screenshot.html">截图</a>)。 无差异支持Legacy BIOS和UEFI模式。目前已经测试了各类超过260+ 个ISO文件(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/isolist.html">列表</a>). 同时提出了”Ventoy Compatible”的概念，若被支持则理论上可以启动任何ISO文件.</p>
-<h1 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h1><ul>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/ventoy/Ventoy">Github开源地址</a></p>
-<ul>
-<li> <a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/download.html">下载地址</a></li>
-</ul>
-</li>
-<li><p> 安装到启动盘</p>
-</li>
-</ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967090645.png" alt="安装到U盘"></p>
-<h1 id="放置ISO镜像文件"><a href="#放置ISO镜像文件" class="headerlink" title="放置ISO镜像文件"></a>放置ISO镜像文件</h1><h2 id="镜像下载站点"><a href="#镜像下载站点" class="headerlink" title="镜像下载站点"></a>镜像下载站点</h2><ul>
-<li>  <a target="_blank" rel="noopener" href="https://next.itellyou.cn/">MSDN</a></li>
-</ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531519.png"></p>
-<ul>
-<li>  <a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/">阿里云镜像站</a></li>
-</ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531520.png"></p>
-<h2 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h2><blockquote>
-<p>镜像可放在根目录，也可建立文件夹管理，可按需求分类</p>
+<h1 id="StatusCode是什么"><a href="#StatusCode是什么" class="headerlink" title="StatusCode是什么"></a>StatusCode是什么</h1><blockquote>
+<p>StatusCode即状态码，它能让系统组件报告它们的当前状态,比如当前正在进行CPU初始化、内存初始化等，你将很清楚系统何时运行在哪，出现何种错误，这样将极利于我们调试</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967174941.png"></p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967207747.png"></p>
-<h1 id="配置json文件和主题（可忽略）"><a href="#配置json文件和主题（可忽略）" class="headerlink" title="配置json文件和主题（可忽略）"></a>配置json文件和主题（可忽略）</h1><ul>
-<li><p>  <a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/plugin_entry.html">官方教程</a></p>
-</li>
-<li><p>  个人示例</p>
-</li>
-</ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967274942.png"></p>
-<ul>
-<li>ventoy.json<pre><code>&#123;
-   &quot;theme&quot;: &#123;
-      &quot;file&quot;: &quot;/ventoy/theme/theme.txt&quot;,
-      &quot;gfxmode&quot;: &quot;1024x768&quot;,
-      &quot;ventoy_left&quot;: &quot;42%&quot;,
-      &quot;ventoy_top&quot;: &quot;100%&quot;,
-      &quot;ventoy_color&quot;: &quot;#000000&quot;
-  &#125; ,
-&quot;menu_alias&quot; : 
-  [
-      &#123;
-          &quot;image&quot;: &quot;/ISO/18363.418.191007-0143.19h2_release_svc_refresh_CLIENT_CONSUMER_x64FRE_en-us.iso&quot;,
-          &quot;alias&quot;: &quot;Win10 19H2英文版&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/19041.208.200420-2019.vb_release_svc_refresh_CLIENT_BUSINESS_VOL_x64FRE_en-us.iso&quot;,
-          &quot;alias&quot;: &quot;Win10 20H1英文版&quot;
-      &#125;,        
-      &#123;
-          &quot;image&quot;: &quot;/ISO/cn_windows_10_business_editions_version_1909_updated_jan_2020_x64_dvd_b3e1f3a6.iso&quot;,
-          &quot;alias&quot;: &quot;Win10 1909中文版&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/rhel-8.1-x86_64-dvd.iso&quot;,
-          &quot;alias&quot;: &quot;ReaHat 8.1&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/ubuntu-18.04.3-desktop-amd64.iso&quot;,
-          &quot;alias&quot;: &quot;Ubuntu 18.04.03&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/ubuntu-20.04-desktop-amd64.iso&quot;,
-          &quot;alias&quot;: &quot;Ubuntu 20.04&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/wepe_64.iso&quot;,
-          &quot;alias&quot;: &quot;微PE&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/EasyU_v3.3.iso&quot;,
-          &quot;alias&quot;: &quot;优启通PE&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/19H2_Bak.wim&quot;,
-          &quot;alias&quot;: &quot;Win10 19H2英文系统备份&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/1909_Zh_Cn_Backup.wim&quot;,
-          &quot;alias&quot;: &quot;Win10 19H2中文系统备份&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/en_windows_server_2016_x64_dvd_9718492.iso&quot;,
-          &quot;alias&quot;: &quot;Win10 Server 2016&quot;
-      &#125;                
-  ]     
-&#125;</code></pre>
-</li>
-<li>  <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1009236/">主题地址</a></li>
-</ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531602.png"></p>
-<h1 id="显示效果"><a href="#显示效果" class="headerlink" title="显示效果"></a>显示效果</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531607.png"></p>
+<h1 id="为什么需要StatusCode"><a href="#为什么需要StatusCode" class="headerlink" title="为什么需要StatusCode"></a>为什么需要StatusCode</h1><blockquote>
+<p>由于BIOS涉及规范与组件极多，我们无法了解BIOS所有内容，同时，大量的组件导致后期维护极为困难，若没有状态码，我们很难清除到底是哪个组件的哪类Bug导致这个问题，若对应组件会报告它的状态码，无疑对我们维护带来极大的便利</p>
+</blockquote>
 <blockquote>
-<p>通过主板快捷键可以从制作的VentoyU盘启动，选择可启动镜像即可进入OS安装或PE等维护工具</p>
+<p>没有状态码，当前出现了一个错误导致系统直接hang机了，此时要想调试这个错误极其困难（考虑一种情况，你的主板没有蜂鸣器，同时没有80卡，此时由于一些系统错误导致整个系统开不了机，请问怎么办。此时，估计你的想法是，我怎么知道怎么办，我还想问别人呢。），当存在状态码时，系统出现一个错误导致系统直接hang机，状态码指示内存报告了一个错误状态，这样，我们一下就能定位错误，对于我们调试是有极大帮助的</p>
 </blockquote>
+<h1 id="怎样使用StatusCode"><a href="#怎样使用StatusCode" class="headerlink" title="怎样使用StatusCode"></a>怎样使用StatusCode</h1><blockquote>
+<p>报告状态码的函数是 ReportStatusCode()，ReportStatusCode()主要的参数有5个，另外一个参数是This指针，This指针对于DXE阶段的ReportStatusCode()不存在。<br>分为：PEI阶段的ReportStatusCode，DXE阶段的ReportStatusCode，Runtime阶段的ReportStatusCode</p>
+</blockquote>
+<ul>
+<li><p>PEI阶段通过Locate EFI_PEI_REPORT_PROGRESS_CODE_PPI_GUID获得句柄handle,在通过handle-&gt;ReportStatusCode()调用。或通过PeiService-&gt;ReportStatusCode()来调用。 </p>
+</li>
+<li><p>DXE阶段通过Locate EFI_STATUS_CODE_RUNTIME_PROTOCOL_GUID获得句柄handle，再通过handle-&gt;ReportStatusCode()调用。</p>
+</li>
+<li><p>Runtime阶段是通过Locate EFI_SMM_STATUS_CODE_PROTOCOL_GUID获得句柄handle，再通过handle-&gt;ReportStatusCode()调用。</p>
+</li>
+</ul>
+<h2 id="ReportStatusCode"><a href="#ReportStatusCode" class="headerlink" title="ReportStatusCode()"></a>ReportStatusCode()</h2><ul>
+<li>pPEI-&gt;ReportStatusCode()或PeiServices-&gt;ReportStatusCode() </li>
+<li>pDXE-&gt;ReportStatusCode() </li>
+<li>pSMM-&gt;ReportStatusCode() </li>
+</ul>
+<h2 id="ReportStatusCode-主要参数"><a href="#ReportStatusCode-主要参数" class="headerlink" title="ReportStatusCode()主要参数"></a>ReportStatusCode()主要参数</h2><ul>
+<li><p>EFI_STATUS_CDOE_TYPE     Type </p>
+</li>
+<li><p>EFI_STATAS_CODE_VALUE    Value </p>
+</li>
+<li><p>UINT32                                      Instance </p>
+</li>
+<li><p>EFI_GUID                                  *CallerrId </p>
+</li>
+<li><p>EFI_STATUS_CODE_DATA      *Data </p>
+<h2 id="EFI-STATUS-CODE-TYPE-Type"><a href="#EFI-STATUS-CODE-TYPE-Type" class="headerlink" title="EFI_STATUS_CODE_TYPE Type"></a>EFI_STATUS_CODE_TYPE Type</h2><blockquote>
+<p>这个参数指明 Status Code 的类型，它是4字节变量，由3部分组成，分别是：StatusCode类别、StatusCode严重性、StatusCode保留部分</p>
+</blockquote>
+</li>
+<li><p>类别占最低8位，当前有效的类别是EFI_PROGRESS_CODE(进程码)、EFI_ERROR_CODE(错误码)、EFI_DEBUG_CODE(调试码)。</p>
+<ul>
+<li>  进程码(EFI_PROGRESS_CODE)用于说明当前处在某一过程中，如在跑 PEIM 或在跑 DXE 。 </li>
+<li>  错误码(EFI_ERROR_CODE)用于说明某一组件出现了错误，如内存错误等。 </li>
+<li>  调试码(EFI_DEBUG_CODE)是为调试目的而认为添加，非调试状态，屏蔽。 </li>
+</ul>
+</li>
+<li><p>严重性占最高8位，当前有效的严重性是EFI_ERROR_MINOR(小错误)、EFI_ERROR_MAJOR(主错误)、EFI_ERROR_UNRECOVERED(未恢复)、EFI_ERROR_UNCONTAINED(未包含)。 </p>
+</li>
+<li><p>保留占中间16位，暂时未使用</p>
+<pre><code>///
+/// Status Code Type Definition.
+///
+typedef UINT32  EFI_STATUS_CODE_TYPE;
+</code></pre>
+</li>
+</ul>
+<p>///<br>/// A Status Code Type is made up of the code type and severity.<br>/// All values masked by EFI_STATUS_CODE_RESERVED_MASK are<br>/// reserved for use by this specification.<br>///<br>///@{<br>#define EFI_STATUS_CODE_TYPE_MASK     0x000000FF<br>#define EFI_STATUS_CODE_SEVERITY_MASK 0xFF000000<br>#define EFI_STATUS_CODE_RESERVED_MASK 0x00FFFF00<br>///@}</p>
+<p>///<br>/// Definition of code types. All other values masked by<br>/// EFI_STATUS_CODE_TYPE_MASK are reserved for use by<br>/// this specification.<br>///<br>///@{<br>#define EFI_PROGRESS_CODE             0x00000001<br>#define EFI_ERROR_CODE                0x00000002<br>#define EFI_DEBUG_CODE                0x00000003<br>///@}</p>
+<p>///<br>/// Definitions of severities, all other values masked by<br>/// EFI_STATUS_CODE_SEVERITY_MASK are reserved for use by<br>/// this specification.<br>/// Uncontained errors are major errors that could not contained<br>/// to the specific component that is reporting the error.<br>/// For example, if a memory error was not detected early enough,<br>/// the bad data could be consumed by other drivers.<br>///<br>///@{<br>#define EFI_ERROR_MINOR               0x40000000<br>#define EFI_ERROR_MAJOR               0x80000000<br>#define EFI_ERROR_UNRECOVERED         0x90000000<br>#define EFI_ERROR_UNCONTAINED         0xa0000000<br>///@}</p>
+<pre><code> ## EFI_STATUS_CODE_VALUE Value
+&gt; 这个参数是StatusCode的值，它是4字节变量，由3部分组成，分别是：类别(最高8位)、子类(次高8位)、操作(最低16位)。
+
+&gt; 类型分为四个大类：电脑单元、用户可读写外设、IO总线、软件。前三者为硬件类，最后一个为软件类。
+
+&gt; 具体组合可参考PI规范卷3,第6小结
+```
+#define EFI_STATUS_CODE_CLASS_MASK          0xFF000000 
+#define EFI_STATUS_CODE_SUBCLASS_MASK       0x00FF0000 
+#define EFI_STATUS_CODE_OPERATION_MASK      0x0000FFFF 
+```
+![StatusCode](http://tc.holychen.cn/小书匠/1604382311569.png)
+
+## UINT32 Instance
+
+&gt; 这个是用来指明状态码的实例，有些组件可能有相同的Type和Value，例如PEI Code，可能会都Report正在运行PEI Code的StatusCode，此时可通过Instance来区分具体哪个PEI Code Report了Status。
+
+&gt; 当存在多处理器时，它可以指明具体哪个处理器，哪个组件报告的状态码。
+
+
+## EFI_GUID *CallerId
+
+&gt; 指明谁报告了状态码，比如程序员A和程序员B，此参数对不同调用者调用不同的状态码驱动。例如，此参数我们可以这样运用：当此参数为NULL或不为我指定的Guid，跳过我们的状态码函数。
+
+## EFI_STATUS_CODE_DATA *Data
+
+&gt; 这个参数附带一些附加的状态数据，如字符串调试信息，时间等，以让我们更详细的了解当前状态
+
+&gt; 这里主要讲解 EFI_STATUS_CODE_DATA_TYPE_STRING，系统使用的丢字符串信息的 Debug 函数都是利用这个结构来丢字符串
+
+&gt; 具体的数据可参考PI规范卷3，第6小结
+
+![](./images/1603171810377.png)
+
+# Code中关于StatusCode的实现
+&gt; AptioV的Code中StatusCode是作为一个ModulePart包含在Core Module中，完整的名字是AmiStatusCode。StatusCode需要做初始化，初始化之后StatusCode才能正常使用。
+
+![AmiStatusCode](./images/1603171896653.png)
+
+## StatusCode初始化
+&gt; StatusCode初始化是通过PeiStatusCodeInitialize和DxeStatusCodeInitialize完成的。这两个函数是Elink，我们可以根据需要挂着我们所需的初始化函数。
+
+- PeiStatusCodeInitialize
+- DxeStatusCodeInitialize
+
+## AmiStatusCode组成
+&gt; AmiStatusCode主要由3部分组成，分别是StatusCodePei，StatusCodeDxe，StatusCodeSmm
+- StatusCodePei通过调用StatusCodePei.c中的PeiInitStatusCode()完成Install PEI StatusCode Protocol。
+
+- StatusCodeDxe通过调用StatusCodeDxe.c中的DxeRuntimeInitStatusCode()完成Install DXE StatusCode Protocol。 
+
+- StatusCodeSmm通过调用StatusCodeSmm.c中的SmmInitStatusCode()完成Install SMM StatusCode Protocol。
+
+ ![](./images/1603172085941.png)
+
+ ## ReportStatusCode()最终实现函数
+ &gt; ReportStatusCode()最终的实现函数是StatusCodeCommon.c中的AmiReportStatusCode()函数。AmiReportStatusCode()主要由三种ReportStatusCode()的方式，分别是SimpleStatusReport()、StringStatusReport()、MiscStatusReport()。另加一个错误处理，PerformErrorCodeAction()。StatusCode是通过Elink方式来进行实际操作的，因此具有很强的扩展性。
+ ```
+ /**
+    Top level status code reporting routine exposed by the status code protocol/PPI.
+    Calls the various types of status code handlers
+    (SimpleStatusReport, StringStatusReport, MiscStatusReport, PerformErrorCodeAction)
+    Generates string from the status code data to pass to StringStatusReport function.
+
+
+    @param PeiServices pointer to the PEI Boot Services table
+    @param Type the type and severity of the error that occurred
+    @param Value the Class, subclass and Operation that caused the error
+    @param Instance 
+    @param CallerId OPTIONAL - The GUID of the caller function
+    @param Data OPTIONAL - the extended data field that contains additional info
+
+    @retval EFI_STATUS
+
+**/
+EFI_STATUS AmiReportStatusCode (
+    IN VOID *PeiServices,
+    IN EFI_STATUS_CODE_TYPE Type, IN EFI_STATUS_CODE_VALUE Value,
+    IN UINT32 Instance, IN  EFI_GUID *CallerId OPTIONAL,
+    IN EFI_STATUS_CODE_DATA *Data OPTIONAL, UINT8 *String
+)
+&#123;
+
+    SimpleStatusReport(PeiServices,Type,Value);
+//#if STRING_STATUS_SUPPORT
+    String[0] = &#39;\0&#39;;
+    CreateString(Type, Value, Data, String);
+
+    // step through the useable data and display information as needed
+    // Serial data
+
+    if (String[0] != &#39;\0&#39;) StringStatusReport(PeiServices,(CHAR8*)String);
+
+//#endif
+    MiscStatusReport(PeiServices,Type,Value,Instance,CallerId,Data);
+
+    if (STATUS_CODE_TYPE(Type)==EFI_ERROR_CODE)
+    PerformErrorCodeAction(PeiServices,Type,Value);
+    return EFI_SUCCESS;
+&#125;
+```
+## SimpleStatusReport()
+&gt; SimpleStatusReport()即简单状态报告，它只能报告StatusCode的类型和值，报告简单状态的方式分为两大种，1）Checkpoint，通过80 port报告状态码。2）Beep，通过蜂鸣器报告状态码。SimpleStatusCode存在一个StatusCodeMap，它列出所有简单状态码，包括Checkpoint与Beep，可以查看StatusCodeMap.c。
+- PeiReportSimpleStatus
+- DxeReportSimpleStatus
+- RtReportSimpleStatus
+- SmmReportSimpleStatus
+
+## StringStatusReport()
+&gt; StringStatusReport()即字符串状态报告，串口丢出的字符串调试信息就是通过这个函数丢出的，Debug相关的丢字符串的函数也是通过这个函数丢出的。 
+这里我们需要注意的是：在我们通过Debug函数丢字符串信息时，Debug函数会使用EFI_STATUS_CODE_STRING_DATA结构对字符串进行打包处理。这也是我们使用一些自定义的丢字符串函数不能丢出的原因。
+- PeiReportStringStatus
+- DxeReportStringStatus
+- RtReportStringStatus
+- SmmReportStringStatus
+
+## MiscStatusReport()
+&gt; MiscStatusReport()即混合状态码，它包含ReportStatusCode()的全部5个参数，因此可以报告最详细的状态。当前DXE阶段使用它保存完整StatusCode信息到DataHub结构中。
+- PeiReportMiscStatus
+- DxeReportMiscStatus
+- RtReportMiscStatus
+- SmmReportMiscStatus
+
+## PerformErrorCodeAction()
+&gt; PerformErrorCodeAction()即执行错误码动作，它包含ReportStatusCode()参数的类型和值，根据错误类型和值执行相应错误处理动作。
+- PeiErrorCodeActions
+- RtErrorCodeActions
+- SmmErrorCodeActions
+- DxeErrorCodeActions
+</code></pre>
 
             </div>
             <hr/>
@@ -497,7 +590,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2020/10/29/Ventoy/">http://holychen.cn/2020/10/29/Ventoy/</a>
+                    <a href="http://holychen.cn/2020/11/03/StatusCode/">http://holychen.cn/2020/11/03/StatusCode/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -578,13 +671,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/03/WFU/">
+                <a href="/2020/11/03/OemWmi%20Demo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Windows Firmware Update Guide">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="OemWmi Demo">
                         
-                        <span class="card-title">Windows Firmware Update Guide</span>
+                        <span class="card-title">OemWmi Demo</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -608,8 +701,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/WFU-cab-%E8%AF%81%E4%B9%A6/">
-                        <span class="chip bg-color">WFU,cab,证书</span>
+                    <a href="/tags/WMI-CIM-MOF-ASL/">
+                        <span class="chip bg-color">WMI,CIM,MOF,ASL</span>
                     </a>
                     
                 </div>
@@ -623,13 +716,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/29/HOB/">
+                <a href="/2020/11/03/WFU/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="HOB">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Windows Firmware Update Guide">
                         
-                        <span class="card-title">HOB</span>
+                        <span class="card-title">Windows Firmware Update Guide</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -640,7 +733,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
                             </span>
                         <span class="publish-author">
                             
@@ -653,8 +746,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%A6%82%E5%BF%B5-code-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BD%BF%E7%94%A8/">
-                        <span class="chip bg-color">概念,code,数据结构,使用</span>
+                    <a href="/tags/WFU-cab-%E8%AF%81%E4%B9%A6/">
+                        <span class="chip bg-color">WFU,cab,证书</span>
                     </a>
                     
                 </div>
