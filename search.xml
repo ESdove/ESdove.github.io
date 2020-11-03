@@ -4,25 +4,6 @@
   
     
     <entry>
-      <title>TestDemo</title>
-      <link href="2020/11/03/filename/"/>
-      <url>2020/11/03/filename/</url>
-      
-        <content type="html"><![CDATA[<p>欢迎使用 <strong>{小书匠}(xiaoshujiang)编辑器</strong>，您可以通过 <code>小书匠主按钮&gt;模板</code> 里的模板管理来改变新建文章的内容。<br>==这是改变颜色 #009688==</p><h1 id="标题一"><a href="#标题一" class="headerlink" title="标题一"></a>标题一</h1><table><thead><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody><tr><td>==这是 #E91E63==</td><td>==markdown==</td><td>测试</td><td>编辑器</td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table><h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><h2 id="Tap2"><a href="#Tap2" class="headerlink" title="Tap2"></a>Tap2</h2><h2 id="Tap3"><a href="#Tap3" class="headerlink" title="Tap3"></a>Tap3</h2><h1 id="Tap4"><a href="#Tap4" class="headerlink" title="==Tap4=="></a>==Tap4==</h1><p>==测试 #E91E63==<br>==测试基础语法==<br>vim编辑器</p><h2 id="这是一个标题"><a href="#这是一个标题" class="headerlink" title="这是一个标题"></a>这是一个标题</h2><p><img src="./images/1600839311228.png" alt="文档">    </p><p><img src="./images/1600839351466.png" alt="文档二"></p><p><img src="./images/1600839533957.png" alt="桌面"></p><p><a href="https://pic1.zhimg.com/v2-2b4a823ce56b28b5811e19b5f79d6838_r.jpg">https://pic1.zhimg.com/v2-2b4a823ce56b28b5811e19b5f79d6838_r.jpg</a></p><p><img src="./images/1600839772162.png" alt="知乎图片"></p><p><a href="https://www.rdzhijia.com/xcx/discuz.php?mod=view&amp;tid=5857">https://www.rdzhijia.com/xcx/discuz.php?mod=view&amp;tid=5857</a></p><p><a href="https://www.zhihu.com/search?type=content&amp;q=%E5%B0%8F%E4%B9%A6%E5%8C%A0%E7%BC%96%E8%BE%91%E5%99%A8">https://www.zhihu.com/search?type=content&amp;q=%E5%B0%8F%E4%B9%A6%E5%8C%A0%E7%BC%96%E8%BE%91%E5%99%A8</a></p><p><a href="https://www.bilibili.com/video/av86909756/">https://www.bilibili.com/video/av86909756/</a></p><p>（htps://<a href="http://www.bilibili.com/video/av86909756/%EF%BC%89">www.bilibili.com/video/av86909756/）</a><br><a href="https://www.bilibili.com/video/av86909756/">zhihu</a></p><p><a href="https://www.zhihu.com/people/ye-se-wei-liang-57">https://www.zhihu.com/people/ye-se-wei-liang-57</a></p><p><a href="https://www.zhihu.com/people/zhang-wei-18M/answers?page=4">https://www.zhihu.com/people/zhang-wei-18M/answers?page=4</a></p><p>`</p><hr><hr><p><img src="./attachments/1600841897455.table.html" alt="表格"></p><ul><li><a href="#%E6%A0%87%E9%A2%98%E4%B8%80">标题一</a></li><li><a href="#%E6%A0%87%E9%A2%98">标题</a><ul><li><a href="#tap2">Tap2</a></li><li><a href="#tap3">Tap3</a></li></ul></li><li><a href="#tap4">==Tap4==</a><ul><li><a href="#%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%A0%87%E9%A2%98">这是一个标题</a>^[footnote text</li></ul></li></ul><blockquote><p>^[</p><p>Blockquot<a href="https://markdown.xiaoshujiang.com/ppt/eae3180ce0772c16">enter description here</a></p></blockquote><p>]</p><p>]</p><p><a href="https://markdown.xiaoshujiang.com/ppt/eae3180ce0772c16">enter description here</a>strong text</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 新建,模板,小书匠 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>BIOS ROM Image分析</title>
       <link href="2020/11/03/BIOS_ROM_Image/"/>
       <url>2020/11/03/BIOS_ROM_Image/</url>
