@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Ventoy, 汇编/C/C++/QT/UEFI">
+    <meta name="keywords" content="Windows Firmware Update Guide, 汇编/C/C++/QT/UEFI">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Ventoy | 尘世浮沉HolyChen</title>
+    <title>Windows Firmware Update Guide | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -215,12 +215,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Ventoy</h1>
+                    <h1 class="description center-align post-title">Windows Firmware Update Guide</h1>
                 </div>
             </div>
         </div>
@@ -335,9 +335,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/WFU-cab-%E8%AF%81%E4%B9%A6/">
+                                <span class="chip bg-color">WFU,cab,证书</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -353,14 +357,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    562
+                    793
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    4 分
                 </div>
                 
 
@@ -376,102 +380,117 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[TOC]</p>
-<h1 id="Ventoy简介"><a href="#Ventoy简介" class="headerlink" title="Ventoy简介"></a>Ventoy简介</h1><p> Ventoy是一个制作可启动U盘的开源工具。有了Ventoy你就无需反复地格式化U盘，你只需要把ISO文件拷贝到U盘里面就可以启动了，无需其他操作。 你可以一次性拷贝很多个不同类型的ISO文件，在启动时Ventoy会显示一个菜单来选择(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/screenshot.html">截图</a>)。 无差异支持Legacy BIOS和UEFI模式。目前已经测试了各类超过260+ 个ISO文件(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/isolist.html">列表</a>). 同时提出了”Ventoy Compatible”的概念，若被支持则理论上可以启动任何ISO文件.</p>
-<h1 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h1><ul>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/ventoy/Ventoy">Github开源地址</a></p>
-<ul>
-<li> <a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/download.html">下载地址</a></li>
+<h1 id="Platform"><a href="#Platform" class="headerlink" title="Platform"></a>Platform</h1><ul>
+<li>CometLake 7C43 Project:M80T MB with UEFI Windows 10 System .</li>
 </ul>
-</li>
-<li><p> 安装到启动盘</p>
-</li>
+<p>- Product: Aptio 5.x.</p>
+<h1 id="Test-Objective"><a href="#Test-Objective" class="headerlink" title="Test Objective:"></a>Test Objective:</h1><ul>
+<li>Confirm that Firmware can be updated using Windows architecture.</li>
 </ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967090645.png" alt="安装到U盘"></p>
-<h1 id="放置ISO镜像文件"><a href="#放置ISO镜像文件" class="headerlink" title="放置ISO镜像文件"></a>放置ISO镜像文件</h1><h2 id="镜像下载站点"><a href="#镜像下载站点" class="headerlink" title="镜像下载站点"></a>镜像下载站点</h2><ul>
-<li>  <a target="_blank" rel="noopener" href="https://next.itellyou.cn/">MSDN</a></li>
+<h1 id="Test-Procedures"><a href="#Test-Procedures" class="headerlink" title="Test Procedures:"></a>Test Procedures:</h1><ul>
+<li>System With SDK and WINDDK Installed</li>
 </ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531519.png"></p>
-<ul>
-<li>  <a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/">阿里云镜像站</a></li>
-</ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531520.png"></p>
-<h2 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h2><blockquote>
-<p>镜像可放在根目录，也可建立文件夹管理，可按需求分类</p>
-</blockquote>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967174941.png"></p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967207747.png"></p>
-<h1 id="配置json文件和主题（可忽略）"><a href="#配置json文件和主题（可忽略）" class="headerlink" title="配置json文件和主题（可忽略）"></a>配置json文件和主题（可忽略）</h1><ul>
-<li><p>  <a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/plugin_entry.html">官方教程</a></p>
-</li>
-<li><p>  个人示例</p>
-</li>
-</ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967274942.png"></p>
-<ul>
-<li>ventoy.json<pre><code>&#123;
-   &quot;theme&quot;: &#123;
-      &quot;file&quot;: &quot;/ventoy/theme/theme.txt&quot;,
-      &quot;gfxmode&quot;: &quot;1024x768&quot;,
-      &quot;ventoy_left&quot;: &quot;42%&quot;,
-      &quot;ventoy_top&quot;: &quot;100%&quot;,
-      &quot;ventoy_color&quot;: &quot;#000000&quot;
-  &#125; ,
-&quot;menu_alias&quot; : 
-  [
-      &#123;
-          &quot;image&quot;: &quot;/ISO/18363.418.191007-0143.19h2_release_svc_refresh_CLIENT_CONSUMER_x64FRE_en-us.iso&quot;,
-          &quot;alias&quot;: &quot;Win10 19H2英文版&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/19041.208.200420-2019.vb_release_svc_refresh_CLIENT_BUSINESS_VOL_x64FRE_en-us.iso&quot;,
-          &quot;alias&quot;: &quot;Win10 20H1英文版&quot;
-      &#125;,        
-      &#123;
-          &quot;image&quot;: &quot;/ISO/cn_windows_10_business_editions_version_1909_updated_jan_2020_x64_dvd_b3e1f3a6.iso&quot;,
-          &quot;alias&quot;: &quot;Win10 1909中文版&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/rhel-8.1-x86_64-dvd.iso&quot;,
-          &quot;alias&quot;: &quot;ReaHat 8.1&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/ubuntu-18.04.3-desktop-amd64.iso&quot;,
-          &quot;alias&quot;: &quot;Ubuntu 18.04.03&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/ubuntu-20.04-desktop-amd64.iso&quot;,
-          &quot;alias&quot;: &quot;Ubuntu 20.04&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/wepe_64.iso&quot;,
-          &quot;alias&quot;: &quot;微PE&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/EasyU_v3.3.iso&quot;,
-          &quot;alias&quot;: &quot;优启通PE&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/19H2_Bak.wim&quot;,
-          &quot;alias&quot;: &quot;Win10 19H2英文系统备份&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/1909_Zh_Cn_Backup.wim&quot;,
-          &quot;alias&quot;: &quot;Win10 19H2中文系统备份&quot;
-      &#125;,
-      &#123;
-          &quot;image&quot;: &quot;/ISO/en_windows_server_2016_x64_dvd_9718492.iso&quot;,
-          &quot;alias&quot;: &quot;Win10 Server 2016&quot;
-      &#125;                
-  ]     
-&#125;</code></pre>
-</li>
-<li>  <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1009236/">主题地址</a></li>
-</ul>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531602.png"></p>
-<h1 id="显示效果"><a href="#显示效果" class="headerlink" title="显示效果"></a>显示效果</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531607.png"></p>
 <blockquote>
-<p>通过主板快捷键可以从制作的VentoyU盘启动，选择可启动镜像即可进入OS安装或PE等维护工具</p>
+<p>下载并安装最新WDK和SDK到测试机</p>
 </blockquote>
+<p>WDK：该驱动程序开发工具包（WDK）是从软件工具集微软，使开发设备驱动程序针对微软的Windows平台。它包括用于驱动程序开发人员的文档，样本，构建环境和工具。用于驱动程序开发的完整工具集还需要以下内容：编译器Visual Studio，Windows SDK和Windows HLK。</p>
+<p>SDK：Microsoft Windows SDK及其先前的Platform SDK和.NET Framework SDK是Microsoft的软件开发工具包（SDK），其中包含开发Microsoft Windows和.NET Framework应用程序所需的文档，头文件，库，示例和工具。Platform SDK专门开发用于Windows 2000，XP和Windows Server 2003的应用程序。.NET Framework SDK专门用于开发用于 .NET Framework 1.1和.NET Framework 2.0。Windows SDK是这两者的继承者，并支持为Windows XP和更高版本以及.NET Framework 3.0和更高版本开发应用程序。</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604369144037.png"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604369151637.png"></p>
+<ul>
+<li>Create a folder C:\WFU and place *.inf and <em>.cap file in it(</em>.cap file built from project source)</li>
+</ul>
+<blockquote>
+<p>*.inf文件示例如下，具体参考微软官网INF相关说明</p>
+</blockquote>
+<pre><code>[Version]
+Signature   = &quot;$WINDOWS NT$&quot;
+Provider    = %Provider%
+Class       = Firmware
+ClassGuid   = &#123;f2e7dd72-6468-4e36-b6f1-6488f42c1b52&#125;
+DriverVer   = 07/28/2020,1.0.0.43
+CatalogFile = M2TKT2CA.cat
+PnpLockdown = 1
+
+[Manufacturer]
+%MfgName% = Firmware,NTamd64
+
+[Firmware.NTamd64]
+%FirmwareDesc% = Firmware_Install,UEFI\RES_&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;
+
+[Firmware_Install.NT]
+CopyFiles = Firmware_CopyFiles
+
+[Firmware_CopyFiles]
+M2TKT2CA.cap
+
+[Firmware_Install.NT.Hw]
+AddReg = Firmware_AddReg
+
+[Firmware_AddReg]
+HKR,,FirmwareId,,&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;
+HKR,,FirmwareVersion,%REG_DWORD%,0x0001002C
+HKR,,FirmwareFilename,,&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;\M2TKT2CA.cap
+[SourceDisksNames]
+1 = %DiskName%
+
+[SourceDisksFiles]
+M2TKT2CA.cap = 1
+
+[DestinationDirs]
+DefaultDestDir = %DIRID_WINDOWS%,Firmware\&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;
+
+[Strings]
+; localizable
+Provider     = &quot;Lenovo Ltd.&quot;
+MfgName      = &quot;Lenovo Ltd.&quot;
+FirmwareDesc = &quot;ThinkCentre M90t/s, M80t/s, M70t/s, M993t, M930t/s, M737t, QT M630, YT P780 System Firmware 1.0.0.43&quot;
+DiskName     = &quot;Firmware Update&quot;
+
+; non-localizable
+DIRID_WINDOWS = 10
+REG_DWORD     = 0x00010001
+</code></pre>
+<ul>
+<li><p>Change related cap and cat file name  in *.inf file, make these match the prefix of your cap file name, example M2TKT2CA.cat  and M2TKT2CA.cap （如下图2、4、8、9处）<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604369166799.png"></p>
+</li>
+<li><p>将M2TKT2CA.inf文件的GUID替换为BIOS Source Code里对应的需要更新Firmware GUID（如上图3、5、7、10处）<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604369174098.png"></p>
+</li>
+<li><p>Edit M2TKT2CA.inf file, find string “DriverVer=07/10/2020,1.0.0.42” and increase last two digits to 43, must increment for each flash（如上图1、11处）</p>
+</li>
+<li><p>Edit M2TKT2CA.inf, find string “HKR,,FirmwareVersion,%REG_DWORD%,0x0001002B and increase to 0x0001002C”， must increment for each flash.（如上图6处）<br>(Note: 0x2C is hex values of BIOS version, ex: BIOS version is 043, the hex values is 0x2C)</p>
+</li>
+<li><p>以管理员身份运行PowerShell，切换目录到C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86</p>
+</li>
+<li><p>Run .\makecert.exe -r -pe -a sha256 -eku 1.3.6.1.5.5.7.3.3 -n CN=Foo -sv fwu.pvk fwu.cer</p>
+</li>
+<li><p>Password window will appear, set and verify this password: wfutest123<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604370942326.png"></p>
+</li>
+</ul>
+<ul>
+<li><p>In powershell run .\pvk2pfx.exe -pvk fwu.pvk -spc fwu.cer -pi wfutest123 -spc fwu.cer -pfx fwu.pfx</p>
+</li>
+<li><p>If a .cat with your BIOS name, example m2tkt2ca.cat exists in the Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86 folder delete it.</p>
+</li>
+<li><p>In powershell run .\Inf2Cat.exe /driver:c:\WFU /os:10_x64</p>
+</li>
+<li><p>In powershell run .\signtool sign /fd sha256 /f fwu.pfx /p wfutest123 C:\WFU\M2TKT2CA.cat</p>
+</li>
+<li><p>In powershell run .\fwu.cer<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604370915317.png"></p>
+</li>
+</ul>
+<ul>
+<li><p>A Window should be displayed. Install certificate, local machine, next, browse, select Trusted Root Certification Authorities<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604370903085.png"></p>
+</li>
+<li><p>In powershell run bcdedit.exe /set testsigning on</p>
+</li>
+<li><p>Right click My computer -&gt; Manage -&gt; Device Manager -&gt; Firmware -&gt; Update Driver Software -&gt; Browse -&gt; Let me Pick -&gt; Hard Disk -&gt; Select inf -&gt; restart<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604370891225.png"></p>
+</li>
+</ul>
+<ul>
+<li>Firmware update should complete without errors.</li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604370868293.png"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604370603974.png"></p>
 
             </div>
             <hr/>
@@ -497,7 +516,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2020/10/29/Ventoy/">http://holychen.cn/2020/10/29/Ventoy/</a>
+                    <a href="http://holychen.cn/2020/11/03/WFU/">http://holychen.cn/2020/11/03/WFU/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -534,7 +553,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/WFU-cab-%E8%AF%81%E4%B9%A6/">
+                                    <span class="chip bg-color">WFU,cab,证书</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -574,9 +597,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/11/03/WFU/">
                     <div class="card-image">
@@ -594,9 +618,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -605,6 +629,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -623,13 +648,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/29/HOB/">
+                <a href="/2020/10/29/Ventoy/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="HOB">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Ventoy">
                         
-                        <span class="card-title">HOB</span>
+                        <span class="card-title">Ventoy</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -649,14 +674,6 @@
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%A6%82%E5%BF%B5-code-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BD%BF%E7%94%A8/">
-                        <span class="chip bg-color">概念,code,数据结构,使用</span>
-                    </a>
-                    
                 </div>
                 
             </div>
