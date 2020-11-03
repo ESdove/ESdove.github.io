@@ -353,7 +353,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    562
+                    561
                 </div>
                 
 
@@ -375,8 +375,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>[TOC]</p>
-<h1 id="Ventoy简介"><a href="#Ventoy简介" class="headerlink" title="Ventoy简介"></a>Ventoy简介</h1><p> Ventoy是一个制作可启动U盘的开源工具。有了Ventoy你就无需反复地格式化U盘，你只需要把ISO文件拷贝到U盘里面就可以启动了，无需其他操作。 你可以一次性拷贝很多个不同类型的ISO文件，在启动时Ventoy会显示一个菜单来选择(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/screenshot.html">截图</a>)。 无差异支持Legacy BIOS和UEFI模式。目前已经测试了各类超过260+ 个ISO文件(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/isolist.html">列表</a>). 同时提出了”Ventoy Compatible”的概念，若被支持则理论上可以启动任何ISO文件.</p>
+                <h1 id="Ventoy简介"><a href="#Ventoy简介" class="headerlink" title="Ventoy简介"></a>Ventoy简介</h1><p> Ventoy是一个制作可启动U盘的开源工具。有了Ventoy你就无需反复地格式化U盘，你只需要把ISO文件拷贝到U盘里面就可以启动了，无需其他操作。 你可以一次性拷贝很多个不同类型的ISO文件，在启动时Ventoy会显示一个菜单来选择(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/screenshot.html">截图</a>)。 无差异支持Legacy BIOS和UEFI模式。目前已经测试了各类超过260+ 个ISO文件(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/isolist.html">列表</a>). 同时提出了”Ventoy Compatible”的概念，若被支持则理论上可以启动任何ISO文件.</p>
 <h1 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h1><ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/ventoy/Ventoy">Github开源地址</a></p>
 <ul>
@@ -720,7 +719,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h1, h2, h3, h4'
         });
 
         // modify the toc link href to support Chinese.
@@ -732,7 +731,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 

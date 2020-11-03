@@ -379,8 +379,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>[TOC]</p>
-<hr>
+                <hr>
 <h1 id="HOB简介"><a href="#HOB简介" class="headerlink" title="HOB简介"></a>HOB简介</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>HOB是Hand-Off Block的缩写。是PEI阶段向DXE传递系统信息的手段。PEI阶段构建一些HOB结构，然后将其作为参数传给DXE阶段函数，DXE Core会根据其使用平台相关资源。</p>
 <p>HOB是系列的连续的内存结构体，可以认为其由三部分构成：第一部分，是PHIT头，它描述了HOB的起始地址以及总的内存使用；第二部分是各个Hob列表，DXE阶段会根据这一部分获取相关资源；第三部分是结束部分。</p>
 <hr>
@@ -2320,7 +2319,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h1, h2, h3, h4'
         });
 
         // modify the toc link href to support Chinese.
@@ -2332,7 +2331,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
