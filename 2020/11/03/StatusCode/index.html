@@ -360,7 +360,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    7 分
                 </div>
                 
 
@@ -440,13 +440,9 @@ typedef UINT32  EFI_STATUS_CODE_TYPE;
 
 &gt; 类型分为四个大类：电脑单元、用户可读写外设、IO总线、软件。前三者为硬件类，最后一个为软件类。
 
-&gt; 具体组合可参考PI规范卷3,第6小结
-```
-#define EFI_STATUS_CODE_CLASS_MASK          0xFF000000 
-#define EFI_STATUS_CODE_SUBCLASS_MASK       0x00FF0000 
-#define EFI_STATUS_CODE_OPERATION_MASK      0x0000FFFF 
-```
-![StatusCode](http://tc.holychen.cn/小书匠/1604382311569.png)
+&gt; 具体组合可参考PI规范卷3,第6小结</code></pre>
+<p>#define EFI_STATUS_CODE_CLASS_MASK          0xFF000000<br>#define EFI_STATUS_CODE_SUBCLASS_MASK       0x00FF0000<br>#define EFI_STATUS_CODE_OPERATION_MASK      0x0000FFFF </p>
+<pre><code>![StatusCode](http://tc.holychen.cn/小书匠/1604382311569.png)
 
 ## UINT32 Instance
 
@@ -491,52 +487,29 @@ typedef UINT32  EFI_STATUS_CODE_TYPE;
  ![](./images/1603172085941.png)
 
  ## ReportStatusCode()最终实现函数
- &gt; ReportStatusCode()最终的实现函数是StatusCodeCommon.c中的AmiReportStatusCode()函数。AmiReportStatusCode()主要由三种ReportStatusCode()的方式，分别是SimpleStatusReport()、StringStatusReport()、MiscStatusReport()。另加一个错误处理，PerformErrorCodeAction()。StatusCode是通过Elink方式来进行实际操作的，因此具有很强的扩展性。
- ```
- /**
-    Top level status code reporting routine exposed by the status code protocol/PPI.
-    Calls the various types of status code handlers
-    (SimpleStatusReport, StringStatusReport, MiscStatusReport, PerformErrorCodeAction)
-    Generates string from the status code data to pass to StringStatusReport function.
+ &gt; ReportStatusCode()最终的实现函数是StatusCodeCommon.c中的AmiReportStatusCode()函数。AmiReportStatusCode()主要由三种ReportStatusCode()的方式，分别是SimpleStatusReport()、StringStatusReport()、MiscStatusReport()。另加一个错误处理，PerformErrorCodeAction()。StatusCode是通过Elink方式来进行实际操作的，因此具有很强的扩展性。</code></pre>
+<p> /**<br>    Top level status code reporting routine exposed by the status code protocol/PPI.<br>    Calls the various types of status code handlers<br>    (SimpleStatusReport, StringStatusReport, MiscStatusReport, PerformErrorCodeAction)<br>    Generates string from the status code data to pass to StringStatusReport function.</p>
+<pre><code>@param PeiServices pointer to the PEI Boot Services table
+@param Type the type and severity of the error that occurred
+@param Value the Class, subclass and Operation that caused the error
+@param Instance 
+@param CallerId OPTIONAL - The GUID of the caller function
+@param Data OPTIONAL - the extended data field that contains additional info
 
+@retval EFI_STATUS</code></pre>
+<p>**/<br>EFI_STATUS AmiReportStatusCode (<br>    IN VOID *PeiServices,<br>    IN EFI_STATUS_CODE_TYPE Type, IN EFI_STATUS_CODE_VALUE Value,<br>    IN UINT32 Instance, IN  EFI_GUID *CallerId OPTIONAL,<br>    IN EFI_STATUS_CODE_DATA *Data OPTIONAL, UINT8 *String<br>)<br>{</p>
+<pre><code>SimpleStatusReport(PeiServices,Type,Value);</code></pre>
+<p>//#if STRING_STATUS_SUPPORT<br>    String[0] = ‘\0’;<br>    CreateString(Type, Value, Data, String);</p>
+<pre><code>// step through the useable data and display information as needed
+// Serial data
 
-    @param PeiServices pointer to the PEI Boot Services table
-    @param Type the type and severity of the error that occurred
-    @param Value the Class, subclass and Operation that caused the error
-    @param Instance 
-    @param CallerId OPTIONAL - The GUID of the caller function
-    @param Data OPTIONAL - the extended data field that contains additional info
-
-    @retval EFI_STATUS
-
-**/
-EFI_STATUS AmiReportStatusCode (
-    IN VOID *PeiServices,
-    IN EFI_STATUS_CODE_TYPE Type, IN EFI_STATUS_CODE_VALUE Value,
-    IN UINT32 Instance, IN  EFI_GUID *CallerId OPTIONAL,
-    IN EFI_STATUS_CODE_DATA *Data OPTIONAL, UINT8 *String
-)
-&#123;
-
-    SimpleStatusReport(PeiServices,Type,Value);
-//#if STRING_STATUS_SUPPORT
-    String[0] = &#39;\0&#39;;
-    CreateString(Type, Value, Data, String);
-
-    // step through the useable data and display information as needed
-    // Serial data
-
-    if (String[0] != &#39;\0&#39;) StringStatusReport(PeiServices,(CHAR8*)String);
-
-//#endif
-    MiscStatusReport(PeiServices,Type,Value,Instance,CallerId,Data);
-
-    if (STATUS_CODE_TYPE(Type)==EFI_ERROR_CODE)
-    PerformErrorCodeAction(PeiServices,Type,Value);
-    return EFI_SUCCESS;
-&#125;
-```
-## SimpleStatusReport()
+if (String[0] != &#39;\0&#39;) StringStatusReport(PeiServices,(CHAR8*)String);</code></pre>
+<p>//#endif<br>    MiscStatusReport(PeiServices,Type,Value,Instance,CallerId,Data);</p>
+<pre><code>if (STATUS_CODE_TYPE(Type)==EFI_ERROR_CODE)
+PerformErrorCodeAction(PeiServices,Type,Value);
+return EFI_SUCCESS;</code></pre>
+<p>}</p>
+<pre><code>## SimpleStatusReport()
 &gt; SimpleStatusReport()即简单状态报告，它只能报告StatusCode的类型和值，报告简单状态的方式分为两大种，1）Checkpoint，通过80 port报告状态码。2）Beep，通过蜂鸣器报告状态码。SimpleStatusCode存在一个StatusCodeMap，它列出所有简单状态码，包括Checkpoint与Beep，可以查看StatusCodeMap.c。
 - PeiReportSimpleStatus
 - DxeReportSimpleStatus
