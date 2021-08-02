@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="OemWmi Demo, 汇编/C/C++/QT/UEFI">
+    <meta name="keywords" content="BIOS ROM Image分析, 汇编/C/C++/QT/UEFI">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>OemWmi Demo | 尘世浮沉HolyChen</title>
+    <title>BIOS ROM Image分析 | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -215,12 +215,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">OemWmi Demo</h1>
+                    <h1 class="description center-align post-title">BIOS ROM Image分析</h1>
                 </div>
             </div>
         </div>
@@ -337,8 +337,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/WMI-CIM-MOF-ASL/">
-                                <span class="chip bg-color">WMI,CIM,MOF,ASL</span>
+                            <a href="/tags/Flash-Layout-FV/">
+                                <span class="chip bg-color">Flash,Layout,FV</span>
                             </a>
                         
                     </div>
@@ -357,14 +357,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    1.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    8 分
                 </div>
                 
 
@@ -379,219 +379,347 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="WMI简介"><a href="#WMI简介" class="headerlink" title="WMI简介"></a>WMI简介</h1><h2 id="WMI历史"><a href="#WMI历史" class="headerlink" title="WMI历史"></a>WMI历史</h2><p>Windows Management Instrumentation（WMI）是Microsoft基于Web的企业管理（WBEM）的实现，WBEM是一项行业倡议，旨在开发用于在企业环境中访问管理信息的标准技术。WMI使用通用信息模型（CIM）行业标准来表示系统，应用程序，网络，设备和其他托管组件。CIM由分布式管理任务组（<a target="_blank" rel="noopener" href="https://www.dmtf.org/standards/wsman">DMTF</a>）开发和维护。WMI最初于1998年作为Windows NT 4.0 Service Pack 4的附加组件发布，是Windows 2000，Windows XP和Windows Server 2003家族操作系统中内置的支持核心管理的技术。(详情见微软官网<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/about-wmi">WMI Document</a>)。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>在WMI之前，可以通过编程方式访问Windows资源的唯一方法是通过Win32 API。 这种情况使Windows系统管理员无法轻松地使用流行的脚本语言来自动化常见的系统管理任务，因为大多数脚本语言无法直接调用Win32 API。 WMI通过提供一个一致的模型和框架来描述所有Windows资源并将其公开给外界，从而改变了这种状况。 WMI是一种工具和管道，通过它可以访问，配置，管理和监视所有（几乎所有）Windows资源，系统管理员可以使用WMI脚本库创建系统管理脚本，以管理通过WMI公开的任何Windows资源！</p>
-<h2 id="BIOS与WMI的关系"><a href="#BIOS与WMI的关系" class="headerlink" title="BIOS与WMI的关系"></a>BIOS与WMI的关系</h2><p>通常，BIOS不需要为WMI做任何事情，Windows提供了Windows管理所需的所有WMI。 但是有时候，客户想要实现特殊的OEM功能，则需要BIOS通过WMI与AP / Driver配合，例如在CML 7C43&amp;P340 Project中Lenovo Module通过LenovoGameZone.mof和Lenovo.mof作为Provider，声明BIOS提供给OS的WMI接口。<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383419998.png"></p>
-<h2 id="WMI架构图"><a href="#WMI架构图" class="headerlink" title="WMI架构图"></a>WMI架构图</h2><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383435473.png"></p>
-<p>wmi可以使用多种方式进行调用，具体可以参考上图：<br>首先是wm使用者，比如脚本或者其他用到wm接口的应用程序。由wm使用者访问CIM对象管理器WinMgmt(即WMI服务）,后者再访问CIM(公共信息模型Common Information Model)存储库。静态或动态的信息（对象的属性）就保存在CM库中，同时保存对象的方法。比如启动一个服务，通过执行对象的方法实现，实际上是通过COM技术调用各种dll,最后由dll中封装的API完成请求。WMI是事件驱动的，操作系统、服务、应用程序、设备驱动程序等都可以作为事件源，通过COM接口生成事件通知，WinMgmt捕捉到事件，然后刷新CM库中的动态信息。这也是为什么WM服务依赖于EventLog的原因。就像注册表有Key和Value一样，CIM库也有分类，用面向对象的术语描述来说，叫做命名空间（Name Space)。</p>
-<h1 id="OemWmi-ModulePart"><a href="#OemWmi-ModulePart" class="headerlink" title="OemWmi ModulePart"></a>OemWmi ModulePart</h1><h2 id="ModulePart说明"><a href="#ModulePart说明" class="headerlink" title="ModulePart说明"></a>ModulePart说明</h2><p>建立OemWmi ModulePart，简单的封装一个接口注册到OS下，实现向80 Port写值的动作，应用层可以通过通过VB Script或C++调用。</p>
-<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><ul>
-<li>OemWmi.mof</li>
-</ul>
-<pre><code>//****************************************************
-//filename:MyWmi.mof
-// MOF(Managed Object File) Sample
-// 2020.08.05
-// MOF comment as C++
+                <h1 id="Flash芯片和生成的BIOS-ROM"><a href="#Flash芯片和生成的BIOS-ROM" class="headerlink" title="Flash芯片和生成的BIOS ROM"></a>Flash芯片和生成的BIOS ROM</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/86ed9927664912afa5ce9778ee3f498.jpg" alt="主板上的NorFlash"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604388851409.png" alt="FPT整刷的bin"></p>
+<h1 id="intel闪存映像布局"><a href="#intel闪存映像布局" class="headerlink" title="intel闪存映像布局"></a>intel闪存映像布局</h1><p>英特尔在相应芯片组的数据表页面上讨论了BIOS的结构。对于所有从第六系列开始的芯片组，此格式通常保持不变，该文件分为3-5个区域，可选的是GbE区域和PDR。</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604388929921.png"></p>
+<h1 id="UEFI-Tool解析"><a href="#UEFI-Tool解析" class="headerlink" title="UEFI Tool解析"></a>UEFI Tool解析</h1><p>用<a target="_blank" rel="noopener" href="https://github.com/LongSoft/UEFITool">EFITool</a>工具加载了编译生成的bin文件，发现Reset Vector位于BIOS Rom Image的最底部，探索形成这样的Image结构相关的各种文件(.fdf/.fd/.fv等文件)</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389109072.png"></p>
+<p>组成结构：16MBIOS + 16M ME + 16M 128KB PDR</p>
+<p>BIOS Rom部分，由GenFv工具根据fdf文件生成</p>
+<pre><code>#FD Section
+[FD.AMIROM]
+BaseAddress = 0xff000000
+Size = 0x1000000
+ErasePolarity = 1
+BlockSize = 0x1000
+NumBlocks = 0x1000
 
-#pragma AUTORECOVER
-//WMI checks the integrity of the WMI repository when the operating system
-//starts WMI. If the repository is damaged, WMI automatically rebuilds the 
-//repository and recompiles it.
+DEFINE UNCOMPRESSED_PEI_EXECUTABLES_ALIGNMENT =  
+DEFINE SEC_CORE_EXECUTABLE_ALIGNMENT = Align = 8
+......
 
-#pragma namespace(&quot;\\root\\wmi&quot;)
+0x0|0x20000
+FV = LNV_OEM_DATA_REGION
 
-//specify the namespace when autorecover or register.
+0x20000|0x50000
+FV = NVRAM
 
+0x70000|0x50000
+#RAW - NVRAM_BACKUP
 
-[WMI,
- Dynamic,
- Provider(&quot;WmiProv&quot;),
- Locale(&quot;MS\\0x409&quot;),
- Description(&quot;My WMI Sample Class&quot;),
- guid(&quot;&#123;E2E0B817-EA48-4bad-81A6-FBEB8776A7AF&#125;&quot;)]
-//WMI Class Qualifiers
+0xc0000|0x20000
+FV = LEM_FV_DATA
 
+0xe0000|0x870000
+FV = FV_MAIN_WRAPPER
 
-class MyClass
-&#123;
-    [key, read] string InstanceName;
-    [read] Boolean Active;
-    [WmiMethodId(1),
-     Implemented,
-     read, write,
-     Description(&quot;Send to Port 0x80&quot;)
-    ]void SendTo80([in] uint8 Data);
-&#125;;
-//Required Items in WMI Class
-//*****************************************************</code></pre>
-<ul>
-<li>OemWmi.sdl</li>
-</ul>
-<pre><code> PCIDEVICE
-    Title  = &quot;OemWmi&quot;
-    Parent  = &quot;PciHost (Virtual)&quot;
-    Attribute  = &quot;0x0&quot;  
-    Dev_type  = &quot;Container&quot;
-    Dev  = 00h
-    Fun  = 00h
-    SleepNum  = 01h
-    ASLfile  = &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
-    DeviceType = OnBoard
-    PCIBusSize = 32bit
-    ROMMain = No
-    Virtual = Yes
-End
-TOKEN
-    Name  = &quot;OemWmi_INF_SUPPORT&quot;
-    Value  = &quot;1&quot;
-    Help  = &quot;Main switch to enable OemWmi support in Project&quot;
-    TokenType = Boolean
-    TargetMAK = Yes
-    Master = Yes
-End
+0x950000|0x20000
+FV = FV_CMP
 
-INFComponent
-    Name  = &quot;OemWmi&quot;
-    File  = &quot;OemWmi.inf&quot;
-    Package  = &quot;OemWmi&quot;
-    Token = &quot;OemWmi_INF_SUPPORT&quot; &quot;=&quot; &quot;1&quot;
-End</code></pre>
-<ul>
-<li>OemWmi.cif</li>
-</ul>
-<pre><code> PCIDEVICE
-    Title  = &quot;OemWmi&quot;
-    Parent  = &quot;PciHost (Virtual)&quot;
-    Attribute  = &quot;0x0&quot;  
-    Dev_type  = &quot;Container&quot;
-    Dev  = 00h
-    Fun  = 00h
-    SleepNum  = 01h
-    ASLfile  = &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
-    DeviceType = OnBoard
-    PCIBusSize = 32bit
-    ROMMain = No
-    Virtual = Yes
-End
-TOKEN
-    Name  = &quot;OemWmi_INF_SUPPORT&quot;
-    Value  = &quot;1&quot;
-    Help  = &quot;Main switch to enable OemWmi support in Project&quot;
-    TokenType = Boolean
-    TargetMAK = Yes
-    Master = Yes
-End
+0x970000|0x10000
+FV = FV_BCP
 
-INFComponent
-    Name  = &quot;OemWmi&quot;
-    File  = &quot;OemWmi.inf&quot;
-    Package  = &quot;OemWmi&quot;
-    Token = &quot;OemWmi_INF_SUPPORT&quot; &quot;=&quot; &quot;1&quot;
-End</code></pre>
-<ul>
-<li>OemWmi.asl</li>
-</ul>
-<pre><code>Scope( \_SB )&#123; 
-Device(WMI2)
-&#123;
-        // PNP0C14 is Plug and Play ID assigned to WMI mapper
-    Name(_HID, EISAID(&quot;PNP0C14&quot;))
-    Name(_UID, 2)
-        //
-        // _WDG evaluates to a data structure that specifies the data
-        // blocks supported by the ACPI device.
-        //
-    Name(_WDG, Buffer() &#123;
-         //guid&#123;E2E0B817-EA48-4bad-81A6-FBEB8776A7AF&#125;
-        // -------- Method execution for SendTo80
-            0x17, 0xb8, 0xe0, 0xe2, 0x48, 0xea, 0xad, 0x4b, 0x81, 0xa6,
-            0xfb, 0xeb, 0x87, 0x76, 0xa7, 0xaf,
-            69, 49,     // Object ID (E1)
-            1,          // Instance Count
-            0x02,       // Flags WMIACPI_REGFLAG_METHOD 
-            // -------- MOF data
-            0x21, 0x12, 0x90, 0x05, 0x66, 0xd5, 0xd1, 0x11, 0xb2, 0xf0,
-            0x00, 0xa0, 0xc9, 0x06, 0x29, 0x10,
-            66, 65,     // Object ID (BA)
-            1,          // Instance Count
-            0x00,       // Flags
-    &#125;)
+0x980000|0x110000
+FV = FV_DATA_BACKUP
 
-   OperationRegion (DBG, SystemIO, 0x80, 0x2)
-   Field (DBG, WordAcc, NoLock, Preserve)
-   &#123;
-        P80H, 16
-   &#125;
+0xa90000|0x110000
+FV = FV_DATA
+
+0xba0000|0xa0000
+FV = FV_BB_AFTER_MEMORY_BACKUP
+
+0xc40000|0x90000
+FV = FV_FSP_S_BACKUP
+
+0xcd0000|0xa0000
+FV = FV_BB_AFTER_MEMORY
+
+0xd70000|0x90000
+FV = FV_FSP_S
+
+0xe00000|0x70000
+#FV_FSP_BACKUP
+FILE = Build/Fsp_Rebased_M_T.fd
+
+0xe70000|0x90000
+FV = FV_BB_BACKUP
+
+0xf00000|0x70000
+#FV_FSP
+FILE = Build/Fsp_Rebased_M_T.fd
+
+0xf70000|0x90000
+FV = FV_BB
+
+#FV Section
+[FV.FV_MAIN]
+BlockSize = 0x1000
+NumBlocks = 0x0
+FvAlignment = 16
+MEMORY_MAPPED = TRUE
+
+FvNameGuid = 5C60F367-A505-419A-859E-2A4FF6CA6FE5
+
+APRIORI DXE &#123;
+    INF AmiModulePkg/AmiStatusCode/StatusCodeDxe.inf
+    INF AmiModulePkg/AmiStatusCode/StatusCodeSmm.inf
+    INF MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
+    ......
+
+!include AmiPkg/Configuration/FontFileStatement.txt
+!include AmiModulePkg/NVRAM/FvMainDefaultsFdfFileStatement.txt
+!include AmiChipsetModulePkg/LegacyRom/Vbios/VbiosFdfFileStatements.txt
+......
+
+#FV Section
+[FV.FV_LOGOROMHOLE]
+BlockSize = 0x1000
+NumBlocks = 0x20
+FvAlignment = 1
+......
+FvNameGuid = E54D9684-2735-43ef-A379-30F2F592BA10
 
 
-    Method(WME1, 3) &#123;
-    If(LEqual(Arg1,1))
-    &#123; 
-     Store(Arg2,P80H)
-    &#125;
+!include AmiTsePkg/Core/em/AMITSE/Logoffs.txt
 
-     Return(0)
-        &#125;
+#FV Section
+[FV.FV_MEFW_CAPSULE]
+BlockSize = 0x1000
+NumBlocks = 0x600
+FvAlignment = 16
+......
+FvNameGuid = 9F8B1DEF-B62B-45F3-8282-BFD7EA19801B
 
-    Name(WQBA, Buffer()
-    &#123;
-    0x46, 0x4f, 0x4d, 0x42, 0x01, 0x00, 0x00, 0x00, 0x74, 0x02, 0x00, 0x00, 0x80, 0x05, 0x00, 0x00,
-    0x44, 0x53, 0x00, 0x01, 0x1a, 0x7d, 0xda, 0x54, 0x28, 0xd3, 0x82, 0x00, 0x01, 0x06, 0x18, 0x42,
-    0x20, 0xc4, 0x01, 0x89, 0xc0, 0xb2, 0x69, 0x24, 0xc2, 0x01, 0x0c, 0x46, 0x03, 0x88, 0xe4, 0x40,
-    0xc8, 0x05, 0x13, 0x83, 0x0b, 0x21, 0xaf, 0x02, 0x6c, 0x0a, 0x30, 0x09, 0xa2, 0xfe, 0xfd, 0x21,
-    0x4a, 0x82, 0x43, 0x09, 0x81, 0x90, 0x44, 0x01, 0xe6, 0x05, 0xe8, 0x16, 0x60, 0x58, 0x80, 0x6d,
-    0x01, 0xa6, 0x05, 0x38, 0x86, 0xa4, 0xd2, 0xc0, 0x29, 0x81, 0xa5, 0x40, 0x48, 0xa8, 0x00, 0xe5,
-    0x02, 0x7c, 0x0b, 0xd0, 0x8e, 0x28, 0xc9, 0x02, 0x2c, 0xc3, 0x88, 0xc0, 0xa3, 0x88, 0x6c, 0x34,
-    0x0e, 0x8d, 0x1d, 0x86, 0x65, 0x82, 0x69, 0x10, 0x87, 0x51, 0x36, 0xb2, 0x08, 0x3c, 0xa1, 0x4e,
-    0x05, 0xc8, 0x15, 0x20, 0x4c, 0x80, 0x78, 0x54, 0x61, 0x34, 0x07, 0x45, 0xf0, 0x43, 0x63, 0xc4,
-    0x8c, 0x89, 0xc0, 0x76, 0x8e, 0xad, 0x51, 0x9c, 0x46, 0xe1, 0x02, 0xa4, 0x63, 0x68, 0x04, 0xc7,
-    0x15, 0xde, 0x23, 0x2b, 0x68, 0x86, 0x14, 0xe4, 0x10, 0xce, 0xcd, 0x80, 0xa7, 0x61, 0x9c, 0x0e,
-    0x41, 0x04, 0x14, 0x3b, 0xc2, 0x01, 0x6b, 0x10, 0x28, 0x19, 0x10, 0xf2, 0x2c, 0xc0, 0xfa, 0xe8,
-    0x08, 0x81, 0xdd, 0x0b, 0xb0, 0x28, 0x40, 0x19, 0x84, 0xc6, 0x53, 0xe1, 0xf8, 0x0b, 0x30, 0x26,
-    0xc0, 0x9b, 0x00, 0x5b, 0x38, 0x32, 0x38, 0x27, 0xe1, 0x44, 0x89, 0x51, 0xf1, 0x0c, 0x84, 0x1a,
-    0x25, 0x9c, 0xb1, 0x6a, 0x43, 0x91, 0x46, 0x54, 0x21, 0xc6, 0x35, 0x6c, 0x84, 0x48, 0xb1, 0x62,
-    0x84, 0x88, 0xd5, 0xfe, 0x20, 0x48, 0x9c, 0xb3, 0x80, 0x24, 0x80, 0x28, 0xd2, 0x68, 0x50, 0xe3,
-    0x4f, 0xf0, 0x3c, 0xe0, 0x99, 0x9d, 0xdd, 0x41, 0x1d, 0xe0, 0x49, 0x04, 0x39, 0xc7, 0x33, 0xab,
-    0x73, 0x72, 0x64, 0xc8, 0x0c, 0x2b, 0xc1, 0xbf, 0x81, 0x4f, 0x06, 0x78, 0xd7, 0x80, 0x9a, 0xe9,
-    0x03, 0x01, 0x9b, 0x65, 0x38, 0xcc, 0x10, 0xfd, 0xff, 0x1f, 0x74, 0xb8, 0xf3, 0xf2, 0x48, 0x18,
-    0xc4, 0x11, 0x3e, 0x0b, 0x60, 0x47, 0x7c, 0x32, 0xc7, 0x5d, 0xaa, 0x00, 0xb3, 0x97, 0x00, 0x4d,
-    0x2e, 0xc1, 0xf1, 0xf8, 0x04, 0xe0, 0xf9, 0x9c, 0x70, 0x02, 0xcb, 0x1f, 0x04, 0x6a, 0x64, 0x86,
-    0xf6, 0x14, 0x4f, 0xeb, 0x45, 0xc0, 0xe7, 0x83, 0xc3, 0x62, 0x62, 0x21, 0xa4, 0x00, 0x42, 0xe3,
-    0x01, 0xff, 0xe0, 0x9f, 0x0e, 0x22, 0x3c, 0x17, 0x78, 0xbe, 0x3e, 0x36, 0xc0, 0x18, 0x90, 0xfd,
-    0x0a, 0x40, 0x08, 0xfe, 0xe2, 0x70, 0x44, 0xcf, 0x08, 0x11, 0x1e, 0x14, 0xd8, 0x11, 0x01, 0x27,
-    0xf0, 0xd8, 0x80, 0x86, 0xe6, 0x47, 0x80, 0xc8, 0x61, 0xcf, 0x24, 0xf4, 0xb1, 0x44, 0x89, 0x7c,
-    0x30, 0x3e, 0x50, 0x18, 0xe1, 0x14, 0x9f, 0x23, 0x7a, 0xbf, 0x54, 0x10, 0x02, 0xcb, 0x59, 0xa2,
-    0x4e, 0x1e, 0x96, 0x02, 0x22, 0x1b, 0x8b, 0xf4, 0x11, 0x83, 0x4a, 0xa1, 0x12, 0xfc, 0x69, 0x1d,
-    0xd6, 0x41, 0x9e, 0x5c, 0xec, 0xd7, 0x84, 0x73, 0xf4, 0x23, 0x84, 0x1d, 0x43, 0x78, 0x74, 0x08,
-    0x05, 0x1f, 0x0d, 0x65, 0x73, 0x54, 0x30, 0x0a, 0xe2, 0x81, 0x3b, 0x06, 0x84, 0x8c, 0x9c, 0x01,
-    0x50, 0x23, 0xf7, 0xf1, 0xe2, 0xf4, 0xde, 0x15, 0x7c, 0x22, 0x21, 0x07, 0x05, 0x68, 0x77, 0x02,
-    0x9f, 0x00, 0x38, 0x9c, 0x3f, 0x27, 0x14, 0x8e, 0x5c, 0x00, 0x4e, 0x20, 0x01, 0x97, 0x75, 0x10,
-    0x80, 0xf2, 0xff, 0x3f, 0x08, 0xe0, 0x2e, 0x19, 0x9e, 0xc2, 0xb9, 0x1c, 0xdf, 0xa1, 0x63, 0xcf,
-    0x01, 0xf0, 0x80, 0x3c, 0x77, 0x2b, 0x1d, 0x3f, 0x9d, 0x42, 0x88, 0x30, 0xd1, 0x0c, 0x8f, 0x89,
-    0x0d, 0xa1, 0x3f, 0x8c, 0xc7, 0xe3, 0x61, 0xf1, 0xe3, 0x80, 0x4f, 0x2a, 0x0c, 0xfb, 0xe4, 0x0f,
-    0xa6, 0xe8, 0xc1, 0x6b, 0xf6, 0xc7, 0xf4, 0xca, 0xe0, 0x41, 0x1b, 0xd6, 0x03, 0xe5, 0xb0, 0x46,
-    0x7b, 0x2a, 0xe1, 0x57, 0x0d, 0x4f, 0xcc, 0x18, 0x61, 0x7d, 0xc8, 0x00, 0x07, 0x20, 0xfe, 0x8a,
-    0xf0, 0x7e, 0xe1, 0x09, 0x18, 0x90, 0xcd, 0xf1, 0xd1, 0x05, 0x2c, 0xe7, 0x04, 0x3e, 0x88, 0x50,
-    0x91, 0x62, 0x1c, 0x6e, 0x8c, 0x90, 0x61, 0xa2, 0x3c, 0xce, 0xf8, 0xae, 0xc0, 0x14, 0xda, 0xf4,
-    0xa9, 0xd1, 0xa8, 0x55, 0x83, 0x32, 0x35, 0xca, 0x34, 0xa8, 0xd5, 0xa7, 0x52, 0x63, 0xc6, 0x4e,
-    0x28, 0x16, 0xf2, 0x4c, 0xd0, 0x70, 0x1d, 0x03, 0x84, 0x06, 0xa5, 0xd0, 0x49, 0xc1, 0xb1, 0x41,
-    0x04, 0xe4, 0xff, 0x3f
-    &#125;)
-&#125;//End of Device(WMI2)
+INF RuleOverride = SubtypeGuidUncompressedNoChecksum Build/MeFwFid.inf
+......
 
-&#125;//End of Scope(\_SB)</code></pre>
-<h2 id="MOF编译为BMF"><a href="#MOF编译为BMF" class="headerlink" title="MOF编译为BMF"></a>MOF编译为BMF</h2><p>Bios\Windows通过WMI相互通信需要借助MOF(经过编译后为BMF)文件，MOF描述了BIOS导出的WMI接口名字。按<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/windows/hardware/design/dn614028(v=vs.85)">Windows Instrumentation: WMI and ACPI</a>的描述，MOF可能存在于2处：</p>
-<ul>
-<li>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WmiAcpi的MofImagePath指定；不过我在CML 7C43 Project MB中没有找到这样的设定，应该是应用层编写WMI Provider，生成dll会采取这种方式Register，所以不做讨论。</li>
-<li>作为Buffer资源，将编译的MOF文件二进制BMF资源包进ASL Source  Code，嵌入到ACPI命名空间下。</li>
-</ul>
-<p>一个MOF描述文件，它经过mofcomp编译后，会生成二进制MOF资源文件。OEM厂商提取MOF资源文件中的字节流，嵌入到ACPI命名对象中。另外，WDK工具集中还提供wmimofck工具，该工具以MOF资源文件为输入，生成MOF所描述的WMI接口的测试脚本。下面两行命令将依次生成bmf文件(即MOF资源文件)和vbs接口测试脚本：<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383756674.png"></p>
-<h2 id="ASL-Code部分逻辑"><a href="#ASL-Code部分逻辑" class="headerlink" title="ASL Code部分逻辑"></a>ASL Code部分逻辑</h2><p>BIOS在ASL Source Code中需要向WMI mapper声明设备:PNP0C14和_WDG对象。另外，OEM厂商或者IBV会在声明_WDG对象时，顺带声明嵌入式MOF对象。ACPI spec没有规定嵌入式MOF对象的名字，所以各家OEM会有不同的对象名。但是这并不是问题，它是有迹可循的：</p>
-<ul>
-<li>嵌入式MOF对象位于_WDG对象附近，并且具有形如”Name (WQxy, Buffer()){…”的ACPI对象定义，(其含义为：定义一个包含MOF资源的Buffer，并将该Buffer命名为WQxy。前缀WQ代表这是WMI查询接口，xy是2个16进制数值，用于标识WMI查询接口);</li>
-<li>最重要的，该ACPI对象定义中包含了大量的16进制Byte，即BMF文件的字节流，并且开头4Byte是一个魔术字:”FOMB”，如下：<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383810323.png"><h1 id="OS下调用"><a href="#OS下调用" class="headerlink" title="OS下调用"></a>OS下调用</h1><h2 id="Related-Tool"><a href="#Related-Tool" class="headerlink" title="Related Tool"></a>Related Tool</h2>为了验证WMI功能，我们可以使用WMICodeCreator，它是Microsoft的免费工具。 下载：<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=8572">WMI Code Creator v1.0</a>，使用WMI Code Creator工具可以生成VBScript，C＃和VB .NET代码，这些代码使用WMI完成管理任务，例如查询管理数据，从WMI类执行方法或使用WMI接收事件通知。<br>或者也可用第三方开源软件<a target="_blank" rel="noopener" href="https://github.com/vinaypamnani/wmie2/releases">WMI Explorer</a>来对WMI进行管理查询。<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383882848.png"><h2 id="指定method调用"><a href="#指定method调用" class="headerlink" title="指定method调用"></a>指定method调用</h2>以管理员身份运行WMICodeCreator.exe，来验证和执行BIOS提供的WMI接口，先执行Query for data from a WMI class，再执行Excute a method，Namespace选择root\WMI，Classes选择MyClass。<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383902165.png"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383920078.png"><h2 id="VB-Script调用"><a href="#VB-Script调用" class="headerlink" title="VB Script调用"></a>VB Script调用</h2><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383950989.png"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383964733.png"></li>
-</ul>
+!include AmiModulePkg/Ofbd/Meud/AutoMeud/MeRegionFdfFileStatement.txt
+
+#FV Section
+[FV.LNV_OEM_DATA_REGION]
+BlockSize = 0x1000
+NumBlocks = 0x20
+FvAlignment = 1
+......
+
+
+#FV Section
+[FV.NVRAM]
+BlockSize = 0x1000
+NumBlocks = 0x50
+FvAlignment = 16
+......
+FvNameGuid = FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC
+
+
+!include AmiModulePkg/NVRAM/NvramFdfFileStatement.txt
+
+#FV Section
+[FV.LEM_FV_DATA]
+BlockSize = 0x1000
+NumBlocks = 0x20
+FvAlignment = 16
+......
+FvNameGuid = 4f1c52d3-d824-4d2a-a2f0-ec40c23c5916
+
+INF RuleOverride = SubtypeGuidUncompressedNoChecksum 
+......
+
+!include AmiTsePkg/Core/em/AMITSE/Romhole.txt
+
+#FV Section
+[FV.FV_CMP]
+BlockSize = 0x1000
+NumBlocks = 0x20
+FvAlignment = 16
+......
+FvNameGuid = aea406cf-4fc8-4dc3-9796-1ee03b64c715
+
+!include LenovoModulePkg/Universal/ExtendedComputrace/AbsolutePkg/OEMSpecifiedAgentX64ProductionInstaller.txt
+
+#FV Section
+[FV.FV_BCP]
+BlockSize = 0x1000
+NumBlocks = 0x10
+FvAlignment = 16
+......
+FvNameGuid = 8649FC2D-C0E6-4262-AD51-0CEABAB6429E
+
+INF RuleOverride = Uncompressed PldmPkg/BiosConfigPreserve/BiosConfigPreserveBin/BCPFlashData/BCPFlashData.inf
+
+
+#FV Section
+[FV.FV_DATA_BACKUP]
+BlockSize = 0x1000
+NumBlocks = 0x110
+FvAlignment = 16
+......
+FvNameGuid = E4A068F1-5EF1-4ACE-857C-7935F8A0C708
+
+
+!include CrbPkg/AmiCrbIntelTopSwap/FvDataBackupFdfFileStatement.txt
+
+#FV Section
+[FV.FV_DATA]
+BlockSize = 0x1000
+NumBlocks = 0x110
+FvAlignment = 16
+......
+FvNameGuid = AFDD39F1-19D7-4501-A730-CE5A27E1154B
+
+INF RuleOverride = UncompressedBinaryNoChecksum AmiChipsetModulePkg/FIT/ReserveBinary/ReserveBootGuardSaveResigndata.inf
+
+!include AmiChipsetModulePkg/FIT/FitTable/FitMicrocodeFdfFileStatement.txt
+
+#FV Section
+[FV.FV_BB_AFTER_MEMORY_BACKUP]
+BlockSize = 0x1000
+NumBlocks = 0xa0
+FvAlignment = 16
+......
+FvNameGuid = 5b08a058-784f-4938-9a49-1588aa05f4b9
+
+......
+
+#FV Section
+[FV.FV_FSP_S_BACKUP]
+BlockSize = 0x1000
+NumBlocks = 0x90
+FvAlignment = 16
+
+
+!include Intel/CometLakeFspBinPkg/FvFspSFdfFileStatement.txt
+
+#FV Section
+[FV.FV_BB_AFTER_MEMORY]
+BlockSize = 0x1000
+NumBlocks = 0xa0
+FvAlignment = 16
+......
+
+#FV Section
+[FV.FV_FSP_S]
+BlockSize = 0x1000
+NumBlocks = 0x90
+FvAlignment = 16
+
+
+!include Intel/CometLakeFspBinPkg/FvFspSFdfFileStatement.txt
+......
+
+#FV Section
+[FV.FV_BB_BACKUP]
+BlockSize = 0x1000
+NumBlocks = 0x90
+FvBaseAddress = 0xfff70000
+......
+FvNameGuid = 61C0F511-A691-4F54-974F-B9A42172CE53
+
+APRIORI PEI &#123;
+    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
+    INF AmiModulePkg/IO/NCT6686D/NCT6686DPeiInit.inf
+    ......
+
+!include Build/BiosGuardPubKeyhash_FdfFileStatement.txt
+!include AmiChipsetModulePkg/FIT/FitTable/FitTableFdfFileStatement.txt
+!include LenovoModulePkg/Universal/BuildNaming/BuildNaming.txt
+
+#FV Section
+[FV.FV_BB]
+BlockSize = 0x1000
+NumBlocks = 0x90
+FvAlignment = 16
+......
+FvNameGuid = 61C0F511-A691-4F54-974F-B9A42172CE53
+
+APRIORI PEI &#123;
+    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
+    INF AmiModulePkg/IO/NCT6686D/NCT6686DPeiInit.inf
+    INF LenovoModulePkg/Universal/AssetID/AssetIDOnRecoveryMode/AssetIDOnRecoveryModePei.inf
+    ......
+
+!include AmiChipsetModulePkg/BiosGuard/Binary/BiosGuardBinary_FdfFileStatement.txt
+!include Intel/CometLakePlatSamplePkg/Binaries/Pct/PctGpioFdfFileStatements.txt
+!include 
+......</code></pre>
+<p>fdf文件的开头部份是关键字[fd]，它表示完整的BIOS Rom Image。还指定了BIOS的加载地址BaseAddress = 0xff00000，大小Size = 0x1000000(16M)，这与UEFITool给出的数据不谋而合：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389689841.png"></p>
+<p>根据BIOS Rom Image位于4G空间的顶部(0xFFFFFFFF)，减去Rom Image Size就可以推得Bios Rom加载地址(就是Fdf文件中的BaseAddress=0xff000000)<br>接下来形如下列内容:</p>
+<pre><code>Offset|Size
+[RegionType]
+</code></pre>
+<p>则是在FD中开辟了一段连续空间，用来存放FV/FILE等内容。其中Offset和Size是这段空间的相对于整个FD的偏移和大小；前面UEFITool图中”BIOS Region”中列出的每一个FFS项都可以对应到Fdf文件[FD]节中RegionType为FV的项(毕竟只有FV才会用到文件系统FFS)。如果仔细比对，可能会发现UEFITool中倒数第二和倒数第三个FFS的Size和Padding相加正好对应[FD]节中的FV_FSP：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389914494.png"></p>
+<pre><code>0xf00000|0x70000
+#FV_FSP
+FILE = Build/Fsp_Rebased_M_T.fd\</code></pre>
+<p>FV_FSP项的RegionType是FILE，可以包含任意内容，自然也可以包含其他的fd文件，就如NCB_LOGO项中包含了开机Logo文件；其次，fd文件又由fv组成，UEFITool又能解析fd文件，因此造成了这种FDF和BIOS Rom image不一致。其实，我们可以用UEFITool加载Fsp_Rebuild_M_T.fd，发现其中包含两个FFS：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604390180438.png"></p>
+<p>如果FV_FSP包含的fd文件是经过压缩操作的，那么FDF文件中RegionType为FV的项应该和UEFITool实际得到的相一致。</p>
+<p>FDF文件[FD]节之后就是大量的[FV]节，FV的主要作用就是包含组件和模块。他们来填充[FD]节中开辟的空间。先来看一个相对简单的FV节：FV.NVRAM，它只包含一个include语句，指向NvramFdfFileStatement.txt文件:</p>
+<pre><code>!include AmiModulePkg/NVRAM/NvramFdfFileStatement.txt</code></pre>
+<p>NvramFdfFileStatement.txt文件通过FILE指令，包含binary file：</p>
+<pre><code>  FILE RAW = CEF5B9A3-476D-497f-9FDC-E98143E0422C &#123;
+    $(OUTPUT_DIRECTORY)/Nvram.bin
+  &#125;</code></pre>
+<p>FV的主要作用就是填充[FD]节中开辟的空间，用这个FV节验证一下：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391042176.png"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391071513.png"></p>
+<p>FDF中，FV.Nvram位于Bios Rom image的开头，Fv guid：FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC，NvramFdfFileStatement.txt中指定的File Guid：CEF5B9A3-476D-497f-9FDC-E98143E0422C；用UEFITool加载Bios Rom image，第一个FFS(就是FV.Nvram)的Volume GUID: FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC；再展开FFS，其中包含的唯一的文件的File Guid: CEF5B9A3-476D-497F-9FDC-E98143E0422C，这些值和FDF中的Fv Guid以及File Guid是一致的。<br>除了File Guid是一致的，用UEFITool解压后得到的Nvram.bin和原始的Nvram.bin的内容也是一致的：</p>
+<p>以上是简单的FV的情况，有些复杂的FV中可以嵌套其他的FV，如FDF中的FV.FV_MAIN_WRAPPER，我们再来分析一下它：</p>
+<pre><code>#FV Section
+[FV.FV_MAIN_WRAPPER]
+BlockSize = 0x1000
+NumBlocks = 0x870
+......
+!include AmiPkg/Configuration/NestedFvMainFdfFileStatement.txt</code></pre>
+<p>FV.FV_MAIN_WRAPPER节中内容不多，仅仅含有若干条!include语句，但是FV.FV_MAIN_WRAPPER节占据BIOS Rom Image很大一块空间：BlockSize<em>NumBlocks=0x1000</em>0x870=0x870000。它占用如此多空间的原因是NestedFvMainFdfFileStatement.txt通过FILE指令包含了一块压缩的FV文件，而该FV文件是Dxe阶段的代码</p>
+<p>NestedFvMainFdfFileStatement.txt的内容如下：</p>
+<pre><code>#Includes FVMAIN FV image
+FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 $(FFS_FILE_CHECKSUM_KEYWORD) &#123;
+  SECTION $(PEI_COMPRESSION_SECTION) &#123;
+    SECTION FV_IMAGE = FV_MAIN
+  &#125;
+&#125;</code></pre>
+<p>FV_MAIN节内容如下：</p>
+<pre><code>#FV Section
+[FV.FV_MAIN]
+BlockSize = 0x1000
+NumBlocks = 0x0
+FvAlignment = 16
+......
+INF AmiModulePkg/RomLayout/RomLayoutDxe.inf
+INF MdeModulePkg/Core/Dxe/DxeMain.inf
+INF AmiModulePkg/Bds/Bds.inf</code></pre>
+<p>前面找到Dxe阶段的代码，那Sec和Pei阶段的代码在哪？platform.fdf文件[fd]节中设定FV_BB节位于Bios Rom image的尾部，因此，我们可以猜测并验证Sec模块和Pei模块也位于FV_BB中：</p>
+<pre><code>
+[FV.FV_BB]
+BlockSize = 0x1000
+NumBlocks = 0xa0
+...
+APRIORI PEI &#123; ;PEI阶段的APRIORI文件
+    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
+    ...
+&#125;
+...
+INF MdeModulePkg/Core/Pei/PeiMain.inf ;Pei阶段入口
+...
+INF UefiCpuPkg/SecCore/SecCore.inf ;Sec阶段入口
+...
+INF UefiCpuPkg/CpuIoPei/CpuIoPei.inf
+INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2Pei.inf
+</code></pre>
+<p>虽然，我们已经确定Sec模块和Pei模块位于FV_BB块中，但是有个问题随之出现：SecCore.inf并不是FV_BB中最后一个模块(夹在其他模块之间)，所以一眼看去感觉开机时执行的第一条指令并不在SecCore模块中，这明显与EFI Spec相悖。更何况SecCore.inf含有ResetVector：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391678324.png" alt="SecCore.inf部分内容"></p>
+<p>另外，UEFITool也明显显示SecCore位于Bios Rom image尾部</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391761934.png"></p>
+<p>fdf的设定和实际现象有差异，那一定是GenFv在生成Bios Rom image时有特殊处理。和GenFv Build Bios相关的只能查看Build.log，它记录了从源码到制成Rom Image的全过程，在Build.log的结尾，记录了各个模块在Bios Rom Image的排列位置，我发现了特殊的一处Firmware Volumon:08 No.049 类型是SECC—-SecCore，属性被标记为VTF，Bios Rom Image中其他FV中任何模块都不具有该属性：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391860137.png"></p>
+<p>在PI spec Vol3中提到：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392019507.png"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392038413.png"></p>
+<p>VTF是Volume Top File的缩写，PI spec规定VTF的File Guid为EFI_FFS_VOLUME_TOP_FILE_GUID（1BA0062E-C779-4582-8566-336AE8F78F09），必须位于firmware volume的最后一个字节。而SecCore.inf的FILE_GUID = 1BA0062E-C779-4582-8566-336AE8F78F09。看来只要某个inf指定自己FILE_GUID为EFI_FFS_VOLUME_TOP_FILE_GUID就有机会被安排在最开始执行。</p>
 
             </div>
             <hr/>
@@ -617,7 +745,7 @@ Device(WMI2)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2020/11/03/OemWmi%20Demo/">http://holychen.cn/2020/11/03/OemWmi%20Demo/</a>
+                    <a href="http://holychen.cn/2021/08/01/BIOS_ROM_Image/">http://holychen.cn/2021/08/01/BIOS_ROM_Image/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -655,8 +783,8 @@ Device(WMI2)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/WMI-CIM-MOF-ASL/">
-                                    <span class="chip bg-color">WMI,CIM,MOF,ASL</span>
+                                <a href="/tags/Flash-Layout-FV/">
+                                    <span class="chip bg-color">Flash,Layout,FV</span>
                                 </a>
                             
                         </div>
@@ -698,11 +826,12 @@ Device(WMI2)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/11/03/BIOS_ROM_Image/">
+                <a href="/2021/08/01/BIOS_ROM_Image/">
                     <div class="card-image">
                         
                         
@@ -718,9 +847,9 @@ Device(WMI2)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -729,6 +858,7 @@ Device(WMI2)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -747,13 +877,13 @@ Device(WMI2)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/03/StatusCode/">
+                <a href="/2021/08/01/OemWmi%20Demo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="StatusCode分析">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="OemWmi Demo">
                         
-                        <span class="card-title">StatusCode分析</span>
+                        <span class="card-title">OemWmi Demo</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -764,7 +894,7 @@ Device(WMI2)
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
                             </span>
                         <span class="publish-author">
                             
@@ -773,6 +903,14 @@ Device(WMI2)
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/WMI-CIM-MOF-ASL/">
+                        <span class="chip bg-color">WMI,CIM,MOF,ASL</span>
+                    </a>
+                    
                 </div>
                 
             </div>

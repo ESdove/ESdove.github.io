@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="BIOS ROM Image分析, 汇编/C/C++/QT/UEFI">
+    <meta name="keywords" content="Ventoy, 汇编/C/C++/QT/UEFI">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>BIOS ROM Image分析 | 尘世浮沉HolyChen</title>
+    <title>Ventoy | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -215,12 +215,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">BIOS ROM Image分析</h1>
+                    <h1 class="description center-align post-title">Ventoy</h1>
                 </div>
             </div>
         </div>
@@ -335,13 +335,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Flash-Layout-FV/">
-                                <span class="chip bg-color">Flash,Layout,FV</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -357,14 +353,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    561
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    2 分
                 </div>
                 
 
@@ -379,347 +375,102 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Flash芯片和生成的BIOS-ROM"><a href="#Flash芯片和生成的BIOS-ROM" class="headerlink" title="Flash芯片和生成的BIOS ROM"></a>Flash芯片和生成的BIOS ROM</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/86ed9927664912afa5ce9778ee3f498.jpg" alt="主板上的NorFlash"></p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604388851409.png" alt="FPT整刷的bin"></p>
-<h1 id="intel闪存映像布局"><a href="#intel闪存映像布局" class="headerlink" title="intel闪存映像布局"></a>intel闪存映像布局</h1><p>英特尔在相应芯片组的数据表页面上讨论了BIOS的结构。对于所有从第六系列开始的芯片组，此格式通常保持不变，该文件分为3-5个区域，可选的是GbE区域和PDR。</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604388929921.png"></p>
-<h1 id="UEFI-Tool解析"><a href="#UEFI-Tool解析" class="headerlink" title="UEFI Tool解析"></a>UEFI Tool解析</h1><p>用<a target="_blank" rel="noopener" href="https://github.com/LongSoft/UEFITool">EFITool</a>工具加载了编译生成的bin文件，发现Reset Vector位于BIOS Rom Image的最底部，探索形成这样的Image结构相关的各种文件(.fdf/.fd/.fv等文件)</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389109072.png"></p>
-<p>组成结构：16MBIOS + 16M ME + 16M 128KB PDR</p>
-<p>BIOS Rom部分，由GenFv工具根据fdf文件生成</p>
-<pre><code>#FD Section
-[FD.AMIROM]
-BaseAddress = 0xff000000
-Size = 0x1000000
-ErasePolarity = 1
-BlockSize = 0x1000
-NumBlocks = 0x1000
-
-DEFINE UNCOMPRESSED_PEI_EXECUTABLES_ALIGNMENT =  
-DEFINE SEC_CORE_EXECUTABLE_ALIGNMENT = Align = 8
-......
-
-0x0|0x20000
-FV = LNV_OEM_DATA_REGION
-
-0x20000|0x50000
-FV = NVRAM
-
-0x70000|0x50000
-#RAW - NVRAM_BACKUP
-
-0xc0000|0x20000
-FV = LEM_FV_DATA
-
-0xe0000|0x870000
-FV = FV_MAIN_WRAPPER
-
-0x950000|0x20000
-FV = FV_CMP
-
-0x970000|0x10000
-FV = FV_BCP
-
-0x980000|0x110000
-FV = FV_DATA_BACKUP
-
-0xa90000|0x110000
-FV = FV_DATA
-
-0xba0000|0xa0000
-FV = FV_BB_AFTER_MEMORY_BACKUP
-
-0xc40000|0x90000
-FV = FV_FSP_S_BACKUP
-
-0xcd0000|0xa0000
-FV = FV_BB_AFTER_MEMORY
-
-0xd70000|0x90000
-FV = FV_FSP_S
-
-0xe00000|0x70000
-#FV_FSP_BACKUP
-FILE = Build/Fsp_Rebased_M_T.fd
-
-0xe70000|0x90000
-FV = FV_BB_BACKUP
-
-0xf00000|0x70000
-#FV_FSP
-FILE = Build/Fsp_Rebased_M_T.fd
-
-0xf70000|0x90000
-FV = FV_BB
-
-#FV Section
-[FV.FV_MAIN]
-BlockSize = 0x1000
-NumBlocks = 0x0
-FvAlignment = 16
-MEMORY_MAPPED = TRUE
-
-FvNameGuid = 5C60F367-A505-419A-859E-2A4FF6CA6FE5
-
-APRIORI DXE &#123;
-    INF AmiModulePkg/AmiStatusCode/StatusCodeDxe.inf
-    INF AmiModulePkg/AmiStatusCode/StatusCodeSmm.inf
-    INF MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
-    ......
-
-!include AmiPkg/Configuration/FontFileStatement.txt
-!include AmiModulePkg/NVRAM/FvMainDefaultsFdfFileStatement.txt
-!include AmiChipsetModulePkg/LegacyRom/Vbios/VbiosFdfFileStatements.txt
-......
-
-#FV Section
-[FV.FV_LOGOROMHOLE]
-BlockSize = 0x1000
-NumBlocks = 0x20
-FvAlignment = 1
-......
-FvNameGuid = E54D9684-2735-43ef-A379-30F2F592BA10
-
-
-!include AmiTsePkg/Core/em/AMITSE/Logoffs.txt
-
-#FV Section
-[FV.FV_MEFW_CAPSULE]
-BlockSize = 0x1000
-NumBlocks = 0x600
-FvAlignment = 16
-......
-FvNameGuid = 9F8B1DEF-B62B-45F3-8282-BFD7EA19801B
-
-INF RuleOverride = SubtypeGuidUncompressedNoChecksum Build/MeFwFid.inf
-......
-
-!include AmiModulePkg/Ofbd/Meud/AutoMeud/MeRegionFdfFileStatement.txt
-
-#FV Section
-[FV.LNV_OEM_DATA_REGION]
-BlockSize = 0x1000
-NumBlocks = 0x20
-FvAlignment = 1
-......
-
-
-#FV Section
-[FV.NVRAM]
-BlockSize = 0x1000
-NumBlocks = 0x50
-FvAlignment = 16
-......
-FvNameGuid = FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC
-
-
-!include AmiModulePkg/NVRAM/NvramFdfFileStatement.txt
-
-#FV Section
-[FV.LEM_FV_DATA]
-BlockSize = 0x1000
-NumBlocks = 0x20
-FvAlignment = 16
-......
-FvNameGuid = 4f1c52d3-d824-4d2a-a2f0-ec40c23c5916
-
-INF RuleOverride = SubtypeGuidUncompressedNoChecksum 
-......
-
-!include AmiTsePkg/Core/em/AMITSE/Romhole.txt
-
-#FV Section
-[FV.FV_CMP]
-BlockSize = 0x1000
-NumBlocks = 0x20
-FvAlignment = 16
-......
-FvNameGuid = aea406cf-4fc8-4dc3-9796-1ee03b64c715
-
-!include LenovoModulePkg/Universal/ExtendedComputrace/AbsolutePkg/OEMSpecifiedAgentX64ProductionInstaller.txt
-
-#FV Section
-[FV.FV_BCP]
-BlockSize = 0x1000
-NumBlocks = 0x10
-FvAlignment = 16
-......
-FvNameGuid = 8649FC2D-C0E6-4262-AD51-0CEABAB6429E
-
-INF RuleOverride = Uncompressed PldmPkg/BiosConfigPreserve/BiosConfigPreserveBin/BCPFlashData/BCPFlashData.inf
-
-
-#FV Section
-[FV.FV_DATA_BACKUP]
-BlockSize = 0x1000
-NumBlocks = 0x110
-FvAlignment = 16
-......
-FvNameGuid = E4A068F1-5EF1-4ACE-857C-7935F8A0C708
-
-
-!include CrbPkg/AmiCrbIntelTopSwap/FvDataBackupFdfFileStatement.txt
-
-#FV Section
-[FV.FV_DATA]
-BlockSize = 0x1000
-NumBlocks = 0x110
-FvAlignment = 16
-......
-FvNameGuid = AFDD39F1-19D7-4501-A730-CE5A27E1154B
-
-INF RuleOverride = UncompressedBinaryNoChecksum AmiChipsetModulePkg/FIT/ReserveBinary/ReserveBootGuardSaveResigndata.inf
-
-!include AmiChipsetModulePkg/FIT/FitTable/FitMicrocodeFdfFileStatement.txt
-
-#FV Section
-[FV.FV_BB_AFTER_MEMORY_BACKUP]
-BlockSize = 0x1000
-NumBlocks = 0xa0
-FvAlignment = 16
-......
-FvNameGuid = 5b08a058-784f-4938-9a49-1588aa05f4b9
-
-......
-
-#FV Section
-[FV.FV_FSP_S_BACKUP]
-BlockSize = 0x1000
-NumBlocks = 0x90
-FvAlignment = 16
-
-
-!include Intel/CometLakeFspBinPkg/FvFspSFdfFileStatement.txt
-
-#FV Section
-[FV.FV_BB_AFTER_MEMORY]
-BlockSize = 0x1000
-NumBlocks = 0xa0
-FvAlignment = 16
-......
-
-#FV Section
-[FV.FV_FSP_S]
-BlockSize = 0x1000
-NumBlocks = 0x90
-FvAlignment = 16
-
-
-!include Intel/CometLakeFspBinPkg/FvFspSFdfFileStatement.txt
-......
-
-#FV Section
-[FV.FV_BB_BACKUP]
-BlockSize = 0x1000
-NumBlocks = 0x90
-FvBaseAddress = 0xfff70000
-......
-FvNameGuid = 61C0F511-A691-4F54-974F-B9A42172CE53
-
-APRIORI PEI &#123;
-    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
-    INF AmiModulePkg/IO/NCT6686D/NCT6686DPeiInit.inf
-    ......
-
-!include Build/BiosGuardPubKeyhash_FdfFileStatement.txt
-!include AmiChipsetModulePkg/FIT/FitTable/FitTableFdfFileStatement.txt
-!include LenovoModulePkg/Universal/BuildNaming/BuildNaming.txt
-
-#FV Section
-[FV.FV_BB]
-BlockSize = 0x1000
-NumBlocks = 0x90
-FvAlignment = 16
-......
-FvNameGuid = 61C0F511-A691-4F54-974F-B9A42172CE53
-
-APRIORI PEI &#123;
-    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
-    INF AmiModulePkg/IO/NCT6686D/NCT6686DPeiInit.inf
-    INF LenovoModulePkg/Universal/AssetID/AssetIDOnRecoveryMode/AssetIDOnRecoveryModePei.inf
-    ......
-
-!include AmiChipsetModulePkg/BiosGuard/Binary/BiosGuardBinary_FdfFileStatement.txt
-!include Intel/CometLakePlatSamplePkg/Binaries/Pct/PctGpioFdfFileStatements.txt
-!include 
-......</code></pre>
-<p>fdf文件的开头部份是关键字[fd]，它表示完整的BIOS Rom Image。还指定了BIOS的加载地址BaseAddress = 0xff00000，大小Size = 0x1000000(16M)，这与UEFITool给出的数据不谋而合：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389689841.png"></p>
-<p>根据BIOS Rom Image位于4G空间的顶部(0xFFFFFFFF)，减去Rom Image Size就可以推得Bios Rom加载地址(就是Fdf文件中的BaseAddress=0xff000000)<br>接下来形如下列内容:</p>
-<pre><code>Offset|Size
-[RegionType]
-</code></pre>
-<p>则是在FD中开辟了一段连续空间，用来存放FV/FILE等内容。其中Offset和Size是这段空间的相对于整个FD的偏移和大小；前面UEFITool图中”BIOS Region”中列出的每一个FFS项都可以对应到Fdf文件[FD]节中RegionType为FV的项(毕竟只有FV才会用到文件系统FFS)。如果仔细比对，可能会发现UEFITool中倒数第二和倒数第三个FFS的Size和Padding相加正好对应[FD]节中的FV_FSP：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389914494.png"></p>
-<pre><code>0xf00000|0x70000
-#FV_FSP
-FILE = Build/Fsp_Rebased_M_T.fd\</code></pre>
-<p>FV_FSP项的RegionType是FILE，可以包含任意内容，自然也可以包含其他的fd文件，就如NCB_LOGO项中包含了开机Logo文件；其次，fd文件又由fv组成，UEFITool又能解析fd文件，因此造成了这种FDF和BIOS Rom image不一致。其实，我们可以用UEFITool加载Fsp_Rebuild_M_T.fd，发现其中包含两个FFS：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604390180438.png"></p>
-<p>如果FV_FSP包含的fd文件是经过压缩操作的，那么FDF文件中RegionType为FV的项应该和UEFITool实际得到的相一致。</p>
-<p>FDF文件[FD]节之后就是大量的[FV]节，FV的主要作用就是包含组件和模块。他们来填充[FD]节中开辟的空间。先来看一个相对简单的FV节：FV.NVRAM，它只包含一个include语句，指向NvramFdfFileStatement.txt文件:</p>
-<pre><code>!include AmiModulePkg/NVRAM/NvramFdfFileStatement.txt</code></pre>
-<p>NvramFdfFileStatement.txt文件通过FILE指令，包含binary file：</p>
-<pre><code>  FILE RAW = CEF5B9A3-476D-497f-9FDC-E98143E0422C &#123;
-    $(OUTPUT_DIRECTORY)/Nvram.bin
-  &#125;</code></pre>
-<p>FV的主要作用就是填充[FD]节中开辟的空间，用这个FV节验证一下：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391042176.png"></p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391071513.png"></p>
-<p>FDF中，FV.Nvram位于Bios Rom image的开头，Fv guid：FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC，NvramFdfFileStatement.txt中指定的File Guid：CEF5B9A3-476D-497f-9FDC-E98143E0422C；用UEFITool加载Bios Rom image，第一个FFS(就是FV.Nvram)的Volume GUID: FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC；再展开FFS，其中包含的唯一的文件的File Guid: CEF5B9A3-476D-497F-9FDC-E98143E0422C，这些值和FDF中的Fv Guid以及File Guid是一致的。<br>除了File Guid是一致的，用UEFITool解压后得到的Nvram.bin和原始的Nvram.bin的内容也是一致的：</p>
-<p>以上是简单的FV的情况，有些复杂的FV中可以嵌套其他的FV，如FDF中的FV.FV_MAIN_WRAPPER，我们再来分析一下它：</p>
-<pre><code>#FV Section
-[FV.FV_MAIN_WRAPPER]
-BlockSize = 0x1000
-NumBlocks = 0x870
-......
-!include AmiPkg/Configuration/NestedFvMainFdfFileStatement.txt</code></pre>
-<p>FV.FV_MAIN_WRAPPER节中内容不多，仅仅含有若干条!include语句，但是FV.FV_MAIN_WRAPPER节占据BIOS Rom Image很大一块空间：BlockSize<em>NumBlocks=0x1000</em>0x870=0x870000。它占用如此多空间的原因是NestedFvMainFdfFileStatement.txt通过FILE指令包含了一块压缩的FV文件，而该FV文件是Dxe阶段的代码</p>
-<p>NestedFvMainFdfFileStatement.txt的内容如下：</p>
-<pre><code>#Includes FVMAIN FV image
-FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 $(FFS_FILE_CHECKSUM_KEYWORD) &#123;
-  SECTION $(PEI_COMPRESSION_SECTION) &#123;
-    SECTION FV_IMAGE = FV_MAIN
-  &#125;
+                <h1 id="Ventoy简介"><a href="#Ventoy简介" class="headerlink" title="Ventoy简介"></a>Ventoy简介</h1><p> Ventoy是一个制作可启动U盘的开源工具。有了Ventoy你就无需反复地格式化U盘，你只需要把ISO文件拷贝到U盘里面就可以启动了，无需其他操作。 你可以一次性拷贝很多个不同类型的ISO文件，在启动时Ventoy会显示一个菜单来选择(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/screenshot.html">截图</a>)。 无差异支持Legacy BIOS和UEFI模式。目前已经测试了各类超过260+ 个ISO文件(<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/isolist.html">列表</a>). 同时提出了”Ventoy Compatible”的概念，若被支持则理论上可以启动任何ISO文件.</p>
+<h1 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ventoy/Ventoy">Github开源地址</a></p>
+<ul>
+<li> <a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/download.html">下载地址</a></li>
+</ul>
+</li>
+<li><p> 安装到启动盘</p>
+</li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967090645.png" alt="安装到U盘"></p>
+<h1 id="放置ISO镜像文件"><a href="#放置ISO镜像文件" class="headerlink" title="放置ISO镜像文件"></a>放置ISO镜像文件</h1><h2 id="镜像下载站点"><a href="#镜像下载站点" class="headerlink" title="镜像下载站点"></a>镜像下载站点</h2><ul>
+<li>  <a target="_blank" rel="noopener" href="https://next.itellyou.cn/">MSDN</a></li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531519.png"></p>
+<ul>
+<li>  <a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/">阿里云镜像站</a></li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531520.png"></p>
+<h2 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h2><blockquote>
+<p>镜像可放在根目录，也可建立文件夹管理，可按需求分类</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967174941.png"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967207747.png"></p>
+<h1 id="配置json文件和主题（可忽略）"><a href="#配置json文件和主题（可忽略）" class="headerlink" title="配置json文件和主题（可忽略）"></a>配置json文件和主题（可忽略）</h1><ul>
+<li><p>  <a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/plugin_entry.html">官方教程</a></p>
+</li>
+<li><p>  个人示例</p>
+</li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603967274942.png"></p>
+<ul>
+<li>ventoy.json<pre><code>&#123;
+   &quot;theme&quot;: &#123;
+      &quot;file&quot;: &quot;/ventoy/theme/theme.txt&quot;,
+      &quot;gfxmode&quot;: &quot;1024x768&quot;,
+      &quot;ventoy_left&quot;: &quot;42%&quot;,
+      &quot;ventoy_top&quot;: &quot;100%&quot;,
+      &quot;ventoy_color&quot;: &quot;#000000&quot;
+  &#125; ,
+&quot;menu_alias&quot; : 
+  [
+      &#123;
+          &quot;image&quot;: &quot;/ISO/18363.418.191007-0143.19h2_release_svc_refresh_CLIENT_CONSUMER_x64FRE_en-us.iso&quot;,
+          &quot;alias&quot;: &quot;Win10 19H2英文版&quot;
+      &#125;,
+      &#123;
+          &quot;image&quot;: &quot;/ISO/19041.208.200420-2019.vb_release_svc_refresh_CLIENT_BUSINESS_VOL_x64FRE_en-us.iso&quot;,
+          &quot;alias&quot;: &quot;Win10 20H1英文版&quot;
+      &#125;,        
+      &#123;
+          &quot;image&quot;: &quot;/ISO/cn_windows_10_business_editions_version_1909_updated_jan_2020_x64_dvd_b3e1f3a6.iso&quot;,
+          &quot;alias&quot;: &quot;Win10 1909中文版&quot;
+      &#125;,
+      &#123;
+          &quot;image&quot;: &quot;/ISO/rhel-8.1-x86_64-dvd.iso&quot;,
+          &quot;alias&quot;: &quot;ReaHat 8.1&quot;
+      &#125;,
+      &#123;
+          &quot;image&quot;: &quot;/ISO/ubuntu-18.04.3-desktop-amd64.iso&quot;,
+          &quot;alias&quot;: &quot;Ubuntu 18.04.03&quot;
+      &#125;,
+      &#123;
+          &quot;image&quot;: &quot;/ISO/ubuntu-20.04-desktop-amd64.iso&quot;,
+          &quot;alias&quot;: &quot;Ubuntu 20.04&quot;
+      &#125;,
+      &#123;
+          &quot;image&quot;: &quot;/ISO/wepe_64.iso&quot;,
+          &quot;alias&quot;: &quot;微PE&quot;
+      &#125;,
+      &#123;
+          &quot;image&quot;: &quot;/ISO/EasyU_v3.3.iso&quot;,
+          &quot;alias&quot;: &quot;优启通PE&quot;
+      &#125;,
+      &#123;
+          &quot;image&quot;: &quot;/19H2_Bak.wim&quot;,
+          &quot;alias&quot;: &quot;Win10 19H2英文系统备份&quot;
+      &#125;,
+      &#123;
+          &quot;image&quot;: &quot;/1909_Zh_Cn_Backup.wim&quot;,
+          &quot;alias&quot;: &quot;Win10 19H2中文系统备份&quot;
+      &#125;,
+      &#123;
+          &quot;image&quot;: &quot;/ISO/en_windows_server_2016_x64_dvd_9718492.iso&quot;,
+          &quot;alias&quot;: &quot;Win10 Server 2016&quot;
+      &#125;                
+  ]     
 &#125;</code></pre>
-<p>FV_MAIN节内容如下：</p>
-<pre><code>#FV Section
-[FV.FV_MAIN]
-BlockSize = 0x1000
-NumBlocks = 0x0
-FvAlignment = 16
-......
-INF AmiModulePkg/RomLayout/RomLayoutDxe.inf
-INF MdeModulePkg/Core/Dxe/DxeMain.inf
-INF AmiModulePkg/Bds/Bds.inf</code></pre>
-<p>前面找到Dxe阶段的代码，那Sec和Pei阶段的代码在哪？platform.fdf文件[fd]节中设定FV_BB节位于Bios Rom image的尾部，因此，我们可以猜测并验证Sec模块和Pei模块也位于FV_BB中：</p>
-<pre><code>
-[FV.FV_BB]
-BlockSize = 0x1000
-NumBlocks = 0xa0
-...
-APRIORI PEI &#123; ;PEI阶段的APRIORI文件
-    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
-    ...
-&#125;
-...
-INF MdeModulePkg/Core/Pei/PeiMain.inf ;Pei阶段入口
-...
-INF UefiCpuPkg/SecCore/SecCore.inf ;Sec阶段入口
-...
-INF UefiCpuPkg/CpuIoPei/CpuIoPei.inf
-INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2Pei.inf
-</code></pre>
-<p>虽然，我们已经确定Sec模块和Pei模块位于FV_BB块中，但是有个问题随之出现：SecCore.inf并不是FV_BB中最后一个模块(夹在其他模块之间)，所以一眼看去感觉开机时执行的第一条指令并不在SecCore模块中，这明显与EFI Spec相悖。更何况SecCore.inf含有ResetVector：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391678324.png" alt="SecCore.inf部分内容"></p>
-<p>另外，UEFITool也明显显示SecCore位于Bios Rom image尾部</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391761934.png"></p>
-<p>fdf的设定和实际现象有差异，那一定是GenFv在生成Bios Rom image时有特殊处理。和GenFv Build Bios相关的只能查看Build.log，它记录了从源码到制成Rom Image的全过程，在Build.log的结尾，记录了各个模块在Bios Rom Image的排列位置，我发现了特殊的一处Firmware Volumon:08 No.049 类型是SECC—-SecCore，属性被标记为VTF，Bios Rom Image中其他FV中任何模块都不具有该属性：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391860137.png"></p>
-<p>在PI spec Vol3中提到：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392019507.png"></p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392038413.png"></p>
-<p>VTF是Volume Top File的缩写，PI spec规定VTF的File Guid为EFI_FFS_VOLUME_TOP_FILE_GUID（1BA0062E-C779-4582-8566-336AE8F78F09），必须位于firmware volume的最后一个字节。而SecCore.inf的FILE_GUID = 1BA0062E-C779-4582-8566-336AE8F78F09。看来只要某个inf指定自己FILE_GUID为EFI_FFS_VOLUME_TOP_FILE_GUID就有机会被安排在最开始执行。</p>
+</li>
+<li>  <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1009236/">主题地址</a></li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531602.png"></p>
+<h1 id="显示效果"><a href="#显示效果" class="headerlink" title="显示效果"></a>显示效果</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603965531607.png"></p>
+<blockquote>
+<p>通过主板快捷键可以从制作的VentoyU盘启动，选择可启动镜像即可进入OS安装或PE等维护工具</p>
+</blockquote>
 
             </div>
             <hr/>
@@ -745,7 +496,7 @@ INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2P
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2020/11/03/BIOS_ROM_Image/">http://holychen.cn/2020/11/03/BIOS_ROM_Image/</a>
+                    <a href="http://holychen.cn/2021/08/01/Ventoy/">http://holychen.cn/2021/08/01/Ventoy/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -782,11 +533,7 @@ INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2P
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Flash-Layout-FV/">
-                                    <span class="chip bg-color">Flash,Layout,FV</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -826,18 +573,17 @@ INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2P
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/03/BIOS_ROM_Image/">
+                <a href="/2021/08/01/WFU/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="BIOS ROM Image分析">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Windows Firmware Update Guide">
                         
-                        <span class="card-title">BIOS ROM Image分析</span>
+                        <span class="card-title">Windows Firmware Update Guide</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -847,9 +593,9 @@ INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2P
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -858,12 +604,11 @@ INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2P
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Flash-Layout-FV/">
-                        <span class="chip bg-color">Flash,Layout,FV</span>
+                    <a href="/tags/WFU-cab-%E8%AF%81%E4%B9%A6/">
+                        <span class="chip bg-color">WFU,cab,证书</span>
                     </a>
                     
                 </div>
@@ -877,13 +622,13 @@ INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2P
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/03/OemWmi%20Demo/">
+                <a href="/2021/08/01/HOB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="OemWmi Demo">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="HOB">
                         
-                        <span class="card-title">OemWmi Demo</span>
+                        <span class="card-title">HOB</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -894,7 +639,7 @@ INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2P
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
                             </span>
                         <span class="publish-author">
                             
@@ -907,8 +652,8 @@ INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2P
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/WMI-CIM-MOF-ASL/">
-                        <span class="chip bg-color">WMI,CIM,MOF,ASL</span>
+                    <a href="/tags/%E6%A6%82%E5%BF%B5-code-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BD%BF%E7%94%A8/">
+                        <span class="chip bg-color">概念,code,数据结构,使用</span>
                     </a>
                     
                 </div>
