@@ -1,0 +1,1379 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="C/C++/QT/UEFI/Python">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>尘世浮沉HolyChen</title>
+    <link rel="icon" type="image/png" href="/favicon1.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/favicon1.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">尘世浮沉HolyChen</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/favicon1.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">尘世浮沉HolyChen</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    17 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>[TOC]</p>
+<blockquote>
+<p>本篇记录下Hexo Blog搭建的全流程</p>
+</blockquote>
+<h1 id="服务器购买"><a href="#服务器购买" class="headerlink" title="服务器购买"></a>服务器购买</h1><blockquote>
+<p>鉴于博客托管到<a target="_blank" rel="noopener" href="https://github.com/">Github</a>上加载太慢，搞个服务器是必须的，而且后面白嫖七牛云图床服务也需要用到。服务器这块可供选择很多，国内的直接<a target="_blank" rel="noopener" href="https://cn.aliyun.com/">阿里云</a>，<a target="_blank" rel="noopener" href="https://cloud.tencent.com/">腾讯云</a>走起，国外的<a target="_blank" rel="noopener" href="https://bandwagonhost.com/">搬瓦工</a>，<a target="_blank" rel="noopener" href="https://www.vultr.com/">Vultr</a>，<a target="_blank" rel="noopener" href="https://www.hostwinds.com/vps/linux">Hostwinds</a>等VPS厂商也还行</p>
+</blockquote>
+<blockquote>
+<p>最终选的阿里云学生套餐，配置是1核、2GB内存、40GB SSD的轻量应用服务器，服务端预装CentOS 7.3，一般会进工单后台系统重置下密码，不然下一步SSH连接输密码无回显，输入无规律字符会很难受</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454049.png" alt="轻量应用服务器"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454156.png" alt="工单后台"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454051.png" alt="重置密码"></p>
+<blockquote>
+<p>使用<a target="_blank" rel="noopener" href="https://www.putty.org/">PuTTY</a>，<a target="_blank" rel="noopener" href="https://www.netsarang.com/zh/xshell/">Xshell</a>，<a target="_blank" rel="noopener" href="https://www.vandyke.com/products/securecrt/">SecureCRT</a>等工具，SSH连上远程服务器，这里使用<a target="_blank" rel="noopener" href="https://mobaxterm.mobatek.net/">MobaXterm</a>，颜值还是比较耐打的，免费版差不多够用了，话说<a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal">Windows Terminal</a>也很OK</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454169.png" alt="SSH远程连接"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454170.png" alt="远程登录成功"></p>
+<h1 id="域名-备案"><a href="#域名-备案" class="headerlink" title="域名 + 备案"></a>域名 + 备案</h1><blockquote>
+<p>域名的话腾讯名购买的，考虑到续费比较贵，购买时应尽量选择年限长一点，会比较合算，阿里云的线上备案机制还是比较完善的，照着填就好</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454177.png" alt="备案说明"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454052.png" alt="备案信息填写"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454053.png" alt="阿里云APP上传证件信息"></p>
+<blockquote>
+<p>备案信息提交后，<code>阿里云客服</code>会初审，电话回访确认信息以及让提供视频备案承诺信息，提交给<code>工信部</code>后，工信部会发信息验证码，要求进行核验，完成后提交<code>通管局</code></p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454054.png" alt="初审材料"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">工业和信息化部政务服务平台</a></p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454264.png" alt="工信部短信核验"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454055.png" alt="核验完成"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454144.png" alt="提交通管局"></p>
+<blockquote>
+<p>不过实际管局审核后未进行电话核实，差不对一周的时间，直接发消息提醒备案通过</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/image/image-20210803005813651.png" alt="image-20210803005813651"></p>
+<blockquote>
+<p>然后就是安装个面板，干起运维的活，这里用的<a target="_blank" rel="noopener" href="https://www.bt.cn/">宝塔面板</a>，体验还不错</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454213.png" alt="宝塔面板安装"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454214.png"></p>
+<blockquote>
+<p>注意：这里也有可能你进不去面板页面，是因为服务器没有开8888这个端口（具体看宝塔面板连接的端口），去阿里云轻量服务器控制台中的“安全”-&gt;“防火墙”，右上角的”添加规则”，添加相应的端口即可。</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454154.png" alt="放行8888端口"></p>
+<blockquote>
+<p>这边的话安装完成，注册个BT账号绑定下，登录即可开启运维大业</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454215.png" alt="绑定宝塔账号"></p>
+<h1 id="图床搭建"><a href="#图床搭建" class="headerlink" title="图床搭建"></a>图床搭建</h1><h2 id="图床简介"><a href="#图床简介" class="headerlink" title="图床简介"></a>图床简介</h2><blockquote>
+<p>Markdown是博客的标配，写markdown肯定离不开图床，数据才是核心的东西，免费的说不定什么时候就暴毙了，微博图床和路过图床先pass，码云和github上当备份还行，作为主力图床可能加载速度有点勉强，排除这些，然后剩下的主流提供服务的厂商有阿里云OSS存储，七牛云存储，腾讯云对象存储，又拍云图床，认真思虑良久，还是白嫖七牛云使人快乐</p>
+</blockquote>
+<blockquote>
+<p>注册登录七牛云，进入控制台找到添加对象存储，并新建一个存储空间用来作图床</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454220.png" alt="七牛云控制台"></p>
+<h2 id="创建空间"><a href="#创建空间" class="headerlink" title="创建空间"></a>创建空间</h2><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454155.png" alt="自建空间"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454229.png" alt="上传文件测试"></p>
+<h2 id="域名更换"><a href="#域名更换" class="headerlink" title="域名更换"></a>域名更换</h2><blockquote>
+<p>到这里我们就可以在我们的博客引用外链，显示图片了，当然也可用于公众号。但是七牛云给我们使用这种链接的时间只有一个月，一个月之后就会回收域名</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454290.png" alt="CDN测试域名"></p>
+<blockquote>
+<p>所以用我们自己的二级域名来绑定七牛云进行访问（最好不用www开头的二级域名来绑定，因为www开头的域名，我们都是作为主域名的）</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454311.png" alt="添加备案的域名"></p>
+<h2 id="配置CNAME"><a href="#配置CNAME" class="headerlink" title="配置CNAME"></a>配置CNAME</h2><blockquote>
+<p>添加域名后会生成CNAME，拷贝到域名厂商处添加解析</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454255.png" alt="复制添加二级域名的CNAME"></p>
+<h2 id="添加解析"><a href="#添加解析" class="headerlink" title="添加解析"></a>添加解析</h2><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454321.png"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454278.png" alt="域名解析说明"></p>
+<h2 id="图床搭建完成"><a href="#图床搭建完成" class="headerlink" title="图床搭建完成"></a>图床搭建完成</h2><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454340.png"></p>
+<h2 id="PicGo绑定七牛云图床"><a href="#PicGo绑定七牛云图床" class="headerlink" title="PicGo绑定七牛云图床"></a>PicGo绑定七牛云图床</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo">PicGo</a>配好图床服务，搭配Typora，再搭配<a target="_blank" rel="noopener" href="https://github.com/blinkfox/typora-vue-theme">Vue主题</a>，写Markdown体验极佳</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/image/image-20210803012716665.png" alt="image-20210803012716665"></p>
+<blockquote>
+<p>七牛云个人中心查看密钥</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454280.png" alt="七牛云个人中心查看密钥"></p>
+<h1 id="本地Hexo搭建"><a href="#本地Hexo搭建" class="headerlink" title="本地Hexo搭建"></a>本地Hexo搭建</h1><h2 id="Hexo概览"><a href="#Hexo概览" class="headerlink" title="Hexo概览"></a>Hexo概览</h2><ul>
+<li><p>使用hexo g将source文件夹下md文件渲染成静态HTML文件</p>
+</li>
+<li><p>在服务器远端也部署下git环境</p>
+</li>
+<li><p>hexo d将生成的静态文件push到远程仓库(这里指github和阿里云服务器上)</p>
+</li>
+<li><p>使用git-hooks实现自动部署，将仓库checkout到网站根目录</p>
+</li>
+<li><p>Nginx用做静态文件服务器，实现外界对博客的访问</p>
+</li>
+</ul>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454282.png"></p>
+<h2 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h2><blockquote>
+<p>安装完<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">nodejs</a>，node -v, npm -v查看下版本号</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454281.png" alt="nodejs安装"></p>
+<blockquote>
+<p>添加国内镜像源，这里选择使用阿里的国内镜像进行加速</p>
+</blockquote>
+<pre><code>npm config set registry https://registry.npm.taobao.org</code></pre>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><pre class="line-numbers language-c"><code class="language-c">$ npm install <span class="token operator">-</span>g hexo<span class="token operator">-</span>cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h2><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454439.png" alt="初始化Hexo"></p>
+<ul>
+<li>scaffolds是模版文件夹，当新建文章时，Hexo 会根据 scaffold 来建立文件</li>
+<li>source文件夹是存放用户资源的地方</li>
+<li>themes是主题文件夹，Hexo 会根据主题来生成静态页面</li>
+</ul>
+<blockquote>
+<p>输入命令行进行本地调试，即可看到初始效果</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454440.png" alt="hexo s --debug"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454537.png" alt="Hexo初始界面"></p>
+<h2 id="更换主题为matery"><a href="#更换主题为matery" class="headerlink" title="更换主题为matery"></a>更换主题为matery</h2><blockquote>
+<p>确保本地git环境部署好，使用<a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">matery</a> theme代替默认的landscape,这个hexo主题与前面提到的typora-vue-theme都是blinkfox大佬制作的，审美在我的点上</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454461.png" alt="clone matery 主题"></p>
+<h2 id="菜单导航配置"><a href="#菜单导航配置" class="headerlink" title="菜单导航配置"></a>菜单导航配置</h2><h3 id="名称、路径和图标"><a href="#名称、路径和图标" class="headerlink" title="名称、路径和图标"></a>名称、路径和图标</h3><ul>
+<li>菜单导航名称可以是中文也可以是英文(如：Index或主页)</li>
+<li>图标icon 可以在<a target="_blank" rel="noopener" href="https://fontawesome.com/icons">Font Awesome</a> 中查找</li>
+</ul>
+<pre class="line-numbers language-c"><code class="language-c">menu<span class="token punctuation">:</span>
+  Index<span class="token punctuation">:</span>
+    url<span class="token punctuation">:</span> <span class="token operator">/</span>
+    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>home
+  Tags<span class="token punctuation">:</span>
+    url<span class="token punctuation">:</span> <span class="token operator">/</span>tags
+    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>tags
+  Categories<span class="token punctuation">:</span>
+    url<span class="token punctuation">:</span> <span class="token operator">/</span>categories
+    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>bookmark
+  Archives<span class="token punctuation">:</span>
+    url<span class="token punctuation">:</span> <span class="token operator">/</span>archives
+    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>archive
+  About<span class="token punctuation">:</span>
+    url<span class="token punctuation">:</span> <span class="token operator">/</span>about
+    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>user<span class="token operator">-</span>circle<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="二级菜单配置"><a href="#二级菜单配置" class="headerlink" title="二级菜单配置"></a>二级菜单配置</h3><p>如果需要二级菜单，则可以在原基本菜单导航的基础上如下操作</p>
+<ul>
+<li>在需要添加二级菜单的一级菜单下添加children关键字(如:About菜单下添加children)</li>
+<li>在children下创建二级菜单的 名称name,路径url和图标icon.</li>
+<li>注意每个二级菜单模块前要加 -.</li>
+<li>注意缩进格式</li>
+</ul>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="代码高亮"><a href="#代码高亮" class="headerlink" title="代码高亮"></a>代码高亮</h3><blockquote>
+<p>由于 Hexo 自带的代码高亮略显平庸，所以主题中使用到了 <a target="_blank" rel="noopener" href="https://github.com/ele828/hexo-prism-plugin">hexo-prism-plugin</a> 的 Hexo 插件来做代码高亮，安装命令如下：</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c">npm i <span class="token operator">-</span>S hexo<span class="token operator">-</span>prism<span class="token operator">-</span>plugin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>修改 Hexo 根目录下_config.yml文件中highlight.enable的值为 false，并新增prism插件相关的配置，主要配置如下：</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c">prism_plugin<span class="token punctuation">:</span>
+  mode<span class="token punctuation">:</span> <span class="token string">'preprocess'</span> # realtime<span class="token operator">/</span>preprocess
+  theme<span class="token punctuation">:</span> <span class="token string">'tomorrow'</span>
+  line_number<span class="token punctuation">:</span> true #<span class="token keyword">default</span> false
+  custom_css<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><blockquote>
+<p>使用hexo-generator-search](<a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search">https://github.com/wzpan/hexo-generator-search</a>) 插件来做内容搜索</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c">npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>search <span class="token operator">--</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>在 Hexo 根目录下的_config.yml文件中，新增以下的配置项：</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c">search<span class="token punctuation">:</span>
+  path<span class="token punctuation">:</span> search<span class="token punctuation">.</span>xml
+  field<span class="token punctuation">:</span> post<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="文章字数统计"><a href="#文章字数统计" class="headerlink" title="文章字数统计"></a>文章字数统计</h3><blockquote>
+<p>安装<a target="_blank" rel="noopener" href="https://github.com/willin/hexo-wordcount">hexo-wordcount</a>插件，在文章中显示文章字数、阅读时长信息</p>
+</blockquote>
+<pre><code>npm i --save hexo-wordcount</code></pre>
+<blockquote>
+<p>需要在本主题下的_config.yml 文件中，激活以下配置项</p>
+</blockquote>
+<pre><code>postInfo:
+  date: false # 发布日期
+  update: false # 更新日期
+  wordCount: true # 文章字数统计
+  totalCount: true # 站点总文章字数
+  min2read: true # 文章阅读时长
+  readCount: true # 文章阅读次数</code></pre>
+<h2 id="JS特效"><a href="#JS特效" class="headerlink" title="JS特效"></a>JS特效</h2><blockquote>
+<p>HTML + CSS齐活了，肯定不能少了JS的身影</p>
+</blockquote>
+<h3 id="添加雪花飘落效果"><a href="#添加雪花飘落效果" class="headerlink" title="添加雪花飘落效果"></a>添加雪花飘落效果</h3><blockquote>
+<p>在themes/matery/source/js目录下新建snow.js文件</p>
+</blockquote>
+<pre><code>/*样式一*/
+(function($)&#123;
+    $.fn.snow = function(options)&#123;
+    var $flake = $(&#39;&lt;div id=&quot;snowbox&quot; /&gt;&#39;).css(&#123;&#39;position&#39;: &#39;absolute&#39;,&#39;z-index&#39;:&#39;9999&#39;, &#39;top&#39;: &#39;-50px&#39;&#125;).html(&#39;&amp;#10052;&#39;),
+    documentHeight     = $(document).height(),
+    documentWidth    = $(document).width(),
+    defaults = &#123;
+        minSize        : 10,
+        maxSize        : 20,
+        newOn        : 1000,
+        flakeColor    : &quot;#AFDAEF&quot; /* 此处可以定义雪花颜色，若要白色可以改为#FFFFFF */
+    &#125;,
+    options    = $.extend(&#123;&#125;, defaults, options);
+    var interval= setInterval( function()&#123;
+    var startPositionLeft = Math.random() * documentWidth - 100,
+    startOpacity = 0.5 + Math.random(),
+    sizeFlake = options.minSize + Math.random() * options.maxSize,
+    endPositionTop = documentHeight - 200,
+    endPositionLeft = startPositionLeft - 500 + Math.random() * 500,
+    durationFall = documentHeight * 10 + Math.random() * 5000;
+    $flake.clone().appendTo(&#39;body&#39;).css(&#123;
+        left: startPositionLeft,
+        opacity: startOpacity,
+        &#39;font-size&#39;: sizeFlake,
+        color: options.flakeColor
+    &#125;).animate(&#123;
+        top: endPositionTop,
+        left: endPositionLeft,
+        opacity: 0.2
+    &#125;,durationFall,&#39;linear&#39;,function()&#123;
+        $(this).remove()
+    &#125;);
+    &#125;, options.newOn);
+    &#125;;
+&#125;)(jQuery);
+$(function()&#123;
+    $.fn.snow(&#123;
+        minSize: 5, /* 定义雪花最小尺寸 */
+        maxSize: 50,/* 定义雪花最大尺寸 */
+        newOn: 300  /* 定义密集程度，数字越小越密集 */
+    &#125;);
+&#125;);</code></pre>
+<blockquote>
+<p>在themes/matery/layout/layout.ejs文件内加下</p>
+</blockquote>
+<script src="/js/snow.js"></script>
+
+<h3 id="鼠标点击文字特效"><a href="#鼠标点击文字特效" class="headerlink" title="鼠标点击文字特效"></a>鼠标点击文字特效</h3><p>在themes/matery/source/js目录下新建click_show_text.js文件</p>
+<pre><code>var a_idx = 0;
+jQuery(document).ready(function ($) &#123;
+    $(&quot;body&quot;).click(function (e) &#123;
+        var a = new Array(&quot;富强&quot;, &quot;民主&quot;, &quot;文明&quot;, &quot;和谐&quot;, &quot;自由&quot;, &quot;平等&quot;, &quot;公正&quot;, &quot;法治&quot;, &quot;爱国&quot;, &quot;敬业&quot;, &quot;诚信&quot;, &quot;友善&quot;);
+        var $i = $(&quot;&lt;span/&gt;&quot;).text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+            y = e.pageY;
+        $i.css(&#123;
+            &quot;z-index&quot;: 5,
+            &quot;top&quot;: y - 20,
+            &quot;left&quot;: x,
+            &quot;position&quot;: &quot;absolute&quot;,
+            &quot;font-weight&quot;: &quot;bold&quot;,
+            &quot;color&quot;: &quot;#FF0000&quot;
+        &#125;);
+        $(&quot;body&quot;).append($i);
+        $i.animate(&#123;
+                &quot;top&quot;: y - 180,
+                &quot;opacity&quot;: 0
+            &#125;,
+            3000,
+            function () &#123;
+                $i.remove();
+            &#125;);
+    &#125;);
+    setTimeout(&#39;delay()&#39;, 2000);
+&#125;);
+
+function delay() &#123;
+    $(&quot;.buryit&quot;).removeAttr(&quot;onclick&quot;);
+&#125;
+</code></pre>
+<blockquote>
+<p>在themes/matery/layout/layout.ejs文件内添加下面的内容：</p>
+</blockquote>
+<pre class="line-numbers language-HTML"><code class="language-HTML"><script src="/js/click_show_text.js"></script><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="鼠标彩虹星星掉落"><a href="#鼠标彩虹星星掉落" class="headerlink" title="鼠标彩虹星星掉落"></a>鼠标彩虹星星掉落</h3><blockquote>
+<p>添加鼠标彩虹星星掉落跟随效果</p>
+</blockquote>
+<p>在themes/matery/source/js目录下新建cursor.js文件</p>
+<pre><code>/*!
+* Fairy Dust Cursor.js
+* - 90&#39;s cursors collection
+* -- https://github.com/tholman/90s-cursor-effects
+* -- http://codepen.io/tholman/full/jWmZxZ/
+*/
+
+//鼠标点击雪花特效
+(function fairyDustCursor() &#123;
+
+  var possibleColors = [&quot;#D61C59&quot;, &quot;#E7D84B&quot;, &quot;#1B8798&quot;]
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  var cursor = &#123;x: width/2, y: width/2&#125;;
+  var particles = [];
+
+  function init() &#123;
+    bindEvents();
+    loop();
+  &#125;
+
+  // Bind events that are needed
+  function bindEvents() &#123;
+    document.addEventListener(&#39;mousemove&#39;, onMouseMove);
+    document.addEventListener(&#39;touchmove&#39;, onTouchMove);
+    document.addEventListener(&#39;touchstart&#39;, onTouchMove);
+
+    window.addEventListener(&#39;resize&#39;, onWindowResize);
+  &#125;
+
+  function onWindowResize(e) &#123;
+    width = window.innerWidth;
+    height = window.innerHeight;
+  &#125;
+
+  function onTouchMove(e) &#123;
+    if( e.touches.length &gt; 0 ) &#123;
+      for( var i = 0; i &lt; e.touches.length; i++ ) &#123;
+        addParticle( e.touches[i].clientX, e.touches[i].clientY, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
+      &#125;
+    &#125;
+  &#125;
+
+  function onMouseMove(e) &#123;  
+    cursor.x = e.clientX;
+    cursor.y = e.clientY;
+
+    addParticle( cursor.x, cursor.y, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
+  &#125;
+
+  function addParticle(x, y, color) &#123;
+    var particle = new Particle();
+    particle.init(x, y, color);
+    particles.push(particle);
+  &#125;
+
+  function updateParticles() &#123;
+
+    // Updated
+    for( var i = 0; i &lt; particles.length; i++ ) &#123;
+      particles[i].update();
+    &#125;
+
+    // Remove dead particles
+    for( var i = particles.length -1; i &gt;= 0; i-- ) &#123;
+      if( particles[i].lifeSpan &lt; 0 ) &#123;
+        particles[i].die();
+        particles.splice(i, 1);
+      &#125;
+    &#125;
+
+  &#125;
+
+  function loop() &#123;
+    requestAnimationFrame(loop);
+    updateParticles();
+  &#125;
+
+  /**
+   * Particles
+   */
+
+  function Particle() &#123;
+
+    this.character = &quot;*&quot;;
+    this.lifeSpan = 120; //ms
+    this.initialStyles =&#123;
+      &quot;position&quot;: &quot;fixed&quot;,
+      &quot;top&quot;: &quot;0&quot;, //必须加
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;pointerEvents&quot;: &quot;none&quot;,
+      &quot;z-index&quot;: &quot;10000000&quot;,
+      &quot;fontSize&quot;: &quot;20px&quot;,
+      &quot;will-change&quot;: &quot;transform&quot;
+    &#125;;
+
+    // Init, and set properties
+    this.init = function(x, y, color) &#123;
+
+      this.velocity = &#123;
+        x:  (Math.random() &lt; 0.5 ? -1 : 1) * (Math.random() / 2),
+        y: 1
+      &#125;;
+
+      this.position = &#123;x: x - 10, y: y - 20&#125;;
+      this.initialStyles.color = color;
+      console.log(color);
+
+      this.element = document.createElement(&#39;span&#39;);
+      this.element.innerHTML = this.character;
+      applyProperties(this.element, this.initialStyles);
+      this.update();
+
+      document.body.appendChild(this.element);
+    &#125;;
+
+    this.update = function() &#123;
+      this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
+      this.lifeSpan--;
+
+      this.element.style.transform = &quot;translate3d(&quot; + this.position.x + &quot;px,&quot; + this.position.y + &quot;px,0) scale(&quot; + (this.lifeSpan / 120) + &quot;)&quot;;
+    &#125;
+
+    this.die = function() &#123;
+      this.element.parentNode.removeChild(this.element);
+    &#125;
+
+  &#125;
+
+  /**
+   * Utils
+   */
+
+  // Applies css `properties` to an element.
+  function applyProperties( target, properties ) &#123;
+    for( var key in properties ) &#123;
+      target.style[ key ] = properties[ key ];
+    &#125;
+  &#125;
+
+  init();
+&#125;)();
+</code></pre>
+<blockquote>
+<p>在themes/matery/layout/layout.ejs文件内添加如下</p>
+</blockquote>
+<pre class="line-numbers language-HTML"><code class="language-HTML"><script src="/js/cursor.js"></script><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="配置音乐播放器"><a href="#配置音乐播放器" class="headerlink" title="配置音乐播放器"></a>配置音乐播放器</h2><blockquote>
+<p>要支持音乐播放，就必须开启音乐的播放配置和音乐数据的文件</p>
+</blockquote>
+<blockquote>
+<p>首先，在博客source目录下的_data目录（没有的话就新建一个）中新建 musics.json文件，文件内容如下所示：</p>
+</blockquote>
+<pre><code>[&#123; &quot;name&quot;: &quot;五月雨变奏电音&quot;,
+   &quot;artist&quot;: &quot;AnimeVibe&quot;,
+   &quot;url&quot;: &quot;http://xxx.com/music1.mp3&quot;,
+   &quot;cover&quot;: &quot;http://xxx.com/music-cover1.png&quot;
+&#125;, &#123;
+  &quot;name&quot;: &quot;Take me hand&quot;,
+  &quot;artist&quot;: &quot;DAISHI DANCE,Cecile Corbel&quot;,
+  &quot;url&quot;: &quot;/medias/music/music2.mp3&quot;,
+  &quot;cover&quot;: &quot;/medias/music/cover2.png&quot;
+&#125;, &#123;
+   &quot;name&quot;: &quot;Shape of You&quot;,
+   &quot;artist&quot;: &quot;J.Fla&quot;,
+   &quot;url&quot;: &quot;http://xxx.com/music3.mp3&quot;,
+   &quot;cover&quot;: &quot;http://xxx.com/music-cover3.png&quot;
+&#125;]</code></pre>
+<p>注：以上 JSON 中的属性：name、artist、url、cover 分别表示音乐的名称、作者、音乐文件地址、音乐封面。<br>然后，在主题的_config.yml配置文件中激活配置即可</p>
+<h1 id="服务端部署"><a href="#服务端部署" class="headerlink" title="服务端部署"></a>服务端部署</h1><h2 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h2><pre><code>yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel</code></pre>
+<h2 id="安装编译工具"><a href="#安装编译工具" class="headerlink" title="安装编译工具"></a>安装编译工具</h2><pre><code>yum install gcc perl-ExtUtils-MakeMaker package</code></pre>
+<h2 id="查看git的版本"><a href="#查看git的版本" class="headerlink" title="查看git的版本"></a>查看git的版本</h2><pre><code>git version</code></pre>
+<h2 id="删除git"><a href="#删除git" class="headerlink" title="删除git"></a>删除git</h2><pre><code>yum remove git -y</code></pre>
+<h2 id="下载解压最新版"><a href="#下载解压最新版" class="headerlink" title="下载解压最新版"></a>下载解压最新版</h2><pre><code>cd /usr/local/src    #下载的目录
+wget https://www.kernel.org/pub/software/scm/git/git-2.28.0.tar.gz    #下载最新版
+tar -zxvf git-2.28.0.tar.gz        #解压到当前文件夹</code></pre>
+<h2 id="编译源码并安装"><a href="#编译源码并安装" class="headerlink" title="编译源码并安装"></a>编译源码并安装</h2><pre><code>cd git-2.28.0    #进入文件夹
+make prefix=/usr/local/git all    #编译源码
+make prefix=/usr/local/git install    #安装路径</code></pre>
+<h2 id="配置git的环境变量"><a href="#配置git的环境变量" class="headerlink" title="配置git的环境变量"></a>配置git的环境变量</h2><pre><code>echo &#39;export PATH=$PATH:/usr/local/git/bin&#39; &gt;&gt; /etc/bashrc</code></pre>
+<h2 id="刷新环境变量"><a href="#刷新环境变量" class="headerlink" title="刷新环境变量"></a>刷新环境变量</h2><pre><code>source /etc/bashrc</code></pre>
+<h2 id="查看版本号"><a href="#查看版本号" class="headerlink" title="查看版本号"></a>查看版本号</h2><pre><code>git --version</code></pre>
+<h2 id="创建用户并修改权限"><a href="#创建用户并修改权限" class="headerlink" title="创建用户并修改权限"></a>创建用户并修改权限</h2><pre><code>adduser holy
+passwd holy
+chmod 740 /etc/sudoers
+vim /etc/sudoers
+
+root    ALL=(ALL)       ALL
+holy     ALL=(ALL)       ALL</code></pre>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454462.png" alt="vim编辑保存"></p>
+<h2 id="改回权限"><a href="#改回权限" class="headerlink" title="改回权限"></a>改回权限</h2><pre class="line-numbers language-c"><code class="language-c">chmod <span class="token number">400</span> <span class="token operator">/</span>etc<span class="token operator">/</span>sudoers<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="设置holy账户密码"><a href="#设置holy账户密码" class="headerlink" title="设置holy账户密码"></a>设置holy账户密码</h2><pre class="line-numbers language-c"><code class="language-c">sudo passwd holy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>输入两次密码，不可见</p>
+</blockquote>
+<h2 id="打通SSH"><a href="#打通SSH" class="headerlink" title="打通SSH"></a>打通SSH</h2><pre><code>ssh-keygen -t rsa</code></pre>
+<blockquote>
+<p>切换至holy用户，创建 ~/.ssh文件夹和 ~/.ssh/authorized_key文件，并赋予相应的权限</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c">su holy
+mkdir <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>ssh
+vim <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>ssh<span class="token operator">/</span>authorized_keys<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>接着将win10中生成的id_rsa.pub文件中的公钥复制到authorized_keys中</p>
+</blockquote>
+<h2 id="赋予权限"><a href="#赋予权限" class="headerlink" title="赋予权限"></a>赋予权限</h2><pre class="line-numbers language-c"><code class="language-c">chmod <span class="token number">600</span> <span class="token operator">/</span>home<span class="token operator">/</span>holy<span class="token operator">/</span><span class="token punctuation">.</span>ssh<span class="token operator">/</span>authorized_keys
+chmod <span class="token number">700</span> <span class="token operator">/</span>home<span class="token operator">/</span>holy<span class="token operator">/</span><span class="token punctuation">.</span>ssh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="本地登录"><a href="#本地登录" class="headerlink" title="本地登录"></a>本地登录</h2><blockquote>
+<p>在本地Git终端中测试是否能免密登录git，其中SERVER为填写自己的云主机IP，执行输入yes后输入之前配置的git密码，无报错就说明好了</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454489.png" alt="远程登录"></p>
+<h2 id="集成到Windows-Terminal中"><a href="#集成到Windows-Terminal中" class="headerlink" title="集成到Windows Terminal中"></a>集成到Windows Terminal中</h2><blockquote>
+<p>Windwos Terminal 可以开多个窗口，也不断开源维护更新，搭配主题美化下还是很优秀的，所以这里在Windows Terminal配置文件集成下，另外不得不说的是，自从微软收购github以来，生产力工具真的越做越好，VSOCDE、Visual Studio都是开发必备，WSL体验也极佳</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454441.png" alt="配置setting.json"></p>
+<h1 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h1><h2 id="创建Git仓库"><a href="#创建Git仓库" class="headerlink" title="创建Git仓库"></a>创建Git仓库</h2><blockquote>
+<p>在var目录下创建repo作为Git仓库目录，返回服务端命令行切换到root账户，然后输入</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c">mkdir <span class="token operator">/</span>var<span class="token operator">/</span>repo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="赋予权限："><a href="#赋予权限：" class="headerlink" title="赋予权限："></a>赋予权限：</h2><pre class="line-numbers language-c"><code class="language-c">chown <span class="token operator">-</span>R holy<span class="token punctuation">:</span>holy <span class="token operator">/</span>var<span class="token operator">/</span>repo
+chmod <span class="token operator">-</span>R <span class="token number">755</span> <span class="token operator">/</span>var<span class="token operator">/</span>repo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="创建站点目录"><a href="#创建站点目录" class="headerlink" title="创建站点目录"></a>创建站点目录</h2><pre class="line-numbers language-c"><code class="language-c">mkdir <span class="token operator">/</span>var<span class="token operator">/</span>hexo
+chown <span class="token operator">-</span>R holy<span class="token punctuation">:</span>holy <span class="token operator">/</span>var<span class="token operator">/</span>hexo
+chmod <span class="token operator">-</span>R <span class="token number">755</span> <span class="token operator">/</span>var<span class="token operator">/</span>hexo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="初始化远程仓库"><a href="#初始化远程仓库" class="headerlink" title="初始化远程仓库"></a>初始化远程仓库</h2><pre class="line-numbers language-c"><code class="language-c">cd <span class="token operator">/</span>var<span class="token operator">/</span>repo
+git init <span class="token operator">--</span>bare hexo<span class="token punctuation">.</span>git<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="创建新的-Git-钩子"><a href="#创建新的-Git-钩子" class="headerlink" title="创建新的 Git 钩子"></a>创建新的 Git 钩子</h3><blockquote>
+<p>在 /var/repo/hexo.git 下，有一个自动生成的 hooks 文件夹，需要在里边新建一个新的钩子文件 post-receive，用于自动部署</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c">vim <span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git<span class="token operator">/</span>hooks<span class="token operator">/</span>post<span class="token operator">-</span>receive<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c"><code class="language-c">#<span class="token operator">!</span><span class="token operator">/</span>bin<span class="token operator">/</span>bash
+git <span class="token operator">--</span>work<span class="token operator">-</span>tree<span class="token operator">=</span><span class="token operator">/</span>var<span class="token operator">/</span>hexo <span class="token operator">--</span>git<span class="token operator">-</span>dir<span class="token operator">=</span><span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git checkout <span class="token operator">-</span>f<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h3><pre class="line-numbers language-c"><code class="language-c">chown <span class="token operator">-</span>R holy<span class="token punctuation">:</span>holy <span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git<span class="token operator">/</span>hooks<span class="token operator">/</span>post<span class="token operator">-</span>receive
+chmod <span class="token operator">+</span>x <span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git<span class="token operator">/</span>hooks<span class="token operator">/</span>post<span class="token operator">-</span>receive<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h1><blockquote>
+<p>在本地浏览器端输入宝塔面板地址，进入服务器运维管理界面，安装Nginx</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454490.png"></p>
+<h1 id="添加站点"><a href="#添加站点" class="headerlink" title="添加站点"></a>添加站点</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454530.png"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454536.png" alt="修改配置文件"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454488.png" alt="修改网站目录"></p>
+<blockquote>
+<p>回到服务器终端，重启宝塔服务，使之生效</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c">service bt restart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="本地博客发布"><a href="#本地博客发布" class="headerlink" title="本地博客发布"></a>本地博客发布</h1><blockquote>
+<p>首先需要安装发布的插件，在博客目录下执行hexo d部署到远端仓库，可以添加多个仓库，一般github会留个备份</p>
+</blockquote>
+<pre><code>npm install hexo-deployer-git --save</code></pre>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603947984141.png" alt="配置远程仓库"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603950593052.png" alt="hexo g -d推到远程仓库"></p>
+<h1 id="申请SSL证书"><a href="#申请SSL证书" class="headerlink" title="申请SSL证书"></a>申请SSL证书</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603954833564.png"></p>
+<blockquote>
+<p>既然要支持全站https，那必不可少的是申请证书了，因为域名是在腾讯云买的，所以是直接在腾讯云管理平台申请的ssl证书，选择自动验证十分钟左右就把证书颁发下来了，直接点击下载证书，解压之后会有四个文件夹，因为用的Nginx，所以只需要Nginx文件夹下面的bundle.crt和.key两个文件，至于外层的csr不需要用到</p>
+</blockquote>
+<blockquote>
+<p>由于七牛云图床https流量要计费，所以博客站点还是采用http吧，后续有相关博客美化再更新！</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603955297630.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
+<p>拆开来看，技术上没什么难点，主要还是框架和服务的选择，Wordpress、Hexo、Typecho都是比较流行的博客框架，图床服务和Markdown编辑器的选择也很多，重点还是有自己的思路，将记录积累整合到学习工作流程中形成习惯，博客只是恰好能提供这样一个持续的反馈，<code>万丈高楼平地起，勿在浮沙筑高台</code></p>
+</blockquote>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Holy Chen</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://holychen.cn/2021/08/03/Hexo_Blog%E6%90%AD%E5%BB%BA/">http://holychen.cn/2021/08/03/Hexo_Blog%E6%90%AD%E5%BB%BA/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Holy Chen</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/08/03/Hexo_Blog%E6%90%AD%E5%BB%BA/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Holy Chen
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/08/03/UEFI%20BIOS%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Holy Chen
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Holy Chen</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">32.6k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn" target="_blank">皖ICP备2020018091</a>
+            </span>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ESdove" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:wschenu@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=654163690" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 654163690" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script src="/js/snow.js"></script>
+    <script src="/js/cursor.js"></script>
+    <script src="/js/click_show_text.js"></script>
+    
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
