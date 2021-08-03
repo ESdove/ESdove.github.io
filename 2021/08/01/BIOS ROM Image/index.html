@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="C/C++/QT/UEFI/Python">
+    <meta name="keywords" content="BIOS ROM Image分析, C/C++/QT/UEFI/Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>尘世浮沉HolyChen</title>
+    <title>BIOS ROM Image分析 | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -215,12 +215,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">BIOS ROM Image分析</h1>
                 </div>
             </div>
         </div>
@@ -335,9 +335,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Flash-Layout-FV/">
+                                <span class="chip bg-color">Flash,Layout,FV</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -360,7 +364,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    8 分
                 </div>
                 
 
@@ -375,235 +379,347 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="StatusCode是什么"><a href="#StatusCode是什么" class="headerlink" title="StatusCode是什么"></a>StatusCode是什么</h1><blockquote>
-<p>StatusCode即状态码，它能让系统组件报告它们的当前状态,比如当前正在进行CPU初始化、内存初始化等，你将很清楚系统何时运行在哪，出现何种错误，这样将极利于我们调试</p>
-</blockquote>
-<h1 id="为什么需要StatusCode"><a href="#为什么需要StatusCode" class="headerlink" title="为什么需要StatusCode"></a>为什么需要StatusCode</h1><blockquote>
-<p>由于BIOS涉及规范与组件极多，我们无法了解BIOS所有内容，同时，大量的组件导致后期维护极为困难，若没有状态码，我们很难清除到底是哪个组件的哪类Bug导致这个问题，若对应组件会报告它的状态码，无疑对我们维护带来极大的便利</p>
-</blockquote>
-<blockquote>
-<p>没有状态码，当前出现了一个错误导致系统直接hang机了，此时要想调试这个错误极其困难（考虑一种情况，你的主板没有蜂鸣器，同时没有80卡，此时由于一些系统错误导致整个系统开不了机，请问怎么办。此时，估计你的想法是，我怎么知道怎么办，我还想问别人呢。），当存在状态码时，系统出现一个错误导致系统直接hang机，状态码指示内存报告了一个错误状态，这样，我们一下就能定位错误，对于我们调试是有极大帮助的</p>
-</blockquote>
-<h1 id="怎样使用StatusCode"><a href="#怎样使用StatusCode" class="headerlink" title="怎样使用StatusCode"></a>怎样使用StatusCode</h1><blockquote>
-<p>报告状态码的函数是 ReportStatusCode()，ReportStatusCode()主要的参数有5个，另外一个参数是This指针，This指针对于DXE阶段的ReportStatusCode()不存在。<br>分为：PEI阶段的ReportStatusCode，DXE阶段的ReportStatusCode，Runtime阶段的ReportStatusCode</p>
-</blockquote>
-<ul>
-<li><p>PEI阶段通过Locate EFI_PEI_REPORT_PROGRESS_CODE_PPI_GUID获得句柄handle,在通过handle-&gt;ReportStatusCode()调用。或通过PeiService-&gt;ReportStatusCode()来调用。 </p>
-</li>
-<li><p>DXE阶段通过Locate EFI_STATUS_CODE_RUNTIME_PROTOCOL_GUID获得句柄handle，再通过handle-&gt;ReportStatusCode()调用。</p>
-</li>
-<li><p>Runtime阶段是通过Locate EFI_SMM_STATUS_CODE_PROTOCOL_GUID获得句柄handle，再通过handle-&gt;ReportStatusCode()调用。</p>
-</li>
-</ul>
-<h2 id="ReportStatusCode"><a href="#ReportStatusCode" class="headerlink" title="ReportStatusCode()"></a>ReportStatusCode()</h2><ul>
-<li>pPEI-&gt;ReportStatusCode()或PeiServices-&gt;ReportStatusCode() </li>
-<li>pDXE-&gt;ReportStatusCode() </li>
-<li>pSMM-&gt;ReportStatusCode() </li>
-</ul>
-<h2 id="ReportStatusCode-主要参数"><a href="#ReportStatusCode-主要参数" class="headerlink" title="ReportStatusCode()主要参数"></a>ReportStatusCode()主要参数</h2><ul>
-<li><p>EFI_STATUS_CDOE_TYPE     Type </p>
-</li>
-<li><p>EFI_STATAS_CODE_VALUE    Value </p>
-</li>
-<li><p>UINT32                                      Instance </p>
-</li>
-<li><p>EFI_GUID                                  *CallerrId </p>
-</li>
-<li><p>EFI_STATUS_CODE_DATA      *Data </p>
-<h2 id="EFI-STATUS-CODE-TYPE-Type"><a href="#EFI-STATUS-CODE-TYPE-Type" class="headerlink" title="EFI_STATUS_CODE_TYPE Type"></a>EFI_STATUS_CODE_TYPE Type</h2><blockquote>
-<p>这个参数指明 Status Code 的类型，它是4字节变量，由3部分组成，分别是：StatusCode类别、StatusCode严重性、StatusCode保留部分</p>
-</blockquote>
-</li>
-<li><p>类别占最低8位，当前有效的类别是EFI_PROGRESS_CODE(进程码)、EFI_ERROR_CODE(错误码)、EFI_DEBUG_CODE(调试码)。</p>
-<ul>
-<li>  进程码(EFI_PROGRESS_CODE)用于说明当前处在某一过程中，如在跑 PEIM 或在跑 DXE 。 </li>
-<li>  错误码(EFI_ERROR_CODE)用于说明某一组件出现了错误，如内存错误等。 </li>
-<li>  调试码(EFI_DEBUG_CODE)是为调试目的而认为添加，非调试状态，屏蔽。 </li>
-</ul>
-</li>
-<li><p>严重性占最高8位，当前有效的严重性是EFI_ERROR_MINOR(小错误)、EFI_ERROR_MAJOR(主错误)、EFI_ERROR_UNRECOVERED(未恢复)、EFI_ERROR_UNCONTAINED(未包含)。 </p>
-</li>
-<li><p>保留占中间16位，暂时未使用</p>
-</li>
-</ul>
-<pre><code> ///
-/// Status Code Type Definition.
-///
-typedef UINT32  EFI_STATUS_CODE_TYPE;
+                <h1 id="Flash芯片和生成的BIOS-ROM"><a href="#Flash芯片和生成的BIOS-ROM" class="headerlink" title="Flash芯片和生成的BIOS ROM"></a>Flash芯片和生成的BIOS ROM</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/86ed9927664912afa5ce9778ee3f498.jpg" alt="主板上的NorFlash"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604388851409.png" alt="FPT整刷的bin"></p>
+<h1 id="intel闪存映像布局"><a href="#intel闪存映像布局" class="headerlink" title="intel闪存映像布局"></a>intel闪存映像布局</h1><p>英特尔在相应芯片组的数据表页面上讨论了BIOS的结构。对于所有从第六系列开始的芯片组，此格式通常保持不变，该文件分为3-5个区域，可选的是GbE区域和PDR。</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604388929921.png"></p>
+<h1 id="UEFI-Tool解析"><a href="#UEFI-Tool解析" class="headerlink" title="UEFI Tool解析"></a>UEFI Tool解析</h1><p>用<a target="_blank" rel="noopener" href="https://github.com/LongSoft/UEFITool">EFITool</a>工具加载了编译生成的bin文件，发现Reset Vector位于BIOS Rom Image的最底部，探索形成这样的Image结构相关的各种文件(.fdf/.fd/.fv等文件)</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389109072.png"></p>
+<p>组成结构：16MBIOS + 16M ME + 16M 128KB PDR</p>
+<p>BIOS Rom部分，由GenFv工具根据fdf文件生成</p>
+<pre><code>#FD Section
+[FD.AMIROM]
+BaseAddress = 0xff000000
+Size = 0x1000000
+ErasePolarity = 1
+BlockSize = 0x1000
+NumBlocks = 0x1000
 
-///
-/// A Status Code Type is made up of the code type and severity.
-/// All values masked by EFI_STATUS_CODE_RESERVED_MASK are
-/// reserved for use by this specification.
-///
-///@&#123;
-#define EFI_STATUS_CODE_TYPE_MASK     0x000000FF
-#define EFI_STATUS_CODE_SEVERITY_MASK 0xFF000000
-#define EFI_STATUS_CODE_RESERVED_MASK 0x00FFFF00
-///@&#125;
+DEFINE UNCOMPRESSED_PEI_EXECUTABLES_ALIGNMENT =  
+DEFINE SEC_CORE_EXECUTABLE_ALIGNMENT = Align = 8
+......
 
-///
-/// Definition of code types. All other values masked by
-/// EFI_STATUS_CODE_TYPE_MASK are reserved for use by
-/// this specification.
-///
-///@&#123;
-#define EFI_PROGRESS_CODE             0x00000001
-#define EFI_ERROR_CODE                0x00000002
-#define EFI_DEBUG_CODE                0x00000003
-///@&#125;
+0x0|0x20000
+FV = LNV_OEM_DATA_REGION
 
-///
-/// Definitions of severities, all other values masked by
-/// EFI_STATUS_CODE_SEVERITY_MASK are reserved for use by
-/// this specification.
-/// Uncontained errors are major errors that could not contained
-/// to the specific component that is reporting the error.
-/// For example, if a memory error was not detected early enough,
-/// the bad data could be consumed by other drivers.
-///
-///@&#123;
-#define EFI_ERROR_MINOR               0x40000000
-#define EFI_ERROR_MAJOR               0x80000000
-#define EFI_ERROR_UNRECOVERED         0x90000000
-#define EFI_ERROR_UNCONTAINED         0xa0000000
-///@&#125;</code></pre>
-<h2 id="EFI-STATUS-CODE-VALUE-Value"><a href="#EFI-STATUS-CODE-VALUE-Value" class="headerlink" title="EFI_STATUS_CODE_VALUE Value"></a>EFI_STATUS_CODE_VALUE Value</h2><blockquote>
-<p>这个参数是StatusCode的值，它是4字节变量，由3部分组成，分别是：类别(最高8位)、子类(次高8位)、操作(最低16位)。</p>
-</blockquote>
-<blockquote>
-<p>类型分为四个大类：电脑单元、用户可读写外设、IO总线、软件。前三者为硬件类，最后一个为软件类。</p>
-</blockquote>
-<blockquote>
-<p>具体组合可参考PI规范卷3,第6小结</p>
-</blockquote>
-<pre><code>#define EFI_STATUS_CODE_CLASS_MASK          0xFF000000 
-#define EFI_STATUS_CODE_SUBCLASS_MASK       0x00FF0000 
-#define EFI_STATUS_CODE_OPERATION_MASK      0x0000FFFF </code></pre>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604384875690.png" alt="StatusCode"></p>
-<h2 id="UINT32-Instance"><a href="#UINT32-Instance" class="headerlink" title="UINT32 Instance"></a>UINT32 Instance</h2><blockquote>
-<p>这个是用来指明状态码的实例，有些组件可能有相同的Type和Value，例如PEI Code，可能会都Report正在运行PEI Code的StatusCode，此时可通过Instance来区分具体哪个PEI Code Report了Status。</p>
-</blockquote>
-<blockquote>
-<p>当存在多处理器时，它可以指明具体哪个处理器，哪个组件报告的状态码。</p>
-</blockquote>
-<h2 id="EFI-GUID-CallerId"><a href="#EFI-GUID-CallerId" class="headerlink" title="EFI_GUID *CallerId"></a>EFI_GUID *CallerId</h2><blockquote>
-<p>指明谁报告了状态码，比如程序员A和程序员B，此参数对不同调用者调用不同的状态码驱动。例如，此参数我们可以这样运用：当此参数为NULL或不为我指定的Guid，跳过我们的状态码函数。</p>
-</blockquote>
-<h2 id="EFI-STATUS-CODE-DATA-Data"><a href="#EFI-STATUS-CODE-DATA-Data" class="headerlink" title="EFI_STATUS_CODE_DATA *Data"></a>EFI_STATUS_CODE_DATA *Data</h2><blockquote>
-<p>这个参数附带一些附加的状态数据，如字符串调试信息，时间等，以让我们更详细的了解当前状态</p>
-</blockquote>
-<blockquote>
-<p>这里主要讲解 EFI_STATUS_CODE_DATA_TYPE_STRING，系统使用的丢字符串信息的 Debug 函数都是利用这个结构来丢字符串</p>
-</blockquote>
-<blockquote>
-<p>具体的数据可参考PI规范卷3，第6小结</p>
-</blockquote>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604384875667.png"></p>
-<h1 id="Code中关于StatusCode的实现"><a href="#Code中关于StatusCode的实现" class="headerlink" title="Code中关于StatusCode的实现"></a>Code中关于StatusCode的实现</h1><blockquote>
-<p>AptioV的Code中StatusCode是作为一个ModulePart包含在Core Module中，完整的名字是AmiStatusCode。StatusCode需要做初始化，初始化之后StatusCode才能正常使用。</p>
-</blockquote>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604384875679.png" alt="AmiStatusCode"></p>
-<h2 id="StatusCode初始化"><a href="#StatusCode初始化" class="headerlink" title="StatusCode初始化"></a>StatusCode初始化</h2><blockquote>
-<p>StatusCode初始化是通过PeiStatusCodeInitialize和DxeStatusCodeInitialize完成的。这两个函数是Elink，我们可以根据需要挂着我们所需的初始化函数。</p>
-</blockquote>
-<ul>
-<li>PeiStatusCodeInitialize</li>
-<li>DxeStatusCodeInitialize</li>
-</ul>
-<h2 id="AmiStatusCode组成"><a href="#AmiStatusCode组成" class="headerlink" title="AmiStatusCode组成"></a>AmiStatusCode组成</h2><blockquote>
-<p>AmiStatusCode主要由3部分组成，分别是StatusCodePei，StatusCodeDxe，StatusCodeSmm</p>
-</blockquote>
-<ul>
-<li><p>StatusCodePei通过调用StatusCodePei.c中的PeiInitStatusCode()完成Install PEI StatusCode Protocol。</p>
-</li>
-<li><p>StatusCodeDxe通过调用StatusCodeDxe.c中的DxeRuntimeInitStatusCode()完成Install DXE StatusCode Protocol。 </p>
-</li>
-<li><p>StatusCodeSmm通过调用StatusCodeSmm.c中的SmmInitStatusCode()完成Install SMM StatusCode Protocol。</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604384875680.png"></p>
-<h2 id="ReportStatusCode-最终实现函数"><a href="#ReportStatusCode-最终实现函数" class="headerlink" title="ReportStatusCode()最终实现函数"></a>ReportStatusCode()最终实现函数</h2><blockquote>
-<p>ReportStatusCode()最终的实现函数是StatusCodeCommon.c中的AmiReportStatusCode()函数。AmiReportStatusCode()主要由三种ReportStatusCode()的方式，分别是SimpleStatusReport()、StringStatusReport()、MiscStatusReport()。另加一个错误处理，PerformErrorCodeAction()。StatusCode是通过Elink方式来进行实际操作的，因此具有很强的扩展性。</p>
-</blockquote>
-</li>
-</ul>
-<pre><code> /**
-    Top level status code reporting routine exposed by the status code protocol/PPI.
-    Calls the various types of status code handlers
-    (SimpleStatusReport, StringStatusReport, MiscStatusReport, PerformErrorCodeAction)
-    Generates string from the status code data to pass to StringStatusReport function.
+0x20000|0x50000
+FV = NVRAM
+
+0x70000|0x50000
+#RAW - NVRAM_BACKUP
+
+0xc0000|0x20000
+FV = LEM_FV_DATA
+
+0xe0000|0x870000
+FV = FV_MAIN_WRAPPER
+
+0x950000|0x20000
+FV = FV_CMP
+
+0x970000|0x10000
+FV = FV_BCP
+
+0x980000|0x110000
+FV = FV_DATA_BACKUP
+
+0xa90000|0x110000
+FV = FV_DATA
+
+0xba0000|0xa0000
+FV = FV_BB_AFTER_MEMORY_BACKUP
+
+0xc40000|0x90000
+FV = FV_FSP_S_BACKUP
+
+0xcd0000|0xa0000
+FV = FV_BB_AFTER_MEMORY
+
+0xd70000|0x90000
+FV = FV_FSP_S
+
+0xe00000|0x70000
+#FV_FSP_BACKUP
+FILE = Build/Fsp_Rebased_M_T.fd
+
+0xe70000|0x90000
+FV = FV_BB_BACKUP
+
+0xf00000|0x70000
+#FV_FSP
+FILE = Build/Fsp_Rebased_M_T.fd
+
+0xf70000|0x90000
+FV = FV_BB
+
+#FV Section
+[FV.FV_MAIN]
+BlockSize = 0x1000
+NumBlocks = 0x0
+FvAlignment = 16
+MEMORY_MAPPED = TRUE
+
+FvNameGuid = 5C60F367-A505-419A-859E-2A4FF6CA6FE5
+
+APRIORI DXE &#123;
+    INF AmiModulePkg/AmiStatusCode/StatusCodeDxe.inf
+    INF AmiModulePkg/AmiStatusCode/StatusCodeSmm.inf
+    INF MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
+    ......
+
+!include AmiPkg/Configuration/FontFileStatement.txt
+!include AmiModulePkg/NVRAM/FvMainDefaultsFdfFileStatement.txt
+!include AmiChipsetModulePkg/LegacyRom/Vbios/VbiosFdfFileStatements.txt
+......
+
+#FV Section
+[FV.FV_LOGOROMHOLE]
+BlockSize = 0x1000
+NumBlocks = 0x20
+FvAlignment = 1
+......
+FvNameGuid = E54D9684-2735-43ef-A379-30F2F592BA10
 
 
-    @param PeiServices pointer to the PEI Boot Services table
-    @param Type the type and severity of the error that occurred
-    @param Value the Class, subclass and Operation that caused the error
-    @param Instance 
-    @param CallerId OPTIONAL - The GUID of the caller function
-    @param Data OPTIONAL - the extended data field that contains additional info
+!include AmiTsePkg/Core/em/AMITSE/Logoffs.txt
 
-    @retval EFI_STATUS
+#FV Section
+[FV.FV_MEFW_CAPSULE]
+BlockSize = 0x1000
+NumBlocks = 0x600
+FvAlignment = 16
+......
+FvNameGuid = 9F8B1DEF-B62B-45F3-8282-BFD7EA19801B
 
-**/
-EFI_STATUS AmiReportStatusCode (
-    IN VOID *PeiServices,
-    IN EFI_STATUS_CODE_TYPE Type, IN EFI_STATUS_CODE_VALUE Value,
-    IN UINT32 Instance, IN  EFI_GUID *CallerId OPTIONAL,
-    IN EFI_STATUS_CODE_DATA *Data OPTIONAL, UINT8 *String
-)
-&#123;
+INF RuleOverride = SubtypeGuidUncompressedNoChecksum Build/MeFwFid.inf
+......
 
-    SimpleStatusReport(PeiServices,Type,Value);
-//#if STRING_STATUS_SUPPORT
-    String[0] = &#39;\0&#39;;
-    CreateString(Type, Value, Data, String);
+!include AmiModulePkg/Ofbd/Meud/AutoMeud/MeRegionFdfFileStatement.txt
 
-    // step through the useable data and display information as needed
-    // Serial data
+#FV Section
+[FV.LNV_OEM_DATA_REGION]
+BlockSize = 0x1000
+NumBlocks = 0x20
+FvAlignment = 1
+......
 
-    if (String[0] != &#39;\0&#39;) StringStatusReport(PeiServices,(CHAR8*)String);
 
-//#endif
-    MiscStatusReport(PeiServices,Type,Value,Instance,CallerId,Data);
+#FV Section
+[FV.NVRAM]
+BlockSize = 0x1000
+NumBlocks = 0x50
+FvAlignment = 16
+......
+FvNameGuid = FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC
 
-    if (STATUS_CODE_TYPE(Type)==EFI_ERROR_CODE)
-    PerformErrorCodeAction(PeiServices,Type,Value);
-    return EFI_SUCCESS;
+
+!include AmiModulePkg/NVRAM/NvramFdfFileStatement.txt
+
+#FV Section
+[FV.LEM_FV_DATA]
+BlockSize = 0x1000
+NumBlocks = 0x20
+FvAlignment = 16
+......
+FvNameGuid = 4f1c52d3-d824-4d2a-a2f0-ec40c23c5916
+
+INF RuleOverride = SubtypeGuidUncompressedNoChecksum 
+......
+
+!include AmiTsePkg/Core/em/AMITSE/Romhole.txt
+
+#FV Section
+[FV.FV_CMP]
+BlockSize = 0x1000
+NumBlocks = 0x20
+FvAlignment = 16
+......
+FvNameGuid = aea406cf-4fc8-4dc3-9796-1ee03b64c715
+
+!include LenovoModulePkg/Universal/ExtendedComputrace/AbsolutePkg/OEMSpecifiedAgentX64ProductionInstaller.txt
+
+#FV Section
+[FV.FV_BCP]
+BlockSize = 0x1000
+NumBlocks = 0x10
+FvAlignment = 16
+......
+FvNameGuid = 8649FC2D-C0E6-4262-AD51-0CEABAB6429E
+
+INF RuleOverride = Uncompressed PldmPkg/BiosConfigPreserve/BiosConfigPreserveBin/BCPFlashData/BCPFlashData.inf
+
+
+#FV Section
+[FV.FV_DATA_BACKUP]
+BlockSize = 0x1000
+NumBlocks = 0x110
+FvAlignment = 16
+......
+FvNameGuid = E4A068F1-5EF1-4ACE-857C-7935F8A0C708
+
+
+!include CrbPkg/AmiCrbIntelTopSwap/FvDataBackupFdfFileStatement.txt
+
+#FV Section
+[FV.FV_DATA]
+BlockSize = 0x1000
+NumBlocks = 0x110
+FvAlignment = 16
+......
+FvNameGuid = AFDD39F1-19D7-4501-A730-CE5A27E1154B
+
+INF RuleOverride = UncompressedBinaryNoChecksum AmiChipsetModulePkg/FIT/ReserveBinary/ReserveBootGuardSaveResigndata.inf
+
+!include AmiChipsetModulePkg/FIT/FitTable/FitMicrocodeFdfFileStatement.txt
+
+#FV Section
+[FV.FV_BB_AFTER_MEMORY_BACKUP]
+BlockSize = 0x1000
+NumBlocks = 0xa0
+FvAlignment = 16
+......
+FvNameGuid = 5b08a058-784f-4938-9a49-1588aa05f4b9
+
+......
+
+#FV Section
+[FV.FV_FSP_S_BACKUP]
+BlockSize = 0x1000
+NumBlocks = 0x90
+FvAlignment = 16
+
+
+!include Intel/CometLakeFspBinPkg/FvFspSFdfFileStatement.txt
+
+#FV Section
+[FV.FV_BB_AFTER_MEMORY]
+BlockSize = 0x1000
+NumBlocks = 0xa0
+FvAlignment = 16
+......
+
+#FV Section
+[FV.FV_FSP_S]
+BlockSize = 0x1000
+NumBlocks = 0x90
+FvAlignment = 16
+
+
+!include Intel/CometLakeFspBinPkg/FvFspSFdfFileStatement.txt
+......
+
+#FV Section
+[FV.FV_BB_BACKUP]
+BlockSize = 0x1000
+NumBlocks = 0x90
+FvBaseAddress = 0xfff70000
+......
+FvNameGuid = 61C0F511-A691-4F54-974F-B9A42172CE53
+
+APRIORI PEI &#123;
+    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
+    INF AmiModulePkg/IO/NCT6686D/NCT6686DPeiInit.inf
+    ......
+
+!include Build/BiosGuardPubKeyhash_FdfFileStatement.txt
+!include AmiChipsetModulePkg/FIT/FitTable/FitTableFdfFileStatement.txt
+!include LenovoModulePkg/Universal/BuildNaming/BuildNaming.txt
+
+#FV Section
+[FV.FV_BB]
+BlockSize = 0x1000
+NumBlocks = 0x90
+FvAlignment = 16
+......
+FvNameGuid = 61C0F511-A691-4F54-974F-B9A42172CE53
+
+APRIORI PEI &#123;
+    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
+    INF AmiModulePkg/IO/NCT6686D/NCT6686DPeiInit.inf
+    INF LenovoModulePkg/Universal/AssetID/AssetIDOnRecoveryMode/AssetIDOnRecoveryModePei.inf
+    ......
+
+!include AmiChipsetModulePkg/BiosGuard/Binary/BiosGuardBinary_FdfFileStatement.txt
+!include Intel/CometLakePlatSamplePkg/Binaries/Pct/PctGpioFdfFileStatements.txt
+!include 
+......</code></pre>
+<p>fdf文件的开头部份是关键字[fd]，它表示完整的BIOS Rom Image。还指定了BIOS的加载地址BaseAddress = 0xff00000，大小Size = 0x1000000(16M)，这与UEFITool给出的数据不谋而合：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389689841.png"></p>
+<p>根据BIOS Rom Image位于4G空间的顶部(0xFFFFFFFF)，减去Rom Image Size就可以推得Bios Rom加载地址(就是Fdf文件中的BaseAddress=0xff000000)<br>接下来形如下列内容:</p>
+<pre><code>Offset|Size
+[RegionType]
+</code></pre>
+<p>则是在FD中开辟了一段连续空间，用来存放FV/FILE等内容。其中Offset和Size是这段空间的相对于整个FD的偏移和大小；前面UEFITool图中”BIOS Region”中列出的每一个FFS项都可以对应到Fdf文件[FD]节中RegionType为FV的项(毕竟只有FV才会用到文件系统FFS)。如果仔细比对，可能会发现UEFITool中倒数第二和倒数第三个FFS的Size和Padding相加正好对应[FD]节中的FV_FSP：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389914494.png"></p>
+<pre><code>0xf00000|0x70000
+#FV_FSP
+FILE = Build/Fsp_Rebased_M_T.fd\</code></pre>
+<p>FV_FSP项的RegionType是FILE，可以包含任意内容，自然也可以包含其他的fd文件，就如NCB_LOGO项中包含了开机Logo文件；其次，fd文件又由fv组成，UEFITool又能解析fd文件，因此造成了这种FDF和BIOS Rom image不一致。其实，我们可以用UEFITool加载Fsp_Rebuild_M_T.fd，发现其中包含两个FFS：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604390180438.png"></p>
+<p>如果FV_FSP包含的fd文件是经过压缩操作的，那么FDF文件中RegionType为FV的项应该和UEFITool实际得到的相一致。</p>
+<p>FDF文件[FD]节之后就是大量的[FV]节，FV的主要作用就是包含组件和模块。他们来填充[FD]节中开辟的空间。先来看一个相对简单的FV节：FV.NVRAM，它只包含一个include语句，指向NvramFdfFileStatement.txt文件:</p>
+<pre><code>!include AmiModulePkg/NVRAM/NvramFdfFileStatement.txt</code></pre>
+<p>NvramFdfFileStatement.txt文件通过FILE指令，包含binary file：</p>
+<pre><code>  FILE RAW = CEF5B9A3-476D-497f-9FDC-E98143E0422C &#123;
+    $(OUTPUT_DIRECTORY)/Nvram.bin
+  &#125;</code></pre>
+<p>FV的主要作用就是填充[FD]节中开辟的空间，用这个FV节验证一下：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391042176.png"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391071513.png"></p>
+<p>FDF中，FV.Nvram位于Bios Rom image的开头，Fv guid：FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC，NvramFdfFileStatement.txt中指定的File Guid：CEF5B9A3-476D-497f-9FDC-E98143E0422C；用UEFITool加载Bios Rom image，第一个FFS(就是FV.Nvram)的Volume GUID: FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC；再展开FFS，其中包含的唯一的文件的File Guid: CEF5B9A3-476D-497F-9FDC-E98143E0422C，这些值和FDF中的Fv Guid以及File Guid是一致的。<br>除了File Guid是一致的，用UEFITool解压后得到的Nvram.bin和原始的Nvram.bin的内容也是一致的：</p>
+<p>以上是简单的FV的情况，有些复杂的FV中可以嵌套其他的FV，如FDF中的FV.FV_MAIN_WRAPPER，我们再来分析一下它：</p>
+<pre><code>#FV Section
+[FV.FV_MAIN_WRAPPER]
+BlockSize = 0x1000
+NumBlocks = 0x870
+......
+!include AmiPkg/Configuration/NestedFvMainFdfFileStatement.txt</code></pre>
+<p>FV.FV_MAIN_WRAPPER节中内容不多，仅仅含有若干条!include语句，但是FV.FV_MAIN_WRAPPER节占据BIOS Rom Image很大一块空间：BlockSize<em>NumBlocks=0x1000</em>0x870=0x870000。它占用如此多空间的原因是NestedFvMainFdfFileStatement.txt通过FILE指令包含了一块压缩的FV文件，而该FV文件是Dxe阶段的代码</p>
+<p>NestedFvMainFdfFileStatement.txt的内容如下：</p>
+<pre><code>#Includes FVMAIN FV image
+FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 $(FFS_FILE_CHECKSUM_KEYWORD) &#123;
+  SECTION $(PEI_COMPRESSION_SECTION) &#123;
+    SECTION FV_IMAGE = FV_MAIN
+  &#125;
 &#125;</code></pre>
-<h2 id="SimpleStatusReport"><a href="#SimpleStatusReport" class="headerlink" title="SimpleStatusReport()"></a>SimpleStatusReport()</h2><blockquote>
-<p>SimpleStatusReport()即简单状态报告，它只能报告StatusCode的类型和值，报告简单状态的方式分为两大种，1）Checkpoint，通过80 port报告状态码。2）Beep，通过蜂鸣器报告状态码。SimpleStatusCode存在一个StatusCodeMap，它列出所有简单状态码，包括Checkpoint与Beep，可以查看StatusCodeMap.c。</p>
-</blockquote>
-<ul>
-<li>PeiReportSimpleStatus</li>
-<li>DxeReportSimpleStatus</li>
-<li>RtReportSimpleStatus</li>
-<li>SmmReportSimpleStatus</li>
-</ul>
-<h2 id="StringStatusReport"><a href="#StringStatusReport" class="headerlink" title="StringStatusReport()"></a>StringStatusReport()</h2><blockquote>
-<p>StringStatusReport()即字符串状态报告，串口丢出的字符串调试信息就是通过这个函数丢出的，Debug相关的丢字符串的函数也是通过这个函数丢出的。<br>这里我们需要注意的是：在我们通过Debug函数丢字符串信息时，Debug函数会使用EFI_STATUS_CODE_STRING_DATA结构对字符串进行打包处理。这也是我们使用一些自定义的丢字符串函数不能丢出的原因。</p>
-</blockquote>
-<ul>
-<li>PeiReportStringStatus</li>
-<li>DxeReportStringStatus</li>
-<li>RtReportStringStatus</li>
-<li>SmmReportStringStatus</li>
-</ul>
-<h2 id="MiscStatusReport"><a href="#MiscStatusReport" class="headerlink" title="MiscStatusReport()"></a>MiscStatusReport()</h2><blockquote>
-<p>MiscStatusReport()即混合状态码，它包含ReportStatusCode()的全部5个参数，因此可以报告最详细的状态。当前DXE阶段使用它保存完整StatusCode信息到DataHub结构中。</p>
-</blockquote>
-<ul>
-<li>PeiReportMiscStatus</li>
-<li>DxeReportMiscStatus</li>
-<li>RtReportMiscStatus</li>
-<li>SmmReportMiscStatus</li>
-</ul>
-<h2 id="PerformErrorCodeAction"><a href="#PerformErrorCodeAction" class="headerlink" title="PerformErrorCodeAction()"></a>PerformErrorCodeAction()</h2><blockquote>
-<p>PerformErrorCodeAction()即执行错误码动作，它包含ReportStatusCode()参数的类型和值，根据错误类型和值执行相应错误处理动作。</p>
-</blockquote>
-<ul>
-<li>PeiErrorCodeActions</li>
-<li>RtErrorCodeActions</li>
-<li>SmmErrorCodeActions</li>
-<li>DxeErrorCodeActions</li>
-</ul>
+<p>FV_MAIN节内容如下：</p>
+<pre><code>#FV Section
+[FV.FV_MAIN]
+BlockSize = 0x1000
+NumBlocks = 0x0
+FvAlignment = 16
+......
+INF AmiModulePkg/RomLayout/RomLayoutDxe.inf
+INF MdeModulePkg/Core/Dxe/DxeMain.inf
+INF AmiModulePkg/Bds/Bds.inf</code></pre>
+<p>前面找到Dxe阶段的代码，那Sec和Pei阶段的代码在哪？platform.fdf文件[fd]节中设定FV_BB节位于Bios Rom image的尾部，因此，我们可以猜测并验证Sec模块和Pei模块也位于FV_BB中：</p>
+<pre><code>
+[FV.FV_BB]
+BlockSize = 0x1000
+NumBlocks = 0xa0
+...
+APRIORI PEI &#123; ;PEI阶段的APRIORI文件
+    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
+    ...
+&#125;
+...
+INF MdeModulePkg/Core/Pei/PeiMain.inf ;Pei阶段入口
+...
+INF UefiCpuPkg/SecCore/SecCore.inf ;Sec阶段入口
+...
+INF UefiCpuPkg/CpuIoPei/CpuIoPei.inf
+INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2Pei.inf
+</code></pre>
+<p>虽然，我们已经确定Sec模块和Pei模块位于FV_BB块中，但是有个问题随之出现：SecCore.inf并不是FV_BB中最后一个模块(夹在其他模块之间)，所以一眼看去感觉开机时执行的第一条指令并不在SecCore模块中，这明显与EFI Spec相悖。更何况SecCore.inf含有ResetVector：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391678324.png" alt="SecCore.inf部分内容"></p>
+<p>另外，UEFITool也明显显示SecCore位于Bios Rom image尾部</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391761934.png"></p>
+<p>fdf的设定和实际现象有差异，那一定是GenFv在生成Bios Rom image时有特殊处理。和GenFv Build Bios相关的只能查看Build.log，它记录了从源码到制成Rom Image的全过程，在Build.log的结尾，记录了各个模块在Bios Rom Image的排列位置，我发现了特殊的一处Firmware Volumon:08 No.049 类型是SECC—-SecCore，属性被标记为VTF，Bios Rom Image中其他FV中任何模块都不具有该属性：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391860137.png"></p>
+<p>在PI spec Vol3中提到：</p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392019507.png"></p>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392038413.png"></p>
+<p>VTF是Volume Top File的缩写，PI spec规定VTF的File Guid为EFI_FFS_VOLUME_TOP_FILE_GUID（1BA0062E-C779-4582-8566-336AE8F78F09），必须位于firmware volume的最后一个字节。而SecCore.inf的FILE_GUID = 1BA0062E-C779-4582-8566-336AE8F78F09。看来只要某个inf指定自己FILE_GUID为EFI_FFS_VOLUME_TOP_FILE_GUID就有机会被安排在最开始执行。</p>
 
             </div>
             <hr/>
@@ -629,7 +745,7 @@ EFI_STATUS AmiReportStatusCode (
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2021/08/01/StatusCode/">http://holychen.cn/2021/08/01/StatusCode/</a>
+                    <a href="http://holychen.cn/2021/08/01/BIOS%20ROM%20Image/">http://holychen.cn/2021/08/01/BIOS%20ROM%20Image/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -666,7 +782,11 @@ EFI_STATUS AmiReportStatusCode (
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Flash-Layout-FV/">
+                                    <span class="chip bg-color">Flash,Layout,FV</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -710,7 +830,7 @@ EFI_STATUS AmiReportStatusCode (
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/08/01/OemWmi%20Demo/">
+                <a href="/2021/08/03/C%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
                     <div class="card-image">
                         
                         
@@ -727,7 +847,7 @@ EFI_STATUS AmiReportStatusCode (
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
                         </span>
                         <span class="publish-author">
                             
@@ -747,13 +867,13 @@ EFI_STATUS AmiReportStatusCode (
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/01/WFU/">
+                <a href="/2021/08/01/OemWmi%20Demo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Windows Firmware Update Guide">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="OemWmi Demo">
                         
-                        <span class="card-title">Windows Firmware Update Guide</span>
+                        <span class="card-title">OemWmi Demo</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -777,8 +897,8 @@ EFI_STATUS AmiReportStatusCode (
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/WFU-cab-%E8%AF%81%E4%B9%A6/">
-                        <span class="chip bg-color">WFU,cab,证书</span>
+                    <a href="/tags/MOF-ASL-VB-Script/">
+                        <span class="chip bg-color">MOF,ASL,VB Script</span>
                     </a>
                     
                 </div>
@@ -931,7 +1051,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">32.6k</span>&nbsp;字
+                class="white-color">29k</span>&nbsp;字
             
             
             

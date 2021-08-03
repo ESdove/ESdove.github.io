@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="C/C++/QT/UEFI/Python">
+    <meta name="keywords" content="Source Level Debug, C/C++/QT/UEFI/Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>尘世浮沉HolyChen</title>
+    <title>Source Level Debug | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -215,12 +215,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Source Level Debug</h1>
                 </div>
             </div>
         </div>
@@ -335,9 +335,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Veb-Intel-System-Debugger-DCI/">
+                                <span class="chip bg-color">Veb, Intel System Debugger, DCI</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -428,18 +432,18 @@
 <h2 id="Demo-For-AMI-Veb-Trace-Hub-Debugger"><a href="#Demo-For-AMI-Veb-Trace-Hub-Debugger" class="headerlink" title="Demo For AMI Veb Trace Hub Debugger"></a>Demo For AMI Veb Trace Hub Debugger</h2><h3 id="Connect-Target和Host"><a href="#Connect-Target和Host" class="headerlink" title="Connect Target和Host"></a>Connect Target和Host</h3><blockquote>
 <p> <strong>(Intel)Comet Lake Platform</strong> ，Target端连上USB2.0或者3.0的Port，不一定都可以，可以看调试器DCI CONNECT指示灯来判定</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210520142815249.png" alt="image-20210520142815249"></p>
-<p><img src="http://tc.holychen.cn/image/image-20210522211723225.png" alt="image-20210522211723225"></p>
-<p><img src="http://tc.holychen.cn/image/image-20210522215057481.png" alt="image-20210522215644885"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210520142815249.png"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210522211723225.png"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210522215057481.png"></p>
 <h3 id="SVN导入相关Modules"><a href="#SVN导入相关Modules" class="headerlink" title="SVN导入相关Modules"></a>SVN导入相关Modules</h3><blockquote>
 <p> Release Project Code一般会拿掉Debug相关的Modules，要支持Veb Trace Hub Function，Source Code要导入Debugger和DebuggerCollaterals Module，可以查看相关CHM文件，注意两个Module Version之间的Dependency，查看AMI_Debug_for_Trace_Hub_User_Manual_NDA.pdf知道是否Support对应Platform的DEBUG和Trace以及Guide.</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210524125730073.png" alt="image-20210524125730073"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210524125730073.png"></p>
 <h3 id="NDACollaterals配置"><a href="#NDACollaterals配置" class="headerlink" title="NDACollaterals配置"></a>NDACollaterals配置</h3><blockquote>
 <p>安装CCA Debug Driver和Install.exe导入Trace Hub相关scripts到对应版本的Veb目录下，注意目前只Support JRE8，如果安装其它版本的JDK或者JRE并设置了环境变量，有遇到过Debug_loader报错的情况，可以用VisualeBiosWithJRE目录下的veb</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210522215057481.png" alt="image-20210522215057481"></p>
-<p><img src="http://tc.holychen.cn/image/image-20210524125857568.png" alt="image-20210524125857568"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210522215057481.png"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210524125857568.png"></p>
 <div style="page-break-after:always"></div>
 
 <h3 id="BIOS-Setup-Settings"><a href="#BIOS-Setup-Settings" class="headerlink" title="BIOS Setup Settings"></a>BIOS Setup Settings</h3><blockquote>
@@ -480,35 +484,35 @@ End<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 <h3 id="导入证书"><a href="#导入证书" class="headerlink" title="导入证书"></a>导入证书</h3><blockquote>
 <p>对应路径Help -&gt; Mange  Debugger License，证书需要获得AMI授权</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210522215320246.png" alt="image-20210522215320246"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210522215320246.png"></p>
 <h3 id="配置Trace-Hub-Options"><a href="#配置Trace-Hub-Options" class="headerlink" title="配置Trace Hub Options"></a>配置Trace Hub Options</h3><blockquote>
 <p>需要根据硬件调试工具连接方式选取对应 Hardware Probe，Platform Processor和Platform PCH也都需要对应上，如果列表没有合适的选项可以对应，会出现Target端Detected不到的情况，可以尝试更新DebuggerCollaterals Module获取最新Support的Lists或者与Module Owner确认</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210522215818919.png" alt="image-20210522215818919"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210522215818919.png"></p>
 <h3 id="配置Xml"><a href="#配置Xml" class="headerlink" title="配置Xml"></a>配置Xml</h3><blockquote>
 <p>对应Board 的XML需要Enabled如下设置</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210522220105783.png" alt="image-20210522220105783"></p>
-<p><img src="http://tc.holychen.cn/image/image-20210522220219638.png" alt="image-20210522220219638"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210522220105783.png"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210522220219638.png"></p>
 <div style="page-break-after:always"></div>
 
 <h3 id="Trace-Hub-Debugging"><a href="#Trace-Hub-Debugging" class="headerlink" title="Trace Hub Debugging"></a>Trace Hub Debugging</h3><blockquote>
 <p>Flash Full Bin to Target and Start Trace Hub Debugging，Loaded Driver View视图中可以看到依次加载的Module，此时寻找感兴趣的Module或者可疑的点，可以下断点调试，View call stack、Memory、Variable、Expression、Disassembly、Register、Console Log and so on.</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210523202215441.png" alt="image-20210523202215441"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210523202215441.png"></p>
 <div style="page-break-after:always"></div>
 
 <h2 id="Demo-for-Intel-system-debugger"><a href="#Demo-for-Intel-system-debugger" class="headerlink" title="Demo for Intel system debugger"></a>Demo for Intel system debugger</h2><blockquote>
 <p>会遇到有些平台AMI VEB还不支持，但Intel System Debuger可以跟进源码，软件调试时使用上大同小异，可以参照Help文档或者寻求Intel的Support</p>
 </blockquote>
-<h3 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h3><p><img src="http://tc.holychen.cn/image/image-20210524131438876.png" alt="image-20210524131438876"></p>
-<p><img src="http://tc.holychen.cn/image/image-20210524131500224.png" alt="image-20210524131500224"></p>
+<h3 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h3><p><img src="http://tc.holychen.cn/image/image-20210524131438876.png"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210524131500224.png"></p>
 <h3 id="Debug-Configuration"><a href="#Debug-Configuration" class="headerlink" title="Debug Configuration"></a>Debug Configuration</h3><blockquote>
 <p>设为单线程方便Halt，加入需要Debug的Source的路径</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210524131700261.png" alt="image-20210524131700261"></p>
-<p><img src="http://tc.holychen.cn/image/image-20210524131755466.png" alt="image-20210524131755466"></p>
-<h3 id="Launch-and-Debugging"><a href="#Launch-and-Debugging" class="headerlink" title="Launch and Debugging"></a>Launch and Debugging</h3><p><img src="http://tc.holychen.cn/image/image-20210524130519652.png" alt="image-20210524130519652"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210524131700261.png"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210524131755466.png"></p>
+<h3 id="Launch-and-Debugging"><a href="#Launch-and-Debugging" class="headerlink" title="Launch and Debugging"></a>Launch and Debugging</h3><p><img src="http://tc.holychen.cn/image/image-20210524130519652.png"></p>
 <div style="page-break-after:always"></div>
 
 <h2 id="Demo-for-edk2内核源码"><a href="#Demo-for-edk2内核源码" class="headerlink" title="Demo for edk2内核源码"></a>Demo for edk2内核源码</h2><h3 id="代码部署"><a href="#代码部署" class="headerlink" title="代码部署"></a>代码部署</h3><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1619517129215.png"></p>
@@ -608,7 +612,11 @@ End<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Veb-Intel-System-Debugger-DCI/">
+                                    <span class="chip bg-color">Veb, Intel System Debugger, DCI</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -656,9 +664,9 @@ End<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="UEFI BIOS启动流程">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">UEFI BIOS启动流程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -680,6 +688,14 @@ End<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                     </div>
                 </div>
                 
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Boot-Phase-SEC-PEI-DXE-BDS/">
+                        <span class="chip bg-color">Boot,Phase,SEC,PEI,DXE,BDS</span>
+                    </a>
+                    
+                </div>
+                
             </div>
         </div>
         
@@ -689,7 +705,7 @@ End<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/03/Git%E4%BD%BF%E7%94%A8/">
+                <a href="/2021/08/03/C%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
                     <div class="card-image">
                         
                         
@@ -865,7 +881,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">32.6k</span>&nbsp;字
+                class="white-color">29k</span>&nbsp;字
             
             
             
