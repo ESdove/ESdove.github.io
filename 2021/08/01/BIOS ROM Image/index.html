@@ -356,14 +356,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    10 分
                 </div>
                 
 
@@ -386,329 +386,330 @@
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389109072.png"></p>
 <p>组成结构：16MBIOS + 16M ME + 16M 128KB PDR</p>
 <p>BIOS Rom部分，由GenFv工具根据fdf文件生成</p>
-<pre><code>#FD Section
+<pre class="line-numbers language-none"><code class="language-none">#FD Section
 [FD.AMIROM]
-BaseAddress = 0xff000000
-Size = 0x1000000
-ErasePolarity = 1
-BlockSize = 0x1000
-NumBlocks = 0x1000
+BaseAddress &#x3D; 0xff000000
+Size &#x3D; 0x1000000
+ErasePolarity &#x3D; 1
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x1000
 
-DEFINE UNCOMPRESSED_PEI_EXECUTABLES_ALIGNMENT =  
-DEFINE SEC_CORE_EXECUTABLE_ALIGNMENT = Align = 8
+DEFINE UNCOMPRESSED_PEI_EXECUTABLES_ALIGNMENT &#x3D;  
+DEFINE SEC_CORE_EXECUTABLE_ALIGNMENT &#x3D; Align &#x3D; 8
 ......
 
 0x0|0x20000
-FV = LNV_OEM_DATA_REGION
+FV &#x3D; LNV_OEM_DATA_REGION
 
 0x20000|0x50000
-FV = NVRAM
+FV &#x3D; NVRAM
 
 0x70000|0x50000
 #RAW - NVRAM_BACKUP
 
 0xc0000|0x20000
-FV = LEM_FV_DATA
+FV &#x3D; LEM_FV_DATA
 
 0xe0000|0x870000
-FV = FV_MAIN_WRAPPER
+FV &#x3D; FV_MAIN_WRAPPER
 
 0x950000|0x20000
-FV = FV_CMP
+FV &#x3D; FV_CMP
 
 0x970000|0x10000
-FV = FV_BCP
+FV &#x3D; FV_BCP
 
 0x980000|0x110000
-FV = FV_DATA_BACKUP
+FV &#x3D; FV_DATA_BACKUP
 
 0xa90000|0x110000
-FV = FV_DATA
+FV &#x3D; FV_DATA
 
 0xba0000|0xa0000
-FV = FV_BB_AFTER_MEMORY_BACKUP
+FV &#x3D; FV_BB_AFTER_MEMORY_BACKUP
 
 0xc40000|0x90000
-FV = FV_FSP_S_BACKUP
+FV &#x3D; FV_FSP_S_BACKUP
 
 0xcd0000|0xa0000
-FV = FV_BB_AFTER_MEMORY
+FV &#x3D; FV_BB_AFTER_MEMORY
 
 0xd70000|0x90000
-FV = FV_FSP_S
+FV &#x3D; FV_FSP_S
 
 0xe00000|0x70000
 #FV_FSP_BACKUP
-FILE = Build/Fsp_Rebased_M_T.fd
+FILE &#x3D; Build&#x2F;Fsp_Rebased_M_T.fd
 
 0xe70000|0x90000
-FV = FV_BB_BACKUP
+FV &#x3D; FV_BB_BACKUP
 
 0xf00000|0x70000
 #FV_FSP
-FILE = Build/Fsp_Rebased_M_T.fd
+FILE &#x3D; Build&#x2F;Fsp_Rebased_M_T.fd
 
 0xf70000|0x90000
-FV = FV_BB
+FV &#x3D; FV_BB
 
 #FV Section
 [FV.FV_MAIN]
-BlockSize = 0x1000
-NumBlocks = 0x0
-FvAlignment = 16
-MEMORY_MAPPED = TRUE
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x0
+FvAlignment &#x3D; 16
+MEMORY_MAPPED &#x3D; TRUE
 
-FvNameGuid = 5C60F367-A505-419A-859E-2A4FF6CA6FE5
+FvNameGuid &#x3D; 5C60F367-A505-419A-859E-2A4FF6CA6FE5
 
 APRIORI DXE &#123;
-    INF AmiModulePkg/AmiStatusCode/StatusCodeDxe.inf
-    INF AmiModulePkg/AmiStatusCode/StatusCodeSmm.inf
-    INF MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
-    ......
+	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodeDxe.inf
+	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodeSmm.inf
+	INF MdeModulePkg&#x2F;Universal&#x2F;PCD&#x2F;Dxe&#x2F;Pcd.inf
+	......
 
-!include AmiPkg/Configuration/FontFileStatement.txt
-!include AmiModulePkg/NVRAM/FvMainDefaultsFdfFileStatement.txt
-!include AmiChipsetModulePkg/LegacyRom/Vbios/VbiosFdfFileStatements.txt
+!include AmiPkg&#x2F;Configuration&#x2F;FontFileStatement.txt
+!include AmiModulePkg&#x2F;NVRAM&#x2F;FvMainDefaultsFdfFileStatement.txt
+!include AmiChipsetModulePkg&#x2F;LegacyRom&#x2F;Vbios&#x2F;VbiosFdfFileStatements.txt
 ......
 
 #FV Section
 [FV.FV_LOGOROMHOLE]
-BlockSize = 0x1000
-NumBlocks = 0x20
-FvAlignment = 1
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x20
+FvAlignment &#x3D; 1
 ......
-FvNameGuid = E54D9684-2735-43ef-A379-30F2F592BA10
+FvNameGuid &#x3D; E54D9684-2735-43ef-A379-30F2F592BA10
 
 
-!include AmiTsePkg/Core/em/AMITSE/Logoffs.txt
+!include AmiTsePkg&#x2F;Core&#x2F;em&#x2F;AMITSE&#x2F;Logoffs.txt
 
 #FV Section
 [FV.FV_MEFW_CAPSULE]
-BlockSize = 0x1000
-NumBlocks = 0x600
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x600
+FvAlignment &#x3D; 16
 ......
-FvNameGuid = 9F8B1DEF-B62B-45F3-8282-BFD7EA19801B
+FvNameGuid &#x3D; 9F8B1DEF-B62B-45F3-8282-BFD7EA19801B
 
-INF RuleOverride = SubtypeGuidUncompressedNoChecksum Build/MeFwFid.inf
+INF RuleOverride &#x3D; SubtypeGuidUncompressedNoChecksum Build&#x2F;MeFwFid.inf
 ......
 
-!include AmiModulePkg/Ofbd/Meud/AutoMeud/MeRegionFdfFileStatement.txt
+!include AmiModulePkg&#x2F;Ofbd&#x2F;Meud&#x2F;AutoMeud&#x2F;MeRegionFdfFileStatement.txt
 
 #FV Section
 [FV.LNV_OEM_DATA_REGION]
-BlockSize = 0x1000
-NumBlocks = 0x20
-FvAlignment = 1
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x20
+FvAlignment &#x3D; 1
 ......
 
 
 #FV Section
 [FV.NVRAM]
-BlockSize = 0x1000
-NumBlocks = 0x50
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x50
+FvAlignment &#x3D; 16
 ......
-FvNameGuid = FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC
+FvNameGuid &#x3D; FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC
 
 
-!include AmiModulePkg/NVRAM/NvramFdfFileStatement.txt
+!include AmiModulePkg&#x2F;NVRAM&#x2F;NvramFdfFileStatement.txt
 
 #FV Section
 [FV.LEM_FV_DATA]
-BlockSize = 0x1000
-NumBlocks = 0x20
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x20
+FvAlignment &#x3D; 16
 ......
-FvNameGuid = 4f1c52d3-d824-4d2a-a2f0-ec40c23c5916
+FvNameGuid &#x3D; 4f1c52d3-d824-4d2a-a2f0-ec40c23c5916
 
-INF RuleOverride = SubtypeGuidUncompressedNoChecksum 
+INF RuleOverride &#x3D; SubtypeGuidUncompressedNoChecksum 
 ......
 
-!include AmiTsePkg/Core/em/AMITSE/Romhole.txt
+!include AmiTsePkg&#x2F;Core&#x2F;em&#x2F;AMITSE&#x2F;Romhole.txt
 
 #FV Section
 [FV.FV_CMP]
-BlockSize = 0x1000
-NumBlocks = 0x20
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x20
+FvAlignment &#x3D; 16
 ......
-FvNameGuid = aea406cf-4fc8-4dc3-9796-1ee03b64c715
+FvNameGuid &#x3D; aea406cf-4fc8-4dc3-9796-1ee03b64c715
 
-!include LenovoModulePkg/Universal/ExtendedComputrace/AbsolutePkg/OEMSpecifiedAgentX64ProductionInstaller.txt
+!include LenovoModulePkg&#x2F;Universal&#x2F;ExtendedComputrace&#x2F;AbsolutePkg&#x2F;OEMSpecifiedAgentX64ProductionInstaller.txt
 
 #FV Section
 [FV.FV_BCP]
-BlockSize = 0x1000
-NumBlocks = 0x10
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x10
+FvAlignment &#x3D; 16
 ......
-FvNameGuid = 8649FC2D-C0E6-4262-AD51-0CEABAB6429E
+FvNameGuid &#x3D; 8649FC2D-C0E6-4262-AD51-0CEABAB6429E
 
-INF RuleOverride = Uncompressed PldmPkg/BiosConfigPreserve/BiosConfigPreserveBin/BCPFlashData/BCPFlashData.inf
+INF RuleOverride &#x3D; Uncompressed PldmPkg&#x2F;BiosConfigPreserve&#x2F;BiosConfigPreserveBin&#x2F;BCPFlashData&#x2F;BCPFlashData.inf
 
 
 #FV Section
 [FV.FV_DATA_BACKUP]
-BlockSize = 0x1000
-NumBlocks = 0x110
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x110
+FvAlignment &#x3D; 16
 ......
-FvNameGuid = E4A068F1-5EF1-4ACE-857C-7935F8A0C708
+FvNameGuid &#x3D; E4A068F1-5EF1-4ACE-857C-7935F8A0C708
 
 
-!include CrbPkg/AmiCrbIntelTopSwap/FvDataBackupFdfFileStatement.txt
+!include CrbPkg&#x2F;AmiCrbIntelTopSwap&#x2F;FvDataBackupFdfFileStatement.txt
 
 #FV Section
 [FV.FV_DATA]
-BlockSize = 0x1000
-NumBlocks = 0x110
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x110
+FvAlignment &#x3D; 16
 ......
-FvNameGuid = AFDD39F1-19D7-4501-A730-CE5A27E1154B
+FvNameGuid &#x3D; AFDD39F1-19D7-4501-A730-CE5A27E1154B
 
-INF RuleOverride = UncompressedBinaryNoChecksum AmiChipsetModulePkg/FIT/ReserveBinary/ReserveBootGuardSaveResigndata.inf
+INF RuleOverride &#x3D; UncompressedBinaryNoChecksum AmiChipsetModulePkg&#x2F;FIT&#x2F;ReserveBinary&#x2F;ReserveBootGuardSaveResigndata.inf
 
-!include AmiChipsetModulePkg/FIT/FitTable/FitMicrocodeFdfFileStatement.txt
+!include AmiChipsetModulePkg&#x2F;FIT&#x2F;FitTable&#x2F;FitMicrocodeFdfFileStatement.txt
 
 #FV Section
 [FV.FV_BB_AFTER_MEMORY_BACKUP]
-BlockSize = 0x1000
-NumBlocks = 0xa0
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0xa0
+FvAlignment &#x3D; 16
 ......
-FvNameGuid = 5b08a058-784f-4938-9a49-1588aa05f4b9
+FvNameGuid &#x3D; 5b08a058-784f-4938-9a49-1588aa05f4b9
 
 ......
 
 #FV Section
 [FV.FV_FSP_S_BACKUP]
-BlockSize = 0x1000
-NumBlocks = 0x90
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x90
+FvAlignment &#x3D; 16
 
 
-!include Intel/CometLakeFspBinPkg/FvFspSFdfFileStatement.txt
+!include Intel&#x2F;CometLakeFspBinPkg&#x2F;FvFspSFdfFileStatement.txt
 
 #FV Section
 [FV.FV_BB_AFTER_MEMORY]
-BlockSize = 0x1000
-NumBlocks = 0xa0
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0xa0
+FvAlignment &#x3D; 16
 ......
 
 #FV Section
 [FV.FV_FSP_S]
-BlockSize = 0x1000
-NumBlocks = 0x90
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x90
+FvAlignment &#x3D; 16
 
 
-!include Intel/CometLakeFspBinPkg/FvFspSFdfFileStatement.txt
+!include Intel&#x2F;CometLakeFspBinPkg&#x2F;FvFspSFdfFileStatement.txt
 ......
 
 #FV Section
 [FV.FV_BB_BACKUP]
-BlockSize = 0x1000
-NumBlocks = 0x90
-FvBaseAddress = 0xfff70000
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x90
+FvBaseAddress &#x3D; 0xfff70000
 ......
-FvNameGuid = 61C0F511-A691-4F54-974F-B9A42172CE53
+FvNameGuid &#x3D; 61C0F511-A691-4F54-974F-B9A42172CE53
 
 APRIORI PEI &#123;
-    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
-    INF AmiModulePkg/IO/NCT6686D/NCT6686DPeiInit.inf
-    ......
-
-!include Build/BiosGuardPubKeyhash_FdfFileStatement.txt
-!include AmiChipsetModulePkg/FIT/FitTable/FitTableFdfFileStatement.txt
-!include LenovoModulePkg/Universal/BuildNaming/BuildNaming.txt
+	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodePei.inf
+	INF AmiModulePkg&#x2F;IO&#x2F;NCT6686D&#x2F;NCT6686DPeiInit.inf
+	......
+	
+!include Build&#x2F;BiosGuardPubKeyhash_FdfFileStatement.txt
+!include AmiChipsetModulePkg&#x2F;FIT&#x2F;FitTable&#x2F;FitTableFdfFileStatement.txt
+!include LenovoModulePkg&#x2F;Universal&#x2F;BuildNaming&#x2F;BuildNaming.txt
 
 #FV Section
 [FV.FV_BB]
-BlockSize = 0x1000
-NumBlocks = 0x90
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x90
+FvAlignment &#x3D; 16
 ......
-FvNameGuid = 61C0F511-A691-4F54-974F-B9A42172CE53
+FvNameGuid &#x3D; 61C0F511-A691-4F54-974F-B9A42172CE53
 
 APRIORI PEI &#123;
-    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
-    INF AmiModulePkg/IO/NCT6686D/NCT6686DPeiInit.inf
-    INF LenovoModulePkg/Universal/AssetID/AssetIDOnRecoveryMode/AssetIDOnRecoveryModePei.inf
-    ......
+	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodePei.inf
+	INF AmiModulePkg&#x2F;IO&#x2F;NCT6686D&#x2F;NCT6686DPeiInit.inf
+	INF LenovoModulePkg&#x2F;Universal&#x2F;AssetID&#x2F;AssetIDOnRecoveryMode&#x2F;AssetIDOnRecoveryModePei.inf
+	......
 
-!include AmiChipsetModulePkg/BiosGuard/Binary/BiosGuardBinary_FdfFileStatement.txt
-!include Intel/CometLakePlatSamplePkg/Binaries/Pct/PctGpioFdfFileStatements.txt
+!include AmiChipsetModulePkg&#x2F;BiosGuard&#x2F;Binary&#x2F;BiosGuardBinary_FdfFileStatement.txt
+!include Intel&#x2F;CometLakePlatSamplePkg&#x2F;Binaries&#x2F;Pct&#x2F;PctGpioFdfFileStatements.txt
 !include 
-......</code></pre>
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>fdf文件的开头部份是关键字[fd]，它表示完整的BIOS Rom Image。还指定了BIOS的加载地址BaseAddress = 0xff00000，大小Size = 0x1000000(16M)，这与UEFITool给出的数据不谋而合：</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389689841.png"></p>
 <p>根据BIOS Rom Image位于4G空间的顶部(0xFFFFFFFF)，减去Rom Image Size就可以推得Bios Rom加载地址(就是Fdf文件中的BaseAddress=0xff000000)<br>接下来形如下列内容:</p>
-<pre><code>Offset|Size
+<pre class="line-numbers language-none"><code class="language-none">Offset|Size
 [RegionType]
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>则是在FD中开辟了一段连续空间，用来存放FV/FILE等内容。其中Offset和Size是这段空间的相对于整个FD的偏移和大小；前面UEFITool图中”BIOS Region”中列出的每一个FFS项都可以对应到Fdf文件[FD]节中RegionType为FV的项(毕竟只有FV才会用到文件系统FFS)。如果仔细比对，可能会发现UEFITool中倒数第二和倒数第三个FFS的Size和Padding相加正好对应[FD]节中的FV_FSP：</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389914494.png"></p>
-<pre><code>0xf00000|0x70000
+<pre class="line-numbers language-none"><code class="language-none">0xf00000|0x70000
 #FV_FSP
-FILE = Build/Fsp_Rebased_M_T.fd\</code></pre>
+FILE &#x3D; Build&#x2F;Fsp_Rebased_M_T.fd\<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>FV_FSP项的RegionType是FILE，可以包含任意内容，自然也可以包含其他的fd文件，就如NCB_LOGO项中包含了开机Logo文件；其次，fd文件又由fv组成，UEFITool又能解析fd文件，因此造成了这种FDF和BIOS Rom image不一致。其实，我们可以用UEFITool加载Fsp_Rebuild_M_T.fd，发现其中包含两个FFS：</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604390180438.png"></p>
 <p>如果FV_FSP包含的fd文件是经过压缩操作的，那么FDF文件中RegionType为FV的项应该和UEFITool实际得到的相一致。</p>
 <p>FDF文件[FD]节之后就是大量的[FV]节，FV的主要作用就是包含组件和模块。他们来填充[FD]节中开辟的空间。先来看一个相对简单的FV节：FV.NVRAM，它只包含一个include语句，指向NvramFdfFileStatement.txt文件:</p>
-<pre><code>!include AmiModulePkg/NVRAM/NvramFdfFileStatement.txt</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">!include AmiModulePkg&#x2F;NVRAM&#x2F;NvramFdfFileStatement.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>NvramFdfFileStatement.txt文件通过FILE指令，包含binary file：</p>
-<pre><code>  FILE RAW = CEF5B9A3-476D-497f-9FDC-E98143E0422C &#123;
-    $(OUTPUT_DIRECTORY)/Nvram.bin
-  &#125;</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">FILE RAW &#x3D; CEF5B9A3-476D-497f-9FDC-E98143E0422C &#123;
+  $(OUTPUT_DIRECTORY)&#x2F;Nvram.bin
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>FV的主要作用就是填充[FD]节中开辟的空间，用这个FV节验证一下：</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391042176.png"></p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391071513.png"></p>
 <p>FDF中，FV.Nvram位于Bios Rom image的开头，Fv guid：FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC，NvramFdfFileStatement.txt中指定的File Guid：CEF5B9A3-476D-497f-9FDC-E98143E0422C；用UEFITool加载Bios Rom image，第一个FFS(就是FV.Nvram)的Volume GUID: FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC；再展开FFS，其中包含的唯一的文件的File Guid: CEF5B9A3-476D-497F-9FDC-E98143E0422C，这些值和FDF中的Fv Guid以及File Guid是一致的。<br>除了File Guid是一致的，用UEFITool解压后得到的Nvram.bin和原始的Nvram.bin的内容也是一致的：</p>
 <p>以上是简单的FV的情况，有些复杂的FV中可以嵌套其他的FV，如FDF中的FV.FV_MAIN_WRAPPER，我们再来分析一下它：</p>
-<pre><code>#FV Section
+<pre class="line-numbers language-none"><code class="language-none">#FV Section
 [FV.FV_MAIN_WRAPPER]
-BlockSize = 0x1000
-NumBlocks = 0x870
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x870
 ......
-!include AmiPkg/Configuration/NestedFvMainFdfFileStatement.txt</code></pre>
+!include AmiPkg&#x2F;Configuration&#x2F;NestedFvMainFdfFileStatement.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>FV.FV_MAIN_WRAPPER节中内容不多，仅仅含有若干条!include语句，但是FV.FV_MAIN_WRAPPER节占据BIOS Rom Image很大一块空间：BlockSize<em>NumBlocks=0x1000</em>0x870=0x870000。它占用如此多空间的原因是NestedFvMainFdfFileStatement.txt通过FILE指令包含了一块压缩的FV文件，而该FV文件是Dxe阶段的代码</p>
 <p>NestedFvMainFdfFileStatement.txt的内容如下：</p>
-<pre><code>#Includes FVMAIN FV image
-FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 $(FFS_FILE_CHECKSUM_KEYWORD) &#123;
+<pre class="line-numbers language-none"><code class="language-none">#Includes FVMAIN FV image
+FILE FV_IMAGE &#x3D; 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 $(FFS_FILE_CHECKSUM_KEYWORD) &#123;
   SECTION $(PEI_COMPRESSION_SECTION) &#123;
-    SECTION FV_IMAGE = FV_MAIN
+    SECTION FV_IMAGE &#x3D; FV_MAIN
   &#125;
-&#125;</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>FV_MAIN节内容如下：</p>
-<pre><code>#FV Section
+<pre class="line-numbers language-none"><code class="language-none">#FV Section
 [FV.FV_MAIN]
-BlockSize = 0x1000
-NumBlocks = 0x0
-FvAlignment = 16
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0x0
+FvAlignment &#x3D; 16
 ......
-INF AmiModulePkg/RomLayout/RomLayoutDxe.inf
-INF MdeModulePkg/Core/Dxe/DxeMain.inf
-INF AmiModulePkg/Bds/Bds.inf</code></pre>
+INF AmiModulePkg&#x2F;RomLayout&#x2F;RomLayoutDxe.inf
+INF MdeModulePkg&#x2F;Core&#x2F;Dxe&#x2F;DxeMain.inf
+INF AmiModulePkg&#x2F;Bds&#x2F;Bds.inf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>前面找到Dxe阶段的代码，那Sec和Pei阶段的代码在哪？platform.fdf文件[fd]节中设定FV_BB节位于Bios Rom image的尾部，因此，我们可以猜测并验证Sec模块和Pei模块也位于FV_BB中：</p>
-<pre><code>
+<pre class="line-numbers language-none"><code class="language-none">
 [FV.FV_BB]
-BlockSize = 0x1000
-NumBlocks = 0xa0
+BlockSize &#x3D; 0x1000
+NumBlocks &#x3D; 0xa0
 ...
 APRIORI PEI &#123; ;PEI阶段的APRIORI文件
-    INF AmiModulePkg/AmiStatusCode/StatusCodePei.inf
+	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodePei.inf
     ...
 &#125;
 ...
-INF MdeModulePkg/Core/Pei/PeiMain.inf ;Pei阶段入口
+INF MdeModulePkg&#x2F;Core&#x2F;Pei&#x2F;PeiMain.inf ;Pei阶段入口
 ...
-INF UefiCpuPkg/SecCore/SecCore.inf ;Sec阶段入口
+INF UefiCpuPkg&#x2F;SecCore&#x2F;SecCore.inf ;Sec阶段入口
 ...
-INF UefiCpuPkg/CpuIoPei/CpuIoPei.inf
-INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2Pei.inf
-</code></pre>
+INF UefiCpuPkg&#x2F;CpuIoPei&#x2F;CpuIoPei.inf
+INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingleSegmentPciCfg2Pei.inf
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>虽然，我们已经确定Sec模块和Pei模块位于FV_BB块中，但是有个问题随之出现：SecCore.inf并不是FV_BB中最后一个模块(夹在其他模块之间)，所以一眼看去感觉开机时执行的第一条指令并不在SecCore模块中，这明显与EFI Spec相悖。更何况SecCore.inf含有ResetVector：</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391678324.png" alt="SecCore.inf部分内容"></p>
 <p>另外，UEFITool也明显显示SecCore位于Bios Rom image尾部</p>
@@ -1058,7 +1059,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">29k</span>&nbsp;字
+                class="white-color">30.2k</span>&nbsp;字
             
             
             

@@ -356,14 +356,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7.7k
+                    7.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    31 分
+                    30 分
                 </div>
                 
 
@@ -643,52 +643,55 @@
 <ul>
 <li> 从声明变量的那条语句开始，直到变量所在的大括号结束</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//错误</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//错误</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//错误</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//错误</span>
     <span class="token keyword">int</span> age1 <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//正确</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//错误</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//正确</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//错误</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token keyword">int</span> age2 <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//正确</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//正确</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//正确</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//错误</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//正确</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//正确</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//正确</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>age2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//错误</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h5 id="变量的作用域细节"><a href="#变量的作用域细节" class="headerlink" title="变量的作用域细节"></a>变量的作用域细节</h5><ul>
 <li>在同一个作用域内，不允许有同名的变量</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//有歧义(二义性)</span>
-    <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//正确</span>
-    <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//错误</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">//有歧义(二义性)</span>
+    <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token comment">//正确</span>
+    <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span> <span class="token comment">//错误</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 <span class="token keyword">int</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//正确</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span> <span class="token comment">//正确</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
     <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-              <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#123;</span>
+       	   <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span>
            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"3age = %d\n"</span><span class="token punctuation">,</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+       <span class="token punctuation">&#125;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"2age = %d\n"</span><span class="token punctuation">,</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"1age = %d\n"</span><span class="token punctuation">,</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>   
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//result:30 20 10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//result:30 20 10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h4 id="变量的存储"><a href="#变量的存储" class="headerlink" title="变量的存储"></a>变量的存储</h4><blockquote>
 <p>变量的内存地址是指首字节的内存地址，首字节是指地址值最小的那个字节</p>
 </blockquote>
@@ -718,9 +721,10 @@
 <li>每一个自负都会被转化成对应的整数值进行存储</li>
 </ul>
 <p>在1967年，美国发布了ASCII码表，里面规定了128个单字节字符对应的整数值(ASCII码值)</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number">97</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number">97</span><span class="token punctuation">;</span>
 <span class="token keyword">char</span> c1 <span class="token operator">=</span> <span class="token string">'a'</span><span class="token punctuation">;</span>
 cahr c2 <span class="token operator">=</span> <span class="token string">'A'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <p><img src="http://tc.holychen.cn/image/image-20210613145053624.png"></p>
 <h6 id="ASCII码表"><a href="#ASCII码表" class="headerlink" title="ASCII码表"></a>ASCII码表</h6><blockquote>
 <p>ASCII,全称是American Standard Code for Information  Interchang，译为”美国信息交换标准码”，是一种标准的单字节字符编码方案</p>
@@ -741,25 +745,26 @@ cahr c2 <span class="token operator">=</span> <span class="token string">'A'</sp
 </li>
 </ul>
 <p><img src="http://tc.holychen.cn/image/image-20210613150757818.png"></p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
 <span class="token keyword">int</span> <span class="token function">main</span> <span class="token punctuation">(</span> <span class="token keyword">void</span> <span class="token punctuation">)</span> 
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> 
+<span class="token punctuation">&#123;</span> 
     <span class="token function">puts</span> <span class="token punctuation">(</span> <span class="token string">"Printable ASCII:"</span> <span class="token punctuation">)</span> <span class="token punctuation">;</span> 
-    <span class="token keyword">for</span>  <span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span>  <span class="token number">32</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span>  <span class="token number">127</span> <span class="token punctuation">;</span>  <span class="token operator">++</span> i <span class="token punctuation">)</span>  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> 
+    <span class="token keyword">for</span>  <span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span>  <span class="token number">32</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span>  <span class="token number">127</span> <span class="token punctuation">;</span>  <span class="token operator">++</span> i <span class="token punctuation">)</span>  <span class="token punctuation">&#123;</span> 
         <span class="token function">putchar</span> <span class="token punctuation">(</span> i <span class="token punctuation">)</span> <span class="token punctuation">;</span> 
-        <span class="token function">putchar</span> <span class="token punctuation">(</span> i <span class="token operator">%</span>  <span class="token number">16</span>  <span class="token operator">==</span>  <span class="token number">15</span>  <span class="token operator">?</span>  <span class="token string">' \n '</span>  <span class="token punctuation">:</span>  <span class="token string">' '</span> <span class="token punctuation">)</span> <span class="token punctuation">;</span> 
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> 
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/*
+        <span class="token function">putchar</span> <span class="token punctuation">(</span> i <span class="token operator">%</span>  <span class="token number">16</span>  <span class="token operator">==</span>  <span class="token number">15</span>  <span class="token operator">?</span>  <span class="token string">' \n '</span>  <span class="token operator">:</span>  <span class="token string">' '</span> <span class="token punctuation">)</span> <span class="token punctuation">;</span> 
+    <span class="token punctuation">&#125;</span> 
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/*
 Printable ASCII:
   ! " # $ % &amp; ' ( ) * + , - . /
 0 1 2 3 4 5 6 7 8 9 : ; &lt; = > ?
 @ A B C D E F G H I J K L M N O
 P Q R S T U V W X Y Z [ \ ] ^ _
 ` a b c d e f g h i j k l m n o
-p q r s t u v w x y z &amp;#123; | &amp;#125; ~
+p q r s t u v w x y z &#123; | &#125; ~
 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h4 id="字符串-String"><a href="#字符串-String" class="headerlink" title="字符串 (String)"></a>字符串 (String)</h4><blockquote>
 <p>用双引号包住的内容叫做：字符串(由若干个【字符】组成的一串数据)</p>
 </blockquote>
@@ -809,10 +814,11 @@ p q r s t u v w x y z &amp;#123; | &amp;#125; ~
 <h3 id="字面量-Literal"><a href="#字面量-Literal" class="headerlink" title="字面量(Literal)"></a>字面量(Literal)</h3><blockquote>
 <p>字面量：直接写出来的一个固定值</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
 <span class="token keyword">double</span> height <span class="token operator">=</span> <span class="token number">1.68</span><span class="token punctuation">;</span>
 <span class="token keyword">char</span> <span class="token operator">*</span>hody <span class="token operator">=</span> <span class="token string">"code"</span><span class="token punctuation">;</span>
 <span class="token keyword">char</span> cc <span class="token operator">=</span> <span class="token string">'m'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>上面代码中，等号 = 右边的固定值都叫做字面量</p>
 </blockquote>
@@ -830,9 +836,10 @@ p q r s t u v w x y z &amp;#123; | &amp;#125; ~
 <ul>
 <li>不过有些编译器支持，比如GCC规定以0b或0B开头是二进制</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"八进制：0%o\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"十六进制：0x%x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="有符号数的二进制表示方法"><a href="#有符号数的二进制表示方法" class="headerlink" title="有符号数的二进制表示方法"></a>有符号数的二进制表示方法</h3><blockquote>
 <p>int 类型属于有符号整数类型(signed integer types)</p>
 </blockquote>
@@ -859,15 +866,16 @@ p q r s t u v w x y z &amp;#123; | &amp;#125; ~
 <blockquote>
 <p>数字整数、数字字符、数字字符串</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
 <span class="token keyword">char</span> c <span class="token operator">=</span> <span class="token string">'9'</span><span class="token punctuation">;</span>
 <span class="token keyword">char</span> <span class="token operator">*</span>s <span class="token operator">=</span> <span class="token string">"9"</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//10</span>
+<span class="token comment">//10</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//58</span>
+<span class="token comment">//58</span>
 <span class="token function">prinft</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span>c <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//4210689</span>
+<span class="token comment">//4210689</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span>s <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img src="http://tc.holychen.cn/image/image-20210613152215827.png"></p>
 <blockquote>
 <p>中文、日文、韩文等非英文字符是如何存储在计算机中的</p>
@@ -892,12 +900,15 @@ p q r s t u v w x y z &amp;#123; | &amp;#125; ~
 <li>当用户敲Enter键(回车键)时，表示输入完毕</li>
 <li>程序才会开始执行scanf函数后面的代码</li>
 </ul>
-<h5 id="循环中校验scanf输入"><a href="#循环中校验scanf输入" class="headerlink" title="循环中校验scanf输入"></a>循环中校验scanf输入</h5><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<h5 id="循环中校验scanf输入"><a href="#循环中校验scanf输入" class="headerlink" title="循环中校验scanf输入"></a>循环中校验scanf输入</h5><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword">while</span><span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">1</span> <span class="token operator">||</span> n <span class="token operator">></span> <span class="token number">100</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入1-100之间的正整数："</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h5 id="sancf函数-匹配的细节"><a href="#sancf函数-匹配的细节" class="headerlink" title="sancf函数 - 匹配的细节"></a>sancf函数 - 匹配的细节</h5><ul>
 <li>当中途有匹配失败时，将结束匹配</li>
 </ul>
@@ -1009,10 +1020,11 @@ p q r s t u v w x y z &amp;#123; | &amp;#125; ~
 <blockquote>
 <p>最常用浮点类型的是float和double，一般在数值后面加上f或者F表示是float类型的数值</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">float</span> f <span class="token operator">=</span> <span class="token number">1.45F</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">float</span> f <span class="token operator">=</span> <span class="token number">1.45F</span><span class="token punctuation">;</span>
 <span class="token keyword">double</span> d <span class="token operator">=</span> <span class="token number">1.89</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//1.450000 1.890000</span>
+<span class="token comment">//1.450000 1.890000</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%f %f"</span><span class="token punctuation">,</span>f<span class="token punctuation">,</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>float：单精度(Single)浮点类型，占用32bit，可以保证精确到小数点后6位</p>
 </blockquote>
@@ -1034,13 +1046,14 @@ p q r s t u v w x y z &amp;#123; | &amp;#125; ~
 <p>printf中常用的转换格式指定符(conversion format specifier)如下所示</p>
 </blockquote>
 <p><img src="http://tc.holychen.cn/image/image-20210613182252538.png"></p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"zd\n"</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"zd\n"</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">long</span> <span class="token keyword">long</span> age <span class="token operator">=</span> <span class="token number">10LL</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld\n"</span><span class="token punctuation">,</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 unsigend <span class="token keyword">long</span> no <span class="token operator">=</span><span class="token number">8UL</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"lu%\n"</span><span class="token punctuation">,</span>no<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="printf格式符细节"><a href="#printf格式符细节" class="headerlink" title="printf格式符细节"></a>printf格式符细节</h3><ul>
 <li>用%%来显示一个%</li>
 <li>用%6d表示占用6个字符位置，默认靠右对齐</li>
@@ -1049,8 +1062,9 @@ unsigend <span class="token keyword">long</span> no <span class="token operator"
 <li>%.2f表示四舍五入保留2位小数</li>
 </ul>
 <h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>强制类型转换</p>
-<pre class="line-numbers language-c"><code class="language-c">类型<span class="token number">1</span> v1 <span class="token operator">=</span> xx<span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">类型<span class="token number">1</span> v1 <span class="token operator">=</span> xx<span class="token punctuation">;</span>
 类型<span class="token number">2</span> v2 <span class="token operator">=</span> <span class="token punctuation">(</span>类型<span class="token number">2</span><span class="token punctuation">)</span> v1<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <h5 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h5><blockquote>
 <p>在进行一些算数运算时，小类型会被隐式转换成大类型</p>
 </blockquote>
@@ -1060,16 +1074,19 @@ unsigend <span class="token keyword">long</span> no <span class="token operator"
 <blockquote>
 <p>注意：任何小于int的整数类型，在运算时会隐式转换为int类型</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">char</span> c <span class="token operator">=</span> <span class="token number">97</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span> c <span class="token operator">=</span> <span class="token number">97</span><span class="token punctuation">;</span>
 <span class="token keyword">short</span> s <span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 1 2</span>
+<span class="token comment">// 1 2</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%zd %zd\n"</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 4 4 </span>
+<span class="token comment">// 4 4 </span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%zd %zd\n"</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token operator">+</span>c<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token operator">-</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 4 4</span>
+<span class="token comment">// 4 4</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%zd %zd\n"</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>c <span class="token operator">+</span> s<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>c<span class="token operator">/</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 4</span>
+<span class="token comment">// 4</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%zd \n"</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token string">'A'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h2 id="运算符-Operators"><a href="#运算符-Operators" class="headerlink" title="运算符(Operators)"></a>运算符(Operators)</h2><blockquote>
 <p>C语言常用运算符，如下表所示</p>
 </blockquote>
@@ -1079,9 +1096,10 @@ unsigend <span class="token keyword">long</span> no <span class="token operator"
 <li>模运算符不能用在浮点数上</li>
 <li>模运算结果的正负性跟随运算符左边的操作数</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token operator">%</span><span class="token operator">-</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//3</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">%</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//-3</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">%</span><span class="token operator">-</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//-3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token operator">%</span><span class="token operator">-</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//3</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">%</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//-3</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">%</span><span class="token operator">-</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//-3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <h4 id="位运算符-Bitwise-Operators"><a href="#位运算符-Bitwise-Operators" class="headerlink" title="位运算符(Bitwise Operators)"></a>位运算符(Bitwise Operators)</h4><blockquote>
 <p>位运算符，属于算数运算符，位运算符的运算数只能是整数</p>
 </blockquote>
@@ -1100,14 +1118,16 @@ unsigend <span class="token keyword">long</span> no <span class="token operator"
 <li><p>用a &amp; 1来判断a的奇偶性</p>
 </li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span><span class="token punctuation">(</span>a <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">"奇数"</span> <span class="token punctuation">:</span> <span class="token string">"偶数"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span><span class="token punctuation">(</span>a <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">"奇数"</span> <span class="token operator">:</span> <span class="token string">"偶数"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <ul>
 <li>不使用第三方变量交换两个整形变量的值</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c">a <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// a = a * b; // a = a - b; // a = a ^ b; //</span>
-b <span class="token operator">=</span> a <span class="token operator">-</span> b<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// b = a / b; // b = a + b; // b = a ^ b; //</span>
-a <span class="token operator">=</span> a <span class="token operator">-</span> b<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// a = a / b; // a = b - a; // a = a ^ b; //</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">a <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span> <span class="token comment">// a = a * b; // a = a - b; // a = a ^ b; //</span>
+b <span class="token operator">=</span> a <span class="token operator">-</span> b<span class="token punctuation">;</span> <span class="token comment">// b = a / b; // b = a + b; // b = a ^ b; //</span>
+a <span class="token operator">=</span> a <span class="token operator">-</span> b<span class="token punctuation">;</span> <span class="token comment">// a = a / b; // a = b - a; // a = a ^ b; //</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>前三种方法可能有溢出产生bug，而异或操作则不用担心，虽然省了空间，但时间增加了</p>
 </blockquote>
@@ -1145,28 +1165,31 @@ a <span class="token operator">=</span> a <span class="token operator">-</span> 
 <li>自增运算符：a++</li>
 <li>自减运算符：a–</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c">b <span class="token operator">=</span> a<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//等效于下面3句代码</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">b <span class="token operator">=</span> a<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token comment">//等效于下面3句代码</span>
 tmp <span class="token operator">=</span> a<span class="token punctuation">;</span>
-a <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+a <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 b <span class="token operator">=</span> tmp<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 </li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> b <span class="token operator">=</span> a<span class="token operator">++</span> <span class="token operator">+</span> a<span class="token operator">++</span> <span class="token operator">+</span> a<span class="token operator">++</span> <span class="token operator">+</span> a<span class="token operator">++</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//MSVC: b = 1 + 1 + 1 + 1 = 4</span>
-<span class="token comment" spellcheck="true">//MinG: b = 1 + 2 + 3 + 4 = 10</span>
-<span class="token comment" spellcheck="true">//不容易理解，可读性差，结果具有不确定性</span>
-<span class="token comment" spellcheck="true">//不建议在实际开发中变编写此类代码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">//MSVC: b = 1 + 1 + 1 + 1 = 4</span>
+<span class="token comment">//MinG: b = 1 + 2 + 3 + 4 = 10</span>
+<span class="token comment">//不容易理解，可读性差，结果具有不确定性</span>
+<span class="token comment">//不建议在实际开发中变编写此类代码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h4 id="最大吞噬规则-maximal-much"><a href="#最大吞噬规则-maximal-much" class="headerlink" title="最大吞噬规则(maximal much)"></a>最大吞噬规则(maximal much)</h4><ul>
 <li>当多个运算符紧挨在一起时，编译器会按照最大吞噬规则去解析</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> c <span class="token operator">=</span> a <span class="token operator">++</span><span class="token operator">+</span> b<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 2 2 3</span>
+<span class="token comment">// 2 2 3</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 等价于int c = (a++) + b;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">// 等价于int c = (a++) + b;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="比较运算符-Comparison-Operators"><a href="#比较运算符-Comparison-Operators" class="headerlink" title="比较运算符(Comparison Operators)"></a>比较运算符(Comparison Operators)</h3><ul>
 <li>比较运算符，也称为关系运算符(Relational Operators)</li>
 <li>比较运算符的结果只可能是整数0和1</li>
@@ -1185,9 +1208,10 @@ b <span class="token operator">=</span> tmp<span class="token punctuation">;</sp
 <li>运算结果为真，就返回整数1</li>
 <li>运算结果为假，就返回整数0</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 1</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token string">'\0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 0</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token operator">!</span><span class="token string">'666'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 1</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token string">'\0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 0</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token operator">!</span><span class="token string">'666'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>在表示范围的时候，逻辑与(&amp;&amp;)是取交集(∩)，逻辑或(||)是取并集(∪)</p>
 </blockquote>
@@ -1198,10 +1222,11 @@ b <span class="token operator">=</span> tmp<span class="token punctuation">;</sp
 <li><p>如果a为假，就不会再去执行代码b。因为不管b是真是假，运算结果都为假</p>
 </li>
 <li><p>如果a为真，就还需要执行代码b。因为得知b是真是假，才知道运算结果</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span>a<span class="token operator">++</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">++</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//0</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 1 0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span>a<span class="token operator">++</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">++</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//0</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1 0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 </li>
 </ul>
 <h4 id="逻辑或的短路现象"><a href="#逻辑或的短路现象" class="headerlink" title="逻辑或的短路现象"></a>逻辑或的短路现象</h4><blockquote>
@@ -1211,10 +1236,11 @@ b <span class="token operator">=</span> tmp<span class="token punctuation">;</sp
 <li><p>如果a为真，就不会再去执行代码b。因为不管b是真是假，运算结果都为真</p>
 </li>
 <li><p>如果a为假，就还需要执行代码b。因为得知b是真是假，才知道运算结果</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token operator">++</span>a <span class="token operator">||</span> b<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//0</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 1 0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token operator">++</span>a <span class="token operator">||</span> b<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//0</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1 0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 </li>
 </ul>
 <blockquote>
@@ -1228,37 +1254,41 @@ b <span class="token operator">=</span> tmp<span class="token punctuation">;</sp
 </ul>
 </li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//将整形变量a、b、c中的最大值打印出来</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//将整形变量a、b、c中的最大值打印出来</span>
 <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">11</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">22</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token number">33</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 33</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token punctuation">(</span>a <span class="token operator">></span> b<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>a <span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token operator">?</span> a <span class="token punctuation">:</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>b <span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token operator">?</span> b <span class="token punctuation">:</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/**
+<span class="token comment">// 33</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span><span class="token punctuation">(</span>a <span class="token operator">></span> b<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>a <span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token operator">?</span> a <span class="token operator">:</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>b <span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token operator">?</span> b <span class="token operator">:</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/**
 int a = 11, b = 22, c = 33;
 int d = (a >b) ? a : b;
 d = (c > d) ? c : d;
 // 33
 printf("%d\n",d);
 **/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//如果字符变量c是小写字母，就转成大写字母;否则保持原样</span>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//如果字符变量c是小写字母，就转成大写字母;否则保持原样</span>
 <span class="token keyword">char</span> c <span class="token operator">=</span> <span class="token string">'g'</span><span class="token punctuation">;</span>
-c <span class="token operator">=</span> <span class="token punctuation">(</span>c <span class="token operator">>=</span> <span class="token string">'a'</span> <span class="token operator">%</span><span class="token operator">%</span> c <span class="token operator">&lt;=</span> <span class="token string">'z'</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span>c <span class="token operator">-</span> <span class="token string">'a'</span> <span class="token operator">+</span> <span class="token string">'A'</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> c<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// G</span>
+c <span class="token operator">=</span> <span class="token punctuation">(</span>c <span class="token operator">>=</span> <span class="token string">'a'</span> <span class="token operator">%</span><span class="token operator">%</span> c <span class="token operator">&lt;=</span> <span class="token string">'z'</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span>c <span class="token operator">-</span> <span class="token string">'a'</span> <span class="token operator">+</span> <span class="token string">'A'</span><span class="token punctuation">)</span> <span class="token operator">:</span> c<span class="token punctuation">;</span>
+<span class="token comment">// G</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//有一个字符变量c，如果它是小写字母，就转成大写字母；如果它是大写字母，就转成小写字母；否则保持原样</span>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//有一个字符变量c，如果它是小写字母，就转成大写字母；如果它是大写字母，就转成小写字母；否则保持原样</span>
 <span class="token keyword">char</span> c <span class="token operator">=</span> <span class="token string">'G'</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> diff <span class="token operator">=</span> <span class="token string">'a'</span> <span class="token operator">-</span> <span class="token string">'A'</span><span class="token punctuation">;</span>
-c <span class="token operator">=</span> <span class="token punctuation">(</span>c <span class="token operator">>=</span> <span class="token string">'a'</span> <span class="token operator">&amp;&amp;</span> c <span class="token operator">&lt;=</span> <span class="token string">'z'</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span>c <span class="token operator">-</span> diff<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>c <span class="token operator">>=</span> <span class="token string">'A'</span> <span class="token operator">&amp;&amp;</span> c <span class="token operator">&lt;=</span> <span class="token string">'Z'</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span>c <span class="token operator">+</span> diff<span class="token punctuation">)</span> <span class="token punctuation">:</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span> 
-<span class="token comment" spellcheck="true">// g</span>
+c <span class="token operator">=</span> <span class="token punctuation">(</span>c <span class="token operator">>=</span> <span class="token string">'a'</span> <span class="token operator">&amp;&amp;</span> c <span class="token operator">&lt;=</span> <span class="token string">'z'</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span>c <span class="token operator">-</span> diff<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>c <span class="token operator">>=</span> <span class="token string">'A'</span> <span class="token operator">&amp;&amp;</span> c <span class="token operator">&lt;=</span> <span class="token string">'Z'</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span>c <span class="token operator">+</span> diff<span class="token punctuation">)</span> <span class="token operator">:</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment">// g</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="逗号运算符-Comma-Operator"><a href="#逗号运算符-Comma-Operator" class="headerlink" title="逗号运算符(Comma Operator)"></a>逗号运算符(Comma Operator)</h3><p>(a, b,  ……)</p>
 <ul>
 <li>从左到右依次执行表达式</li>
 <li>返回最后一个表达式的运算结果</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token punctuation">(</span>a <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span> a <span class="token operator">=</span> a <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">10</span> <span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span> a<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 11 10</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token punctuation">(</span>a <span class="token operator">+=</span> <span class="token number">5</span><span class="token punctuation">,</span> a <span class="token operator">=</span> a <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">10</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span> a<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 11 10</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="流程控制-Flow-Control"><a href="#流程控制-Flow-Control" class="headerlink" title="流程控制(Flow Control)"></a>流程控制(Flow Control)</h2><blockquote>
 <p>按照执行程序流程的不同，可以将平时编写的代码分成3大结构</p>
 </blockquote>
@@ -1280,27 +1310,28 @@ c <span class="token operator">=</span> <span class="token punctuation">(</span>
 <li>判断相等时 == 误写成赋值 =</li>
 </ul>
 <h4 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if - else语句"></a>if - else语句</h4><p><img src="http://tc.holychen.cn/image/image-20210614210250588.png"></p>
-<h5 id="if语句-vs-if-else语句"><a href="#if语句-vs-if-else语句" class="headerlink" title="if语句 vs if-else语句"></a>if语句 vs if-else语句</h5><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">// if else语句          </span>
+<h5 id="if语句-vs-if-else语句"><a href="#if语句-vs-if-else语句" class="headerlink" title="if语句 vs if-else语句"></a>if语句 vs if-else语句</h5><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// if else语句          </span>
 <span class="token keyword">int</span> score <span class="token operator">=</span> <span class="token number">70</span><span class="token punctuation">;</span>        
 <span class="token keyword">if</span><span class="token punctuation">(</span>score <span class="token operator">>=</span> <span class="token number">60</span><span class="token punctuation">)</span>        
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>                      
+<span class="token punctuation">&#123;</span>                      
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"及格"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>                      
+<span class="token punctuation">&#125;</span>                      
 <span class="token keyword">else</span>                   
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>                     
+<span class="token punctuation">&#123;</span>                     
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"不及格"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-<span class="token comment" spellcheck="true">// 多个if语句</span>
+<span class="token comment">// 多个if语句</span>
 <span class="token keyword">int</span> score <span class="token operator">=</span> <span class="token number">70</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>score <span class="token operator">>=</span> <span class="token number">60</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"及格"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>score <span class="token operator">&lt;</span> <span class="token number">60</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"不及格"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>if-else语句能实现的功能，完全也可以用多个if实现，更推荐if-else的写法</p>
 </blockquote>
@@ -1315,73 +1346,74 @@ c <span class="token operator">=</span> <span class="token punctuation">(</span>
 <ul>
 <li>A：90-100 ——B：80-89——C：70-79——D：60-69——E：0-59</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//较复杂的写法</span>
-<span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//较复杂的写法</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token keyword">int</span> score<span class="token punctuation">;</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>score<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
+    
     <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token number">90</span> <span class="token operator">&lt;=</span> score <span class="token operator">&amp;&amp;</span> score <span class="token operator">&lt;=</span> <span class="token number">100</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"A"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token number">80</span> <span class="token operator">&lt;=</span> score <span class="token operator">&amp;&amp;</span> score <span class="token operator">&lt;=</span> <span class="token number">89</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token number">70</span> <span class="token operator">&lt;=</span> score <span class="token operator">&amp;&amp;</span> score <span class="token operator">&lt;=</span> <span class="token number">79</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"C"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token number">60</span> <span class="token operator">&lt;=</span> score <span class="token operator">&amp;&amp;</span> score <span class="token operator">&lt;=</span> <span class="token number">69</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"D"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">&lt;=</span> score <span class="token operator">&amp;&amp;</span> score <span class="token operator">&lt;=</span> <span class="token number">60</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"E"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"非法输入"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+<span class="token punctuation">&#125;</span>
 
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">//更简单的写法</span>
-<span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+<span class="token comment">//更简单的写法</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token keyword">int</span> score<span class="token punctuation">;</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>score<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
+    
     <span class="token keyword">if</span><span class="token punctuation">(</span>score <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> score <span class="token operator">></span> <span class="token number">100</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"非法输入"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>score <span class="token operator">>=</span> <span class="token number">90</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"A"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>score <span class="token operator">>=</span> <span class="token number">80</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>score <span class="token operator">>=</span> <span class="token number">70</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"C"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>score <span class="token operator">>=</span> <span class="token number">60</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"D"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
     <span class="token keyword">else</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"E"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>else-if语句注意点</p>
 </blockquote>
@@ -1389,92 +1421,97 @@ c <span class="token operator">=</span> <span class="token punctuation">(</span>
 <li>else if中在对合法输入作限定后，应该将小范围写在前面，大范围写在后面</li>
 <li>更推荐下面简单的写法，省掉了不必要的判断，代码执行效率更高</li>
 </ul>
-<h5 id="if语句-vs-else-if语句"><a href="#if语句-vs-else-if语句" class="headerlink" title="if语句 vs else if语句"></a>if语句 vs else if语句</h5><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//下面两段代码的功能是不一样的</span>
-<span class="token comment" spellcheck="true">//只有其中一个printf会被执行</span>
+<h5 id="if语句-vs-else-if语句"><a href="#if语句-vs-else-if语句" class="headerlink" title="if语句 vs else if语句"></a>if语句 vs else if语句</h5><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//下面两段代码的功能是不一样的</span>
+<span class="token comment">//只有其中一个printf会被执行</span>
 <span class="token keyword">int</span> price <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//[100,+∞)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token comment">//[100,+∞)</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"太贵了\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//[50,100]</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token comment">//[50,100]</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"还行吧\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//[10,50]</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token comment">//[10,50]</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"很便宜\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-<span class="token comment" spellcheck="true">//有可能三个printf都会被执行</span>
+<span class="token comment">//有可能三个printf都会被执行</span>
 <span class="token keyword">int</span> price <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//[100,+∞)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token comment">//[100,+∞)</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"太贵了\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//[50,+∞)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token comment">//[50,+∞)</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"还行吧\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//[10,+∞)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>price <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token comment">//[10,+∞)</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"很便宜\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>当多段代码中，只需要选择其中一段来执行时，建议用else if语句</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>value <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"正数"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>value <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"负数"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 <span class="token keyword">else</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>当多段代码可能都要被执行时，不能用else if语句</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>value <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"正数"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>value <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"奇数"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>if、else后可以省略大括号，只会跟其后的第一条语句进行关联</li>
 <li>多个if出现，else后会跟其前面最接近的if相关联</li>
 </ul>
 <p>if语句 ——编译错误</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> price <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> price <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>price <span class="token operator">></span> <span class="token number">100</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"太贵了\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"买不起\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//夹在if与else中间 编译错误</span>
+<span class="token punctuation">&#125;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"买不起\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//夹在if与else中间 编译错误</span>
 <span class="token keyword">else</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"不算贵\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//注意if和else语句中变量的作用域</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//注意if和else语句中变量的作用域</span>
 <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>a <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token keyword">int</span> b <span class="token operator">=</span> a<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 <span class="token keyword">else</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> c <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//编译错误</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> c <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span><span class="token comment">//编译错误</span>
+<span class="token punctuation">&#125;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//编译错误</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//编译错误</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//编译错误</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//编译错误</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h5 id="if-else语句-vs-条件运算符"><a href="#if-else语句-vs-条件运算符" class="headerlink" title="if-else语句 vs 条件运算符"></a>if-else语句 vs 条件运算符</h5><blockquote>
 <p>有一些简单的if-else语句，可以使用条件运算符来替代，以达到简化代码的目的</p>
 </blockquote>
@@ -1492,15 +1529,16 @@ c <span class="token operator">=</span> <span class="token punctuation">(</span>
 <li>直到遇到break语句或switch语句的结尾为止</li>
 </ul>
 <p><img src="http://tc.holychen.cn/image/image-20210615013058625.png"></p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//利用贯穿</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//利用贯穿</span>
 <span class="token keyword">switch</span><span class="token punctuation">(</span>month<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">case</span> <span class="token number">3</span><span class="token punctuation">:</span>
-    <span class="token keyword">case</span> <span class="token number">4</span><span class="token punctuation">:</span>
-    <span class="token keyword">case</span> <span class="token number">5</span><span class="token punctuation">:</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">case</span> <span class="token number">3</span><span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token number">4</span><span class="token operator">:</span>
+    <span class="token keyword">case</span> <span class="token number">5</span><span class="token operator">:</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"春季"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">break</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h5 id="case的使用注意"><a href="#case的使用注意" class="headerlink" title="case的使用注意"></a>case的使用注意</h5><ul>
 <li>case后面紧跟的表达式不能带有变量</li>
 <li>如果想在case后面声明新的变量，那就必须加上大括号，否则编译报错</li>
@@ -1519,31 +1557,40 @@ c <span class="token operator">=</span> <span class="token punctuation">(</span>
 </blockquote>
 <h4 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h4><p><img src="http://tc.holychen.cn/image/image-20210615020526675.png"></p>
 <h5 id="while固定次数的打印"><a href="#while固定次数的打印" class="headerlink" title="while固定次数的打印"></a>while固定次数的打印</h5><p><img src="http://tc.holychen.cn/image/image-20210615021115016.png"></p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//1 - 2 + 3 - 4 + 5 - 6 ... + n</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//1 - 2 + 3 - 4 + 5 - 6 ... + n</span>
 <span class="token keyword">int</span> value  <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword">while</span><span class="token punctuation">(</span>value <span class="token operator">&lt;=</span> n<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    sum <span class="token operator">+</span><span class="token operator">=</span> <span class="token punctuation">(</span>value <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">?</span> value <span class="token punctuation">:</span> <span class="token operator">-</span>value<span class="token punctuation">;</span>
-    value<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#123;</span>
+    sum <span class="token operator">+=</span> <span class="token punctuation">(</span>value <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">?</span> value <span class="token operator">:</span> <span class="token operator">-</span>value<span class="token punctuation">;</span>
+	value<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h4 id="do-while语句"><a href="#do-while语句" class="headerlink" title="do-while语句"></a>do-while语句</h4><p><img src="http://tc.holychen.cn/image/image-20210615025028050.png"></p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> n<span class="token punctuation">;</span>
-<span class="token keyword">do</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> n<span class="token punctuation">;</span>
+<span class="token keyword">do</span><span class="token punctuation">&#123;</span>
    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入1-100之间的正整数："</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>n<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token keyword">while</span><span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">1</span> <span class="token operator">||</span> n <span class="token operator">></span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token keyword">while</span><span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">1</span> <span class="token operator">||</span> n <span class="token operator">></span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h4 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h4><p><img src="http://tc.holychen.cn/image/image-20210615023222797.png"></p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//请从小到大打印出3、5的前10个公倍数</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//请从小到大打印出3、5的前10个公倍数</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> count <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>i <span class="token operator">%</span> <span class="token number">3</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>i <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
         count<span class="token operator">++</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h5 id="for-语句-vs-while语句"><a href="#for-语句-vs-while语句" class="headerlink" title="for 语句 vs while语句"></a>for 语句 vs while语句</h5><p><img src="http://tc.holychen.cn/image/image-20210615023511753.png"></p>
 <blockquote>
 <p>break语句</p>
@@ -1567,12 +1614,13 @@ c <span class="token operator">=</span> <span class="token punctuation">(</span>
 <li>很多时候，巧用continue，可以减少大括号、缩进的数量</li>
 </ul>
 <p><img src="http://tc.holychen.cn/image/image-20210615034211558.png"></p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> count <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> count <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">%</span> <span class="token number">3</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">||</span> i <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
     count<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="goto语句"><a href="#goto语句" class="headerlink" title="goto语句"></a>goto语句</h3><ul>
 <li>goto语句的作用：可以为所欲为地灵活跳转</li>
 <li>goto语句使用起来非常灵活，在有些情况下，还能提高程序的效率</li>
@@ -1917,7 +1965,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">29k</span>&nbsp;字
+                class="white-color">30.2k</span>&nbsp;字
             
             
             

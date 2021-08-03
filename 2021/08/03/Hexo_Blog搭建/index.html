@@ -356,14 +356,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.2k
+                    4.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    18 分
+                    19 分
                 </div>
                 
 
@@ -472,8 +472,10 @@
 <blockquote>
 <p>添加国内镜像源，这里选择使用阿里的国内镜像进行加速</p>
 </blockquote>
-<pre><code>npm config set registry https://registry.npm.taobao.org</code></pre>
-<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><pre class="line-numbers language-c"><code class="language-c">$ npm install <span class="token operator">-</span>g hexo<span class="token operator">-</span>cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">npm config set registry https:&#x2F;&#x2F;registry.npm.taobao.org<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">$ npm install <span class="token operator">-</span>g hexo<span class="token operator">-</span>cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h2 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h2><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454439.png" alt="初始化Hexo"></p>
 <ul>
 <li>scaffolds是模版文件夹，当新建文章时，Hexo 会根据 scaffold 来建立文件</li>
@@ -497,42 +499,48 @@
 <h2 id="tags-页面"><a href="#tags-页面" class="headerlink" title="tags 页面"></a>tags 页面</h2><blockquote>
 <p>tags页是用来展示所有标签的页面，如果博客source目录下还没有tags/index.md 文件，那么就需要新建一个</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">hexo new page <span class="token string">"tags"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">hexo new page <span class="token string">"tags"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <blockquote>
 <p>编辑刚刚新建的页面文件/source/tags/index.md，至少需要以下内容：</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token operator">--</span><span class="token operator">-</span>
-title<span class="token punctuation">:</span> tags
-date<span class="token punctuation">:</span> <span class="token number">2020</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">-</span><span class="token number">28</span> <span class="token number">18</span><span class="token punctuation">:</span><span class="token number">23</span><span class="token punctuation">:</span><span class="token number">38</span>
-type<span class="token punctuation">:</span> <span class="token string">"tags"</span>
-layout<span class="token punctuation">:</span> <span class="token string">"tags"</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">--</span><span class="token operator">-</span>
+title<span class="token operator">:</span> tags
+date<span class="token operator">:</span> <span class="token number">2020</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">-</span><span class="token number">28</span> <span class="token number">18</span><span class="token operator">:</span><span class="token number">23</span><span class="token operator">:</span><span class="token number">38</span>
+type<span class="token operator">:</span> <span class="token string">"tags"</span>
+layout<span class="token operator">:</span> <span class="token string">"tags"</span>
 <span class="token operator">--</span><span class="token operator">-</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="categories-页面"><a href="#categories-页面" class="headerlink" title="categories 页面"></a>categories 页面</h2><blockquote>
 <p>categories页是用来展示所有分类的页面，如果博客source目录下还没有 categories/index.md文件，那么就需要新建一个</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">hexo new page <span class="token string">"categories"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">hexo new page <span class="token string">"categories"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <blockquote>
 <p>编辑刚刚新建的页面文件/source/categories/index.md,至少需要以下内容：</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token operator">--</span><span class="token operator">-</span>
-title<span class="token punctuation">:</span> categories
-date<span class="token punctuation">:</span> <span class="token number">2020</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">-</span><span class="token number">28</span> <span class="token number">17</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">:</span><span class="token number">30</span>
-type<span class="token punctuation">:</span> <span class="token string">"categories"</span>
-layout<span class="token punctuation">:</span> <span class="token string">"categories"</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">--</span><span class="token operator">-</span>
+title<span class="token operator">:</span> categories
+date<span class="token operator">:</span> <span class="token number">2020</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">-</span><span class="token number">28</span> <span class="token number">17</span><span class="token operator">:</span><span class="token number">25</span><span class="token operator">:</span><span class="token number">30</span>
+type<span class="token operator">:</span> <span class="token string">"categories"</span>
+layout<span class="token operator">:</span> <span class="token string">"categories"</span>
 <span class="token operator">--</span><span class="token operator">-</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="about-页面"><a href="#about-页面" class="headerlink" title="about 页面"></a>about 页面</h2><blockquote>
 <p>about页是用来展示关于我和我的博客信息的页面，如果博客source目录下还没有about/index.md文件，那么就需要新建一个</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">hexo new page <span class="token string">"about"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">hexo new page <span class="token string">"about"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <blockquote>
 <p>编辑刚刚新建的页面文件/source/about/index.md，至少需要以下内容：</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token operator">--</span><span class="token operator">-</span>
-title<span class="token punctuation">:</span> about
-date<span class="token punctuation">:</span> <span class="token number">2020</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">-</span><span class="token number">28</span> <span class="token number">17</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">:</span><span class="token number">30</span>
-type<span class="token punctuation">:</span> <span class="token string">"about"</span>
-layout<span class="token punctuation">:</span> <span class="token string">"about"</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">--</span><span class="token operator">-</span>
+title<span class="token operator">:</span> about
+date<span class="token operator">:</span> <span class="token number">2020</span><span class="token operator">-</span><span class="token number">10</span><span class="token operator">-</span><span class="token number">28</span> <span class="token number">17</span><span class="token operator">:</span><span class="token number">25</span><span class="token operator">:</span><span class="token number">30</span>
+type<span class="token operator">:</span> <span class="token string">"about"</span>
+layout<span class="token operator">:</span> <span class="token string">"about"</span>
 <span class="token operator">--</span><span class="token operator">-</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>当然上面提到的这些通过手动创建也是可以的</p>
 </blockquote>
@@ -540,22 +548,23 @@ layout<span class="token punctuation">:</span> <span class="token string">"about
 <li>菜单导航名称可以是中文也可以是英文(如：Index或主页)</li>
 <li>图标icon 可以在<a target="_blank" rel="noopener" href="https://fontawesome.com/icons">Font Awesome</a> 中查找</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c">menu<span class="token punctuation">:</span>
-  Index<span class="token punctuation">:</span>
-    url<span class="token punctuation">:</span> <span class="token operator">/</span>
-    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>home
-  Tags<span class="token punctuation">:</span>
-    url<span class="token punctuation">:</span> <span class="token operator">/</span>tags
-    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>tags
-  Categories<span class="token punctuation">:</span>
-    url<span class="token punctuation">:</span> <span class="token operator">/</span>categories
-    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>bookmark
-  Archives<span class="token punctuation">:</span>
-    url<span class="token punctuation">:</span> <span class="token operator">/</span>archives
-    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>archive
-  About<span class="token punctuation">:</span>
-    url<span class="token punctuation">:</span> <span class="token operator">/</span>about
-    icon<span class="token punctuation">:</span> fas fa<span class="token operator">-</span>user<span class="token operator">-</span>circle<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">menu<span class="token operator">:</span>
+  Index<span class="token operator">:</span>
+    url<span class="token operator">:</span> <span class="token operator">/</span>
+    icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>home
+  Tags<span class="token operator">:</span>
+    url<span class="token operator">:</span> <span class="token operator">/</span>tags
+    icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>tags
+  Categories<span class="token operator">:</span>
+    url<span class="token operator">:</span> <span class="token operator">/</span>categories
+    icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>bookmark
+  Archives<span class="token operator">:</span>
+    url<span class="token operator">:</span> <span class="token operator">/</span>archives
+    icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>archive
+  About<span class="token operator">:</span>
+    url<span class="token operator">:</span> <span class="token operator">/</span>about
+    icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>user<span class="token operator">-</span>circle<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="二级菜单配置"><a href="#二级菜单配置" class="headerlink" title="二级菜单配置"></a>二级菜单配置</h3><p>如果需要二级菜单，则可以在原基本菜单导航的基础上如下操作</p>
 <ul>
 <li>在需要添加二级菜单的一级菜单下添加children关键字(如:About菜单下添加children)</li>
@@ -566,65 +575,71 @@ layout<span class="token punctuation">:</span> <span class="token string">"about
 <h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="代码高亮"><a href="#代码高亮" class="headerlink" title="代码高亮"></a>代码高亮</h3><blockquote>
 <p>由于 Hexo 自带的代码高亮略显平庸，所以主题中使用到了 <a target="_blank" rel="noopener" href="https://github.com/ele828/hexo-prism-plugin">hexo-prism-plugin</a> 的 Hexo 插件来做代码高亮，安装命令如下：</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">npm i <span class="token operator">-</span>S hexo<span class="token operator">-</span>prism<span class="token operator">-</span>plugin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm i <span class="token operator">-</span>S hexo<span class="token operator">-</span>prism<span class="token operator">-</span>plugin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <blockquote>
 <p>修改 Hexo 根目录下_config.yml文件中highlight.enable的值为 false，并新增prism插件相关的配置，主要配置如下：</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">prism_plugin<span class="token punctuation">:</span>
-  mode<span class="token punctuation">:</span> <span class="token string">'preprocess'</span> # realtime<span class="token operator">/</span>preprocess
-  theme<span class="token punctuation">:</span> <span class="token string">'tomorrow'</span>
-  line_number<span class="token punctuation">:</span> true #<span class="token keyword">default</span> false
-  custom_css<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">prism_plugin<span class="token operator">:</span>
+  mode<span class="token operator">:</span> <span class="token string">'preprocess'</span> # realtime<span class="token operator">/</span>preprocess
+  theme<span class="token operator">:</span> <span class="token string">'tomorrow'</span>
+  line_number<span class="token operator">:</span> true #<span class="token keyword">default</span> false
+  custom_css<span class="token operator">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><blockquote>
 <p>使用hexo-generator-search](<a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search">https://github.com/wzpan/hexo-generator-search</a>) 插件来做内容搜索</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>search <span class="token operator">--</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>search <span class="token operator">--</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <blockquote>
 <p>在 Hexo 根目录下的_config.yml文件中，新增以下的配置项：</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">search<span class="token punctuation">:</span>
-  path<span class="token punctuation">:</span> search<span class="token punctuation">.</span>xml
-  field<span class="token punctuation">:</span> post<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">search<span class="token operator">:</span>
+  path<span class="token operator">:</span> search<span class="token punctuation">.</span>xml
+  field<span class="token operator">:</span> post<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="文章字数统计"><a href="#文章字数统计" class="headerlink" title="文章字数统计"></a>文章字数统计</h3><blockquote>
 <p>安装<a target="_blank" rel="noopener" href="https://github.com/willin/hexo-wordcount">hexo-wordcount</a>插件，在文章中显示文章字数、阅读时长信息</p>
 </blockquote>
-<pre><code>npm i --save hexo-wordcount</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">npm i --save hexo-wordcount<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <blockquote>
 <p>需要在本主题下的_config.yml 文件中，激活以下配置项</p>
 </blockquote>
-<pre><code>postInfo:
+<pre class="line-numbers language-none"><code class="language-none">postInfo:
   date: false # 发布日期
   update: false # 更新日期
   wordCount: true # 文章字数统计
   totalCount: true # 站点总文章字数
   min2read: true # 文章阅读时长
-  readCount: true # 文章阅读次数</code></pre>
+  readCount: true # 文章阅读次数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="JS特效"><a href="#JS特效" class="headerlink" title="JS特效"></a>JS特效</h2><blockquote>
 <p>HTML + CSS齐活了，肯定不能少了JS的身影</p>
 </blockquote>
 <h3 id="添加雪花飘落效果"><a href="#添加雪花飘落效果" class="headerlink" title="添加雪花飘落效果"></a>添加雪花飘落效果</h3><blockquote>
 <p>在themes/matery/source/js目录下新建snow.js文件</p>
 </blockquote>
-<pre><code>/*样式一*/
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;*样式一*&#x2F;
 (function($)&#123;
-    $.fn.snow = function(options)&#123;
-    var $flake = $(&#39;&lt;div id=&quot;snowbox&quot; /&gt;&#39;).css(&#123;&#39;position&#39;: &#39;absolute&#39;,&#39;z-index&#39;:&#39;9999&#39;, &#39;top&#39;: &#39;-50px&#39;&#125;).html(&#39;&amp;#10052;&#39;),
-    documentHeight     = $(document).height(),
-    documentWidth    = $(document).width(),
-    defaults = &#123;
+    $.fn.snow &#x3D; function(options)&#123;
+    var $flake &#x3D; $(&#39;&lt;div id&#x3D;&quot;snowbox&quot; &#x2F;&gt;&#39;).css(&#123;&#39;position&#39;: &#39;absolute&#39;,&#39;z-index&#39;:&#39;9999&#39;, &#39;top&#39;: &#39;-50px&#39;&#125;).html(&#39;&amp;#10052;&#39;),
+    documentHeight     &#x3D; $(document).height(),
+    documentWidth    &#x3D; $(document).width(),
+    defaults &#x3D; &#123;
         minSize        : 10,
         maxSize        : 20,
         newOn        : 1000,
-        flakeColor    : &quot;#AFDAEF&quot; /* 此处可以定义雪花颜色，若要白色可以改为#FFFFFF */
+        flakeColor    : &quot;#AFDAEF&quot; &#x2F;* 此处可以定义雪花颜色，若要白色可以改为#FFFFFF *&#x2F;
     &#125;,
-    options    = $.extend(&#123;&#125;, defaults, options);
-    var interval= setInterval( function()&#123;
-    var startPositionLeft = Math.random() * documentWidth - 100,
-    startOpacity = 0.5 + Math.random(),
-    sizeFlake = options.minSize + Math.random() * options.maxSize,
-    endPositionTop = documentHeight - 200,
-    endPositionLeft = startPositionLeft - 500 + Math.random() * 500,
-    durationFall = documentHeight * 10 + Math.random() * 5000;
+    options    &#x3D; $.extend(&#123;&#125;, defaults, options);
+    var interval&#x3D; setInterval( function()&#123;
+    var startPositionLeft &#x3D; Math.random() * documentWidth - 100,
+    startOpacity &#x3D; 0.5 + Math.random(),
+    sizeFlake &#x3D; options.minSize + Math.random() * options.maxSize,
+    endPositionTop &#x3D; documentHeight - 200,
+    endPositionLeft &#x3D; startPositionLeft - 500 + Math.random() * 500,
+    durationFall &#x3D; documentHeight * 10 + Math.random() * 5000;
     $flake.clone().appendTo(&#39;body&#39;).css(&#123;
         left: startPositionLeft,
         opacity: startOpacity,
@@ -642,25 +657,26 @@ layout<span class="token punctuation">:</span> <span class="token string">"about
 &#125;)(jQuery);
 $(function()&#123;
     $.fn.snow(&#123;
-        minSize: 5, /* 定义雪花最小尺寸 */
-        maxSize: 50,/* 定义雪花最大尺寸 */
-        newOn: 300  /* 定义密集程度，数字越小越密集 */
+        minSize: 5, &#x2F;* 定义雪花最小尺寸 *&#x2F;
+        maxSize: 50,&#x2F;* 定义雪花最大尺寸 *&#x2F;
+        newOn: 300  &#x2F;* 定义密集程度，数字越小越密集 *&#x2F;
     &#125;);
-&#125;);</code></pre>
+&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>在themes/matery/layout/layout.ejs文件内加下</p>
 </blockquote>
 <script src="/js/snow.js"></script>
 
 <h3 id="鼠标点击文字特效"><a href="#鼠标点击文字特效" class="headerlink" title="鼠标点击文字特效"></a>鼠标点击文字特效</h3><p>在themes/matery/source/js目录下新建click_show_text.js文件</p>
-<pre><code>var a_idx = 0;
+<pre class="line-numbers language-none"><code class="language-none">var a_idx &#x3D; 0;
 jQuery(document).ready(function ($) &#123;
     $(&quot;body&quot;).click(function (e) &#123;
-        var a = new Array(&quot;富强&quot;, &quot;民主&quot;, &quot;文明&quot;, &quot;和谐&quot;, &quot;自由&quot;, &quot;平等&quot;, &quot;公正&quot;, &quot;法治&quot;, &quot;爱国&quot;, &quot;敬业&quot;, &quot;诚信&quot;, &quot;友善&quot;);
-        var $i = $(&quot;&lt;span/&gt;&quot;).text(a[a_idx]);
-        a_idx = (a_idx + 1) % a.length;
-        var x = e.pageX,
-            y = e.pageY;
+        var a &#x3D; new Array(&quot;富强&quot;, &quot;民主&quot;, &quot;文明&quot;, &quot;和谐&quot;, &quot;自由&quot;, &quot;平等&quot;, &quot;公正&quot;, &quot;法治&quot;, &quot;爱国&quot;, &quot;敬业&quot;, &quot;诚信&quot;, &quot;友善&quot;);
+        var $i &#x3D; $(&quot;&lt;span&#x2F;&gt;&quot;).text(a[a_idx]);
+        a_idx &#x3D; (a_idx + 1) % a.length;
+        var x &#x3D; e.pageX,
+            y &#x3D; e.pageY;
         $i.css(&#123;
             &quot;z-index&quot;: 5,
             &quot;top&quot;: y - 20,
@@ -681,227 +697,247 @@ jQuery(document).ready(function ($) &#123;
     &#125;);
     setTimeout(&#39;delay()&#39;, 2000);
 &#125;);
-
+ 
 function delay() &#123;
     $(&quot;.buryit&quot;).removeAttr(&quot;onclick&quot;);
 &#125;
-</code></pre>
+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>在themes/matery/layout/layout.ejs文件内添加下面的内容：</p>
 </blockquote>
-<pre class="line-numbers language-HTML"><code class="language-HTML"><script src="/js/click_show_text.js"></script><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-HTML" data-language="HTML"><code class="language-HTML">&lt;script src&#x3D;&quot;&#x2F;js&#x2F;click_show_text.js&quot;&gt;&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="鼠标彩虹星星掉落"><a href="#鼠标彩虹星星掉落" class="headerlink" title="鼠标彩虹星星掉落"></a>鼠标彩虹星星掉落</h3><blockquote>
 <p>添加鼠标彩虹星星掉落跟随效果</p>
 </blockquote>
 <p>在themes/matery/source/js目录下新建cursor.js文件</p>
-<pre><code>/*!
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;*!
 * Fairy Dust Cursor.js
 * - 90&#39;s cursors collection
-* -- https://github.com/tholman/90s-cursor-effects
-* -- http://codepen.io/tholman/full/jWmZxZ/
-*/
-
-//鼠标点击雪花特效
+* -- https:&#x2F;&#x2F;github.com&#x2F;tholman&#x2F;90s-cursor-effects
+* -- http:&#x2F;&#x2F;codepen.io&#x2F;tholman&#x2F;full&#x2F;jWmZxZ&#x2F;
+*&#x2F;
+ 
+&#x2F;&#x2F;鼠标点击雪花特效
 (function fairyDustCursor() &#123;
-
-  var possibleColors = [&quot;#D61C59&quot;, &quot;#E7D84B&quot;, &quot;#1B8798&quot;]
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  var cursor = &#123;x: width/2, y: width/2&#125;;
-  var particles = [];
-
+ 
+  var possibleColors &#x3D; [&quot;#D61C59&quot;, &quot;#E7D84B&quot;, &quot;#1B8798&quot;]
+  var width &#x3D; window.innerWidth;
+  var height &#x3D; window.innerHeight;
+  var cursor &#x3D; &#123;x: width&#x2F;2, y: width&#x2F;2&#125;;
+  var particles &#x3D; [];
+ 
   function init() &#123;
     bindEvents();
     loop();
   &#125;
-
-  // Bind events that are needed
+ 
+  &#x2F;&#x2F; Bind events that are needed
   function bindEvents() &#123;
     document.addEventListener(&#39;mousemove&#39;, onMouseMove);
     document.addEventListener(&#39;touchmove&#39;, onTouchMove);
     document.addEventListener(&#39;touchstart&#39;, onTouchMove);
-
+ 
     window.addEventListener(&#39;resize&#39;, onWindowResize);
   &#125;
-
+ 
   function onWindowResize(e) &#123;
-    width = window.innerWidth;
-    height = window.innerHeight;
+    width &#x3D; window.innerWidth;
+    height &#x3D; window.innerHeight;
   &#125;
-
+ 
   function onTouchMove(e) &#123;
     if( e.touches.length &gt; 0 ) &#123;
-      for( var i = 0; i &lt; e.touches.length; i++ ) &#123;
+      for( var i &#x3D; 0; i &lt; e.touches.length; i++ ) &#123;
         addParticle( e.touches[i].clientX, e.touches[i].clientY, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
       &#125;
     &#125;
   &#125;
-
+ 
   function onMouseMove(e) &#123;  
-    cursor.x = e.clientX;
-    cursor.y = e.clientY;
-
+    cursor.x &#x3D; e.clientX;
+    cursor.y &#x3D; e.clientY;
+ 
     addParticle( cursor.x, cursor.y, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
   &#125;
-
+ 
   function addParticle(x, y, color) &#123;
-    var particle = new Particle();
+    var particle &#x3D; new Particle();
     particle.init(x, y, color);
     particles.push(particle);
   &#125;
-
+ 
   function updateParticles() &#123;
-
-    // Updated
-    for( var i = 0; i &lt; particles.length; i++ ) &#123;
+ 
+    &#x2F;&#x2F; Updated
+    for( var i &#x3D; 0; i &lt; particles.length; i++ ) &#123;
       particles[i].update();
     &#125;
-
-    // Remove dead particles
-    for( var i = particles.length -1; i &gt;= 0; i-- ) &#123;
+ 
+    &#x2F;&#x2F; Remove dead particles
+    for( var i &#x3D; particles.length -1; i &gt;&#x3D; 0; i-- ) &#123;
       if( particles[i].lifeSpan &lt; 0 ) &#123;
         particles[i].die();
         particles.splice(i, 1);
       &#125;
     &#125;
-
+ 
   &#125;
-
+ 
   function loop() &#123;
     requestAnimationFrame(loop);
     updateParticles();
   &#125;
-
-  /**
+ 
+  &#x2F;**
    * Particles
-   */
-
+   *&#x2F;
+ 
   function Particle() &#123;
-
-    this.character = &quot;*&quot;;
-    this.lifeSpan = 120; //ms
-    this.initialStyles =&#123;
+ 
+    this.character &#x3D; &quot;*&quot;;
+    this.lifeSpan &#x3D; 120; &#x2F;&#x2F;ms
+    this.initialStyles &#x3D;&#123;
       &quot;position&quot;: &quot;fixed&quot;,
-      &quot;top&quot;: &quot;0&quot;, //必须加
+      &quot;top&quot;: &quot;0&quot;, &#x2F;&#x2F;必须加
       &quot;display&quot;: &quot;block&quot;,
       &quot;pointerEvents&quot;: &quot;none&quot;,
       &quot;z-index&quot;: &quot;10000000&quot;,
       &quot;fontSize&quot;: &quot;20px&quot;,
       &quot;will-change&quot;: &quot;transform&quot;
     &#125;;
-
-    // Init, and set properties
-    this.init = function(x, y, color) &#123;
-
-      this.velocity = &#123;
-        x:  (Math.random() &lt; 0.5 ? -1 : 1) * (Math.random() / 2),
+ 
+    &#x2F;&#x2F; Init, and set properties
+    this.init &#x3D; function(x, y, color) &#123;
+ 
+      this.velocity &#x3D; &#123;
+        x:  (Math.random() &lt; 0.5 ? -1 : 1) * (Math.random() &#x2F; 2),
         y: 1
       &#125;;
-
-      this.position = &#123;x: x - 10, y: y - 20&#125;;
-      this.initialStyles.color = color;
+ 
+      this.position &#x3D; &#123;x: x - 10, y: y - 20&#125;;
+      this.initialStyles.color &#x3D; color;
       console.log(color);
-
-      this.element = document.createElement(&#39;span&#39;);
-      this.element.innerHTML = this.character;
+ 
+      this.element &#x3D; document.createElement(&#39;span&#39;);
+      this.element.innerHTML &#x3D; this.character;
       applyProperties(this.element, this.initialStyles);
       this.update();
-
+ 
       document.body.appendChild(this.element);
     &#125;;
-
-    this.update = function() &#123;
-      this.position.x += this.velocity.x;
-      this.position.y += this.velocity.y;
+ 
+    this.update &#x3D; function() &#123;
+      this.position.x +&#x3D; this.velocity.x;
+      this.position.y +&#x3D; this.velocity.y;
       this.lifeSpan--;
-
-      this.element.style.transform = &quot;translate3d(&quot; + this.position.x + &quot;px,&quot; + this.position.y + &quot;px,0) scale(&quot; + (this.lifeSpan / 120) + &quot;)&quot;;
+ 
+      this.element.style.transform &#x3D; &quot;translate3d(&quot; + this.position.x + &quot;px,&quot; + this.position.y + &quot;px,0) scale(&quot; + (this.lifeSpan &#x2F; 120) + &quot;)&quot;;
     &#125;
-
-    this.die = function() &#123;
+ 
+    this.die &#x3D; function() &#123;
       this.element.parentNode.removeChild(this.element);
     &#125;
-
+ 
   &#125;
-
-  /**
+ 
+  &#x2F;**
    * Utils
-   */
-
-  // Applies css `properties` to an element.
+   *&#x2F;
+ 
+  &#x2F;&#x2F; Applies css &#96;properties&#96; to an element.
   function applyProperties( target, properties ) &#123;
     for( var key in properties ) &#123;
-      target.style[ key ] = properties[ key ];
+      target.style[ key ] &#x3D; properties[ key ];
     &#125;
   &#125;
-
+ 
   init();
 &#125;)();
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>在themes/matery/layout/layout.ejs文件内添加如下</p>
 </blockquote>
-<pre class="line-numbers language-HTML"><code class="language-HTML"><script src="/js/cursor.js"></script><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-HTML" data-language="HTML"><code class="language-HTML">&lt;script src&#x3D;&quot;&#x2F;js&#x2F;cursor.js&quot;&gt;&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h2 id="配置音乐播放器"><a href="#配置音乐播放器" class="headerlink" title="配置音乐播放器"></a>配置音乐播放器</h2><blockquote>
 <p>要支持音乐播放，就必须开启音乐的播放配置和音乐数据的文件</p>
 </blockquote>
 <blockquote>
 <p>首先，在博客source目录下的_data目录（没有的话就新建一个）中新建 musics.json文件，文件内容如下所示：</p>
 </blockquote>
-<pre><code>[&#123; &quot;name&quot;: &quot;五月雨变奏电音&quot;,
+<pre class="line-numbers language-none"><code class="language-none">[&#123; &quot;name&quot;: &quot;五月雨变奏电音&quot;,
    &quot;artist&quot;: &quot;AnimeVibe&quot;,
-   &quot;url&quot;: &quot;http://xxx.com/music1.mp3&quot;,
-   &quot;cover&quot;: &quot;http://xxx.com/music-cover1.png&quot;
+   &quot;url&quot;: &quot;http:&#x2F;&#x2F;xxx.com&#x2F;music1.mp3&quot;,
+   &quot;cover&quot;: &quot;http:&#x2F;&#x2F;xxx.com&#x2F;music-cover1.png&quot;
 &#125;, &#123;
   &quot;name&quot;: &quot;Take me hand&quot;,
   &quot;artist&quot;: &quot;DAISHI DANCE,Cecile Corbel&quot;,
-  &quot;url&quot;: &quot;/medias/music/music2.mp3&quot;,
-  &quot;cover&quot;: &quot;/medias/music/cover2.png&quot;
+  &quot;url&quot;: &quot;&#x2F;medias&#x2F;music&#x2F;music2.mp3&quot;,
+  &quot;cover&quot;: &quot;&#x2F;medias&#x2F;music&#x2F;cover2.png&quot;
 &#125;, &#123;
    &quot;name&quot;: &quot;Shape of You&quot;,
    &quot;artist&quot;: &quot;J.Fla&quot;,
-   &quot;url&quot;: &quot;http://xxx.com/music3.mp3&quot;,
-   &quot;cover&quot;: &quot;http://xxx.com/music-cover3.png&quot;
-&#125;]</code></pre>
-<p>注：以上 JSON 中的属性：name、artist、url、cover 分别表示音乐的名称、作者、音乐文件地址、音乐封面。<br>然后，在主题的_config.yml配置文件中激活配置即可</p>
-<h1 id="服务端部署"><a href="#服务端部署" class="headerlink" title="服务端部署"></a>服务端部署</h1><h2 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h2><pre><code>yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel</code></pre>
-<h2 id="安装编译工具"><a href="#安装编译工具" class="headerlink" title="安装编译工具"></a>安装编译工具</h2><pre><code>yum install gcc perl-ExtUtils-MakeMaker package</code></pre>
-<h2 id="查看git的版本"><a href="#查看git的版本" class="headerlink" title="查看git的版本"></a>查看git的版本</h2><pre><code>git version</code></pre>
-<h2 id="删除git"><a href="#删除git" class="headerlink" title="删除git"></a>删除git</h2><pre><code>yum remove git -y</code></pre>
-<h2 id="下载解压最新版"><a href="#下载解压最新版" class="headerlink" title="下载解压最新版"></a>下载解压最新版</h2><pre><code>cd /usr/local/src    #下载的目录
-wget https://www.kernel.org/pub/software/scm/git/git-2.28.0.tar.gz    #下载最新版
-tar -zxvf git-2.28.0.tar.gz        #解压到当前文件夹</code></pre>
-<h2 id="编译源码并安装"><a href="#编译源码并安装" class="headerlink" title="编译源码并安装"></a>编译源码并安装</h2><pre><code>cd git-2.28.0    #进入文件夹
-make prefix=/usr/local/git all    #编译源码
-make prefix=/usr/local/git install    #安装路径</code></pre>
-<h2 id="配置git的环境变量"><a href="#配置git的环境变量" class="headerlink" title="配置git的环境变量"></a>配置git的环境变量</h2><pre><code>echo &#39;export PATH=$PATH:/usr/local/git/bin&#39; &gt;&gt; /etc/bashrc</code></pre>
-<h2 id="刷新环境变量"><a href="#刷新环境变量" class="headerlink" title="刷新环境变量"></a>刷新环境变量</h2><pre><code>source /etc/bashrc</code></pre>
-<h2 id="查看版本号"><a href="#查看版本号" class="headerlink" title="查看版本号"></a>查看版本号</h2><pre><code>git --version</code></pre>
-<h2 id="创建用户并修改权限"><a href="#创建用户并修改权限" class="headerlink" title="创建用户并修改权限"></a>创建用户并修改权限</h2><pre><code>adduser holy
-passwd holy
-chmod 740 /etc/sudoers
-vim /etc/sudoers
+   &quot;url&quot;: &quot;http:&#x2F;&#x2F;xxx.com&#x2F;music3.mp3&quot;,
+   &quot;cover&quot;: &quot;http:&#x2F;&#x2F;xxx.com&#x2F;music-cover3.png&quot;
+&#125;]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-root    ALL=(ALL)       ALL
-holy     ALL=(ALL)       ALL</code></pre>
+<p>注：以上 JSON 中的属性：name、artist、url、cover 分别表示音乐的名称、作者、音乐文件地址、音乐封面。<br>然后，在主题的_config.yml配置文件中激活配置即可</p>
+<h1 id="服务端部署"><a href="#服务端部署" class="headerlink" title="服务端部署"></a>服务端部署</h1><h2 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h2><pre class="line-numbers language-none"><code class="language-none">yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="安装编译工具"><a href="#安装编译工具" class="headerlink" title="安装编译工具"></a>安装编译工具</h2><pre class="line-numbers language-none"><code class="language-none">yum install gcc perl-ExtUtils-MakeMaker package<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="查看git的版本"><a href="#查看git的版本" class="headerlink" title="查看git的版本"></a>查看git的版本</h2><pre class="line-numbers language-none"><code class="language-none">git version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="删除git"><a href="#删除git" class="headerlink" title="删除git"></a>删除git</h2><pre class="line-numbers language-none"><code class="language-none">yum remove git -y<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="下载解压最新版"><a href="#下载解压最新版" class="headerlink" title="下载解压最新版"></a>下载解压最新版</h2><pre class="line-numbers language-none"><code class="language-none">cd &#x2F;usr&#x2F;local&#x2F;src    #下载的目录
+wget https:&#x2F;&#x2F;www.kernel.org&#x2F;pub&#x2F;software&#x2F;scm&#x2F;git&#x2F;git-2.28.0.tar.gz    #下载最新版
+tar -zxvf git-2.28.0.tar.gz        #解压到当前文件夹<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="编译源码并安装"><a href="#编译源码并安装" class="headerlink" title="编译源码并安装"></a>编译源码并安装</h2><pre class="line-numbers language-none"><code class="language-none">cd git-2.28.0    #进入文件夹
+make prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;git all    #编译源码
+make prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;git install    #安装路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="配置git的环境变量"><a href="#配置git的环境变量" class="headerlink" title="配置git的环境变量"></a>配置git的环境变量</h2><pre class="line-numbers language-none"><code class="language-none">echo &#39;export PATH&#x3D;$PATH:&#x2F;usr&#x2F;local&#x2F;git&#x2F;bin&#39; &gt;&gt; &#x2F;etc&#x2F;bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="刷新环境变量"><a href="#刷新环境变量" class="headerlink" title="刷新环境变量"></a>刷新环境变量</h2><pre class="line-numbers language-none"><code class="language-none">source &#x2F;etc&#x2F;bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="查看版本号"><a href="#查看版本号" class="headerlink" title="查看版本号"></a>查看版本号</h2><pre class="line-numbers language-none"><code class="language-none">git --version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="创建用户并修改权限"><a href="#创建用户并修改权限" class="headerlink" title="创建用户并修改权限"></a>创建用户并修改权限</h2><pre class="line-numbers language-none"><code class="language-none">adduser holy
+passwd holy
+chmod 740 &#x2F;etc&#x2F;sudoers
+vim &#x2F;etc&#x2F;sudoers
+ 
+root    ALL&#x3D;(ALL)       ALL
+holy     ALL&#x3D;(ALL)       ALL<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603866454462.png" alt="vim编辑保存"></p>
-<h2 id="改回权限"><a href="#改回权限" class="headerlink" title="改回权限"></a>改回权限</h2><pre class="line-numbers language-c"><code class="language-c">chmod <span class="token number">400</span> <span class="token operator">/</span>etc<span class="token operator">/</span>sudoers<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="设置holy账户密码"><a href="#设置holy账户密码" class="headerlink" title="设置holy账户密码"></a>设置holy账户密码</h2><pre class="line-numbers language-c"><code class="language-c">sudo passwd holy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="改回权限"><a href="#改回权限" class="headerlink" title="改回权限"></a>改回权限</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">chmod <span class="token number">400</span> <span class="token operator">/</span>etc<span class="token operator">/</span>sudoers<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="设置holy账户密码"><a href="#设置holy账户密码" class="headerlink" title="设置holy账户密码"></a>设置holy账户密码</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">sudo passwd holy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <blockquote>
 <p>输入两次密码，不可见</p>
 </blockquote>
-<h2 id="打通SSH"><a href="#打通SSH" class="headerlink" title="打通SSH"></a>打通SSH</h2><pre><code>ssh-keygen -t rsa</code></pre>
+<h2 id="打通SSH"><a href="#打通SSH" class="headerlink" title="打通SSH"></a>打通SSH</h2><pre class="line-numbers language-none"><code class="language-none">ssh-keygen -t rsa<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <blockquote>
 <p>切换至holy用户，创建 ~/.ssh文件夹和 ~/.ssh/authorized_key文件，并赋予相应的权限</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">su holy
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">su holy
 mkdir <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>ssh
 vim <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>ssh<span class="token operator">/</span>authorized_keys<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>接着将win10中生成的id_rsa.pub文件中的公钥复制到authorized_keys中</p>
 </blockquote>
-<h2 id="赋予权限"><a href="#赋予权限" class="headerlink" title="赋予权限"></a>赋予权限</h2><pre class="line-numbers language-c"><code class="language-c">chmod <span class="token number">600</span> <span class="token operator">/</span>home<span class="token operator">/</span>holy<span class="token operator">/</span><span class="token punctuation">.</span>ssh<span class="token operator">/</span>authorized_keys
+<h2 id="赋予权限"><a href="#赋予权限" class="headerlink" title="赋予权限"></a>赋予权限</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">chmod <span class="token number">600</span> <span class="token operator">/</span>home<span class="token operator">/</span>holy<span class="token operator">/</span><span class="token punctuation">.</span>ssh<span class="token operator">/</span>authorized_keys
 chmod <span class="token number">700</span> <span class="token operator">/</span>home<span class="token operator">/</span>holy<span class="token operator">/</span><span class="token punctuation">.</span>ssh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <h2 id="本地登录"><a href="#本地登录" class="headerlink" title="本地登录"></a>本地登录</h2><blockquote>
 <p>在本地Git终端中测试是否能免密登录git，其中SERVER为填写自己的云主机IP，执行输入yes后输入之前配置的git密码，无报错就说明好了</p>
 </blockquote>
@@ -913,22 +949,29 @@ chmod <span class="token number">700</span> <span class="token operator">/</span
 <h1 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h1><h2 id="创建Git仓库"><a href="#创建Git仓库" class="headerlink" title="创建Git仓库"></a>创建Git仓库</h2><blockquote>
 <p>在var目录下创建repo作为Git仓库目录，返回服务端命令行切换到root账户，然后输入</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">mkdir <span class="token operator">/</span>var<span class="token operator">/</span>repo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="赋予权限："><a href="#赋予权限：" class="headerlink" title="赋予权限："></a>赋予权限：</h2><pre class="line-numbers language-c"><code class="language-c">chown <span class="token operator">-</span>R holy<span class="token punctuation">:</span>holy <span class="token operator">/</span>var<span class="token operator">/</span>repo
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">mkdir <span class="token operator">/</span>var<span class="token operator">/</span>repo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="赋予权限："><a href="#赋予权限：" class="headerlink" title="赋予权限："></a>赋予权限：</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">chown <span class="token operator">-</span>R holy<span class="token operator">:</span>holy <span class="token operator">/</span>var<span class="token operator">/</span>repo
 chmod <span class="token operator">-</span>R <span class="token number">755</span> <span class="token operator">/</span>var<span class="token operator">/</span>repo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="创建站点目录"><a href="#创建站点目录" class="headerlink" title="创建站点目录"></a>创建站点目录</h2><pre class="line-numbers language-c"><code class="language-c">mkdir <span class="token operator">/</span>var<span class="token operator">/</span>hexo
-chown <span class="token operator">-</span>R holy<span class="token punctuation">:</span>holy <span class="token operator">/</span>var<span class="token operator">/</span>hexo
+
+<h2 id="创建站点目录"><a href="#创建站点目录" class="headerlink" title="创建站点目录"></a>创建站点目录</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">mkdir <span class="token operator">/</span>var<span class="token operator">/</span>hexo
+chown <span class="token operator">-</span>R holy<span class="token operator">:</span>holy <span class="token operator">/</span>var<span class="token operator">/</span>hexo
 chmod <span class="token operator">-</span>R <span class="token number">755</span> <span class="token operator">/</span>var<span class="token operator">/</span>hexo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h2 id="初始化远程仓库"><a href="#初始化远程仓库" class="headerlink" title="初始化远程仓库"></a>初始化远程仓库</h2><pre class="line-numbers language-c"><code class="language-c">cd <span class="token operator">/</span>var<span class="token operator">/</span>repo
+
+<h2 id="初始化远程仓库"><a href="#初始化远程仓库" class="headerlink" title="初始化远程仓库"></a>初始化远程仓库</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">cd <span class="token operator">/</span>var<span class="token operator">/</span>repo
 git init <span class="token operator">--</span>bare hexo<span class="token punctuation">.</span>git<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <h3 id="创建新的-Git-钩子"><a href="#创建新的-Git-钩子" class="headerlink" title="创建新的 Git 钩子"></a>创建新的 Git 钩子</h3><blockquote>
 <p>在 /var/repo/hexo.git 下，有一个自动生成的 hooks 文件夹，需要在里边新建一个新的钩子文件 post-receive，用于自动部署</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">vim <span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git<span class="token operator">/</span>hooks<span class="token operator">/</span>post<span class="token operator">-</span>receive<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-c"><code class="language-c">#<span class="token operator">!</span><span class="token operator">/</span>bin<span class="token operator">/</span>bash
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">vim <span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git<span class="token operator">/</span>hooks<span class="token operator">/</span>post<span class="token operator">-</span>receive<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">#<span class="token operator">!</span><span class="token operator">/</span>bin<span class="token operator">/</span>bash
 git <span class="token operator">--</span>work<span class="token operator">-</span>tree<span class="token operator">=</span><span class="token operator">/</span>var<span class="token operator">/</span>hexo <span class="token operator">--</span>git<span class="token operator">-</span>dir<span class="token operator">=</span><span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git checkout <span class="token operator">-</span>f<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h3><pre class="line-numbers language-c"><code class="language-c">chown <span class="token operator">-</span>R holy<span class="token punctuation">:</span>holy <span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git<span class="token operator">/</span>hooks<span class="token operator">/</span>post<span class="token operator">-</span>receive
+
+<h3 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">chown <span class="token operator">-</span>R holy<span class="token operator">:</span>holy <span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git<span class="token operator">/</span>hooks<span class="token operator">/</span>post<span class="token operator">-</span>receive
 chmod <span class="token operator">+</span>x <span class="token operator">/</span>var<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token punctuation">.</span>git<span class="token operator">/</span>hooks<span class="token operator">/</span>post<span class="token operator">-</span>receive<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <h1 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h1><blockquote>
 <p>在本地浏览器端输入宝塔面板地址，进入服务器运维管理界面，安装Nginx</p>
 </blockquote>
@@ -937,11 +980,13 @@ chmod <span class="token operator">+</span>x <span class="token operator">/</spa
 <blockquote>
 <p>回到服务器终端，重启宝塔服务，使之生效</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c">service bt restart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">service bt restart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h1 id="本地博客发布"><a href="#本地博客发布" class="headerlink" title="本地博客发布"></a>本地博客发布</h1><blockquote>
 <p>首先需要安装发布的插件，在博客目录下执行hexo d部署到远端仓库，可以添加多个仓库，一般github会留个备份</p>
 </blockquote>
-<pre><code>npm install hexo-deployer-git --save</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">npm install hexo-deployer-git --save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603947984141.png" alt="配置远程仓库"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603950593052.png" alt="hexo g -d推到远程仓库"></p>
 <h1 id="申请SSL证书"><a href="#申请SSL证书" class="headerlink" title="申请SSL证书"></a>申请SSL证书</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1603954833564.png"></p>
 <blockquote>
@@ -1295,7 +1340,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">29k</span>&nbsp;字
+                class="white-color">30.2k</span>&nbsp;字
             
             
             

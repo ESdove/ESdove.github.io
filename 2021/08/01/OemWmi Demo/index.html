@@ -356,7 +356,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    2.6k
                 </div>
                 
 
@@ -387,20 +387,20 @@
 <h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><ul>
 <li>OemWmi.mof</li>
 </ul>
-<pre><code>//****************************************************
-//filename:MyWmi.mof
-// MOF(Managed Object File) Sample
-// 2020.08.05
-// MOF comment as C++
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;****************************************************
+&#x2F;&#x2F;filename:MyWmi.mof
+&#x2F;&#x2F; MOF(Managed Object File) Sample
+&#x2F;&#x2F; 2020.08.05
+&#x2F;&#x2F; MOF comment as C++
 
 #pragma AUTORECOVER
-//WMI checks the integrity of the WMI repository when the operating system
-//starts WMI. If the repository is damaged, WMI automatically rebuilds the 
-//repository and recompiles it.
+&#x2F;&#x2F;WMI checks the integrity of the WMI repository when the operating system
+&#x2F;&#x2F;starts WMI. If the repository is damaged, WMI automatically rebuilds the 
+&#x2F;&#x2F;repository and recompiles it.
 
 #pragma namespace(&quot;\\root\\wmi&quot;)
 
-//specify the namespace when autorecover or register.
+&#x2F;&#x2F;specify the namespace when autorecover or register.
 
 
 [WMI,
@@ -409,7 +409,7 @@
  Locale(&quot;MS\\0x409&quot;),
  Description(&quot;My WMI Sample Class&quot;),
  guid(&quot;&#123;E2E0B817-EA48-4bad-81A6-FBEB8776A7AF&#125;&quot;)]
-//WMI Class Qualifiers
+&#x2F;&#x2F;WMI Class Qualifiers
 
 
 class MyClass
@@ -422,114 +422,117 @@ class MyClass
      Description(&quot;Send to Port 0x80&quot;)
     ]void SendTo80([in] uint8 Data);
 &#125;;
-//Required Items in WMI Class
-//*****************************************************</code></pre>
+&#x2F;&#x2F;Required Items in WMI Class
+&#x2F;&#x2F;*****************************************************<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>OemWmi.sdl</li>
 </ul>
-<pre><code> PCIDEVICE
-    Title  = &quot;OemWmi&quot;
-    Parent  = &quot;PciHost (Virtual)&quot;
-    Attribute  = &quot;0x0&quot;  
-    Dev_type  = &quot;Container&quot;
-    Dev  = 00h
-    Fun  = 00h
-    SleepNum  = 01h
-    ASLfile  = &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
-    DeviceType = OnBoard
-    PCIBusSize = 32bit
-    ROMMain = No
-    Virtual = Yes
+<pre class="line-numbers language-none"><code class="language-none"> PCIDEVICE
+    Title  &#x3D; &quot;OemWmi&quot;
+    Parent  &#x3D; &quot;PciHost (Virtual)&quot;
+    Attribute  &#x3D; &quot;0x0&quot;  
+    Dev_type  &#x3D; &quot;Container&quot;
+    Dev  &#x3D; 00h
+    Fun  &#x3D; 00h
+    SleepNum  &#x3D; 01h
+    ASLfile  &#x3D; &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
+    DeviceType &#x3D; OnBoard
+    PCIBusSize &#x3D; 32bit
+    ROMMain &#x3D; No
+    Virtual &#x3D; Yes
 End
 TOKEN
-    Name  = &quot;OemWmi_INF_SUPPORT&quot;
-    Value  = &quot;1&quot;
-    Help  = &quot;Main switch to enable OemWmi support in Project&quot;
-    TokenType = Boolean
-    TargetMAK = Yes
-    Master = Yes
+    Name  &#x3D; &quot;OemWmi_INF_SUPPORT&quot;
+    Value  &#x3D; &quot;1&quot;
+    Help  &#x3D; &quot;Main switch to enable OemWmi support in Project&quot;
+    TokenType &#x3D; Boolean
+    TargetMAK &#x3D; Yes
+    Master &#x3D; Yes
 End
 
 INFComponent
-    Name  = &quot;OemWmi&quot;
-    File  = &quot;OemWmi.inf&quot;
-    Package  = &quot;OemWmi&quot;
-    Token = &quot;OemWmi_INF_SUPPORT&quot; &quot;=&quot; &quot;1&quot;
-End</code></pre>
+    Name  &#x3D; &quot;OemWmi&quot;
+    File  &#x3D; &quot;OemWmi.inf&quot;
+    Package  &#x3D; &quot;OemWmi&quot;
+    Token &#x3D; &quot;OemWmi_INF_SUPPORT&quot; &quot;&#x3D;&quot; &quot;1&quot;
+End<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>OemWmi.cif</li>
 </ul>
-<pre><code> PCIDEVICE
-    Title  = &quot;OemWmi&quot;
-    Parent  = &quot;PciHost (Virtual)&quot;
-    Attribute  = &quot;0x0&quot;  
-    Dev_type  = &quot;Container&quot;
-    Dev  = 00h
-    Fun  = 00h
-    SleepNum  = 01h
-    ASLfile  = &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
-    DeviceType = OnBoard
-    PCIBusSize = 32bit
-    ROMMain = No
-    Virtual = Yes
+<pre class="line-numbers language-none"><code class="language-none"> PCIDEVICE
+    Title  &#x3D; &quot;OemWmi&quot;
+    Parent  &#x3D; &quot;PciHost (Virtual)&quot;
+    Attribute  &#x3D; &quot;0x0&quot;  
+    Dev_type  &#x3D; &quot;Container&quot;
+    Dev  &#x3D; 00h
+    Fun  &#x3D; 00h
+    SleepNum  &#x3D; 01h
+    ASLfile  &#x3D; &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
+    DeviceType &#x3D; OnBoard
+    PCIBusSize &#x3D; 32bit
+    ROMMain &#x3D; No
+    Virtual &#x3D; Yes
 End
 TOKEN
-    Name  = &quot;OemWmi_INF_SUPPORT&quot;
-    Value  = &quot;1&quot;
-    Help  = &quot;Main switch to enable OemWmi support in Project&quot;
-    TokenType = Boolean
-    TargetMAK = Yes
-    Master = Yes
+    Name  &#x3D; &quot;OemWmi_INF_SUPPORT&quot;
+    Value  &#x3D; &quot;1&quot;
+    Help  &#x3D; &quot;Main switch to enable OemWmi support in Project&quot;
+    TokenType &#x3D; Boolean
+    TargetMAK &#x3D; Yes
+    Master &#x3D; Yes
 End
 
 INFComponent
-    Name  = &quot;OemWmi&quot;
-    File  = &quot;OemWmi.inf&quot;
-    Package  = &quot;OemWmi&quot;
-    Token = &quot;OemWmi_INF_SUPPORT&quot; &quot;=&quot; &quot;1&quot;
-End</code></pre>
+    Name  &#x3D; &quot;OemWmi&quot;
+    File  &#x3D; &quot;OemWmi.inf&quot;
+    Package  &#x3D; &quot;OemWmi&quot;
+    Token &#x3D; &quot;OemWmi_INF_SUPPORT&quot; &quot;&#x3D;&quot; &quot;1&quot;
+End<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>OemWmi.asl</li>
 </ul>
-<pre><code>Scope( \_SB )&#123; 
+<pre class="line-numbers language-none"><code class="language-none">Scope( \_SB )&#123; 
 Device(WMI2)
 &#123;
-        // PNP0C14 is Plug and Play ID assigned to WMI mapper
+        &#x2F;&#x2F; PNP0C14 is Plug and Play ID assigned to WMI mapper
     Name(_HID, EISAID(&quot;PNP0C14&quot;))
     Name(_UID, 2)
-        //
-        // _WDG evaluates to a data structure that specifies the data
-        // blocks supported by the ACPI device.
-        //
+        &#x2F;&#x2F;
+        &#x2F;&#x2F; _WDG evaluates to a data structure that specifies the data
+        &#x2F;&#x2F; blocks supported by the ACPI device.
+        &#x2F;&#x2F;
     Name(_WDG, Buffer() &#123;
-         //guid&#123;E2E0B817-EA48-4bad-81A6-FBEB8776A7AF&#125;
-        // -------- Method execution for SendTo80
+         &#x2F;&#x2F;guid&#123;E2E0B817-EA48-4bad-81A6-FBEB8776A7AF&#125;
+        &#x2F;&#x2F; -------- Method execution for SendTo80
             0x17, 0xb8, 0xe0, 0xe2, 0x48, 0xea, 0xad, 0x4b, 0x81, 0xa6,
             0xfb, 0xeb, 0x87, 0x76, 0xa7, 0xaf,
-            69, 49,     // Object ID (E1)
-            1,          // Instance Count
-            0x02,       // Flags WMIACPI_REGFLAG_METHOD 
-            // -------- MOF data
+            69, 49,     &#x2F;&#x2F; Object ID (E1)
+            1,          &#x2F;&#x2F; Instance Count
+            0x02,       &#x2F;&#x2F; Flags WMIACPI_REGFLAG_METHOD 
+            &#x2F;&#x2F; -------- MOF data
             0x21, 0x12, 0x90, 0x05, 0x66, 0xd5, 0xd1, 0x11, 0xb2, 0xf0,
             0x00, 0xa0, 0xc9, 0x06, 0x29, 0x10,
-            66, 65,     // Object ID (BA)
-            1,          // Instance Count
-            0x00,       // Flags
+            66, 65,     &#x2F;&#x2F; Object ID (BA)
+            1,          &#x2F;&#x2F; Instance Count
+            0x00,       &#x2F;&#x2F; Flags
     &#125;)
-
+    
    OperationRegion (DBG, SystemIO, 0x80, 0x2)
    Field (DBG, WordAcc, NoLock, Preserve)
    &#123;
         P80H, 16
    &#125;
-
-
+    
+    
     Method(WME1, 3) &#123;
     If(LEqual(Arg1,1))
     &#123; 
      Store(Arg2,P80H)
     &#125;
-
+    
      Return(0)
         &#125;
 
@@ -577,9 +580,10 @@ Device(WMI2)
     0x28, 0x16, 0xf2, 0x4c, 0xd0, 0x70, 0x1d, 0x03, 0x84, 0x06, 0xa5, 0xd0, 0x49, 0xc1, 0xb1, 0x41,
     0x04, 0xe4, 0xff, 0x3f
     &#125;)
-&#125;//End of Device(WMI2)
+&#125;&#x2F;&#x2F;End of Device(WMI2)
 
-&#125;//End of Scope(\_SB)</code></pre>
+&#125;&#x2F;&#x2F;End of Scope(\_SB)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="MOF编译为BMF"><a href="#MOF编译为BMF" class="headerlink" title="MOF编译为BMF"></a>MOF编译为BMF</h2><p>Bios\Windows通过WMI相互通信需要借助MOF(经过编译后为BMF)文件，MOF描述了BIOS导出的WMI接口名字。按<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/windows/hardware/design/dn614028(v=vs.85)">Windows Instrumentation: WMI and ACPI</a>的描述，MOF可能存在于2处：</p>
 <ul>
 <li>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WmiAcpi的MofImagePath指定；不过我在CML 7C43 Project MB中没有找到这样的设定，应该是应用层编写WMI Provider，生成dll会采取这种方式Register，所以不做讨论。</li>
@@ -930,7 +934,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">29k</span>&nbsp;字
+                class="white-color">30.2k</span>&nbsp;字
             
             
             

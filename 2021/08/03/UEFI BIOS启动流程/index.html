@@ -381,71 +381,74 @@
                 <h1 id="UEFI-BIOS启动流程"><a href="#UEFI-BIOS启动流程" class="headerlink" title="UEFI BIOS启动流程"></a>UEFI BIOS启动流程</h1><blockquote>
 <p>EFI系统表是UEFI 规范定义的最重要的数据结构，它的指针会被当作入口参数传递给每个驱动和应用程序， 进而驱动和应用程序就可以从这个数据结构得到系统的配置信息和丰富的系统服务</p>
 </blockquote>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">///</span>
-<span class="token comment" spellcheck="true">/// EFI System Table</span>
-<span class="token comment" spellcheck="true">///</span>
-<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The table header for the EFI System Table.</span>
-  <span class="token comment" spellcheck="true">///</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">///</span>
+<span class="token comment">/// EFI System Table</span>
+<span class="token comment">///</span>
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// The table header for the EFI System Table.</span>
+  <span class="token comment">///</span>
   EFI_TABLE_HEADER                  Hdr<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// A pointer to a null terminated string that identifies the vendor</span>
-  <span class="token comment" spellcheck="true">/// that produces the system firmware for the platform.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// A pointer to a null terminated string that identifies the vendor</span>
+  <span class="token comment">/// that produces the system firmware for the platform.</span>
+  <span class="token comment">///</span>
   CHAR16                            <span class="token operator">*</span>FirmwareVendor<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// A firmware vendor specific value that identifies the revision</span>
-  <span class="token comment" spellcheck="true">/// of the system firmware for the platform.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// A firmware vendor specific value that identifies the revision</span>
+  <span class="token comment">/// of the system firmware for the platform.</span>
+  <span class="token comment">///</span>
   UINT32                            FirmwareRevision<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The handle for the active console input device. This handle must support</span>
-  <span class="token comment" spellcheck="true">/// EFI_SIMPLE_TEXT_INPUT_PROTOCOL and EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// The handle for the active console input device. This handle must support</span>
+  <span class="token comment">/// EFI_SIMPLE_TEXT_INPUT_PROTOCOL and EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL.</span>
+  <span class="token comment">///</span>
   EFI_HANDLE                        ConsoleInHandle<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// A pointer to the EFI_SIMPLE_TEXT_INPUT_PROTOCOL interface that is</span>
-  <span class="token comment" spellcheck="true">/// associated with ConsoleInHandle.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// A pointer to the EFI_SIMPLE_TEXT_INPUT_PROTOCOL interface that is</span>
+  <span class="token comment">/// associated with ConsoleInHandle.</span>
+  <span class="token comment">///</span>
   EFI_SIMPLE_TEXT_INPUT_PROTOCOL    <span class="token operator">*</span>ConIn<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The handle for the active console output device.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// The handle for the active console output device.</span>
+  <span class="token comment">///</span>
   EFI_HANDLE                        ConsoleOutHandle<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// A pointer to the EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL interface</span>
-  <span class="token comment" spellcheck="true">/// that is associated with ConsoleOutHandle.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// A pointer to the EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL interface</span>
+  <span class="token comment">/// that is associated with ConsoleOutHandle.</span>
+  <span class="token comment">///</span>
   EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL   <span class="token operator">*</span>ConOut<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The handle for the active standard error console device.</span>
-  <span class="token comment" spellcheck="true">/// This handle must support the EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// The handle for the active standard error console device.</span>
+  <span class="token comment">/// This handle must support the EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL.</span>
+  <span class="token comment">///</span>
   EFI_HANDLE                        StandardErrorHandle<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// A pointer to the EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL interface</span>
-  <span class="token comment" spellcheck="true">/// that is associated with StandardErrorHandle.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// A pointer to the EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL interface</span>
+  <span class="token comment">/// that is associated with StandardErrorHandle.</span>
+  <span class="token comment">///</span>
   EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL   <span class="token operator">*</span>StdErr<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// A pointer to the EFI Runtime Services Table.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// A pointer to the EFI Runtime Services Table.</span>
+  <span class="token comment">///</span>
   EFI_RUNTIME_SERVICES              <span class="token operator">*</span>RuntimeServices<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// A pointer to the EFI Boot Services Table.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// A pointer to the EFI Boot Services Table.</span>
+  <span class="token comment">///</span>
   EFI_BOOT_SERVICES                 <span class="token operator">*</span>BootServices<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// The number of system configuration tables in the buffer ConfigurationTable.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// The number of system configuration tables in the buffer ConfigurationTable.</span>
+  <span class="token comment">///</span>
   UINTN                             NumberOfTableEntries<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">///</span>
-  <span class="token comment" spellcheck="true">/// A pointer to the system configuration tables.</span>
-  <span class="token comment" spellcheck="true">/// The number of entries in the table is NumberOfTableEntries.</span>
-  <span class="token comment" spellcheck="true">///</span>
+  <span class="token comment">///</span>
+  <span class="token comment">/// A pointer to the system configuration tables.</span>
+  <span class="token comment">/// The number of entries in the table is NumberOfTableEntries.</span>
+  <span class="token comment">///</span>
   EFI_CONFIGURATION_TABLE           <span class="token operator">*</span>ConfigurationTable<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> EFI_SYSTEM_TABLE<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span> EFI_SYSTEM_TABLE<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/image-20210620011215626.png"></p>
 <ul>
 <li><p>EFI 系统表中的启动时服务只在操作系统运行时之前是可用的， 而运行时服务则在操作系统运行时之前和操作系统运行时都是可用的</p>
@@ -903,7 +906,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">29k</span>&nbsp;字
+                class="white-color">30.2k</span>&nbsp;字
             
             
             

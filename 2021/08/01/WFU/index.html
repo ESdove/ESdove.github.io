@@ -356,7 +356,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    792
+                    818
                 </div>
                 
 
@@ -400,54 +400,55 @@
 <blockquote>
 <p>*.inf文件示例如下，具体参考微软官网INF相关说明</p>
 </blockquote>
-<pre><code>[Version]
-Signature   = &quot;$WINDOWS NT$&quot;
-Provider    = %Provider%
-Class       = Firmware
-ClassGuid   = &#123;f2e7dd72-6468-4e36-b6f1-6488f42c1b52&#125;
-DriverVer   = 07/28/2020,1.0.0.43
-CatalogFile = M2TKT2CA.cat
-PnpLockdown = 1
+<pre class="line-numbers language-none"><code class="language-none">[Version]
+Signature   &#x3D; &quot;$WINDOWS NT$&quot;
+Provider    &#x3D; %Provider%
+Class       &#x3D; Firmware
+ClassGuid   &#x3D; &#123;f2e7dd72-6468-4e36-b6f1-6488f42c1b52&#125;
+DriverVer   &#x3D; 07&#x2F;28&#x2F;2020,1.0.0.43
+CatalogFile &#x3D; M2TKT2CA.cat
+PnpLockdown &#x3D; 1
 
 [Manufacturer]
-%MfgName% = Firmware,NTamd64
+%MfgName% &#x3D; Firmware,NTamd64
 
 [Firmware.NTamd64]
-%FirmwareDesc% = Firmware_Install,UEFI\RES_&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;
+%FirmwareDesc% &#x3D; Firmware_Install,UEFI\RES_&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;
 
 [Firmware_Install.NT]
-CopyFiles = Firmware_CopyFiles
+CopyFiles &#x3D; Firmware_CopyFiles
 
 [Firmware_CopyFiles]
 M2TKT2CA.cap
 
 [Firmware_Install.NT.Hw]
-AddReg = Firmware_AddReg
+AddReg &#x3D; Firmware_AddReg
 
 [Firmware_AddReg]
 HKR,,FirmwareId,,&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;
 HKR,,FirmwareVersion,%REG_DWORD%,0x0001002C
 HKR,,FirmwareFilename,,&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;\M2TKT2CA.cap
 [SourceDisksNames]
-1 = %DiskName%
+1 &#x3D; %DiskName%
 
 [SourceDisksFiles]
-M2TKT2CA.cap = 1
+M2TKT2CA.cap &#x3D; 1
 
 [DestinationDirs]
-DefaultDestDir = %DIRID_WINDOWS%,Firmware\&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;
+DefaultDestDir &#x3D; %DIRID_WINDOWS%,Firmware\&#123;5deafc1a-69b6-4a95-8572-2c888cabf533&#125;
 
 [Strings]
 ; localizable
-Provider     = &quot;Lenovo Ltd.&quot;
-MfgName      = &quot;Lenovo Ltd.&quot;
-FirmwareDesc = &quot;ThinkCentre M90t/s, M80t/s, M70t/s, M993t, M930t/s, M737t, QT M630, YT P780 System Firmware 1.0.0.43&quot;
-DiskName     = &quot;Firmware Update&quot;
+Provider     &#x3D; &quot;Lenovo Ltd.&quot;
+MfgName      &#x3D; &quot;Lenovo Ltd.&quot;
+FirmwareDesc &#x3D; &quot;ThinkCentre M90t&#x2F;s, M80t&#x2F;s, M70t&#x2F;s, M993t, M930t&#x2F;s, M737t, QT M630, YT P780 System Firmware 1.0.0.43&quot;
+DiskName     &#x3D; &quot;Firmware Update&quot;
 
 ; non-localizable
-DIRID_WINDOWS = 10
-REG_DWORD     = 0x00010001
-</code></pre>
+DIRID_WINDOWS &#x3D; 10
+REG_DWORD     &#x3D; 0x00010001
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li><p>Change related cap and cat file name  in *.inf file, make these match the prefix of your cap file name, example M2TKT2CA.cat  and M2TKT2CA.cap （如下图2、4、8、9处）<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604369166799.png"></p>
 </li>
@@ -828,7 +829,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">29k</span>&nbsp;字
+                class="white-color">30.2k</span>&nbsp;字
             
             
             
