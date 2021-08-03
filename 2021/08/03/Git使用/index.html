@@ -353,14 +353,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    856
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    3 分
                 </div>
                 
 
@@ -375,219 +375,71 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="WMI简介"><a href="#WMI简介" class="headerlink" title="WMI简介"></a>WMI简介</h1><h2 id="WMI历史"><a href="#WMI历史" class="headerlink" title="WMI历史"></a>WMI历史</h2><p>Windows Management Instrumentation（WMI）是Microsoft基于Web的企业管理（WBEM）的实现，WBEM是一项行业倡议，旨在开发用于在企业环境中访问管理信息的标准技术。WMI使用通用信息模型（CIM）行业标准来表示系统，应用程序，网络，设备和其他托管组件。CIM由分布式管理任务组（<a target="_blank" rel="noopener" href="https://www.dmtf.org/standards/wsman">DMTF</a>）开发和维护。WMI最初于1998年作为Windows NT 4.0 Service Pack 4的附加组件发布，是Windows 2000，Windows XP和Windows Server 2003家族操作系统中内置的支持核心管理的技术。(详情见微软官网<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/about-wmi">WMI Document</a>)。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>在WMI之前，可以通过编程方式访问Windows资源的唯一方法是通过Win32 API。 这种情况使Windows系统管理员无法轻松地使用流行的脚本语言来自动化常见的系统管理任务，因为大多数脚本语言无法直接调用Win32 API。 WMI通过提供一个一致的模型和框架来描述所有Windows资源并将其公开给外界，从而改变了这种状况。 WMI是一种工具和管道，通过它可以访问，配置，管理和监视所有（几乎所有）Windows资源，系统管理员可以使用WMI脚本库创建系统管理脚本，以管理通过WMI公开的任何Windows资源！</p>
-<h2 id="BIOS与WMI的关系"><a href="#BIOS与WMI的关系" class="headerlink" title="BIOS与WMI的关系"></a>BIOS与WMI的关系</h2><p>通常，BIOS不需要为WMI做任何事情，Windows提供了Windows管理所需的所有WMI。 但是有时候，客户想要实现特殊的OEM功能，则需要BIOS通过WMI与AP / Driver配合，例如在CML 7C43&amp;P340 Project中Lenovo Module通过LenovoGameZone.mof和Lenovo.mof作为Provider，声明BIOS提供给OS的WMI接口。<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383419998.png"></p>
-<h2 id="WMI架构图"><a href="#WMI架构图" class="headerlink" title="WMI架构图"></a>WMI架构图</h2><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383435473.png"></p>
-<p>wmi可以使用多种方式进行调用，具体可以参考上图：<br>首先是wm使用者，比如脚本或者其他用到wm接口的应用程序。由wm使用者访问CIM对象管理器WinMgmt(即WMI服务）,后者再访问CIM(公共信息模型Common Information Model)存储库。静态或动态的信息（对象的属性）就保存在CM库中，同时保存对象的方法。比如启动一个服务，通过执行对象的方法实现，实际上是通过COM技术调用各种dll,最后由dll中封装的API完成请求。WMI是事件驱动的，操作系统、服务、应用程序、设备驱动程序等都可以作为事件源，通过COM接口生成事件通知，WinMgmt捕捉到事件，然后刷新CM库中的动态信息。这也是为什么WM服务依赖于EventLog的原因。就像注册表有Key和Value一样，CIM库也有分类，用面向对象的术语描述来说，叫做命名空间（Name Space)。</p>
-<h1 id="OemWmi-ModulePart"><a href="#OemWmi-ModulePart" class="headerlink" title="OemWmi ModulePart"></a>OemWmi ModulePart</h1><h2 id="ModulePart说明"><a href="#ModulePart说明" class="headerlink" title="ModulePart说明"></a>ModulePart说明</h2><p>建立OemWmi ModulePart，简单的封装一个接口注册到OS下，实现向80 Port写值的动作，应用层可以通过通过VB Script或C++调用。</p>
-<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><ul>
-<li>OemWmi.mof</li>
-</ul>
-<pre><code>//****************************************************
-//filename:MyWmi.mof
-// MOF(Managed Object File) Sample
-// 2020.08.05
-// MOF comment as C++
-
-#pragma AUTORECOVER
-//WMI checks the integrity of the WMI repository when the operating system
-//starts WMI. If the repository is damaged, WMI automatically rebuilds the 
-//repository and recompiles it.
-
-#pragma namespace(&quot;\\root\\wmi&quot;)
-
-//specify the namespace when autorecover or register.
-
-
-[WMI,
- Dynamic,
- Provider(&quot;WmiProv&quot;),
- Locale(&quot;MS\\0x409&quot;),
- Description(&quot;My WMI Sample Class&quot;),
- guid(&quot;&#123;E2E0B817-EA48-4bad-81A6-FBEB8776A7AF&#125;&quot;)]
-//WMI Class Qualifiers
-
-
-class MyClass
-&#123;
-    [key, read] string InstanceName;
-    [read] Boolean Active;
-    [WmiMethodId(1),
-     Implemented,
-     read, write,
-     Description(&quot;Send to Port 0x80&quot;)
-    ]void SendTo80([in] uint8 Data);
-&#125;;
-//Required Items in WMI Class
-//*****************************************************</code></pre>
-<ul>
-<li>OemWmi.sdl</li>
-</ul>
-<pre><code> PCIDEVICE
-    Title  = &quot;OemWmi&quot;
-    Parent  = &quot;PciHost (Virtual)&quot;
-    Attribute  = &quot;0x0&quot;  
-    Dev_type  = &quot;Container&quot;
-    Dev  = 00h
-    Fun  = 00h
-    SleepNum  = 01h
-    ASLfile  = &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
-    DeviceType = OnBoard
-    PCIBusSize = 32bit
-    ROMMain = No
-    Virtual = Yes
-End
-TOKEN
-    Name  = &quot;OemWmi_INF_SUPPORT&quot;
-    Value  = &quot;1&quot;
-    Help  = &quot;Main switch to enable OemWmi support in Project&quot;
-    TokenType = Boolean
-    TargetMAK = Yes
-    Master = Yes
-End
-
-INFComponent
-    Name  = &quot;OemWmi&quot;
-    File  = &quot;OemWmi.inf&quot;
-    Package  = &quot;OemWmi&quot;
-    Token = &quot;OemWmi_INF_SUPPORT&quot; &quot;=&quot; &quot;1&quot;
-End</code></pre>
-<ul>
-<li>OemWmi.cif</li>
-</ul>
-<pre><code> PCIDEVICE
-    Title  = &quot;OemWmi&quot;
-    Parent  = &quot;PciHost (Virtual)&quot;
-    Attribute  = &quot;0x0&quot;  
-    Dev_type  = &quot;Container&quot;
-    Dev  = 00h
-    Fun  = 00h
-    SleepNum  = 01h
-    ASLfile  = &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
-    DeviceType = OnBoard
-    PCIBusSize = 32bit
-    ROMMain = No
-    Virtual = Yes
-End
-TOKEN
-    Name  = &quot;OemWmi_INF_SUPPORT&quot;
-    Value  = &quot;1&quot;
-    Help  = &quot;Main switch to enable OemWmi support in Project&quot;
-    TokenType = Boolean
-    TargetMAK = Yes
-    Master = Yes
-End
-
-INFComponent
-    Name  = &quot;OemWmi&quot;
-    File  = &quot;OemWmi.inf&quot;
-    Package  = &quot;OemWmi&quot;
-    Token = &quot;OemWmi_INF_SUPPORT&quot; &quot;=&quot; &quot;1&quot;
-End</code></pre>
-<ul>
-<li>OemWmi.asl</li>
-</ul>
-<pre><code>Scope( \_SB )&#123; 
-Device(WMI2)
-&#123;
-        // PNP0C14 is Plug and Play ID assigned to WMI mapper
-    Name(_HID, EISAID(&quot;PNP0C14&quot;))
-    Name(_UID, 2)
-        //
-        // _WDG evaluates to a data structure that specifies the data
-        // blocks supported by the ACPI device.
-        //
-    Name(_WDG, Buffer() &#123;
-         //guid&#123;E2E0B817-EA48-4bad-81A6-FBEB8776A7AF&#125;
-        // -------- Method execution for SendTo80
-            0x17, 0xb8, 0xe0, 0xe2, 0x48, 0xea, 0xad, 0x4b, 0x81, 0xa6,
-            0xfb, 0xeb, 0x87, 0x76, 0xa7, 0xaf,
-            69, 49,     // Object ID (E1)
-            1,          // Instance Count
-            0x02,       // Flags WMIACPI_REGFLAG_METHOD 
-            // -------- MOF data
-            0x21, 0x12, 0x90, 0x05, 0x66, 0xd5, 0xd1, 0x11, 0xb2, 0xf0,
-            0x00, 0xa0, 0xc9, 0x06, 0x29, 0x10,
-            66, 65,     // Object ID (BA)
-            1,          // Instance Count
-            0x00,       // Flags
-    &#125;)
-
-   OperationRegion (DBG, SystemIO, 0x80, 0x2)
-   Field (DBG, WordAcc, NoLock, Preserve)
-   &#123;
-        P80H, 16
-   &#125;
-
-
-    Method(WME1, 3) &#123;
-    If(LEqual(Arg1,1))
-    &#123; 
-     Store(Arg2,P80H)
-    &#125;
-
-     Return(0)
-        &#125;
-
-    Name(WQBA, Buffer()
-    &#123;
-    0x46, 0x4f, 0x4d, 0x42, 0x01, 0x00, 0x00, 0x00, 0x74, 0x02, 0x00, 0x00, 0x80, 0x05, 0x00, 0x00,
-    0x44, 0x53, 0x00, 0x01, 0x1a, 0x7d, 0xda, 0x54, 0x28, 0xd3, 0x82, 0x00, 0x01, 0x06, 0x18, 0x42,
-    0x20, 0xc4, 0x01, 0x89, 0xc0, 0xb2, 0x69, 0x24, 0xc2, 0x01, 0x0c, 0x46, 0x03, 0x88, 0xe4, 0x40,
-    0xc8, 0x05, 0x13, 0x83, 0x0b, 0x21, 0xaf, 0x02, 0x6c, 0x0a, 0x30, 0x09, 0xa2, 0xfe, 0xfd, 0x21,
-    0x4a, 0x82, 0x43, 0x09, 0x81, 0x90, 0x44, 0x01, 0xe6, 0x05, 0xe8, 0x16, 0x60, 0x58, 0x80, 0x6d,
-    0x01, 0xa6, 0x05, 0x38, 0x86, 0xa4, 0xd2, 0xc0, 0x29, 0x81, 0xa5, 0x40, 0x48, 0xa8, 0x00, 0xe5,
-    0x02, 0x7c, 0x0b, 0xd0, 0x8e, 0x28, 0xc9, 0x02, 0x2c, 0xc3, 0x88, 0xc0, 0xa3, 0x88, 0x6c, 0x34,
-    0x0e, 0x8d, 0x1d, 0x86, 0x65, 0x82, 0x69, 0x10, 0x87, 0x51, 0x36, 0xb2, 0x08, 0x3c, 0xa1, 0x4e,
-    0x05, 0xc8, 0x15, 0x20, 0x4c, 0x80, 0x78, 0x54, 0x61, 0x34, 0x07, 0x45, 0xf0, 0x43, 0x63, 0xc4,
-    0x8c, 0x89, 0xc0, 0x76, 0x8e, 0xad, 0x51, 0x9c, 0x46, 0xe1, 0x02, 0xa4, 0x63, 0x68, 0x04, 0xc7,
-    0x15, 0xde, 0x23, 0x2b, 0x68, 0x86, 0x14, 0xe4, 0x10, 0xce, 0xcd, 0x80, 0xa7, 0x61, 0x9c, 0x0e,
-    0x41, 0x04, 0x14, 0x3b, 0xc2, 0x01, 0x6b, 0x10, 0x28, 0x19, 0x10, 0xf2, 0x2c, 0xc0, 0xfa, 0xe8,
-    0x08, 0x81, 0xdd, 0x0b, 0xb0, 0x28, 0x40, 0x19, 0x84, 0xc6, 0x53, 0xe1, 0xf8, 0x0b, 0x30, 0x26,
-    0xc0, 0x9b, 0x00, 0x5b, 0x38, 0x32, 0x38, 0x27, 0xe1, 0x44, 0x89, 0x51, 0xf1, 0x0c, 0x84, 0x1a,
-    0x25, 0x9c, 0xb1, 0x6a, 0x43, 0x91, 0x46, 0x54, 0x21, 0xc6, 0x35, 0x6c, 0x84, 0x48, 0xb1, 0x62,
-    0x84, 0x88, 0xd5, 0xfe, 0x20, 0x48, 0x9c, 0xb3, 0x80, 0x24, 0x80, 0x28, 0xd2, 0x68, 0x50, 0xe3,
-    0x4f, 0xf0, 0x3c, 0xe0, 0x99, 0x9d, 0xdd, 0x41, 0x1d, 0xe0, 0x49, 0x04, 0x39, 0xc7, 0x33, 0xab,
-    0x73, 0x72, 0x64, 0xc8, 0x0c, 0x2b, 0xc1, 0xbf, 0x81, 0x4f, 0x06, 0x78, 0xd7, 0x80, 0x9a, 0xe9,
-    0x03, 0x01, 0x9b, 0x65, 0x38, 0xcc, 0x10, 0xfd, 0xff, 0x1f, 0x74, 0xb8, 0xf3, 0xf2, 0x48, 0x18,
-    0xc4, 0x11, 0x3e, 0x0b, 0x60, 0x47, 0x7c, 0x32, 0xc7, 0x5d, 0xaa, 0x00, 0xb3, 0x97, 0x00, 0x4d,
-    0x2e, 0xc1, 0xf1, 0xf8, 0x04, 0xe0, 0xf9, 0x9c, 0x70, 0x02, 0xcb, 0x1f, 0x04, 0x6a, 0x64, 0x86,
-    0xf6, 0x14, 0x4f, 0xeb, 0x45, 0xc0, 0xe7, 0x83, 0xc3, 0x62, 0x62, 0x21, 0xa4, 0x00, 0x42, 0xe3,
-    0x01, 0xff, 0xe0, 0x9f, 0x0e, 0x22, 0x3c, 0x17, 0x78, 0xbe, 0x3e, 0x36, 0xc0, 0x18, 0x90, 0xfd,
-    0x0a, 0x40, 0x08, 0xfe, 0xe2, 0x70, 0x44, 0xcf, 0x08, 0x11, 0x1e, 0x14, 0xd8, 0x11, 0x01, 0x27,
-    0xf0, 0xd8, 0x80, 0x86, 0xe6, 0x47, 0x80, 0xc8, 0x61, 0xcf, 0x24, 0xf4, 0xb1, 0x44, 0x89, 0x7c,
-    0x30, 0x3e, 0x50, 0x18, 0xe1, 0x14, 0x9f, 0x23, 0x7a, 0xbf, 0x54, 0x10, 0x02, 0xcb, 0x59, 0xa2,
-    0x4e, 0x1e, 0x96, 0x02, 0x22, 0x1b, 0x8b, 0xf4, 0x11, 0x83, 0x4a, 0xa1, 0x12, 0xfc, 0x69, 0x1d,
-    0xd6, 0x41, 0x9e, 0x5c, 0xec, 0xd7, 0x84, 0x73, 0xf4, 0x23, 0x84, 0x1d, 0x43, 0x78, 0x74, 0x08,
-    0x05, 0x1f, 0x0d, 0x65, 0x73, 0x54, 0x30, 0x0a, 0xe2, 0x81, 0x3b, 0x06, 0x84, 0x8c, 0x9c, 0x01,
-    0x50, 0x23, 0xf7, 0xf1, 0xe2, 0xf4, 0xde, 0x15, 0x7c, 0x22, 0x21, 0x07, 0x05, 0x68, 0x77, 0x02,
-    0x9f, 0x00, 0x38, 0x9c, 0x3f, 0x27, 0x14, 0x8e, 0x5c, 0x00, 0x4e, 0x20, 0x01, 0x97, 0x75, 0x10,
-    0x80, 0xf2, 0xff, 0x3f, 0x08, 0xe0, 0x2e, 0x19, 0x9e, 0xc2, 0xb9, 0x1c, 0xdf, 0xa1, 0x63, 0xcf,
-    0x01, 0xf0, 0x80, 0x3c, 0x77, 0x2b, 0x1d, 0x3f, 0x9d, 0x42, 0x88, 0x30, 0xd1, 0x0c, 0x8f, 0x89,
-    0x0d, 0xa1, 0x3f, 0x8c, 0xc7, 0xe3, 0x61, 0xf1, 0xe3, 0x80, 0x4f, 0x2a, 0x0c, 0xfb, 0xe4, 0x0f,
-    0xa6, 0xe8, 0xc1, 0x6b, 0xf6, 0xc7, 0xf4, 0xca, 0xe0, 0x41, 0x1b, 0xd6, 0x03, 0xe5, 0xb0, 0x46,
-    0x7b, 0x2a, 0xe1, 0x57, 0x0d, 0x4f, 0xcc, 0x18, 0x61, 0x7d, 0xc8, 0x00, 0x07, 0x20, 0xfe, 0x8a,
-    0xf0, 0x7e, 0xe1, 0x09, 0x18, 0x90, 0xcd, 0xf1, 0xd1, 0x05, 0x2c, 0xe7, 0x04, 0x3e, 0x88, 0x50,
-    0x91, 0x62, 0x1c, 0x6e, 0x8c, 0x90, 0x61, 0xa2, 0x3c, 0xce, 0xf8, 0xae, 0xc0, 0x14, 0xda, 0xf4,
-    0xa9, 0xd1, 0xa8, 0x55, 0x83, 0x32, 0x35, 0xca, 0x34, 0xa8, 0xd5, 0xa7, 0x52, 0x63, 0xc6, 0x4e,
-    0x28, 0x16, 0xf2, 0x4c, 0xd0, 0x70, 0x1d, 0x03, 0x84, 0x06, 0xa5, 0xd0, 0x49, 0xc1, 0xb1, 0x41,
-    0x04, 0xe4, 0xff, 0x3f
-    &#125;)
-&#125;//End of Device(WMI2)
-
-&#125;//End of Scope(\_SB)</code></pre>
-<h2 id="MOF编译为BMF"><a href="#MOF编译为BMF" class="headerlink" title="MOF编译为BMF"></a>MOF编译为BMF</h2><p>Bios\Windows通过WMI相互通信需要借助MOF(经过编译后为BMF)文件，MOF描述了BIOS导出的WMI接口名字。按<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/windows/hardware/design/dn614028(v=vs.85)">Windows Instrumentation: WMI and ACPI</a>的描述，MOF可能存在于2处：</p>
-<ul>
-<li>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WmiAcpi的MofImagePath指定；不过我在CML 7C43 Project MB中没有找到这样的设定，应该是应用层编写WMI Provider，生成dll会采取这种方式Register，所以不做讨论。</li>
-<li>作为Buffer资源，将编译的MOF文件二进制BMF资源包进ASL Source  Code，嵌入到ACPI命名空间下。</li>
-</ul>
-<p>一个MOF描述文件，它经过mofcomp编译后，会生成二进制MOF资源文件。OEM厂商提取MOF资源文件中的字节流，嵌入到ACPI命名对象中。另外，WDK工具集中还提供wmimofck工具，该工具以MOF资源文件为输入，生成MOF所描述的WMI接口的测试脚本。下面两行命令将依次生成bmf文件(即MOF资源文件)和vbs接口测试脚本：<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383756674.png"></p>
-<h2 id="ASL-Code部分逻辑"><a href="#ASL-Code部分逻辑" class="headerlink" title="ASL Code部分逻辑"></a>ASL Code部分逻辑</h2><p>BIOS在ASL Source Code中需要向WMI mapper声明设备:PNP0C14和_WDG对象。另外，OEM厂商或者IBV会在声明_WDG对象时，顺带声明嵌入式MOF对象。ACPI spec没有规定嵌入式MOF对象的名字，所以各家OEM会有不同的对象名。但是这并不是问题，它是有迹可循的：</p>
-<ul>
-<li>嵌入式MOF对象位于_WDG对象附近，并且具有形如”Name (WQxy, Buffer()){…”的ACPI对象定义，(其含义为：定义一个包含MOF资源的Buffer，并将该Buffer命名为WQxy。前缀WQ代表这是WMI查询接口，xy是2个16进制数值，用于标识WMI查询接口);</li>
-<li>最重要的，该ACPI对象定义中包含了大量的16进制Byte，即BMF文件的字节流，并且开头4Byte是一个魔术字:”FOMB”，如下：<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383810323.png"><h1 id="OS下调用"><a href="#OS下调用" class="headerlink" title="OS下调用"></a>OS下调用</h1><h2 id="Related-Tool"><a href="#Related-Tool" class="headerlink" title="Related Tool"></a>Related Tool</h2>为了验证WMI功能，我们可以使用WMICodeCreator，它是Microsoft的免费工具。 下载：<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=8572">WMI Code Creator v1.0</a>，使用WMI Code Creator工具可以生成VBScript，C＃和VB .NET代码，这些代码使用WMI完成管理任务，例如查询管理数据，从WMI类执行方法或使用WMI接收事件通知。<br>或者也可用第三方开源软件<a target="_blank" rel="noopener" href="https://github.com/vinaypamnani/wmie2/releases">WMI Explorer</a>来对WMI进行管理查询。<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383882848.png"><h2 id="指定method调用"><a href="#指定method调用" class="headerlink" title="指定method调用"></a>指定method调用</h2>以管理员身份运行WMICodeCreator.exe，来验证和执行BIOS提供的WMI接口，先执行Query for data from a WMI class，再执行Excute a method，Namespace选择root\WMI，Classes选择MyClass。<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383902165.png"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383920078.png"><h2 id="VB-Script调用"><a href="#VB-Script调用" class="headerlink" title="VB Script调用"></a>VB Script调用</h2><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383950989.png"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383964733.png"></li>
-</ul>
+                <h2 id="Git使用"><a href="#Git使用" class="headerlink" title="Git使用"></a>Git使用</h2><h2 id="配置和和查看用户信息"><a href="#配置和和查看用户信息" class="headerlink" title="配置和和查看用户信息"></a>配置和和查看用户信息</h2><p>查看git版本信息</p>
+<pre class="line-numbers language-c"><code class="language-c">git config <span class="token operator">--</span>version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>配置user.name和user.email</p>
+<pre class="line-numbers language-c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"yourname"</span>
+git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"your_email@domain.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>检查当前配置</p>
+<pre class="line-numbers language-c"><code class="language-c">git config <span class="token operator">--</span>list <span class="token operator">--</span>local <span class="token comment" spellcheck="true">//local只对某个仓库有效</span>
+git config <span class="token operator">--</span>list <span class="token operator">--</span>global<span class="token comment" spellcheck="true">//global对当前用户所有仓库有效</span>
+git config <span class="token operator">--</span>list <span class="token operator">--</span>system<span class="token comment" spellcheck="true">//system对系统所有登录的用户有效</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>查看更多help信息</p>
+<pre class="line-numbers language-c"><code class="language-c">git <span class="token operator">--</span>help<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Git常规操作"><a href="#Git常规操作" class="headerlink" title="Git常规操作"></a>Git常规操作</h2><h3 id="把已有的项目代码纳入Git管理"><a href="#把已有的项目代码纳入Git管理" class="headerlink" title="把已有的项目代码纳入Git管理"></a>把已有的项目代码纳入Git管理</h3><pre class="line-numbers language-c"><code class="language-c">cd 项目代码所在的文件夹
+git init<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>查看版本演变历史</p>
+<pre class="line-numbers language-c"><code class="language-c">git log    <span class="token comment" spellcheck="true">//默认查看当前分支</span>
+git log <span class="token operator">--</span>oneline <span class="token comment" spellcheck="true">//精简信息查看</span>
+git log <span class="token operator">-</span>n10 <span class="token operator">--</span>oneline <span class="token comment" spellcheck="true">//查看最近10条</span>
+git log <span class="token operator">--</span>all <span class="token operator">--</span>oneline <span class="token comment" spellcheck="true">//查看所有分支信息</span>
+git log <span class="token operator">--</span>all <span class="token operator">--</span>graph <span class="token comment" spellcheck="true">//所有分支图形化查看</span>
+git log <span class="token operator">--</span>oneline <span class="token operator">--</span>all <span class="token operator">-</span>n10 <span class="token operator">--</span>graph
+gitk  <span class="token comment" spellcheck="true">//查看分支通过GUI，不过第三方GUI更好使</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="给文件重命名的简便方法"><a href="#给文件重命名的简便方法" class="headerlink" title="给文件重命名的简便方法"></a>给文件重命名的简便方法</h3><blockquote>
+<p>情形：readme属于当前分支的一支文件，想rename成readme.md</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c">git mv readme readme<span class="token punctuation">.</span>md<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>这时通过git status确认下，然后即可git commit提交</p>
+</blockquote>
+<h3 id="commit、tree-和blob三个对象之间的关系"><a href="#commit、tree-和blob三个对象之间的关系" class="headerlink" title="commit、tree 和blob三个对象之间的关系"></a>commit、tree 和blob三个对象之间的关系</h3><pre><code>git cat-file -p hash值</code></pre>
+<blockquote>
+<p>一个commit对应一个tree，tree里面有可能包含tree和blob，tree可以粗略理解为文件夹，blob对应文件，blob内容没变，rename也不会重新记录</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/image/image-20210620220157272.png" alt="image-20210620220157272"></p>
+<h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><pre class="line-numbers language-c"><code class="language-c">git branch <span class="token operator">-</span>v <span class="token comment" spellcheck="true">//查看本地所有分支</span>
+git branch <span class="token operator">-</span>av <span class="token comment" spellcheck="true">//查看本地和远端所有分支</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="分离头指针"><a href="#分离头指针" class="headerlink" title="分离头指针"></a>分离头指针</h3><blockquote>
+<p>切到一个分支之前的commit，但没有创建新的分支，做了改动</p>
+</blockquote>
+<blockquote>
+<p>如果HEAD指代当前分支的commit，HEAD~1，则指代前一个commit</p>
+</blockquote>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><pre class="line-numbers language-c"><code class="language-c">git branch <span class="token operator">-</span>D  分支名 <span class="token comment" spellcheck="true">//需先切到别的分支</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="修改某分支最新的commit-message"><a href="#修改某分支最新的commit-message" class="headerlink" title="修改某分支最新的commit message"></a>修改某分支最新的commit message</h3><pre class="line-numbers language-c"><code class="language-c">git commit <span class="token operator">--</span>amend <span class="token comment" spellcheck="true">//会改变提交的 SHA-1 校验和,HEAD必须处于当前分支最后一次commit上，之前的修改commit message会处于分离头指针状态</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="Edit-Notes"><a href="#Edit-Notes" class="headerlink" title="Edit Notes"></a>Edit Notes</h3><blockquote>
+<p>可以用小乌龟Edit Notes功能说明正在开发测试的分支的改动，Pull时不会被传到远端仓库，要传到远端的话比较复杂</p>
+</blockquote>
+<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><pre class="line-numbers language-c"><code class="language-c">git checkout <span class="token operator">-</span>b M4GKT03A<span class="token operator">/</span>HolyChen<span class="token operator">/</span><span class="token number">657897</span> M4GKT02H <span class="token comment" spellcheck="true">//创建新分支可以指定基于哪个分支创建</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><pre class="line-numbers language-c"><code class="language-c">git remote add name URL <span class="token comment" spellcheck="true">//一般默认远端仓库名是origin,git clone远端仓库默认情况下本地仓库名是origin，即使远端仓库是别的name </span>
+git remote add temptest URL或者文件夹路径 <span class="token comment" spellcheck="true">//这样推送的话会看到远端是remotes/temptest而不是默认的origin</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<blockquote>
+<p>小乌龟推送master或者其它分支到另一个仓库</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/image/image-20210621011453815.png" alt="image-20210621011453815"></p>
+<h3 id="已有仓库clone成裸仓库备份"><a href="#已有仓库clone成裸仓库备份" class="headerlink" title="已有仓库clone成裸仓库备份"></a>已有仓库clone成裸仓库备份</h3><blockquote>
+<p>裸仓库并不是没有源文件，而是没有工作区的源文件。 源文件以压缩包的形式存在.git里（bare就是整个.git文件夹里的文件）。所以不需要操作的远程仓库，设成bare是明智的。 所以github等不需要特别大的空间，另：裸仓库一般加上.git后缀，所以示例可以改成Remote_test.git</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/image/image-20210621021150831.png" alt="image-20210621021150831"></p>
+<h3 id="小乌龟Git-Sync功能"><a href="#小乌龟Git-Sync功能" class="headerlink" title="小乌龟Git Sync功能"></a>小乌龟Git Sync功能</h3><p><img src="http://tc.holychen.cn/image/image-20210621012343843.png" alt="image-20210621012343843"></p>
+<blockquote>
+<p>从中也可以看出默认push不会push tags和notes，需要手动切换</p>
+</blockquote>
+<h3 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h3><blockquote>
+<p>在一个测试分支中选择中间的commit，作为base，其后续的commit提交的文件和commit message都可以被修改，当然未直接pick过来的hash值也会发生变化</p>
+</blockquote>
+<p>cherry pick别人的分支会保留Author</p>
 
             </div>
             <hr/>
@@ -613,7 +465,7 @@ Device(WMI2)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2021/08/01/OemWmi%20Demo/">http://holychen.cn/2021/08/01/OemWmi%20Demo/</a>
+                    <a href="http://holychen.cn/2021/08/03/Git%E4%BD%BF%E7%94%A8/">http://holychen.cn/2021/08/03/Git%E4%BD%BF%E7%94%A8/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -694,13 +546,13 @@ Device(WMI2)
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/08/01/BIOS_ROM_Image/">
+                <a href="/2021/08/03/Source%20%20Level%20%20Debugger/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="BIOS ROM Image分析">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">BIOS ROM Image分析</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -711,7 +563,7 @@ Device(WMI2)
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
                         </span>
                         <span class="publish-author">
                             
@@ -720,14 +572,6 @@ Device(WMI2)
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Flash-Layout-FV/">
-                        <span class="chip bg-color">Flash,Layout,FV</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -739,7 +583,7 @@ Device(WMI2)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/01/StatusCode/">
+                <a href="/2021/08/03/PCIE%E8%BD%AF%E7%A1%AC%E4%BB%B6%E7%AF%87/">
                     <div class="card-image">
                         
                         
@@ -756,7 +600,7 @@ Device(WMI2)
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
                             </span>
                         <span class="publish-author">
                             

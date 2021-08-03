@@ -353,14 +353,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    5 分
                 </div>
                 
 
@@ -375,219 +375,119 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="WMI简介"><a href="#WMI简介" class="headerlink" title="WMI简介"></a>WMI简介</h1><h2 id="WMI历史"><a href="#WMI历史" class="headerlink" title="WMI历史"></a>WMI历史</h2><p>Windows Management Instrumentation（WMI）是Microsoft基于Web的企业管理（WBEM）的实现，WBEM是一项行业倡议，旨在开发用于在企业环境中访问管理信息的标准技术。WMI使用通用信息模型（CIM）行业标准来表示系统，应用程序，网络，设备和其他托管组件。CIM由分布式管理任务组（<a target="_blank" rel="noopener" href="https://www.dmtf.org/standards/wsman">DMTF</a>）开发和维护。WMI最初于1998年作为Windows NT 4.0 Service Pack 4的附加组件发布，是Windows 2000，Windows XP和Windows Server 2003家族操作系统中内置的支持核心管理的技术。(详情见微软官网<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/about-wmi">WMI Document</a>)。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>在WMI之前，可以通过编程方式访问Windows资源的唯一方法是通过Win32 API。 这种情况使Windows系统管理员无法轻松地使用流行的脚本语言来自动化常见的系统管理任务，因为大多数脚本语言无法直接调用Win32 API。 WMI通过提供一个一致的模型和框架来描述所有Windows资源并将其公开给外界，从而改变了这种状况。 WMI是一种工具和管道，通过它可以访问，配置，管理和监视所有（几乎所有）Windows资源，系统管理员可以使用WMI脚本库创建系统管理脚本，以管理通过WMI公开的任何Windows资源！</p>
-<h2 id="BIOS与WMI的关系"><a href="#BIOS与WMI的关系" class="headerlink" title="BIOS与WMI的关系"></a>BIOS与WMI的关系</h2><p>通常，BIOS不需要为WMI做任何事情，Windows提供了Windows管理所需的所有WMI。 但是有时候，客户想要实现特殊的OEM功能，则需要BIOS通过WMI与AP / Driver配合，例如在CML 7C43&amp;P340 Project中Lenovo Module通过LenovoGameZone.mof和Lenovo.mof作为Provider，声明BIOS提供给OS的WMI接口。<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383419998.png"></p>
-<h2 id="WMI架构图"><a href="#WMI架构图" class="headerlink" title="WMI架构图"></a>WMI架构图</h2><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383435473.png"></p>
-<p>wmi可以使用多种方式进行调用，具体可以参考上图：<br>首先是wm使用者，比如脚本或者其他用到wm接口的应用程序。由wm使用者访问CIM对象管理器WinMgmt(即WMI服务）,后者再访问CIM(公共信息模型Common Information Model)存储库。静态或动态的信息（对象的属性）就保存在CM库中，同时保存对象的方法。比如启动一个服务，通过执行对象的方法实现，实际上是通过COM技术调用各种dll,最后由dll中封装的API完成请求。WMI是事件驱动的，操作系统、服务、应用程序、设备驱动程序等都可以作为事件源，通过COM接口生成事件通知，WinMgmt捕捉到事件，然后刷新CM库中的动态信息。这也是为什么WM服务依赖于EventLog的原因。就像注册表有Key和Value一样，CIM库也有分类，用面向对象的术语描述来说，叫做命名空间（Name Space)。</p>
-<h1 id="OemWmi-ModulePart"><a href="#OemWmi-ModulePart" class="headerlink" title="OemWmi ModulePart"></a>OemWmi ModulePart</h1><h2 id="ModulePart说明"><a href="#ModulePart说明" class="headerlink" title="ModulePart说明"></a>ModulePart说明</h2><p>建立OemWmi ModulePart，简单的封装一个接口注册到OS下，实现向80 Port写值的动作，应用层可以通过通过VB Script或C++调用。</p>
-<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><ul>
-<li>OemWmi.mof</li>
-</ul>
-<pre><code>//****************************************************
-//filename:MyWmi.mof
-// MOF(Managed Object File) Sample
-// 2020.08.05
-// MOF comment as C++
+                <h1 id="PCIE软硬件篇"><a href="#PCIE软硬件篇" class="headerlink" title="PCIE软硬件篇"></a>PCIE软硬件篇</h1><h2 id="PCIE映射MMIO"><a href="#PCIE映射MMIO" class="headerlink" title="PCIE映射MMIO"></a>PCIE映射MMIO</h2><blockquote>
+<p>MMIO这段空间有256MB，因为按照PCIe规范，支持最多256个buses，每个Bus支持最多32个PCI devices，每个device支持最多8个function,也就是说：占用内存的最大值为：256 * 32 * 8 * 4K = 256MB。在台式机上我们很多时候觉得占用256MB空间太浪费（造成4G以下memory可用空间变少，虽然实际memory可以映射到4G以上，但对32位OS影响很大），PCI Bus也没有那么多，所以可以设置成最低64MB，即最多64个Bus</p>
+</blockquote>
+<blockquote>
+<p>其中PCIEXBAR就是MMIO的起始位置，在4G下面占据64MB/128MB/256MB空间（4G以上部分暂不考虑），其具体位置可以由平台进行设置，设置寄存器一般在Root complex（简称RC）中</p>
+</blockquote>
+<h2 id="对应Platform-PCIEX-BASE-ADDRESS的获取"><a href="#对应Platform-PCIEX-BASE-ADDRESS的获取" class="headerlink" title="对应Platform PCIEX_BASE_ADDRESS的获取"></a>对应Platform PCIEX_BASE_ADDRESS的获取</h2><p>以AlderLake平台为例，Processor eds卷二Host Bridge B:0 D:0 F:0 Offset 60的位置对应PCIEX_BASE_ADDRESS</p>
+<p><img src="http://tc.holychen.cn/image/image-20210618152305126.png" alt="image-20210618152305126"></p>
+<p>![f02acd3f5d8bffcb969cfea8ee21abb]<br>(<a target="_blank" rel="noopener" href="http://tc.holychen.cn/image/f02acd3f5d8bffcb969cfea8ee21abb.png">http://tc.holychen.cn/image/f02acd3f5d8bffcb969cfea8ee21abb.png</a>)</p>
+<blockquote>
+<p>通过搜索build bios生成的文件也可获得这个值</p>
+</blockquote>
+<h2 id="访问PCIe设备配置空间："><a href="#访问PCIe设备配置空间：" class="headerlink" title="访问PCIe设备配置空间："></a>访问PCIe设备配置空间：</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">define</span> PCIE_CFG_ADDR(bus,dev,func,reg) \
+  ((VOID*) (UINTN)(PCIEX_BASE_ADDRESS + ((bus) &lt;&lt; 20) + ((dev) &lt;&lt; 15) + ((func) &lt;&lt; 12) + reg))</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>根据这个宏定义可以访问多数PCIe设备(除了P2SB/PMC controller这种隐藏设备)的配置空间，比如VGA Controller:B:0 D:2 F:0，经过计算其配置空间起始地址:C0010000，对比从RW PCIe device获得的配置空间，两者内容相同：</p>
+<p><img src="http://tc.holychen.cn/image/ba208a73e33dfd7eeadbcf8266ad197.png" alt="ba208a73e33dfd7eeadbcf8266ad197"></p>
+<h2 id="获得PCIe-BAR1-BAR2…"><a href="#获得PCIe-BAR1-BAR2…" class="headerlink" title="获得PCIe BAR1\BAR2…"></a>获得PCIe BAR1\BAR2…</h2><p>PCIe超过256B以外的配置空间以Mem方式访问，该配置空间起始地址存放于BAR1\BAR2，其Register offset分别为0x10\0x14，我们看下XHCI 配置空间为C00A0000/XHCI Bar Address为0x6001100000：</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">define</span> PCI_BUS_NUMBER_PCH_XHCI             0</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> PCI_DEVICE_NUMBER_PCH_XHCI          20</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> PCI_FUNCTION_NUMBER_PCH_XHCI        0</span>
 
-#pragma AUTORECOVER
-//WMI checks the integrity of the WMI repository when the operating system
-//starts WMI. If the repository is damaged, WMI automatically rebuilds the 
-//repository and recompiles it.
-
-#pragma namespace(&quot;\\root\\wmi&quot;)
-
-//specify the namespace when autorecover or register.
-
-
-[WMI,
- Dynamic,
- Provider(&quot;WmiProv&quot;),
- Locale(&quot;MS\\0x409&quot;),
- Description(&quot;My WMI Sample Class&quot;),
- guid(&quot;&#123;E2E0B817-EA48-4bad-81A6-FBEB8776A7AF&#125;&quot;)]
-//WMI Class Qualifiers
-
-
-class MyClass
-&#123;
-    [key, read] string InstanceName;
-    [read] Boolean Active;
-    [WmiMethodId(1),
-     Implemented,
-     read, write,
-     Description(&quot;Send to Port 0x80&quot;)
-    ]void SendTo80([in] uint8 Data);
-&#125;;
-//Required Items in WMI Class
-//*****************************************************</code></pre>
-<ul>
-<li>OemWmi.sdl</li>
-</ul>
-<pre><code> PCIDEVICE
-    Title  = &quot;OemWmi&quot;
-    Parent  = &quot;PciHost (Virtual)&quot;
-    Attribute  = &quot;0x0&quot;  
-    Dev_type  = &quot;Container&quot;
-    Dev  = 00h
-    Fun  = 00h
-    SleepNum  = 01h
-    ASLfile  = &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
-    DeviceType = OnBoard
-    PCIBusSize = 32bit
-    ROMMain = No
-    Virtual = Yes
-End
-TOKEN
-    Name  = &quot;OemWmi_INF_SUPPORT&quot;
-    Value  = &quot;1&quot;
-    Help  = &quot;Main switch to enable OemWmi support in Project&quot;
-    TokenType = Boolean
-    TargetMAK = Yes
-    Master = Yes
-End
-
-INFComponent
-    Name  = &quot;OemWmi&quot;
-    File  = &quot;OemWmi.inf&quot;
-    Package  = &quot;OemWmi&quot;
-    Token = &quot;OemWmi_INF_SUPPORT&quot; &quot;=&quot; &quot;1&quot;
-End</code></pre>
-<ul>
-<li>OemWmi.cif</li>
-</ul>
-<pre><code> PCIDEVICE
-    Title  = &quot;OemWmi&quot;
-    Parent  = &quot;PciHost (Virtual)&quot;
-    Attribute  = &quot;0x0&quot;  
-    Dev_type  = &quot;Container&quot;
-    Dev  = 00h
-    Fun  = 00h
-    SleepNum  = 01h
-    ASLfile  = &quot;&#39;OemPkg\OemWmi\OemWmi.asl;After Pci Tree&#39;&quot;
-    DeviceType = OnBoard
-    PCIBusSize = 32bit
-    ROMMain = No
-    Virtual = Yes
-End
-TOKEN
-    Name  = &quot;OemWmi_INF_SUPPORT&quot;
-    Value  = &quot;1&quot;
-    Help  = &quot;Main switch to enable OemWmi support in Project&quot;
-    TokenType = Boolean
-    TargetMAK = Yes
-    Master = Yes
-End
-
-INFComponent
-    Name  = &quot;OemWmi&quot;
-    File  = &quot;OemWmi.inf&quot;
-    Package  = &quot;OemWmi&quot;
-    Token = &quot;OemWmi_INF_SUPPORT&quot; &quot;=&quot; &quot;1&quot;
-End</code></pre>
-<ul>
-<li>OemWmi.asl</li>
-</ul>
-<pre><code>Scope( \_SB )&#123; 
-Device(WMI2)
-&#123;
-        // PNP0C14 is Plug and Play ID assigned to WMI mapper
-    Name(_HID, EISAID(&quot;PNP0C14&quot;))
-    Name(_UID, 2)
-        //
-        // _WDG evaluates to a data structure that specifies the data
-        // blocks supported by the ACPI device.
-        //
-    Name(_WDG, Buffer() &#123;
-         //guid&#123;E2E0B817-EA48-4bad-81A6-FBEB8776A7AF&#125;
-        // -------- Method execution for SendTo80
-            0x17, 0xb8, 0xe0, 0xe2, 0x48, 0xea, 0xad, 0x4b, 0x81, 0xa6,
-            0xfb, 0xeb, 0x87, 0x76, 0xa7, 0xaf,
-            69, 49,     // Object ID (E1)
-            1,          // Instance Count
-            0x02,       // Flags WMIACPI_REGFLAG_METHOD 
-            // -------- MOF data
-            0x21, 0x12, 0x90, 0x05, 0x66, 0xd5, 0xd1, 0x11, 0xb2, 0xf0,
-            0x00, 0xa0, 0xc9, 0x06, 0x29, 0x10,
-            66, 65,     // Object ID (BA)
-            1,          // Instance Count
-            0x00,       // Flags
-    &#125;)
-
-   OperationRegion (DBG, SystemIO, 0x80, 0x2)
-   Field (DBG, WordAcc, NoLock, Preserve)
-   &#123;
-        P80H, 16
-   &#125;
-
-
-    Method(WME1, 3) &#123;
-    If(LEqual(Arg1,1))
-    &#123; 
-     Store(Arg2,P80H)
-    &#125;
-
-     Return(0)
-        &#125;
-
-    Name(WQBA, Buffer()
-    &#123;
-    0x46, 0x4f, 0x4d, 0x42, 0x01, 0x00, 0x00, 0x00, 0x74, 0x02, 0x00, 0x00, 0x80, 0x05, 0x00, 0x00,
-    0x44, 0x53, 0x00, 0x01, 0x1a, 0x7d, 0xda, 0x54, 0x28, 0xd3, 0x82, 0x00, 0x01, 0x06, 0x18, 0x42,
-    0x20, 0xc4, 0x01, 0x89, 0xc0, 0xb2, 0x69, 0x24, 0xc2, 0x01, 0x0c, 0x46, 0x03, 0x88, 0xe4, 0x40,
-    0xc8, 0x05, 0x13, 0x83, 0x0b, 0x21, 0xaf, 0x02, 0x6c, 0x0a, 0x30, 0x09, 0xa2, 0xfe, 0xfd, 0x21,
-    0x4a, 0x82, 0x43, 0x09, 0x81, 0x90, 0x44, 0x01, 0xe6, 0x05, 0xe8, 0x16, 0x60, 0x58, 0x80, 0x6d,
-    0x01, 0xa6, 0x05, 0x38, 0x86, 0xa4, 0xd2, 0xc0, 0x29, 0x81, 0xa5, 0x40, 0x48, 0xa8, 0x00, 0xe5,
-    0x02, 0x7c, 0x0b, 0xd0, 0x8e, 0x28, 0xc9, 0x02, 0x2c, 0xc3, 0x88, 0xc0, 0xa3, 0x88, 0x6c, 0x34,
-    0x0e, 0x8d, 0x1d, 0x86, 0x65, 0x82, 0x69, 0x10, 0x87, 0x51, 0x36, 0xb2, 0x08, 0x3c, 0xa1, 0x4e,
-    0x05, 0xc8, 0x15, 0x20, 0x4c, 0x80, 0x78, 0x54, 0x61, 0x34, 0x07, 0x45, 0xf0, 0x43, 0x63, 0xc4,
-    0x8c, 0x89, 0xc0, 0x76, 0x8e, 0xad, 0x51, 0x9c, 0x46, 0xe1, 0x02, 0xa4, 0x63, 0x68, 0x04, 0xc7,
-    0x15, 0xde, 0x23, 0x2b, 0x68, 0x86, 0x14, 0xe4, 0x10, 0xce, 0xcd, 0x80, 0xa7, 0x61, 0x9c, 0x0e,
-    0x41, 0x04, 0x14, 0x3b, 0xc2, 0x01, 0x6b, 0x10, 0x28, 0x19, 0x10, 0xf2, 0x2c, 0xc0, 0xfa, 0xe8,
-    0x08, 0x81, 0xdd, 0x0b, 0xb0, 0x28, 0x40, 0x19, 0x84, 0xc6, 0x53, 0xe1, 0xf8, 0x0b, 0x30, 0x26,
-    0xc0, 0x9b, 0x00, 0x5b, 0x38, 0x32, 0x38, 0x27, 0xe1, 0x44, 0x89, 0x51, 0xf1, 0x0c, 0x84, 0x1a,
-    0x25, 0x9c, 0xb1, 0x6a, 0x43, 0x91, 0x46, 0x54, 0x21, 0xc6, 0x35, 0x6c, 0x84, 0x48, 0xb1, 0x62,
-    0x84, 0x88, 0xd5, 0xfe, 0x20, 0x48, 0x9c, 0xb3, 0x80, 0x24, 0x80, 0x28, 0xd2, 0x68, 0x50, 0xe3,
-    0x4f, 0xf0, 0x3c, 0xe0, 0x99, 0x9d, 0xdd, 0x41, 0x1d, 0xe0, 0x49, 0x04, 0x39, 0xc7, 0x33, 0xab,
-    0x73, 0x72, 0x64, 0xc8, 0x0c, 0x2b, 0xc1, 0xbf, 0x81, 0x4f, 0x06, 0x78, 0xd7, 0x80, 0x9a, 0xe9,
-    0x03, 0x01, 0x9b, 0x65, 0x38, 0xcc, 0x10, 0xfd, 0xff, 0x1f, 0x74, 0xb8, 0xf3, 0xf2, 0x48, 0x18,
-    0xc4, 0x11, 0x3e, 0x0b, 0x60, 0x47, 0x7c, 0x32, 0xc7, 0x5d, 0xaa, 0x00, 0xb3, 0x97, 0x00, 0x4d,
-    0x2e, 0xc1, 0xf1, 0xf8, 0x04, 0xe0, 0xf9, 0x9c, 0x70, 0x02, 0xcb, 0x1f, 0x04, 0x6a, 0x64, 0x86,
-    0xf6, 0x14, 0x4f, 0xeb, 0x45, 0xc0, 0xe7, 0x83, 0xc3, 0x62, 0x62, 0x21, 0xa4, 0x00, 0x42, 0xe3,
-    0x01, 0xff, 0xe0, 0x9f, 0x0e, 0x22, 0x3c, 0x17, 0x78, 0xbe, 0x3e, 0x36, 0xc0, 0x18, 0x90, 0xfd,
-    0x0a, 0x40, 0x08, 0xfe, 0xe2, 0x70, 0x44, 0xcf, 0x08, 0x11, 0x1e, 0x14, 0xd8, 0x11, 0x01, 0x27,
-    0xf0, 0xd8, 0x80, 0x86, 0xe6, 0x47, 0x80, 0xc8, 0x61, 0xcf, 0x24, 0xf4, 0xb1, 0x44, 0x89, 0x7c,
-    0x30, 0x3e, 0x50, 0x18, 0xe1, 0x14, 0x9f, 0x23, 0x7a, 0xbf, 0x54, 0x10, 0x02, 0xcb, 0x59, 0xa2,
-    0x4e, 0x1e, 0x96, 0x02, 0x22, 0x1b, 0x8b, 0xf4, 0x11, 0x83, 0x4a, 0xa1, 0x12, 0xfc, 0x69, 0x1d,
-    0xd6, 0x41, 0x9e, 0x5c, 0xec, 0xd7, 0x84, 0x73, 0xf4, 0x23, 0x84, 0x1d, 0x43, 0x78, 0x74, 0x08,
-    0x05, 0x1f, 0x0d, 0x65, 0x73, 0x54, 0x30, 0x0a, 0xe2, 0x81, 0x3b, 0x06, 0x84, 0x8c, 0x9c, 0x01,
-    0x50, 0x23, 0xf7, 0xf1, 0xe2, 0xf4, 0xde, 0x15, 0x7c, 0x22, 0x21, 0x07, 0x05, 0x68, 0x77, 0x02,
-    0x9f, 0x00, 0x38, 0x9c, 0x3f, 0x27, 0x14, 0x8e, 0x5c, 0x00, 0x4e, 0x20, 0x01, 0x97, 0x75, 0x10,
-    0x80, 0xf2, 0xff, 0x3f, 0x08, 0xe0, 0x2e, 0x19, 0x9e, 0xc2, 0xb9, 0x1c, 0xdf, 0xa1, 0x63, 0xcf,
-    0x01, 0xf0, 0x80, 0x3c, 0x77, 0x2b, 0x1d, 0x3f, 0x9d, 0x42, 0x88, 0x30, 0xd1, 0x0c, 0x8f, 0x89,
-    0x0d, 0xa1, 0x3f, 0x8c, 0xc7, 0xe3, 0x61, 0xf1, 0xe3, 0x80, 0x4f, 0x2a, 0x0c, 0xfb, 0xe4, 0x0f,
-    0xa6, 0xe8, 0xc1, 0x6b, 0xf6, 0xc7, 0xf4, 0xca, 0xe0, 0x41, 0x1b, 0xd6, 0x03, 0xe5, 0xb0, 0x46,
-    0x7b, 0x2a, 0xe1, 0x57, 0x0d, 0x4f, 0xcc, 0x18, 0x61, 0x7d, 0xc8, 0x00, 0x07, 0x20, 0xfe, 0x8a,
-    0xf0, 0x7e, 0xe1, 0x09, 0x18, 0x90, 0xcd, 0xf1, 0xd1, 0x05, 0x2c, 0xe7, 0x04, 0x3e, 0x88, 0x50,
-    0x91, 0x62, 0x1c, 0x6e, 0x8c, 0x90, 0x61, 0xa2, 0x3c, 0xce, 0xf8, 0xae, 0xc0, 0x14, 0xda, 0xf4,
-    0xa9, 0xd1, 0xa8, 0x55, 0x83, 0x32, 0x35, 0xca, 0x34, 0xa8, 0xd5, 0xa7, 0x52, 0x63, 0xc6, 0x4e,
-    0x28, 0x16, 0xf2, 0x4c, 0xd0, 0x70, 0x1d, 0x03, 0x84, 0x06, 0xa5, 0xd0, 0x49, 0xc1, 0xb1, 0x41,
-    0x04, 0xe4, 0xff, 0x3f
-    &#125;)
-&#125;//End of Device(WMI2)
-
-&#125;//End of Scope(\_SB)</code></pre>
-<h2 id="MOF编译为BMF"><a href="#MOF编译为BMF" class="headerlink" title="MOF编译为BMF"></a>MOF编译为BMF</h2><p>Bios\Windows通过WMI相互通信需要借助MOF(经过编译后为BMF)文件，MOF描述了BIOS导出的WMI接口名字。按<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/windows/hardware/design/dn614028(v=vs.85)">Windows Instrumentation: WMI and ACPI</a>的描述，MOF可能存在于2处：</p>
-<ul>
-<li>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WmiAcpi的MofImagePath指定；不过我在CML 7C43 Project MB中没有找到这样的设定，应该是应用层编写WMI Provider，生成dll会采取这种方式Register，所以不做讨论。</li>
-<li>作为Buffer资源，将编译的MOF文件二进制BMF资源包进ASL Source  Code，嵌入到ACPI命名空间下。</li>
-</ul>
-<p>一个MOF描述文件，它经过mofcomp编译后，会生成二进制MOF资源文件。OEM厂商提取MOF资源文件中的字节流，嵌入到ACPI命名对象中。另外，WDK工具集中还提供wmimofck工具，该工具以MOF资源文件为输入，生成MOF所描述的WMI接口的测试脚本。下面两行命令将依次生成bmf文件(即MOF资源文件)和vbs接口测试脚本：<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383756674.png"></p>
-<h2 id="ASL-Code部分逻辑"><a href="#ASL-Code部分逻辑" class="headerlink" title="ASL Code部分逻辑"></a>ASL Code部分逻辑</h2><p>BIOS在ASL Source Code中需要向WMI mapper声明设备:PNP0C14和_WDG对象。另外，OEM厂商或者IBV会在声明_WDG对象时，顺带声明嵌入式MOF对象。ACPI spec没有规定嵌入式MOF对象的名字，所以各家OEM会有不同的对象名。但是这并不是问题，它是有迹可循的：</p>
-<ul>
-<li>嵌入式MOF对象位于_WDG对象附近，并且具有形如”Name (WQxy, Buffer()){…”的ACPI对象定义，(其含义为：定义一个包含MOF资源的Buffer，并将该Buffer命名为WQxy。前缀WQ代表这是WMI查询接口，xy是2个16进制数值，用于标识WMI查询接口);</li>
-<li>最重要的，该ACPI对象定义中包含了大量的16进制Byte，即BMF文件的字节流，并且开头4Byte是一个魔术字:”FOMB”，如下：<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383810323.png"><h1 id="OS下调用"><a href="#OS下调用" class="headerlink" title="OS下调用"></a>OS下调用</h1><h2 id="Related-Tool"><a href="#Related-Tool" class="headerlink" title="Related Tool"></a>Related Tool</h2>为了验证WMI功能，我们可以使用WMICodeCreator，它是Microsoft的免费工具。 下载：<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=8572">WMI Code Creator v1.0</a>，使用WMI Code Creator工具可以生成VBScript，C＃和VB .NET代码，这些代码使用WMI完成管理任务，例如查询管理数据，从WMI类执行方法或使用WMI接收事件通知。<br>或者也可用第三方开源软件<a target="_blank" rel="noopener" href="https://github.com/vinaypamnani/wmie2/releases">WMI Explorer</a>来对WMI进行管理查询。<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383882848.png"><h2 id="指定method调用"><a href="#指定method调用" class="headerlink" title="指定method调用"></a>指定method调用</h2>以管理员身份运行WMICodeCreator.exe，来验证和执行BIOS提供的WMI接口，先执行Query for data from a WMI class，再执行Excute a method，Namespace选择root\WMI，Classes选择MyClass。<br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383902165.png"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383920078.png"><h2 id="VB-Script调用"><a href="#VB-Script调用" class="headerlink" title="VB Script调用"></a>VB Script调用</h2><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383950989.png"><br><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604383964733.png"></li>
-</ul>
+    XhciPciMmBase   <span class="token operator">=</span> <span class="token function">MmPciBase</span> <span class="token punctuation">(</span>
+                      DEFAULT_PCI_BUS_NUMBER_PCH<span class="token punctuation">,</span>
+                      PCI_DEVICE_NUMBER_PCH_XHCI<span class="token punctuation">,</span>
+                      PCI_FUNCTION_NUMBER_PCH_XHCI
+                      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//获得XHci BAR Address</span>
+    UsbBase <span class="token operator">=</span> <span class="token function">MmioRead32</span> <span class="token punctuation">(</span>XhciPciMmBase <span class="token operator">+</span> PCI_BASE_ADDRESSREG_OFFSET <span class="token operator">+</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                UsbBase <span class="token operator">=</span> <span class="token punctuation">(</span>UsbBase <span class="token operator">&lt;&lt;</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                UsbBase <span class="token operator">|</span><span class="token operator">=</span> <span class="token function">MmioRead32</span> <span class="token punctuation">(</span>XhciPciMmBase <span class="token operator">+</span> PCI_BASE_ADDRESSREG_OFFSET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                UsbBase <span class="token operator">&amp;</span><span class="token operator">=</span> <span class="token number">0xFFFFFFFFFFFF0000</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="神秘的P2SB接口"><a href="#神秘的P2SB接口" class="headerlink" title="神秘的P2SB接口"></a>神秘的P2SB接口</h2><p>PCH EDS Vol2中规定，Intel PCH通过P2SB(Primary to Sideband Bridge)接口，以下列公式访问GPIO Pad：</p>
+<p><img src="http://tc.holychen.cn/image/image-20210618174049497.png" alt="image-20210618174049497"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210618174158451.png" alt="image-20210618174158451"></p>
+<p>而P2SB接口是PCH上的PCIe设备，在AlderLake平台上，它位于B:0/D:31/F:1。但是通过计算P2SB的配置空间地址，然后通过MMIO方式无法获得SBREG_BAR。因为P2SB和PMC Controller（B:0/D:31/F:2）一样神秘：即使已知Bus\Device\Function Number，也无法访问该PCIe设备的配置空间：</p>
+<p><img src="http://tc.holychen.cn/image/6a824d72d28bbd31c35fa0713d94821.png" alt="6a824d72d28bbd31c35fa0713d94821"></p>
+<p>这是需要从code里找到该宏定义的值</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">define</span> PCH_PCR_BASE_ADDRESS            0xE0000000     </span><span class="token comment" spellcheck="true">///&lt; SBREG MMIO base address</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> PCH_PCR_ADDRESS(Pid, Offset)    (PCH_PCR_BASE_ADDRESS | (UINT32) (((Offset) &amp; 0x0F0000) &lt;&lt; 8) | ((UINT8)(Pid) &lt;&lt; 16) | (UINT16) ((Offset) &amp; 0xFFFF))</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="PortID"><a href="#PortID" class="headerlink" title="PortID"></a>PortID</h3><p>不同于51单片机访问GPIO Port，Intel PCH视GPIO为GPIO Pad(可以将GPIO Pad理解为主板上的焊点，当然Pad本身也有焊盘的意思。焊点GPIO Pad到真正的GPIO Port之间还有不为人知的回路)。同时，Intel PCH将若干物理内存上相近的GPIO Pad划到同一个GPIO Community(GPIO组)，以便于访问，并赋予各个GPIO Community平台唯一的Port ID。各个平台定义的Port ID不同，需要查询PCH EDS Vol1，下图为AlderLake定义的Port ID：</p>
+<p><img src="http://tc.holychen.cn/image/image-20210621104021802.png" alt="image-20210621104021802"></p>
+<h2 id="GPIO配置"><a href="#GPIO配置" class="headerlink" title="GPIO配置"></a>GPIO配置</h2><h3 id="如何表征一个GPIO"><a href="#如何表征一个GPIO" class="headerlink" title="如何表征一个GPIO"></a>如何表征一个GPIO</h3><blockquote>
+<p>应该有一个数据结构描述GPIO的引脚和配置寄存器</p>
+</blockquote>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  GPIO_PAD           GpioPad<span class="token punctuation">;</span>
+  GPIO_CONFIG        GpioConfig<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> GPIO_INIT_CONFIG<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="配置寄存器"><a href="#配置寄存器" class="headerlink" title="配置寄存器"></a>配置寄存器</h3><p>Pad Configuration DW0 寄存器设置来控制GPIO pin的触发方式以及中断触发类型（SCI/SMI/NMI/IOxACPI）等属性</p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>以读取GPIO_VER4_S_GPP_C23 为例</p>
+<p>//GPIO_VER4_S_GPP_C23 // MMIO : 0xE06B0A00</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  Pad Mode
+  Pad can be set as GPIO or one of its native functions.
+  When in native mode setting Direction (except Inversion), OutputState,
+  InterruptConfig, Host Software Pad Ownership and OutputStateLock are unnecessary.
+  Refer to definition of GPIO_PAD_MODE.
+  Refer to EDS for each native mode according to the pad.
+  **/</span>
+  UINT32 PadMode            <span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  Host Software Pad Ownership
+  Set pad to ACPI mode or GPIO Driver Mode.
+  Refer to definition of GPIO_HOSTSW_OWN.
+  **/</span>
+  UINT32 HostSoftPadOwn     <span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  GPIO Direction
+  Can choose between In, In with inversion, Out, both In and Out, both In with inversion and out or disabling both.
+  Refer to definition of GPIO_DIRECTION for supported settings.
+  **/</span>
+  UINT32 Direction           <span class="token punctuation">:</span> <span class="token number">6</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  Output State
+  Set Pad output value.
+  Refer to definition of GPIO_OUTPUT_STATE for supported settings.
+  This setting takes place when output is enabled.
+  **/</span>
+  UINT32 OutputState         <span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  GPIO Interrupt Configuration
+  Set Pad to cause one of interrupts (IOxAPIC/SCI/SMI/NMI).
+  This setting is applicable only if GPIO is in GpioMode with input enabled.
+  Refer to definition of GPIO_INT_CONFIG for supported settings.
+  **/</span>
+  UINT32 InterruptConfig     <span class="token punctuation">:</span> <span class="token number">9</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  GPIO Power Configuration.
+  This setting controls Pad Reset Configuration.
+  Refer to definition of GPIO_RESET_CONFIG for supported settings.
+  **/</span>
+  UINT32 PowerConfig        <span class="token punctuation">:</span> <span class="token number">8</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  GPIO Electrical Configuration
+  This setting controls pads termination and voltage tolerance.
+  Refer to definition of GPIO_ELECTRICAL_CONFIG for supported settings.
+  **/</span>
+  UINT32 ElectricalConfig   <span class="token punctuation">:</span> <span class="token number">9</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  GPIO Lock Configuration
+  This setting controls pads lock.
+  Refer to definition of GPIO_LOCK_CONFIG for supported settings.
+  **/</span>
+  UINT32 LockConfig         <span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  Additional GPIO configuration
+  Refer to definition of GPIO_OTHER_CONFIG for supported settings.
+  **/</span>
+  UINT32 OtherSettings     <span class="token punctuation">:</span>  <span class="token number">2</span><span class="token punctuation">;</span>
+  UINT32 RsvdBits          <span class="token punctuation">:</span> <span class="token number">17</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">///&lt; Reserved bits for future extension</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> GPIO_CONFIG<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Pad Configuration DW0 寄存器设置来控制GPIO pin的触发方式以及中断触发类型（SCI/SMI/NMI/IOxACPI）等属性</p>
 
             </div>
             <hr/>
@@ -613,7 +513,7 @@ Device(WMI2)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2021/08/01/OemWmi%20Demo/">http://holychen.cn/2021/08/01/OemWmi%20Demo/</a>
+                    <a href="http://holychen.cn/2021/08/03/PCIE%E8%BD%AF%E7%A1%AC%E4%BB%B6%E7%AF%87/">http://holychen.cn/2021/08/03/PCIE%E8%BD%AF%E7%A1%AC%E4%BB%B6%E7%AF%87/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -694,13 +594,13 @@ Device(WMI2)
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/08/01/BIOS_ROM_Image/">
+                <a href="/2021/08/03/Git%E4%BD%BF%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="BIOS ROM Image分析">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">BIOS ROM Image分析</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -711,7 +611,7 @@ Device(WMI2)
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
                         </span>
                         <span class="publish-author">
                             
@@ -720,14 +620,6 @@ Device(WMI2)
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Flash-Layout-FV/">
-                        <span class="chip bg-color">Flash,Layout,FV</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -739,7 +631,7 @@ Device(WMI2)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/01/StatusCode/">
+                <a href="/2021/08/03/C%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
                     <div class="card-image">
                         
                         
@@ -756,7 +648,7 @@ Device(WMI2)
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
                             </span>
                         <span class="publish-author">
                             
