@@ -337,7 +337,7 @@
                     <div class="article-tag">
                         
                             <a href="/tags/Flash-Layout-FV/">
-                                <span class="chip bg-color">Flash,Layout,FV</span>
+                                <span class="chip bg-color">Flash, Layout, FV</span>
                             </a>
                         
                     </div>
@@ -356,7 +356,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    2.2k
                 </div>
                 
 
@@ -379,14 +379,23 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Flash芯片和生成的BIOS-ROM"><a href="#Flash芯片和生成的BIOS-ROM" class="headerlink" title="Flash芯片和生成的BIOS ROM"></a>Flash芯片和生成的BIOS ROM</h1><p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/86ed9927664912afa5ce9778ee3f498.jpg" alt="主板上的NorFlash"></p>
+                <h1 id="Flash芯片"><a href="#Flash芯片" class="headerlink" title="Flash芯片"></a>Flash芯片</h1><blockquote>
+<p>之前Desktop的案子，BIOS 由一块32M的Nor Flash存储，还有一块Flash做PDR Region</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/86ed9927664912afa5ce9778ee3f498.jpg" alt="主板上的NorFlash"></p>
+<h1 id="生成的BIOS-Bin"><a href="#生成的BIOS-Bin" class="headerlink" title="生成的BIOS Bin"></a>生成的BIOS Bin</h1><blockquote>
+<p>BIOS编译过程中会根据不同的xml file生成对应的BIOS bin文件，xml file可以用Intel提供的Fit.exe工具解析</p>
+</blockquote>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604388851409.png" alt="FPT整刷的bin"></p>
-<h1 id="intel闪存映像布局"><a href="#intel闪存映像布局" class="headerlink" title="intel闪存映像布局"></a>intel闪存映像布局</h1><p>英特尔在相应芯片组的数据表页面上讨论了BIOS的结构。对于所有从第六系列开始的芯片组，此格式通常保持不变，该文件分为3-5个区域，可选的是GbE区域和PDR。</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604388929921.png"></p>
-<h1 id="UEFI-Tool解析"><a href="#UEFI-Tool解析" class="headerlink" title="UEFI Tool解析"></a>UEFI Tool解析</h1><p>用<a target="_blank" rel="noopener" href="https://github.com/LongSoft/UEFITool">EFITool</a>工具加载了编译生成的bin文件，发现Reset Vector位于BIOS Rom Image的最底部，探索形成这样的Image结构相关的各种文件(.fdf/.fd/.fv等文件)</p>
+<h1 id="Intel闪存映像布局"><a href="#Intel闪存映像布局" class="headerlink" title="Intel闪存映像布局"></a>Intel闪存映像布局</h1><p>英特尔在相应芯片组的数据表页面上讨论了BIOS的结构。对于所有从第六系列开始的芯片组，此格式通常保持不变，该文件分为3-5个区域，可选的是GbE区域和PDR。</p>
+<p><img src="../../../Work_Area/Typora/Image/image-20210804112152776.png" alt="image-20210804112152776"></p>
+<h1 id="UEFI-Tool解析"><a href="#UEFI-Tool解析" class="headerlink" title="UEFI Tool解析"></a>UEFI Tool解析</h1><blockquote>
+<p>用开源<a target="_blank" rel="noopener" href="https://github.com/LongSoft/UEFITool">EFITool</a>工具加载了编译生成的bin文件，AMI有自己的MMtool</p>
+</blockquote>
+<p>可以发现Reset Vector位于BIOS Rom Image的最底部，探索形成这样的Image结构相关的各种文件(.fdf/.fd/.fv等文件)</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389109072.png"></p>
-<p>组成结构：16MBIOS + 16M ME + 16M 128KB PDR</p>
-<p>BIOS Rom部分，由GenFv工具根据fdf文件生成</p>
+<p>组成结构：16M BIOS + 16M ME ，PDR Regin存在备用的PDR Flash上</p>
+<p>BIOS Rom部分，由GenFv工具根据fdf文件生成，根据代码的定义的Flash Layout相关的Token Veb会自动生成fdf，前面的部分描述了Flahs Layout的布局，详细列出各个FV的起始地址和Size，edk2的话fdf则需要自己写</p>
 <pre class="line-numbers language-none"><code class="language-none">#FD Section
 [FD.AMIROM]
 BaseAddress &#x3D; 0xff000000
@@ -643,13 +652,20 @@ APRIORI PEI &#123;
 !include Intel&#x2F;CometLakePlatSamplePkg&#x2F;Binaries&#x2F;Pct&#x2F;PctGpioFdfFileStatements.txt
 !include 
 ......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
 <p>fdf文件的开头部份是关键字[fd]，它表示完整的BIOS Rom Image。还指定了BIOS的加载地址BaseAddress = 0xff00000，大小Size = 0x1000000(16M)，这与UEFITool给出的数据不谋而合：</p>
+</blockquote>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389689841.png"></p>
-<p>根据BIOS Rom Image位于4G空间的顶部(0xFFFFFFFF)，减去Rom Image Size就可以推得Bios Rom加载地址(就是Fdf文件中的BaseAddress=0xff000000)<br>接下来形如下列内容:</p>
+<blockquote>
+<p>根据BIOS Rom Image位于4G空间的顶部(0xFFFFFFFF)，减去Rom Image Size推算下可以推出Bios Rom加载地址(就是Fdf文件中的BaseAddress=0xff000000)</p>
+</blockquote>
+<blockquote>
+<p>接下来形如下列内容，则是在FD中开辟了一段连续空间，用来存放FV/FILE等内容。</p>
+</blockquote>
 <pre class="line-numbers language-none"><code class="language-none">Offset|Size
 [RegionType]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>则是在FD中开辟了一段连续空间，用来存放FV/FILE等内容。其中Offset和Size是这段空间的相对于整个FD的偏移和大小；前面UEFITool图中”BIOS Region”中列出的每一个FFS项都可以对应到Fdf文件[FD]节中RegionType为FV的项(毕竟只有FV才会用到文件系统FFS)。如果仔细比对，可能会发现UEFITool中倒数第二和倒数第三个FFS的Size和Padding相加正好对应[FD]节中的FV_FSP：</p>
+<p>其中Offset和Size是这段空间的相对于整个FD的偏移和大小；前面UEFITool图中”BIOS Region”中列出的每一个FFS项都可以对应到Fdf文件[FD]节中RegionType为FV的项(毕竟只有FV才会用到文件系统FFS)。如果仔细比对，可能会发现UEFITool中倒数第二和倒数第三个FFS的Size和Padding相加正好对应[FD]节中的FV_FSP：</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389914494.png"></p>
 <pre class="line-numbers language-none"><code class="language-none">0xf00000|0x70000
 #FV_FSP
@@ -667,7 +683,7 @@ FILE &#x3D; Build&#x2F;Fsp_Rebased_M_T.fd\<span aria-hidden="true" class="line-n
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391042176.png"></p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391071513.png"></p>
 <p>FDF中，FV.Nvram位于Bios Rom image的开头，Fv guid：FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC，NvramFdfFileStatement.txt中指定的File Guid：CEF5B9A3-476D-497f-9FDC-E98143E0422C；用UEFITool加载Bios Rom image，第一个FFS(就是FV.Nvram)的Volume GUID: FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC；再展开FFS，其中包含的唯一的文件的File Guid: CEF5B9A3-476D-497F-9FDC-E98143E0422C，这些值和FDF中的Fv Guid以及File Guid是一致的。<br>除了File Guid是一致的，用UEFITool解压后得到的Nvram.bin和原始的Nvram.bin的内容也是一致的：</p>
-<p>以上是简单的FV的情况，有些复杂的FV中可以嵌套其他的FV，如FDF中的FV.FV_MAIN_WRAPPER，我们再来分析一下它：</p>
+<p>以上是简单的FV的情况，有些复杂的FV中可以嵌套其它的FV的操作，如FDF中的FV.FV_MAIN_WRAPPER，</p>
 <pre class="line-numbers language-none"><code class="language-none">#FV Section
 [FV.FV_MAIN_WRAPPER]
 BlockSize &#x3D; 0x1000
@@ -715,12 +731,12 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391678324.png" alt="SecCore.inf部分内容"></p>
 <p>另外，UEFITool也明显显示SecCore位于Bios Rom image尾部</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391761934.png"></p>
-<p>fdf的设定和实际现象有差异，那一定是GenFv在生成Bios Rom image时有特殊处理。和GenFv Build Bios相关的只能查看Build.log，它记录了从源码到制成Rom Image的全过程，在Build.log的结尾，记录了各个模块在Bios Rom Image的排列位置，我发现了特殊的一处Firmware Volumon:08 No.049 类型是SECC—-SecCore，属性被标记为VTF，Bios Rom Image中其他FV中任何模块都不具有该属性：</p>
+<p>fdf的设定和实际现象有差异，那一定是GenFv在生成Bios Rom image时有特殊处理。和GenFv Build Bios相关的只能查看Build.log，它记录了从源码到制成Rom Image的全过程，在Build.log的结尾，记录了各个模块在Bios Rom Image的排列位置，有个特殊的Firmware Volumon:08 No.049 类型是SECC—-SecCore，属性被标记为VTF，Bios Rom Image中其他FV中任何模块都不具有该属性：</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391860137.png"></p>
 <p>在PI spec Vol3中提到：</p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392019507.png"></p>
 <p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392038413.png"></p>
-<p>VTF是Volume Top File的缩写，PI spec规定VTF的File Guid为EFI_FFS_VOLUME_TOP_FILE_GUID（1BA0062E-C779-4582-8566-336AE8F78F09），必须位于firmware volume的最后一个字节。而SecCore.inf的FILE_GUID = 1BA0062E-C779-4582-8566-336AE8F78F09。看来只要某个inf指定自己FILE_GUID为EFI_FFS_VOLUME_TOP_FILE_GUID就有机会被安排在最开始执行。</p>
+<p>VTF是Volume Top File的缩写，PI spec规定VTF的File Guid为EFI_FFS_VOLUME_TOP_FILE_GUID（1BA0062E-C779-4582-8566-336AE8F78F09），必须位于firmware volume的最后一个字节。而SecCore.inf的FILE_GUID = 1BA0062E-C779-4582-8566-336AE8F78F09。猜测只要某个inf指定自己FILE_GUID为EFI_FFS_VOLUME_TOP_FILE_GUID就有机会被安排在最开始执行。</p>
 
             </div>
             <hr/>
@@ -785,7 +801,7 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                         <div class="article-tag">
                             
                                 <a href="/tags/Flash-Layout-FV/">
-                                    <span class="chip bg-color">Flash,Layout,FV</span>
+                                    <span class="chip bg-color">Flash, Layout, FV</span>
                                 </a>
                             
                         </div>
@@ -862,7 +878,7 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                 <div class="card-action article-tags">
                     
                     <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%88%86%E6%94%AF-%E5%BE%AA%E7%8E%AF/">
-                        <span class="chip bg-color">数据类型,分支,循环</span>
+                        <span class="chip bg-color">数据类型, 分支, 循环</span>
                     </a>
                     
                 </div>
@@ -907,7 +923,7 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                 <div class="card-action article-tags">
                     
                     <a href="/tags/MOF-ASL-VB-Script/">
-                        <span class="chip bg-color">MOF,ASL,VB Script</span>
+                        <span class="chip bg-color">MOF, ASL, VB Script</span>
                     </a>
                     
                 </div>
@@ -1060,7 +1076,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">30.9k</span>&nbsp;字
+                class="white-color">31k</span>&nbsp;字
             
             
             
