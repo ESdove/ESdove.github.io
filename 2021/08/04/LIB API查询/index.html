@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Doxygen生成edk2 CHM, C/C++/QT/UEFI/Python">
+    <meta name="keywords" content="MdePkg/MdeModuPKg LIB, C/C++/QT/UEFI/Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Doxygen生成edk2 CHM | 尘世浮沉HolyChen</title>
+    <title>MdePkg/MdeModuPKg LIB | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -214,12 +214,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Doxygen生成edk2 CHM</h1>
+                    <h1 class="description center-align post-title">MdePkg/MdeModuPKg LIB</h1>
                 </div>
             </div>
         </div>
@@ -336,8 +336,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Comment-Doxygen-CHM/">
-                                <span class="chip bg-color">Comment, Doxygen, CHM</span>
+                            <a href="/tags/Lib-Instance-h-Inf/">
+                                <span class="chip bg-color">Lib, Instance, .h, Inf</span>
                             </a>
                         
                     </div>
@@ -356,14 +356,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    663
+                    677
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 
@@ -379,93 +379,977 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h1><blockquote>
-<p>目前为止最新Release edk2-stable202105 MdePkg一共声明了67个头文件,MdeModulePkg一共声明了32个头文件，虽说常用API唯手熟尔，但有时候知道有什么，有个全局的印象，用到的时候才能想到去查，不用自己在子函数里造轮子。UDK2017和UDK02018是有提供生成好的包含MdePkg和MdeModulePkg的CHM文档的，本文记录下基于edk2—stable212105用Doxygen生成CHM踩的坑</p>
-</blockquote>
-<h1 id="Tool部署"><a href="#Tool部署" class="headerlink" title="Tool部署"></a>Tool部署</h1><blockquote>
-<p>需要三个工具：doxygen安装包、graphviz安装包、htmlhelp安装包。其中doxygen是一种开源跨平台的文档系统，doxygen可以从一套归档源文件开始，生成HTML格式的在线类浏览器，或离线的LATEX、RTF参考手册</p>
+                <h2 id="MdePkg-相关Lib"><a href="#MdePkg-相关Lib" class="headerlink" title="MdePkg 相关Lib"></a>MdePkg 相关Lib</h2><h2 id="MdePkg-Include-Library"><a href="#MdePkg-Include-Library" class="headerlink" title="MdePkg\Include\Library"></a>MdePkg\Include\Library</h2><blockquote>
+<p>edk2-stable202105目前为止MdePkg一共声明了67个头文件</p>
+<p>UnitTestHostBaseLib|Test/UnitTest/Include/Library/UnitTestHostBaseLib.h比较特殊，放在Test文件夹下，其余都在Include/Library路径下</p>
 </blockquote>
 <blockquote>
-<p>doxygen可以生成好几种格式的文档，要生成.chm格式的手册就必须安装htmlhelp，要生成关系图必须安装依graphviz</p>
+<p>dec文件中LibraryClasses项中会声明相应的Lib和其包含路径的对应的头文件，规范起见一般统一放在Include/Library路径下，一般来说LibraryClassesName和头文件*.h会取相同的命名，有些LibraryClasses不是common的，和架构有关，需要通过[LibraryClasses.IA32, LibraryClasses.X64, LibraryClasses.AARCH64]来指明Lib可以在那些架构中使用,例如SMM SMI只适用于IA32 X64架构</p>
 </blockquote>
-<h2 id="doxygen安装包"><a href="#doxygen安装包" class="headerlink" title="doxygen安装包"></a>doxygen安装包</h2><blockquote>
-<p> <a target="_blank" rel="noopener" href="http://www.doxygen.nl/download.html">http://www.doxygen.nl/download.html</a></p>
-</blockquote>
-<h2 id="graphviz安装包"><a href="#graphviz安装包" class="headerlink" title="graphviz安装包"></a>graphviz安装包</h2><blockquote>
-<p> <a target="_blank" rel="noopener" href="http://www.graphviz.org/">http://www.graphviz.org/</a></p>
-</blockquote>
-<h2 id="htmlhelp安装包"><a href="#htmlhelp安装包" class="headerlink" title="htmlhelp安装包"></a>htmlhelp安装包</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=21138"> https://www.microsoft.com/en-us/download/details.aspx?id=21138</a></p>
-</blockquote>
-<h1 id="生成机制"><a href="#生成机制" class="headerlink" title="生成机制"></a>生成机制</h1><blockquote>
-<p>Doxygen可以根据固定格式的代码注释生成相对应的<code>*.chm</code>格式的手册。支持的语言有好多种，如C/C++/C#/Objective-C/PHP/Java等。edk2源码主要是C语言，Doxygen可以识别的固定格式注释有以下几种：</p>
-</blockquote>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/**
-* ...text...
-*/</span>
-
-<span class="token comment">///</span>
-<span class="token comment">///...text...</span>
-<span class="token comment">///</span>
-
-<span class="token comment">/************************************
-*   ...text...
-************************************/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>来看下edk2代码注释的Sample, 所有的函数都使用这样统一格式的注释，还是较为优雅的</p>
+<p>dec中定义了LibraryClassesName，并且和Include\Library中声明的头文件关联起来了，对应的LibraryInstance放在Library文件夹下，一般为了统一取的文件夹名也是和LibraryClassesName相同，最后LibraryClasses Mapping的时候会将dec中声明的Lib和实现的LibraryInstance Module的inf对应上</p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;**
-  Translate a *.BMP graphics image to a GOP blt buffer. If a NULL Blt buffer
-  is passed in a GopBlt buffer will be allocated by this routine using
-  EFI_BOOT_SERVICES.AllocatePool(). If a GopBlt buffer is passed in it will be
-  used if it is big enough.
-  @param [in]      BmpImage      Pointer to BMP file.
-  @param [in]      BmpImageSize  Number of bytes in BmpImage.
-  @param [in, out] GopBlt        Buffer containing GOP version of BmpImage.
-  @param [in, out] GopBltSize    Size of GopBlt in bytes.
-  @param [out]     PixelHeight   Height of GopBlt&#x2F;BmpImage in pixels.
-  @param [out]     PixelWidth    Width of GopBlt&#x2F;BmpImage in pixels.
-  @retval RETURN_SUCCESS            GopBlt and GopBltSize are returned.
-  @retval RETURN_INVALID_PARAMETER  BmpImage is NULL.
-  @retval RETURN_INVALID_PARAMETER  GopBlt is NULL.
-  @retval RETURN_INVALID_PARAMETER  GopBltSize is NULL.
-  @retval RETURN_INVALID_PARAMETER  PixelHeight is NULL.
-  @retval RETURN_INVALID_PARAMETER  PixelWidth is NULL.
-  @retval RETURN_UNSUPPORTED        BmpImage is not a valid *.BMP image.
-  @retval RETURN_BUFFER_TOO_SMALL   The passed in GopBlt buffer is not big
-                                    enough.  The required size is returned in
-                                    GopBltSize.
-  @retval RETURN_OUT_OF_RESOURCES   The GopBlt buffer could not be allocated.
-**&#x2F;
-RETURN_STATUS
-EFIAPI
-TranslateBmpToGopBlt (
-  IN     VOID                           *BmpImage,
-  IN     UINTN                          BmpImageSize,
-  IN OUT EFI_GRAPHICS_OUTPUT_BLT_PIXEL  **GopBlt,
-  IN OUT UINTN                          *GopBltSize,
-  OUT    UINTN                          *PixelHeight,
-  OUT    UINTN                          *PixelWidth
-  );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h1 id="生成步骤"><a href="#生成步骤" class="headerlink" title="生成步骤"></a>生成步骤</h1><h2 id="设置工程工作目录"><a href="#设置工程工作目录" class="headerlink" title="设置工程工作目录"></a>设置工程工作目录</h2><p><img src="http://tc.holychen.cn/image/883c34a7-73e5-4c83-a75c-3157b194ab22.png" alt="img"></p>
-<h2 id="设置编程语言"><a href="#设置编程语言" class="headerlink" title="设置编程语言"></a>设置编程语言</h2><p><img src="http://tc.holychen.cn/image/426fe839-498b-4f20-abda-0db585caf2d0.png" alt="img"></p>
-<h2 id="设置输出文件格式"><a href="#设置输出文件格式" class="headerlink" title="设置输出文件格式"></a>设置输出文件格式</h2><p><img src="http://tc.holychen.cn/image/450db6b7-9835-4e73-b84c-c14042b8d37d.png" alt="img"></p>
-<h2 id="设置生成的关系表"><a href="#设置生成的关系表" class="headerlink" title="设置生成的关系表"></a>设置生成的关系表</h2><p><img src="http://tc.holychen.cn/image/0e64112c-67aa-4f36-b226-4cb810b4cdef.png" alt="img"></p>
-<h2 id="设置输出的语言和编码"><a href="#设置输出的语言和编码" class="headerlink" title="设置输出的语言和编码"></a>设置输出的语言和编码</h2><p><img src="http://tc.holychen.cn/image/bb9afe3a-0ead-4922-9d87-a900c0d094db.png" alt="img"></p>
-<h2 id="设置一些构建的选择项"><a href="#设置一些构建的选择项" class="headerlink" title="设置一些构建的选择项"></a>设置一些构建的选择项</h2><p><img src="http://tc.holychen.cn/image/2e96bc01-ce33-488b-8e6b-8dae99a94273.png" alt="img"></p>
-<h2 id="设置输入文件的编码"><a href="#设置输入文件的编码" class="headerlink" title="设置输入文件的编码"></a>设置输入文件的编码</h2><p><img src="http://tc.holychen.cn/image/224103a4-2fee-4c0c-a7b1-763d23186ca5.png" alt="img"></p>
-<h2 id="设置是否在-chm中生成源码以供预览"><a href="#设置是否在-chm中生成源码以供预览" class="headerlink" title="设置是否在.chm中生成源码以供预览"></a>设置是否在.chm中生成源码以供预览</h2><p><img src="http://tc.holychen.cn/image/45e33a33-8462-49a1-a37e-bf1a231ed6f5.png" alt="img"></p>
-<h2 id="设置HTML选项"><a href="#设置HTML选项" class="headerlink" title="设置HTML选项"></a>设置HTML选项</h2><p><img src="http://tc.holychen.cn/image/9156c3bd-f300-43c2-873e-e60755f13830.png" alt="img"></p>
-<h2 id="设置Dot选项"><a href="#设置Dot选项" class="headerlink" title="设置Dot选项"></a>设置Dot选项</h2><p><img src="http://tc.holychen.cn/image/67292985-bf22-479f-8e4e-615444a46d0b.png" alt="img"></p>
-<p><img src="http://tc.holychen.cn/image/874dd561-fc06-4d08-aadc-850df7714f0a.png" alt="img"></p>
-<h2 id="运行生成-chm文件"><a href="#运行生成-chm文件" class="headerlink" title="运行生成.chm文件"></a>运行生成.chm文件</h2><p><img src="http://tc.holychen.cn/image/e599507e-1152-475c-989b-6807cbe79ae8.png" alt="img"></p>
-<h2 id="保存工程文件"><a href="#保存工程文件" class="headerlink" title="保存工程文件"></a>保存工程文件</h2><p><img src="http://tc.holychen.cn/image/ec5f18ea-ecc6-42a1-9688-bdf5110c8f75.png" alt="img"></p>
-<h1 id="最终效果图"><a href="#最终效果图" class="headerlink" title="最终效果图"></a>最终效果图</h1><p><img src="http://tc.holychen.cn/image/e4185b04-66bd-4397-907d-f640cffd96fd.png" alt="img"></p>
-<p><img src="http://tc.holychen.cn/image/2ef21bd2-f4fb-49ff-9e4a-6e3a59ae8d20.png" alt="img"></p>
-<p><img src="http://tc.holychen.cn/image/d2f9a953-89ed-42f7-b0d6-3d8a3218c55f.png" alt="img"></p>
+<blockquote>
+<p>LibraryClasses中声明的接口对应的实现我们叫做LibraryInstance，这个会包在dsc文件里的Components中，实现也是和架构有关的，所以会卡[Components.IA32, Components.X64, Components.ARM, Components.AARCH64]的条件，主要看这个实现部分在对应的架构能不能被用</p>
+</blockquote>
+<blockquote>
+<p>一般来说，一个LibraryClass的LibraryInstance可能有多个，常见的如CpuLib有两个Instance，一个为Null，那就对应Library/BaseCpuLib和Library/BaseCpuLibNull两个文件夹，还有就是不同Phase有不同的实现，例如BaseMemoryLib对应Library/BaseMemoryLib，Library/BaseMemoryLibMmx，Library/BaseMemoryLibOptDxe，Library/BaseMemoryLibOptPei，Library/BaseMemoryLibRepStr，Library/BaseMemoryLibSse2这几个文件夹下对应的inf的LibraryInstance</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">*.h</th>
+<th align="center">dec是否声明LibraryClasses</th>
+<th align="center">API</th>
+<th align="center">LibraryClass</th>
+<th>LibraryInstance</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">BaseLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">BaseMemoryLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">CacheMaintenanceLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">CpuLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">DebugLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">DebugPrintErrorLevelLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">DevicePathLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">DxeCoreEntryPoint.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">DxeServicesLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">DxeServicesTableLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">ExtractGuidSectionLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">FileHandleLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">HobLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">HstiLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">IoLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">MemoryAllocationLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">MmServicesTableLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">MmUnblockMemoryLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">OrderedCollectionLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PcdLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PciCf8Lib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PciExpressLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PciLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PciSegmentInfoLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PciSegmentLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PeCoffExtraActionLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PeCoffGetEntryPointLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PeCoffLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PeiCoreEntryPoint.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PeimEntryPoint.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PeiServicesLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PeiServicesTablePointerLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PerformanceLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PostCodeLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">PrintLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">RegisterFilterLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">ReportStatusCodeLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">ResourcePublicationLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">RngLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">S3BootScriptLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">S3IoLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">S3PcdLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">S3PciSegmentLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">S3SmbusLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">S3StallLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SafeIntLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SerialPortLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SmbusLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SmiHandlerProfileLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SmmIoLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SmmLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SmmMemLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SmmPeriodicSmiLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SmmServicesTableLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">StandloneMmDriverEntryPoint.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SynchronizationLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">TimerLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UefiApplicationEntryPoint.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UefiBootServicesTableLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UefiDecompressLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UefiDriverEntryPoint.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UefiLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UefiRuntimeLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UefiRuntimeSerivcesTablelib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UefiScsiLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UefiUsbLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">UnitTestLib.h</td>
+<td align="center">是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="MdeModulePkg-相关Lib"><a href="#MdeModulePkg-相关Lib" class="headerlink" title="MdeModulePkg 相关Lib"></a>MdeModulePkg 相关Lib</h2><h2 id="MdeModulePkg-Include-Library"><a href="#MdeModulePkg-Include-Library" class="headerlink" title="MdeModulePkg\Include\Library"></a>MdeModulePkg\Include\Library</h2><blockquote>
+<p>edk2-stable202105目前为止MdeModulePkg一共声明了32个头文件</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>*.h</th>
+<th>dec是否声明LibraryClasses</th>
+<th>API</th>
+<th>LibraryClass</th>
+<th>LibraryInstance</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AuthVariableLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BmpSupportLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BootLogoLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CapsuleLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CpuExceptionHandlerLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CustomizedDisplayLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DebugAgentLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DisplayUpdateProgressLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FileExplorerLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FmpAuthenticationLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FrameBufferBltLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>HiiLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>IpmiLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>LockBoxLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MemoryProfileLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>NonDiscoverableDeviceRegistrationLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>OemHookStatusCodeLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PciHostBridgeLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PlatformBootManagerLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PlatformHookLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PlatformVarCleanupLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ResetSystemLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ResetUtilityLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SecurityManagementLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SmmCorePlatformHookLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SortLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TpmMeasurementLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UefiBootMangerLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UefiHiiServiceLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VarCheckLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VariablePolicyHelperLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VariablePolicyLib.h</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 
             </div>
             <hr/>
@@ -491,7 +1375,7 @@ TranslateBmpToGopBlt (
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2021/08/04/Doxygen%E7%94%9F%E6%88%90edk2%20CHM/">http://holychen.cn/2021/08/04/Doxygen%E7%94%9F%E6%88%90edk2%20CHM/</a>
+                    <a href="http://holychen.cn/2021/08/04/LIB%20API%E6%9F%A5%E8%AF%A2/">http://holychen.cn/2021/08/04/LIB%20API%E6%9F%A5%E8%AF%A2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -529,8 +1413,8 @@ TranslateBmpToGopBlt (
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Comment-Doxygen-CHM/">
-                                    <span class="chip bg-color">Comment, Doxygen, CHM</span>
+                                <a href="/tags/Lib-Instance-h-Inf/">
+                                    <span class="chip bg-color">Lib, Instance, .h, Inf</span>
                                 </a>
                             
                         </div>
@@ -572,9 +1456,10 @@ TranslateBmpToGopBlt (
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/08/04/LIB%20API%E6%9F%A5%E8%AF%A2/">
                     <div class="card-image">
@@ -592,9 +1477,9 @@ TranslateBmpToGopBlt (
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -603,6 +1488,7 @@ TranslateBmpToGopBlt (
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -621,13 +1507,13 @@ TranslateBmpToGopBlt (
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/03/Hexo_Blog%E6%90%AD%E5%BB%BA/">
+                <a href="/2021/08/04/Doxygen%E7%94%9F%E6%88%90edk2%20CHM/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Hexo Blog搭建">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Doxygen生成edk2 CHM">
                         
-                        <span class="card-title">Hexo Blog搭建</span>
+                        <span class="card-title">Doxygen生成edk2 CHM</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -638,7 +1524,7 @@ TranslateBmpToGopBlt (
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
                             </span>
                         <span class="publish-author">
                             
@@ -651,8 +1537,8 @@ TranslateBmpToGopBlt (
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%9F%9F%E5%90%8D%EF%BC%8C%E5%9B%BE%E5%BA%8A%EF%BC%8Cmarkdown/">
-                        <span class="chip bg-color">服务器，域名，图床，markdown</span>
+                    <a href="/tags/Comment-Doxygen-CHM/">
+                        <span class="chip bg-color">Comment, Doxygen, CHM</span>
                     </a>
                     
                 </div>
