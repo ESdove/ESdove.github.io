@@ -356,14 +356,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    677
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    5 分
                 </div>
                 
 
@@ -387,696 +387,357 @@
 <p>dec文件中LibraryClasses项中会声明相应的Lib和其包含路径的对应的头文件，规范起见一般统一放在Include/Library路径下，一般来说LibraryClassesName和头文件*.h会取相同的命名，有些LibraryClasses不是common的，和架构有关，需要通过[LibraryClasses.IA32, LibraryClasses.X64, LibraryClasses.AARCH64]来指明Lib可以在那些架构中使用,例如SMM SMI只适用于IA32 X64架构</p>
 </blockquote>
 <blockquote>
-<p>dec中定义了LibraryClassesName，并且和Include\Library中声明的头文件关联起来了，对应的LibraryInstance放在Library文件夹下，一般为了统一取的文件夹名也是和LibraryClassesName相同，最后LibraryClasses Mapping的时候会将dec中声明的Lib和实现的LibraryInstance Module的inf对应上</p>
+<p>dec中定义了LibraryClassesName，并且和Include\Library中声明的头文件关联起来了，对应的LibraryInstance放在Library文件夹下，一般为了统一取的文件夹名也是和LibraryClassesName相同，最后LibraryClasses Mapping的时候会将dec中声明的Lib和实现的LibraryInstance Module的inf对应上，会出现dec出现的Lib，dsc中没有对应，猜想应该是只想共本Pkg调用，所以未对外暴露接口</p>
 </blockquote>
 <blockquote>
 <p>LibraryClasses中声明的接口对应的实现我们叫做LibraryInstance，这个会包在dsc文件里的Components中，实现也是和架构有关的，所以会卡[Components.IA32, Components.X64, Components.ARM, Components.AARCH64]的条件，主要看这个实现部分在对应的架构能不能被用</p>
 </blockquote>
 <blockquote>
-<p>一般来说，一个LibraryClass的LibraryInstance可能有多个，常见的如CpuLib有两个Instance，一个为Null，那就对应Library/BaseCpuLib和Library/BaseCpuLibNull两个文件夹，还有就是不同Phase有不同的实现，例如BaseMemoryLib对应Library/BaseMemoryLib，Library/BaseMemoryLibMmx，Library/BaseMemoryLibOptDxe，Library/BaseMemoryLibOptPei，Library/BaseMemoryLibRepStr，Library/BaseMemoryLibSse2这几个文件夹下对应的inf的LibraryInstance</p>
+<p>一般来说，一个LibraryClass的LibraryInstance可能有多个，常见的如CpuLib有两个Instance，一个为Null，那就对应Library/BaseCpuLib和Library/BaseCpuLibNull两个文件夹，还有就是不同Phase有不同的实现，例如BaseMemoryLib对应Library/BaseMemoryLib，Library/BaseMemoryLibMmx，Library/BaseMemoryLibOptDxe，Library/BaseMemoryLibOptPei，Library/BaseMemoryLibRepStr，Library/BaseMemoryLibSse2这几个文件夹下对应的inf的LibraryInstance，还有就是instance跨Pkg的情况，一般lib都是本Pkg声明和实现，但不绝对，其中MemoryAllocationLib是在MdePkg声明的，但存在instance在MdeModulePkg，DxeCoreMemoryAllocationLib.inf</p>
+<p>PiSmmCoreMemoryAllocationLib.inf,类似的还有SmmServicesTableLib.h，HobLib.h</p>
 </blockquote>
 <table>
 <thead>
 <tr>
-<th align="center">*.h</th>
-<th align="center">dec是否声明LibraryClasses</th>
-<th align="center">API</th>
-<th align="center">LibraryClass</th>
+<th align="left">*.h</th>
+<th align="left">LibraryClassesName</th>
 <th>LibraryInstance</th>
-<th></th>
-<th></th>
-<th></th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">BaseLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">BaseMemoryLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">CacheMaintenanceLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">CpuLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">DebugLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">DebugPrintErrorLevelLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">DevicePathLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">DxeCoreEntryPoint.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">DxeServicesLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">DxeServicesTableLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">ExtractGuidSectionLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">FileHandleLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">HobLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">HstiLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">IoLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">MemoryAllocationLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">MmServicesTableLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">MmUnblockMemoryLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">OrderedCollectionLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PcdLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PciCf8Lib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PciExpressLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PciLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PciSegmentInfoLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PciSegmentLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PeCoffExtraActionLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PeCoffGetEntryPointLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PeCoffLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PeiCoreEntryPoint.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PeimEntryPoint.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PeiServicesLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PeiServicesTablePointerLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PerformanceLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PostCodeLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">PrintLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">RegisterFilterLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">ReportStatusCodeLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">ResourcePublicationLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">RngLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">S3BootScriptLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">S3IoLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">S3PcdLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">S3PciSegmentLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">S3SmbusLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">S3StallLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SafeIntLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SerialPortLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SmbusLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SmiHandlerProfileLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SmmIoLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SmmLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SmmMemLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SmmPeriodicSmiLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SmmServicesTableLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">StandloneMmDriverEntryPoint.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">SynchronizationLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">TimerLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UefiApplicationEntryPoint.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UefiBootServicesTableLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UefiDecompressLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UefiDriverEntryPoint.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UefiLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UefiRuntimeLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UefiRuntimeSerivcesTablelib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UefiScsiLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UefiUsbLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="center">UnitTestLib.h</td>
-<td align="center">是</td>
-<td align="center"></td>
-<td align="center"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td align="left">BaseLib.h</td>
+<td align="left">BaseLib</td>
+<td>BaseLib.inf</td>
+</tr>
+<tr>
+<td align="left">BaseMemoryLib.h</td>
+<td align="left">BaseMemoryLib</td>
+<td>BaseMemoryLib.inf<br />PeiMemoryLib.inf<br />UefiMemoryLib.inf<br />BaseMemoryLibMmx.inf<br />BaseMemoryLibOptDxe.inf<br />BaseMemoryLibOptPei.inf<br />BaseMemoryLibRepStr.inf<br />BaseMemoryLibSse2.inf</td>
+</tr>
+<tr>
+<td align="left">CacheMaintenanceLib.h</td>
+<td align="left">CacheMaintenanceLib</td>
+<td>BaseCacheMaintenanceLib.inf<br />BaseCacheMaintenanceLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">CpuLib.h</td>
+<td align="left">CpuLib</td>
+<td>BaseCpuLib.inf<br />BaseCpuLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">DebugLib.h</td>
+<td align="left">DebugLib</td>
+<td>BaseDebugLibNull.inf<br />BaseDebugLibSerialPort.inf<br />DxeRuntimeDebugLibSerialPort.inf<br />UefiDebugLibConOut.inf<br />UefiDebugLibDebugPortProtocol.inf<br />UefiDebugLibStdErr.inf</td>
+</tr>
+<tr>
+<td align="left">DebugPrintErrorLevelLib.h</td>
+<td align="left">DebugPrintErrorLevelLib</td>
+<td>BaseDebugPrintErrorLevelLib.inf</td>
+</tr>
+<tr>
+<td align="left">DevicePathLib.h</td>
+<td align="left">DevicePathLib</td>
+<td>UefiDevicePathLib.inf<br />UefiDevicePathLibStandaloneMm.inf<br />UefiDevicePathLibOptional<br />DevicePathProtocol.inf<br />UefiDevicePathLibDevicePathProtocol.inf</td>
+</tr>
+<tr>
+<td align="left">DxeCoreEntryPoint.h</td>
+<td align="left">DxeCoreEntryPoint</td>
+<td>DxeCoreEntryPoint.inf</td>
+</tr>
+<tr>
+<td align="left">DxeServicesLib.h</td>
+<td align="left">DxeServicesLib</td>
+<td>DxeServicesLib.inf</td>
+</tr>
+<tr>
+<td align="left">DxeServicesTableLib.h</td>
+<td align="left">DxeServicesTableLib</td>
+<td>DxeServicesTableLib.inf</td>
+</tr>
+<tr>
+<td align="left">ExtractGuidSectionLib.h</td>
+<td align="left">ExtractGuidedSectionLib</td>
+<td>PeiExtractGuidedSectionLib.inf<br />DxeExtractGuidedSectionLib.inf<br />BaseExtractGuidedSectionLib</td>
+</tr>
+<tr>
+<td align="left">FileHandleLib.h</td>
+<td align="left">FileHandleLib</td>
+<td>UefiFileHandleLib.inf</td>
+</tr>
+<tr>
+<td align="left">HobLib.h</td>
+<td align="left">HobLib</td>
+<td>DxeCoreHobLib.inf<br />PeiHobLib.inf<br />DxeHobLib.inf<br /><br />(MdeModulePkg)<br /><code>BaseHobLibNull</code></td>
+</tr>
+<tr>
+<td align="left">HstiLib.h</td>
+<td align="left">HstiLib</td>
+<td>DxeHstiLib.inf</td>
+</tr>
+<tr>
+<td align="left">IoLib.h</td>
+<td align="left">IoLib</td>
+<td>DxeIoLibCpuIo2.inf<br />PeiIoLibCpuIo.inf<br />PeiIoLibCpuIo.inf<br />BaseIoLibIntrinsic.inf<br />BaseIoLibIntrinsicSev.inf<br />BaseIoLibIntrinsicArmVirt.inf</td>
+</tr>
+<tr>
+<td align="left">MemoryAllocationLib.h</td>
+<td align="left">MemoryAllocationLib</td>
+<td>UefiMemoryAllocationLib<br />SmmMemoryAllocationLib.inf<br />(MdeModulePkg)<br /><code>DxeCoreMemoryAllocationLib.inf</code><br /><code>PiSmmCoreMemoryAllocationLib.inf</code><br /><code>BaseMemoryAllocationLibNull</code></td>
+</tr>
+<tr>
+<td align="left">MmServicesTableLib.h</td>
+<td align="left">MmServicesTableLib</td>
+<td>MmServicesTableLib.inf</td>
+</tr>
+<tr>
+<td align="left">MmUnblockMemoryLib.h</td>
+<td align="left">MmUnblockMemoryLib</td>
+<td>MmUnblockMemoryLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">OrderedCollectionLib.h</td>
+<td align="left">OrderedCollectionLib</td>
+<td>BaseOrderedCollection<br />RedBlackTreeLib.inf</td>
+</tr>
+<tr>
+<td align="left">PcdLib.h</td>
+<td align="left">PcdLib</td>
+<td>BasePcdLibNull.inf<br />PeiPcdLib.inf<br />DxePcdLib.inf<br />SmmIoLibSmmCpuIo2.inf</td>
+</tr>
+<tr>
+<td align="left">PciCf8Lib.h</td>
+<td align="left">PciCf8Lib</td>
+<td>BasePciCf8Lib.inf</td>
+</tr>
+<tr>
+<td align="left">PciExpressLib.h</td>
+<td align="left">PciExpressLib</td>
+<td>BasePciLibPciExpress.inf<br />DxeRuntimePciExpressLib.inf<br />SmmPciExpressLib.inf</td>
+</tr>
+<tr>
+<td align="left">PciLib.h</td>
+<td align="left">PciLib</td>
+<td>PeiPciLibPciCfg2.inf<br />UefiPciLibPciRootBridgeIo.inf</td>
+</tr>
+<tr>
+<td align="left">PciSegmentInfoLib.h</td>
+<td align="left">PciSegmentInfoLib</td>
+<td>BasePciSegmentInfoLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">PciSegmentLib.h</td>
+<td align="left">PciSegmentLib</td>
+<td>BasePciSegmentLibSegmentInfo.inf<br />BasePciSegmentLibPci.inf<br />PeiPciSegmentLibPciCfg2.inf<br />DxeRuntimePciSegmentLib<br />SegmentInfo.inf<br />UefiPciSegmentLib<br />PciRootBridgeIo.inf</td>
+</tr>
+<tr>
+<td align="left">PeCoffExtraActionLib.h</td>
+<td align="left">PeCoffExtraActionLib</td>
+<td>BasePeCoffExtraActionLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">PeCoffGetEntryPointLib.h</td>
+<td align="left">PeCoffGetEntryPointLib</td>
+<td>BasePeCoffGetEntryPointLib.inf</td>
+</tr>
+<tr>
+<td align="left">PeCoffLib.h</td>
+<td align="left">PeCoffLib</td>
+<td>BasePeCoffLib.inf</td>
+</tr>
+<tr>
+<td align="left">PeiCoreEntryPoint.h</td>
+<td align="left">PeiCoreEntryPoint</td>
+<td>PeiCoreEntryPoint.inf</td>
+</tr>
+<tr>
+<td align="left">PeimEntryPoint.h</td>
+<td align="left">PeimEntryPoint</td>
+<td>PeimEntryPoint.inf</td>
+</tr>
+<tr>
+<td align="left">PeiServicesLib.h</td>
+<td align="left">PeiServicesLib</td>
+<td>PeiServicesLib.inf</td>
+</tr>
+<tr>
+<td align="left">PeiServicesTablePointerLib.h</td>
+<td align="left">PeiServicesTablePointerLib</td>
+<td>PeiServicesTablePointerLib.inf<br />PeiServicesTablePointerLibIdt.inf</td>
+</tr>
+<tr>
+<td align="left">PerformanceLib.h</td>
+<td align="left">PerformanceLib</td>
+<td>BasePerformanceLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">PostCodeLib.h</td>
+<td align="left">PostCodeLib</td>
+<td>BasePostCodeLibDebug.inf<br />BasePostCodeLibPort80.inf<br />PeiDxePostCodeLibReportStatusCode.inf</td>
+</tr>
+<tr>
+<td align="left">PrintLib.h</td>
+<td align="left">PrintLib</td>
+<td>BasePrintLib.inf</td>
+</tr>
+<tr>
+<td align="left">RegisterFilterLib.h</td>
+<td align="left">RegisterFilterLib</td>
+<td>RegisterFilterLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">ReportStatusCodeLib.h</td>
+<td align="left">ReportStatusCodeLib</td>
+<td>BaseReportStatusCodeLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">ResourcePublicationLib.h</td>
+<td align="left">ResourcePublicationLib</td>
+<td>PeiResourcePublicationLib.inf</td>
+</tr>
+<tr>
+<td align="left">RngLib.h</td>
+<td align="left">RngLib(IA32 X64 AARCH64)</td>
+<td>DxeRngLib.inf<br />BaseRngLibNull.inf<br />BaseRngLibTimerLib.inf<br />BaseRngLib.inf</td>
+</tr>
+<tr>
+<td align="left">S3BootScriptLib.h</td>
+<td align="left">S3BootScriptLib</td>
+<td>BaseS3BootScriptLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">S3IoLib.h</td>
+<td align="left">S3IoLib</td>
+<td>BaseS3IoLib.inf</td>
+</tr>
+<tr>
+<td align="left">S3PciLib.h</td>
+<td align="left">S3PciLib</td>
+<td>BaseS3PciLib.inf</td>
+</tr>
+<tr>
+<td align="left">S3PciSegmentLib.h</td>
+<td align="left">PciSegmentInfoLib</td>
+<td>BaseS3PciSegmentLib.inf</td>
+</tr>
+<tr>
+<td align="left">S3SmbusLib.h</td>
+<td align="left">S3SmbusLib</td>
+<td>BaseS3SmbusLib.inf</td>
+</tr>
+<tr>
+<td align="left">S3StallLib.h</td>
+<td align="left">S3StallLib</td>
+<td>BaseS3StallLib.inf</td>
+</tr>
+<tr>
+<td align="left">SafeIntLib.h</td>
+<td align="left">SafeIntLib</td>
+<td>BaseSafeIntLib.inf<br />TestBaseSafeIntLibPei.inf<br />TestBaseSafeIntLibDxe.inf<br />TestBaseSafeIntLibSmm.inf<br />TestBaseSafeIntLibUefiShell.inf</td>
+</tr>
+<tr>
+<td align="left">SerialPortLib.h</td>
+<td align="left">SerialPortLib</td>
+<td>BaseSerialPortLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">SmbusLib.h</td>
+<td align="left">SmbusLib</td>
+<td>BaseSmbusLibNull.inf<br />PeiSmbusLibSmbus2Ppi.inf<br />DxeSmbusLib.inf</td>
+</tr>
+<tr>
+<td align="left">SmiHandlerProfileLib.h</td>
+<td align="left">SmiHandlerProfileLib(IA32 X64)</td>
+<td>SmiHandlerProfileLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">SmmIoLib.h</td>
+<td align="left">SmmIoLib(IA32 X64)</td>
+<td>SmmIoLibSmmCpuIo2.inf<br />SmmIoLib.inf</td>
+</tr>
+<tr>
+<td align="left">SmmLib.h</td>
+<td align="left">SmmLib(IA32 X64)</td>
+<td>SmmLibNull.inf</td>
+</tr>
+<tr>
+<td align="left">SmmMemLib.h</td>
+<td align="left">SmmMemLib(IA32 X64)</td>
+<td>SmmMemLib.inf</td>
+</tr>
+<tr>
+<td align="left">SmmPeriodicSmiLib.h</td>
+<td align="left">SmmPeriodicSmiLib(IA32 X64)</td>
+<td>SmmPeriodicSmiLib.inf</td>
+</tr>
+<tr>
+<td align="left">SmmServicesTableLib.h</td>
+<td align="left">SmmServicesTableLib(IA32 X64)</td>
+<td>StandaloneMmServicesTableLib.inf<br />SmmServicesTableLib.inf<br />(MdeModulePkg)<br /><code>PiSmmCoreSmmServicesTableLib.inf</code></td>
+</tr>
+<tr>
+<td align="left">StandloneMmDriverEntryPoint.h</td>
+<td align="left">StandaloneMmDriverEntryPoint</td>
+<td>StandaloneMmDriverEntryPoint.inf</td>
+</tr>
+<tr>
+<td align="left">SynchronizationLib.h</td>
+<td align="left">SynchronizationLib</td>
+<td>BaseSynchronizationLib.inf</td>
+</tr>
+<tr>
+<td align="left">TimerLib.h</td>
+<td align="left">TimerLib</td>
+<td>BaseTimerLibNullTemplate.inf<br />SecPeiDxeTimerLibCpu.inf</td>
+</tr>
+<tr>
+<td align="left">UefiApplicationEntryPoint.h</td>
+<td align="left">UefiApplicationEntryPoint</td>
+<td>UefiApplicationEntryPoint.inf</td>
+</tr>
+<tr>
+<td align="left">UefiBootServicesTableLib.h</td>
+<td align="left">UefiBootServicesTableLib</td>
+<td>UefiBootServicesTableLib.inf</td>
+</tr>
+<tr>
+<td align="left">UefiDecompressLib.h</td>
+<td align="left">UefiDecompressLib</td>
+<td>BaseUefiDecompressLib.inf<br />BaseUefiTianoCustomDecompressLib.inf</td>
+</tr>
+<tr>
+<td align="left">UefiDriverEntryPoint.h</td>
+<td align="left">UefiDriverEntryPoint</td>
+<td>UefiDriverEntryPoint.inf</td>
+</tr>
+<tr>
+<td align="left">UefiLib.h</td>
+<td align="left">UefiLib</td>
+<td>UefiLib.inf</td>
+</tr>
+<tr>
+<td align="left">UefiRuntimeLib.h</td>
+<td align="left">UefiRuntimeLib</td>
+<td>UefiRuntimeLib.inf</td>
+</tr>
+<tr>
+<td align="left">UefiRuntimeSerivcesTablelib.h</td>
+<td align="left">UefiRuntimeServicesTableLib</td>
+<td>UefiRuntimeServicesTableLib.inf</td>
+</tr>
+<tr>
+<td align="left">UefiScsiLib.h</td>
+<td align="left">UefiScsiLib</td>
+<td>UefiScsiLib.inf</td>
+</tr>
+<tr>
+<td align="left">UefiUsbLib.h</td>
+<td align="left">UefiUsbLib</td>
+<td>UefiUsbLib.inf</td>
+</tr>
+<tr>
+<td align="left">UnitTestLib.h</td>
+<td align="left">UnitTestLib</td>
+<td>BaseLibUnitTestsUefi.inf</td>
 </tr>
 </tbody></table>
 <h2 id="MdeModulePkg-相关Lib"><a href="#MdeModulePkg-相关Lib" class="headerlink" title="MdeModulePkg 相关Lib"></a>MdeModulePkg 相关Lib</h2><h2 id="MdeModulePkg-Include-Library"><a href="#MdeModulePkg-Include-Library" class="headerlink" title="MdeModulePkg\Include\Library"></a>MdeModulePkg\Include\Library</h2><blockquote>
@@ -1086,268 +747,169 @@
 <thead>
 <tr>
 <th>*.h</th>
-<th>dec是否声明LibraryClasses</th>
-<th>API</th>
-<th>LibraryClass</th>
+<th>LibraryClassesName</th>
 <th>LibraryInstance</th>
-<th></th>
 </tr>
 </thead>
 <tbody><tr>
 <td>AuthVariableLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>AuthVariableLib</td>
+<td>AuthVariableLibNull.inf</td>
 </tr>
 <tr>
 <td>BmpSupportLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>BmpSupportLib</td>
+<td>BaseBmpSupportLib.inf</td>
 </tr>
 <tr>
 <td>BootLogoLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>BootLogoLib</td>
+<td>BootLogoLib.inf</td>
 </tr>
 <tr>
 <td>CapsuleLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>CapsuleLib</td>
+<td>DxeCapsuleLibNull.inf<br />DxeCapsuleLib.inf<br />DxeRuntimeCapsuleLib.inf</td>
 </tr>
 <tr>
 <td>CpuExceptionHandlerLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>CpuExceptionHandlerLib</td>
+<td>CpuExceptionHandler<br />LibNull.inf</td>
 </tr>
 <tr>
 <td>CustomizedDisplayLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>CustomizedDisplayLib</td>
+<td>CustomizedDisplayLib.inf</td>
 </tr>
 <tr>
 <td>DebugAgentLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>DebugAgentLib</td>
+<td>DebugAgentLibNull.inf</td>
 </tr>
 <tr>
 <td>DisplayUpdateProgressLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>DisplayUpdateProgressLib</td>
+<td>DisplayUpdate<br />ProgressLibGraphics.inf</td>
 </tr>
 <tr>
 <td>FileExplorerLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>FileExplorerLib</td>
+<td>FileExplorerLib.inf</td>
 </tr>
 <tr>
 <td>FmpAuthenticationLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>FmpAuthenticationLib</td>
+<td>FmpAuthen<br />ticationLibNull.inf</td>
 </tr>
 <tr>
 <td>FrameBufferBltLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>FrameBufferBltLib</td>
+<td>FrameBufferBltLib.inf</td>
 </tr>
 <tr>
 <td>HiiLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>HiiLib</td>
+<td>UefiHiiLib.inf</td>
 </tr>
 <tr>
 <td>IpmiLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>IpmiLib</td>
+<td>BaseIpmiLibNull.inf<br />PeiIpmiLibIpmiPpi.inf<br />DxeIpmiLibIpmiProtocol.inf<br />SmmIpmiLibSmm<br />IpmiProtocol.inf</td>
 </tr>
 <tr>
 <td>LockBoxLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>LockBoxLib</td>
+<td>SmmLockBoxPeiLib.inf<br />SmmLockBoxDxeLib.inf<br />SmmLockBoxStand<br />aloneMmLib.inf<br />LockBoxNullLib.inf</td>
 </tr>
 <tr>
 <td>MemoryProfileLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>MemoryProfileLib</td>
 <td></td>
 </tr>
 <tr>
 <td>NonDiscoverableDeviceRegistrationLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>NonDiscoverableDeviceRegistrationLib</td>
+<td>NonDiscoverable<br />DeviceRegistrationLib.inf</td>
 </tr>
 <tr>
 <td>OemHookStatusCodeLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>OemHookStatusCodeLib</td>
+<td>OemHookStatusCode<br />LibNull.inf</td>
 </tr>
 <tr>
 <td>PciHostBridgeLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>PciHostBridgeLib</td>
+<td>PciHostBridgeLibNull.inf</td>
 </tr>
 <tr>
 <td>PlatformBootManagerLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>PlatformBootManagerLib</td>
+<td>PlatformBootManager<br />LibNull.inf</td>
 </tr>
 <tr>
 <td>PlatformHookLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>PlatformHookLib</td>
+<td>BasePlatform<br />HookLibNull.inf<br />SmmCorePlatform<br />HookLibNull.inf</td>
 </tr>
 <tr>
 <td>PlatformVarCleanupLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>PlatformVarCleanupLib</td>
+<td>PlatformVarCleanupLib.inf</td>
 </tr>
 <tr>
 <td>ResetSystemLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>ResetSystemLib</td>
+<td>BaseResetSystemLibNull.inf</td>
 </tr>
 <tr>
 <td>ResetUtilityLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>ResetUtilityLib</td>
+<td>ResetUtilityLib.inf</td>
 </tr>
 <tr>
 <td>SecurityManagementLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>SecurityManagementLib</td>
+<td>DxeSecurity<br />ManagementLib.inf</td>
 </tr>
 <tr>
 <td>SmmCorePlatformHookLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>SmmCorePlatformHookLib</td>
+<td>SmmCorePlatform<br />HookLibNull.inf</td>
 </tr>
 <tr>
 <td>SortLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>SortLib</td>
+<td>BaseSortLib.inf</td>
 </tr>
 <tr>
 <td>TpmMeasurementLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>TpmMeasurementLib</td>
+<td>TpmMeasurementLibNull.inf</td>
 </tr>
 <tr>
 <td>UefiBootMangerLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>UefiBootManagerLib</td>
+<td>UefiBootManagerLib.inf</td>
 </tr>
 <tr>
 <td>UefiHiiServiceLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>UefiHiiServicesLib</td>
+<td>UefiHiiServicesLib.inf</td>
 </tr>
 <tr>
 <td>VarCheckLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>VarCheckLib</td>
+<td>VarCheckLib.inf</td>
 </tr>
 <tr>
 <td>VariablePolicyHelperLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>VariablePolicyHelperLib</td>
+<td>VariablePolicyLib<br />RuntimeDxe.inf</td>
 </tr>
 <tr>
 <td>VariablePolicyLib.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>VariablePolicyLib</td>
+<td>VariablePolicyLib.inf</td>
 </tr>
 </tbody></table>
 
@@ -1691,7 +1253,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">31.7k</span>&nbsp;字
+                class="white-color">32.1k</span>&nbsp;字
             
             
             
