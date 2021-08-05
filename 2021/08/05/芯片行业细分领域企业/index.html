@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Doxygen生成edk2 CHM, C/C++/QT/UEFI/Python">
+    <meta name="keywords" content="芯片行业细分领域企业, C/C++/QT/UEFI/Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Doxygen生成edk2 CHM | 尘世浮沉HolyChen</title>
+    <title>芯片行业细分领域企业 | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -214,12 +214,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Doxygen生成edk2 CHM</h1>
+                    <h1 class="description center-align post-title">芯片行业细分领域企业</h1>
                 </div>
             </div>
         </div>
@@ -336,8 +336,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Comment-Doxygen-CHM/">
-                                <span class="chip bg-color">Comment, Doxygen, CHM</span>
+                            <a href="/tags/BIOS-CPU-GPU-DSP-FPGA-%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/">
+                                <span class="chip bg-color">BIOS, CPU, GPU, DSP, FPGA, 存储芯片</span>
                             </a>
                         
                     </div>
@@ -356,14 +356,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    663
+                    463
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
 
@@ -379,93 +379,138 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h1><blockquote>
-<p>目前为止最新Release edk2-stable202105 MdePkg一共声明了67个头文件,MdeModulePkg一共声明了32个头文件，虽说常用API唯手熟尔，但有时候知道有什么，有个全局的印象，用到的时候才能想到去查，不用自己在子函数里造轮子。UDK2017和UDK02018是有提供生成好的包含MdePkg和MdeModulePkg的CHM文档的，本文记录下基于edk2—stable212105用Doxygen生成CHM踩的坑</p>
-</blockquote>
-<h1 id="Tool部署"><a href="#Tool部署" class="headerlink" title="Tool部署"></a>Tool部署</h1><blockquote>
-<p>需要三个工具：doxygen安装包、graphviz安装包、htmlhelp安装包。其中doxygen是一种开源跨平台的文档系统，doxygen可以从一套归档源文件开始，生成HTML格式的在线类浏览器，或离线的LATEX、RTF参考手册</p>
-</blockquote>
-<blockquote>
-<p>doxygen可以生成好几种格式的文档，要生成.chm格式的手册就必须安装htmlhelp，要生成关系图必须安装依graphviz</p>
-</blockquote>
-<h2 id="doxygen安装包"><a href="#doxygen安装包" class="headerlink" title="doxygen安装包"></a>doxygen安装包</h2><blockquote>
-<p> <a target="_blank" rel="noopener" href="http://www.doxygen.nl/download.html">http://www.doxygen.nl/download.html</a></p>
-</blockquote>
-<h2 id="graphviz安装包"><a href="#graphviz安装包" class="headerlink" title="graphviz安装包"></a>graphviz安装包</h2><blockquote>
-<p> <a target="_blank" rel="noopener" href="http://www.graphviz.org/">http://www.graphviz.org/</a></p>
-</blockquote>
-<h2 id="htmlhelp安装包"><a href="#htmlhelp安装包" class="headerlink" title="htmlhelp安装包"></a>htmlhelp安装包</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=21138"> https://www.microsoft.com/en-us/download/details.aspx?id=21138</a></p>
-</blockquote>
-<h1 id="生成机制"><a href="#生成机制" class="headerlink" title="生成机制"></a>生成机制</h1><blockquote>
-<p>Doxygen可以根据固定格式的代码注释生成相对应的<code>*.chm</code>格式的手册。支持的语言有好多种，如C/C++/C#/Objective-C/PHP/Java等。edk2源码主要是C语言，Doxygen可以识别的固定格式注释有以下几种：</p>
-</blockquote>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/**
-* ...text...
-*/</span>
-
-<span class="token comment">///</span>
-<span class="token comment">///...text...</span>
-<span class="token comment">///</span>
-
-<span class="token comment">/************************************
-*   ...text...
-************************************/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>来看下edk2代码注释的Sample, 所有的函数都使用这样统一格式的注释，还是较为优雅的</p>
-</blockquote>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;**
-  Translate a *.BMP graphics image to a GOP blt buffer. If a NULL Blt buffer
-  is passed in a GopBlt buffer will be allocated by this routine using
-  EFI_BOOT_SERVICES.AllocatePool(). If a GopBlt buffer is passed in it will be
-  used if it is big enough.
-  @param [in]      BmpImage      Pointer to BMP file.
-  @param [in]      BmpImageSize  Number of bytes in BmpImage.
-  @param [in, out] GopBlt        Buffer containing GOP version of BmpImage.
-  @param [in, out] GopBltSize    Size of GopBlt in bytes.
-  @param [out]     PixelHeight   Height of GopBlt&#x2F;BmpImage in pixels.
-  @param [out]     PixelWidth    Width of GopBlt&#x2F;BmpImage in pixels.
-  @retval RETURN_SUCCESS            GopBlt and GopBltSize are returned.
-  @retval RETURN_INVALID_PARAMETER  BmpImage is NULL.
-  @retval RETURN_INVALID_PARAMETER  GopBlt is NULL.
-  @retval RETURN_INVALID_PARAMETER  GopBltSize is NULL.
-  @retval RETURN_INVALID_PARAMETER  PixelHeight is NULL.
-  @retval RETURN_INVALID_PARAMETER  PixelWidth is NULL.
-  @retval RETURN_UNSUPPORTED        BmpImage is not a valid *.BMP image.
-  @retval RETURN_BUFFER_TOO_SMALL   The passed in GopBlt buffer is not big
-                                    enough.  The required size is returned in
-                                    GopBltSize.
-  @retval RETURN_OUT_OF_RESOURCES   The GopBlt buffer could not be allocated.
-**&#x2F;
-RETURN_STATUS
-EFIAPI
-TranslateBmpToGopBlt (
-  IN     VOID                           *BmpImage,
-  IN     UINTN                          BmpImageSize,
-  IN OUT EFI_GRAPHICS_OUTPUT_BLT_PIXEL  **GopBlt,
-  IN OUT UINTN                          *GopBltSize,
-  OUT    UINTN                          *PixelHeight,
-  OUT    UINTN                          *PixelWidth
-  );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h1 id="生成步骤"><a href="#生成步骤" class="headerlink" title="生成步骤"></a>生成步骤</h1><h2 id="设置工程工作目录"><a href="#设置工程工作目录" class="headerlink" title="设置工程工作目录"></a>设置工程工作目录</h2><p><img src="http://tc.holychen.cn/image/883c34a7-73e5-4c83-a75c-3157b194ab22.png" alt="img"></p>
-<h2 id="设置编程语言"><a href="#设置编程语言" class="headerlink" title="设置编程语言"></a>设置编程语言</h2><p><img src="http://tc.holychen.cn/image/426fe839-498b-4f20-abda-0db585caf2d0.png" alt="img"></p>
-<h2 id="设置输出文件格式"><a href="#设置输出文件格式" class="headerlink" title="设置输出文件格式"></a>设置输出文件格式</h2><p><img src="http://tc.holychen.cn/image/450db6b7-9835-4e73-b84c-c14042b8d37d.png" alt="img"></p>
-<h2 id="设置生成的关系表"><a href="#设置生成的关系表" class="headerlink" title="设置生成的关系表"></a>设置生成的关系表</h2><p><img src="http://tc.holychen.cn/image/0e64112c-67aa-4f36-b226-4cb810b4cdef.png" alt="img"></p>
-<h2 id="设置输出的语言和编码"><a href="#设置输出的语言和编码" class="headerlink" title="设置输出的语言和编码"></a>设置输出的语言和编码</h2><p><img src="http://tc.holychen.cn/image/bb9afe3a-0ead-4922-9d87-a900c0d094db.png" alt="img"></p>
-<h2 id="设置一些构建的选择项"><a href="#设置一些构建的选择项" class="headerlink" title="设置一些构建的选择项"></a>设置一些构建的选择项</h2><p><img src="http://tc.holychen.cn/image/2e96bc01-ce33-488b-8e6b-8dae99a94273.png" alt="img"></p>
-<h2 id="设置输入文件的编码"><a href="#设置输入文件的编码" class="headerlink" title="设置输入文件的编码"></a>设置输入文件的编码</h2><p><img src="http://tc.holychen.cn/image/224103a4-2fee-4c0c-a7b1-763d23186ca5.png" alt="img"></p>
-<h2 id="设置是否在-chm中生成源码以供预览"><a href="#设置是否在-chm中生成源码以供预览" class="headerlink" title="设置是否在.chm中生成源码以供预览"></a>设置是否在.chm中生成源码以供预览</h2><p><img src="http://tc.holychen.cn/image/45e33a33-8462-49a1-a37e-bf1a231ed6f5.png" alt="img"></p>
-<h2 id="设置HTML选项"><a href="#设置HTML选项" class="headerlink" title="设置HTML选项"></a>设置HTML选项</h2><p><img src="http://tc.holychen.cn/image/9156c3bd-f300-43c2-873e-e60755f13830.png" alt="img"></p>
-<h2 id="设置Dot选项"><a href="#设置Dot选项" class="headerlink" title="设置Dot选项"></a>设置Dot选项</h2><p><img src="http://tc.holychen.cn/image/67292985-bf22-479f-8e4e-615444a46d0b.png" alt="img"></p>
-<p><img src="http://tc.holychen.cn/image/874dd561-fc06-4d08-aadc-850df7714f0a.png" alt="img"></p>
-<h2 id="运行生成-chm文件"><a href="#运行生成-chm文件" class="headerlink" title="运行生成.chm文件"></a>运行生成.chm文件</h2><p><img src="http://tc.holychen.cn/image/e599507e-1152-475c-989b-6807cbe79ae8.png" alt="img"></p>
-<h2 id="保存工程文件"><a href="#保存工程文件" class="headerlink" title="保存工程文件"></a>保存工程文件</h2><p><img src="http://tc.holychen.cn/image/ec5f18ea-ecc6-42a1-9688-bdf5110c8f75.png" alt="img"></p>
-<h1 id="最终效果图"><a href="#最终效果图" class="headerlink" title="最终效果图"></a>最终效果图</h1><p><img src="http://tc.holychen.cn/image/e4185b04-66bd-4397-907d-f640cffd96fd.png" alt="img"></p>
-<p><img src="http://tc.holychen.cn/image/2ef21bd2-f4fb-49ff-9e4a-6e3a59ae8d20.png" alt="img"></p>
-<p><img src="http://tc.holychen.cn/image/d2f9a953-89ed-42f7-b0d6-3d8a3218c55f.png" alt="img"></p>
+                <h2 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h2><ul>
+<li>AMI</li>
+<li>Byosoft</li>
+<li>Insyde</li>
+<li>Phoenix<h2 id="移动CPU"><a href="#移动CPU" class="headerlink" title="移动CPU"></a>移动CPU</h2></li>
+</ul>
+<h3 id="中国（大陆-台湾）"><a href="#中国（大陆-台湾）" class="headerlink" title="中国（大陆+台湾）"></a>中国（大陆+台湾）</h3><ul>
+<li>华为海思</li>
+<li>紫光展锐</li>
+<li>翱捷</li>
+<li>台湾联发科</li>
+</ul>
+<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><ul>
+<li>高通</li>
+<li>苹果</li>
+<li>三星</li>
+</ul>
+<h2 id="计算机CPU-MPU"><a href="#计算机CPU-MPU" class="headerlink" title="计算机CPU/MPU"></a>计算机CPU/MPU</h2><h3 id="中国（大陆-台湾）-1"><a href="#中国（大陆-台湾）-1" class="headerlink" title="中国（大陆+台湾）"></a>中国（大陆+台湾）</h3><ul>
+<li>龙芯</li>
+<li>兆芯</li>
+<li>飞腾</li>
+<li>申威</li>
+<li>中科曙光</li>
+<li>台湾威盛</li>
+</ul>
+<h3 id="国外-1"><a href="#国外-1" class="headerlink" title="国外"></a>国外</h3><ul>
+<li>Intel</li>
+<li>AMD</li>
+</ul>
+<h2 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h2><h3 id="中国（大陆-台湾）-2"><a href="#中国（大陆-台湾）-2" class="headerlink" title="中国（大陆+台湾）"></a>中国（大陆+台湾）</h3><ul>
+<li>景嘉微</li>
+<li>中船重工</li>
+<li>芯原微电子</li>
+<li>燧原科技</li>
+<li>航锦科技</li>
+<li>壁仞科技</li>
+<li>沐曦集成电路</li>
+<li>摩尔线程</li>
+<li>兆芯</li>
+<li>登临科技</li>
+<li>天数智芯</li>
+<li>芯动科技</li>
+<li>龙芯</li>
+<li>芯瞳半导体</li>
+<li>海思</li>
+</ul>
+<h3 id="国外-2"><a href="#国外-2" class="headerlink" title="国外"></a>国外</h3><ul>
+<li>Intel</li>
+<li>NVIDIA</li>
+<li>AMD</li>
+<li>ARM</li>
+<li>Imagination</li>
+<li>Qualcomm</li>
+<li>Vivante</li>
+</ul>
+<h2 id="ASIC"><a href="#ASIC" class="headerlink" title="ASIC"></a>ASIC</h2><h3 id="中国（大陆-台湾）-3"><a href="#中国（大陆-台湾）-3" class="headerlink" title="中国（大陆+台湾）"></a>中国（大陆+台湾）</h3><ul>
+<li>中星微电子</li>
+<li>寒武纪科技</li>
+<li>启英泰伦</li>
+<li>云知声</li>
+<li>地平线</li>
+</ul>
+<h3 id="国外-3"><a href="#国外-3" class="headerlink" title="国外"></a>国外</h3><ul>
+<li>IBM</li>
+<li>高通</li>
+<li>Intel</li>
+<li>谷歌</li>
+</ul>
+<h2 id="DSP"><a href="#DSP" class="headerlink" title="DSP"></a>DSP</h2><h3 id="中国（大陆-台湾）-4"><a href="#中国（大陆-台湾）-4" class="headerlink" title="中国（大陆+台湾）"></a>中国（大陆+台湾）</h3><ul>
+<li>国睿科技（华睿）</li>
+<li>四创电子（魂芯）</li>
+<li>振芯科技</li>
+<li>杰赛科技</li>
+<li>卫士通</li>
+<li>中科昊芯科技</li>
+</ul>
+<h3 id="国外-4"><a href="#国外-4" class="headerlink" title="国外"></a>国外</h3><ul>
+<li>德州仪器</li>
+<li>ADI</li>
+<li>摩托罗拉(Motorola)</li>
+</ul>
+<h2 id="FPGA"><a href="#FPGA" class="headerlink" title="FPGA"></a>FPGA</h2><h3 id="中国（大陆-台湾）-5"><a href="#中国（大陆-台湾）-5" class="headerlink" title="中国（大陆+台湾）"></a>中国（大陆+台湾）</h3><ul>
+<li>深圳紫光同创</li>
+<li>上海安路科技</li>
+<li>广东高云半导体</li>
+<li>上海复旦为微电子</li>
+<li>京微齐力</li>
+<li>西安智多晶</li>
+<li>上海遨格芯</li>
+<li>成都华微科技</li>
+<li>中科亿海微</li>
+<li>无锡中电58所(中科芯集成电路有限公司)</li>
+<li>中国航天北京微电子技术(航天772所)</li>
+</ul>
+<h3 id="国外-5"><a href="#国外-5" class="headerlink" title="国外"></a>国外</h3><ul>
+<li>赛灵思（Xilinx）</li>
+<li>英特尔Intel（收购Altera）</li>
+<li>微芯科技（Microchip）</li>
+<li>莱迪斯（Lattice）</li>
+</ul>
+<h2 id="存储芯片"><a href="#存储芯片" class="headerlink" title="存储芯片"></a>存储芯片</h2><h2 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a>DRAM</h2><h3 id="中国（大陆-台湾）-6"><a href="#中国（大陆-台湾）-6" class="headerlink" title="中国（大陆+台湾）"></a>中国（大陆+台湾）</h3><ul>
+<li>福建晋华</li>
+<li>合肥长鑫</li>
+<li>紫光南京</li>
+<li>台湾南亚科</li>
+<li>台湾华邦（Winbond）</li>
+</ul>
+<h3 id="国外-6"><a href="#国外-6" class="headerlink" title="国外"></a>国外</h3><ul>
+<li>韩国三星</li>
+<li>韩国SK海力士</li>
+<li>美国镁光</li>
+</ul>
+<h2 id="NAND-Flash"><a href="#NAND-Flash" class="headerlink" title="NAND Flash"></a>NAND Flash</h2><h3 id="中国（大陆-台湾）-7"><a href="#中国（大陆-台湾）-7" class="headerlink" title="中国（大陆+台湾）"></a>中国（大陆+台湾）</h3><ul>
+<li>长江存储</li>
+<li>紫光南京</li>
+</ul>
+<h3 id="国外-7"><a href="#国外-7" class="headerlink" title="国外"></a>国外</h3><ul>
+<li>韩国三星</li>
+<li>东芝/西部数据</li>
+<li>韩国SK海力士</li>
+<li>美国镁光</li>
+<li>美国英特尔</li>
+</ul>
+<h2 id="Nor-Flash"><a href="#Nor-Flash" class="headerlink" title="Nor Flash"></a>Nor Flash</h2><h3 id="中国（大陆-台湾）-8"><a href="#中国（大陆-台湾）-8" class="headerlink" title="中国（大陆+台湾）"></a>中国（大陆+台湾）</h3><ul>
+<li>北京兆易创新</li>
+<li>台湾旺宏(MXIC)</li>
+<li>台湾华邦（Winbond）</li>
+</ul>
+<h3 id="国外-8"><a href="#国外-8" class="headerlink" title="国外"></a>国外</h3><ul>
+<li>美国Cypress（飞索）</li>
+<li>美国镁光</li>
+</ul>
 
             </div>
             <hr/>
@@ -491,7 +536,7 @@ TranslateBmpToGopBlt (
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2021/08/04/Doxygen%E7%94%9F%E6%88%90edk2%20CHM/">http://holychen.cn/2021/08/04/Doxygen%E7%94%9F%E6%88%90edk2%20CHM/</a>
+                    <a href="http://holychen.cn/2021/08/05/%E8%8A%AF%E7%89%87%E8%A1%8C%E4%B8%9A%E7%BB%86%E5%88%86%E9%A2%86%E5%9F%9F%E4%BC%81%E4%B8%9A/">http://holychen.cn/2021/08/05/%E8%8A%AF%E7%89%87%E8%A1%8C%E4%B8%9A%E7%BB%86%E5%88%86%E9%A2%86%E5%9F%9F%E4%BC%81%E4%B8%9A/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -529,8 +574,8 @@ TranslateBmpToGopBlt (
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Comment-Doxygen-CHM/">
-                                    <span class="chip bg-color">Comment, Doxygen, CHM</span>
+                                <a href="/tags/BIOS-CPU-GPU-DSP-FPGA-%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/">
+                                    <span class="chip bg-color">BIOS, CPU, GPU, DSP, FPGA, 存储芯片</span>
                                 </a>
                             
                         </div>
@@ -572,9 +617,56 @@ TranslateBmpToGopBlt (
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/08/05/%E8%8A%AF%E7%89%87%E8%A1%8C%E4%B8%9A%E7%BB%86%E5%88%86%E9%A2%86%E5%9F%9F%E4%BC%81%E4%B8%9A/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="芯片行业细分领域企业">
+                        
+                        <span class="card-title">芯片行业细分领域企业</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Holy Chen
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/BIOS-CPU-GPU-DSP-FPGA-%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/">
+                        <span class="chip bg-color">BIOS, CPU, GPU, DSP, FPGA, 存储芯片</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2021/08/04/LIB%20API%E6%9F%A5%E8%AF%A2/">
                     <div class="card-image">
@@ -592,9 +684,9 @@ TranslateBmpToGopBlt (
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -608,51 +700,6 @@ TranslateBmpToGopBlt (
                     
                     <a href="/tags/Lib-Instance-h-Inf/">
                         <span class="chip bg-color">Lib, Instance, .h, Inf</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/08/03/Hexo_Blog%E6%90%AD%E5%BB%BA/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Hexo Blog搭建">
-                        
-                        <span class="card-title">Hexo Blog搭建</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Holy Chen
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%9F%9F%E5%90%8D%EF%BC%8C%E5%9B%BE%E5%BA%8A%EF%BC%8Cmarkdown/">
-                        <span class="chip bg-color">服务器，域名，图床，markdown</span>
                     </a>
                     
                 </div>
