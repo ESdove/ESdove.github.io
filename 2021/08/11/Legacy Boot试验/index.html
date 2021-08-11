@@ -387,7 +387,7 @@
 <blockquote>
 <p>现代CPU的寻址空间，应该和具体CPU设计有关，用AlderLake某款CPU做过一个窥探，UEFI Shell下用mem指令不断去测试，发现最大能dump的地址是512G，用Tool Dump CPU类型的HOB发现SizeOfMemorySpace成员对应的地址转化为10进制为39，2的39次方刚好为512G，所以应该表示的是地址线为39根</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210811182158148.png" alt="image-20210811182158148"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210811182158148.png"></p>
 <h2 id="1M以下内存区域"><a href="#1M以下内存区域" class="headerlink" title="1M以下内存区域"></a>1M以下内存区域</h2><blockquote>
 <p>主要分为两大块</p>
 </blockquote>
@@ -405,7 +405,7 @@
 <li><p><code>A-F六个段，每个段64KB，合计384KB</code></p>
 </li>
 </ul>
-<p><img src="F:/Work_Area/Typora/Image/image-20210811190048082.png" alt="image-20210811190048082"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210811190048082.png"></p>
 <h2 id="MBR分区"><a href="#MBR分区" class="headerlink" title="MBR分区"></a>MBR分区</h2><blockquote>
 <p>4个分区表占据64 byte，加上其它的448字节，组成了一个0扇区</p>
 </blockquote>
@@ -437,7 +437,7 @@ UINT16 Signature<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span> MASTER_BOOT_RECORD<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">pragma</span> <span class="token expression"><span class="token function">pack</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="http://tc.holychen.cn/image/image-20210811190908454.png" alt="image-20210811190908454"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210811190908454.png"></p>
 <h2 id="汇编实例"><a href="#汇编实例" class="headerlink" title="汇编实例"></a>汇编实例</h2><blockquote>
 <p>一直对Legacy感受不深，写一个汇编程序，研究下Legacy Boot，利用<a target="_blank" rel="noopener" href="https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/win64/">NASM</a>编译Start.asm为bin文件，再用<a target="_blank" rel="noopener" href="https://mh-nexus.de/en/hxd/">HXD</a>将二进制数据拷贝到U盘扇区0，BIOS设为Legacy启动</p>
 </blockquote>
@@ -484,12 +484,12 @@ db  <span class="token number">0x55</span><span class="token punctuation">,</spa
 <li><p>将bin文件的非00字节拷贝到U盘0扇区</p>
 </li>
 </ul>
-<p><img src="http://tc.holychen.cn/image/image-20210811180551621.png" alt="image-20210811180551621"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210811180551621.png"></p>
 <h2 id="BIOS设置"><a href="#BIOS设置" class="headerlink" title="BIOS设置"></a>BIOS设置</h2><blockquote>
 <p>Legacy是比较古老的东西，Intel也说过将不支持Legacy，淘汰掉这个古老的玩意，所以新的主板可能只支持UEFI启动，如果支持Legacy的话，需要在BIOS下改点东西，才可以支持程序的运行</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/image/image-20210811175216393.png" alt="image-20210811175216393"></p>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://tc.holychen.cn/image/image-20210811175244711.png" alt="image-20210811175244711"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210811175216393.png"></p>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://tc.holychen.cn/image/image-20210811175244711.png"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
 <p>U盘没有做成DOS和Shell盘，Legacy Boot时还是会有Boot Option，校验0扇区Signature后，会去执行前440字节存放的二进制代码，本例中没有效用完440 byte，看来Legacy Boot时0扇区这一段代码是用来跳转寻找OS BootLoader的</p>
 </blockquote>
