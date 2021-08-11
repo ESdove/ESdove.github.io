@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="BIOS ROM Image分析, C/C++/QT/UEFI/Python">
+    <meta name="keywords" content="Legacy Boots试验, C/C++/QT/UEFI/Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>BIOS ROM Image分析 | 尘世浮沉HolyChen</title>
+    <title>Legacy Boots试验 | 尘世浮沉HolyChen</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -214,12 +214,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">BIOS ROM Image分析</h1>
+                    <h1 class="description center-align post-title">Legacy Boots试验</h1>
                 </div>
             </div>
         </div>
@@ -336,8 +336,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Flash-Layout-FV/">
-                                <span class="chip bg-color">Flash, Layout, FV</span>
+                            <a href="/tags/HxD-Legacy-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80-MBR/">
+                                <span class="chip bg-color">HxD, Legacy, 内存布局, MBR</span>
                             </a>
                         
                     </div>
@@ -356,14 +356,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    643
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    2 分
                 </div>
                 
 
@@ -379,364 +379,120 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Flash芯片"><a href="#Flash芯片" class="headerlink" title="Flash芯片"></a>Flash芯片</h1><blockquote>
-<p>之前Desktop的案子，BIOS 由一块32M的Nor Flash存储，还有一块Flash做PDR Region</p>
-</blockquote>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/86ed9927664912afa5ce9778ee3f498.jpg" alt="主板上的NorFlash"></p>
-<h1 id="生成的BIOS-Bin"><a href="#生成的BIOS-Bin" class="headerlink" title="生成的BIOS Bin"></a>生成的BIOS Bin</h1><blockquote>
-<p>BIOS编译过程中会根据不同的xml file生成对应的BIOS bin文件，xml file可以用Intel提供的Fit.exe工具解析</p>
-</blockquote>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604388851409.png" alt="FPT整刷的bin"></p>
-<h1 id="Intel闪存映像布局"><a href="#Intel闪存映像布局" class="headerlink" title="Intel闪存映像布局"></a>Intel闪存映像布局</h1><p>英特尔在相应芯片组的数据表页面上讨论了BIOS的结构。对于所有从第六系列开始的芯片组，此格式通常保持不变，该文件分为3-5个区域，可选的是GbE区域和PDR。</p>
-<p><img src="../../../Work_Area/Typora/Image/image-20210804112152776.png" alt="image-20210804112152776"></p>
-<h1 id="UEFI-Tool解析"><a href="#UEFI-Tool解析" class="headerlink" title="UEFI Tool解析"></a>UEFI Tool解析</h1><blockquote>
-<p>用开源<a target="_blank" rel="noopener" href="https://github.com/LongSoft/UEFITool">EFITool</a>工具加载了编译生成的bin文件，AMI有自己的MMtool</p>
-</blockquote>
-<p>可以发现Reset Vector位于BIOS Rom Image的最底部，探索形成这样的Image结构相关的各种文件(.fdf/.fd/.fv等文件)</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389109072.png"></p>
-<p>组成结构：16M BIOS + 16M ME ，PDR Regin存在备用的PDR Flash上</p>
-<p>BIOS Rom部分，由GenFv工具根据fdf文件生成，根据代码的定义的Flash Layout相关的Token Veb会自动生成fdf，前面的部分描述了Flahs Layout的布局，详细列出各个FV的起始地址和Size，edk2的话fdf则需要自己写</p>
-<pre class="line-numbers language-none"><code class="language-none">#FD Section
-[FD.AMIROM]
-BaseAddress &#x3D; 0xff000000
-Size &#x3D; 0x1000000
-ErasePolarity &#x3D; 1
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x1000
-
-DEFINE UNCOMPRESSED_PEI_EXECUTABLES_ALIGNMENT &#x3D;  
-DEFINE SEC_CORE_EXECUTABLE_ALIGNMENT &#x3D; Align &#x3D; 8
-......
-
-0x0|0x20000
-FV &#x3D; LNV_OEM_DATA_REGION
-
-0x20000|0x50000
-FV &#x3D; NVRAM
-
-0x70000|0x50000
-#RAW - NVRAM_BACKUP
-
-0xc0000|0x20000
-FV &#x3D; LEM_FV_DATA
-
-0xe0000|0x870000
-FV &#x3D; FV_MAIN_WRAPPER
-
-0x950000|0x20000
-FV &#x3D; FV_CMP
-
-0x970000|0x10000
-FV &#x3D; FV_BCP
-
-0x980000|0x110000
-FV &#x3D; FV_DATA_BACKUP
-
-0xa90000|0x110000
-FV &#x3D; FV_DATA
-
-0xba0000|0xa0000
-FV &#x3D; FV_BB_AFTER_MEMORY_BACKUP
-
-0xc40000|0x90000
-FV &#x3D; FV_FSP_S_BACKUP
-
-0xcd0000|0xa0000
-FV &#x3D; FV_BB_AFTER_MEMORY
-
-0xd70000|0x90000
-FV &#x3D; FV_FSP_S
-
-0xe00000|0x70000
-#FV_FSP_BACKUP
-FILE &#x3D; Build&#x2F;Fsp_Rebased_M_T.fd
-
-0xe70000|0x90000
-FV &#x3D; FV_BB_BACKUP
-
-0xf00000|0x70000
-#FV_FSP
-FILE &#x3D; Build&#x2F;Fsp_Rebased_M_T.fd
-
-0xf70000|0x90000
-FV &#x3D; FV_BB
-
-#FV Section
-[FV.FV_MAIN]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x0
-FvAlignment &#x3D; 16
-MEMORY_MAPPED &#x3D; TRUE
-
-FvNameGuid &#x3D; 5C60F367-A505-419A-859E-2A4FF6CA6FE5
-
-APRIORI DXE &#123;
-	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodeDxe.inf
-	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodeSmm.inf
-	INF MdeModulePkg&#x2F;Universal&#x2F;PCD&#x2F;Dxe&#x2F;Pcd.inf
-	......
-
-!include AmiPkg&#x2F;Configuration&#x2F;FontFileStatement.txt
-!include AmiModulePkg&#x2F;NVRAM&#x2F;FvMainDefaultsFdfFileStatement.txt
-!include AmiChipsetModulePkg&#x2F;LegacyRom&#x2F;Vbios&#x2F;VbiosFdfFileStatements.txt
-......
-
-#FV Section
-[FV.FV_LOGOROMHOLE]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x20
-FvAlignment &#x3D; 1
-......
-FvNameGuid &#x3D; E54D9684-2735-43ef-A379-30F2F592BA10
-
-
-!include AmiTsePkg&#x2F;Core&#x2F;em&#x2F;AMITSE&#x2F;Logoffs.txt
-
-#FV Section
-[FV.FV_MEFW_CAPSULE]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x600
-FvAlignment &#x3D; 16
-......
-FvNameGuid &#x3D; 9F8B1DEF-B62B-45F3-8282-BFD7EA19801B
-
-INF RuleOverride &#x3D; SubtypeGuidUncompressedNoChecksum Build&#x2F;MeFwFid.inf
-......
-
-!include AmiModulePkg&#x2F;Ofbd&#x2F;Meud&#x2F;AutoMeud&#x2F;MeRegionFdfFileStatement.txt
-
-#FV Section
-[FV.LNV_OEM_DATA_REGION]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x20
-FvAlignment &#x3D; 1
-......
-
-
-#FV Section
-[FV.NVRAM]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x50
-FvAlignment &#x3D; 16
-......
-FvNameGuid &#x3D; FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC
-
-
-!include AmiModulePkg&#x2F;NVRAM&#x2F;NvramFdfFileStatement.txt
-
-#FV Section
-[FV.LEM_FV_DATA]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x20
-FvAlignment &#x3D; 16
-......
-FvNameGuid &#x3D; 4f1c52d3-d824-4d2a-a2f0-ec40c23c5916
-
-INF RuleOverride &#x3D; SubtypeGuidUncompressedNoChecksum 
-......
-
-!include AmiTsePkg&#x2F;Core&#x2F;em&#x2F;AMITSE&#x2F;Romhole.txt
-
-#FV Section
-[FV.FV_CMP]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x20
-FvAlignment &#x3D; 16
-......
-FvNameGuid &#x3D; aea406cf-4fc8-4dc3-9796-1ee03b64c715
-
-!include LenovoModulePkg&#x2F;Universal&#x2F;ExtendedComputrace&#x2F;AbsolutePkg&#x2F;OEMSpecifiedAgentX64ProductionInstaller.txt
-
-#FV Section
-[FV.FV_BCP]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x10
-FvAlignment &#x3D; 16
-......
-FvNameGuid &#x3D; 8649FC2D-C0E6-4262-AD51-0CEABAB6429E
-
-INF RuleOverride &#x3D; Uncompressed PldmPkg&#x2F;BiosConfigPreserve&#x2F;BiosConfigPreserveBin&#x2F;BCPFlashData&#x2F;BCPFlashData.inf
-
-
-#FV Section
-[FV.FV_DATA_BACKUP]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x110
-FvAlignment &#x3D; 16
-......
-FvNameGuid &#x3D; E4A068F1-5EF1-4ACE-857C-7935F8A0C708
-
-
-!include CrbPkg&#x2F;AmiCrbIntelTopSwap&#x2F;FvDataBackupFdfFileStatement.txt
-
-#FV Section
-[FV.FV_DATA]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x110
-FvAlignment &#x3D; 16
-......
-FvNameGuid &#x3D; AFDD39F1-19D7-4501-A730-CE5A27E1154B
-
-INF RuleOverride &#x3D; UncompressedBinaryNoChecksum AmiChipsetModulePkg&#x2F;FIT&#x2F;ReserveBinary&#x2F;ReserveBootGuardSaveResigndata.inf
-
-!include AmiChipsetModulePkg&#x2F;FIT&#x2F;FitTable&#x2F;FitMicrocodeFdfFileStatement.txt
-
-#FV Section
-[FV.FV_BB_AFTER_MEMORY_BACKUP]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0xa0
-FvAlignment &#x3D; 16
-......
-FvNameGuid &#x3D; 5b08a058-784f-4938-9a49-1588aa05f4b9
-
-......
-
-#FV Section
-[FV.FV_FSP_S_BACKUP]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x90
-FvAlignment &#x3D; 16
-
-
-!include Intel&#x2F;CometLakeFspBinPkg&#x2F;FvFspSFdfFileStatement.txt
-
-#FV Section
-[FV.FV_BB_AFTER_MEMORY]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0xa0
-FvAlignment &#x3D; 16
-......
-
-#FV Section
-[FV.FV_FSP_S]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x90
-FvAlignment &#x3D; 16
-
-
-!include Intel&#x2F;CometLakeFspBinPkg&#x2F;FvFspSFdfFileStatement.txt
-......
-
-#FV Section
-[FV.FV_BB_BACKUP]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x90
-FvBaseAddress &#x3D; 0xfff70000
-......
-FvNameGuid &#x3D; 61C0F511-A691-4F54-974F-B9A42172CE53
-
-APRIORI PEI &#123;
-	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodePei.inf
-	INF AmiModulePkg&#x2F;IO&#x2F;NCT6686D&#x2F;NCT6686DPeiInit.inf
-	......
-	
-!include Build&#x2F;BiosGuardPubKeyhash_FdfFileStatement.txt
-!include AmiChipsetModulePkg&#x2F;FIT&#x2F;FitTable&#x2F;FitTableFdfFileStatement.txt
-!include LenovoModulePkg&#x2F;Universal&#x2F;BuildNaming&#x2F;BuildNaming.txt
-
-#FV Section
-[FV.FV_BB]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x90
-FvAlignment &#x3D; 16
-......
-FvNameGuid &#x3D; 61C0F511-A691-4F54-974F-B9A42172CE53
-
-APRIORI PEI &#123;
-	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodePei.inf
-	INF AmiModulePkg&#x2F;IO&#x2F;NCT6686D&#x2F;NCT6686DPeiInit.inf
-	INF LenovoModulePkg&#x2F;Universal&#x2F;AssetID&#x2F;AssetIDOnRecoveryMode&#x2F;AssetIDOnRecoveryModePei.inf
-	......
-
-!include AmiChipsetModulePkg&#x2F;BiosGuard&#x2F;Binary&#x2F;BiosGuardBinary_FdfFileStatement.txt
-!include Intel&#x2F;CometLakePlatSamplePkg&#x2F;Binaries&#x2F;Pct&#x2F;PctGpioFdfFileStatements.txt
-!include 
-......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <h2 id="x86-CPU寻址"><a href="#x86-CPU寻址" class="headerlink" title="x86 CPU寻址"></a>x86 CPU寻址</h2><ul>
+<li>8086/8088 20根地址线 寻址空间1M</li>
+<li>80286 24根地址线 寻址空间16M</li>
+<li>80386 3根地址线 寻址空间4G</li>
+</ul>
 <blockquote>
-<p>fdf文件的开头部份是关键字[fd]，它表示完整的BIOS Rom Image。还指定了BIOS的加载地址BaseAddress = 0xff00000，大小Size = 0x1000000(16M)，这与UEFITool给出的数据不谋而合：</p>
+<p>现代CPU的寻址空间，应该和具体CPU设计有关，用AlderLake某款CPU做过一个窥探，UEFI Shell下用mem指令不断去测试，发现最大能dump的地址是512G，用Tool Dump CPU类型的HOB发现SizeOfMemorySpace成员对应的地址转化为10进制为39，2的39次方刚好为512G，所以应该表示的是地址线为39根</p>
 </blockquote>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389689841.png"></p>
+<p><img src="http://tc.holychen.cn/image/image-20210811182158148.png" alt="image-20210811182158148"></p>
+<h2 id="1M以下内存区域"><a href="#1M以下内存区域" class="headerlink" title="1M以下内存区域"></a>1M以下内存区域</h2><blockquote>
+<p>主要分为两大块</p>
+</blockquote>
+<ul>
+<li><p><code>DOS 640KB</code></p>
 <blockquote>
-<p>根据BIOS Rom Image位于4G空间的顶部(0xFFFFFFFF)，减去Rom Image Size推算下可以推出Bios Rom加载地址(就是Fdf文件中的BaseAddress=0xff000000)</p>
+<ul>
+<li>00000000 - 000002FF(768 bytes) - Interrupt Vector Table</li>
+<li>00000300 - 000003FF(256 bytes) - BIOS Stack Area</li>
+<li>00000400 - 000004FF(256 bytes) - BIOS Data</li>
+<li>00000500 - 00009FFF(640K - 前三个区域) - Applications Memory Area</li>
+</ul>
 </blockquote>
-<blockquote>
-<p>接下来形如下列内容，则是在FD中开辟了一段连续空间，用来存放FV/FILE等内容。</p>
+</li>
+<li><p><code>A-F六个段，每个段64KB，合计384KB</code></p>
+</li>
+</ul>
+<p><img src="F:/Work_Area/Typora/Image/image-20210811190048082.png" alt="image-20210811190048082"></p>
+<h2 id="MBR分区"><a href="#MBR分区" class="headerlink" title="MBR分区"></a>MBR分区</h2><blockquote>
+<p>4个分区表占据64 byte，加上其它的448字节，组成了一个0扇区</p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">Offset|Size
-[RegionType]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>其中Offset和Size是这段空间的相对于整个FD的偏移和大小；前面UEFITool图中”BIOS Region”中列出的每一个FFS项都可以对应到Fdf文件[FD]节中RegionType为FV的项(毕竟只有FV才会用到文件系统FFS)。如果仔细比对，可能会发现UEFITool中倒数第二和倒数第三个FFS的Size和Padding相加正好对应[FD]节中的FV_FSP：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604389914494.png"></p>
-<pre class="line-numbers language-none"><code class="language-none">0xf00000|0x70000
-#FV_FSP
-FILE &#x3D; Build&#x2F;Fsp_Rebased_M_T.fd\<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>FV_FSP项的RegionType是FILE，可以包含任意内容，自然也可以包含其他的fd文件，就如NCB_LOGO项中包含了开机Logo文件；其次，fd文件又由fv组成，UEFITool又能解析fd文件，因此造成了这种FDF和BIOS Rom image不一致。其实，我们可以用UEFITool加载Fsp_Rebuild_M_T.fd，发现其中包含两个FFS：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604390180438.png"></p>
-<p>如果FV_FSP包含的fd文件是经过压缩操作的，那么FDF文件中RegionType为FV的项应该和UEFITool实际得到的相一致。</p>
-<p>FDF文件[FD]节之后就是大量的[FV]节，FV的主要作用就是包含组件和模块。他们来填充[FD]节中开辟的空间。先来看一个相对简单的FV节：FV.NVRAM，它只包含一个include语句，指向NvramFdfFileStatement.txt文件:</p>
-<pre class="line-numbers language-none"><code class="language-none">!include AmiModulePkg&#x2F;NVRAM&#x2F;NvramFdfFileStatement.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>NvramFdfFileStatement.txt文件通过FILE指令，包含binary file：</p>
-<pre class="line-numbers language-none"><code class="language-none">FILE RAW &#x3D; CEF5B9A3-476D-497f-9FDC-E98143E0422C &#123;
-  $(OUTPUT_DIRECTORY)&#x2F;Nvram.bin
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>FV的主要作用就是填充[FD]节中开辟的空间，用这个FV节验证一下：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391042176.png"></p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391071513.png"></p>
-<p>FDF中，FV.Nvram位于Bios Rom image的开头，Fv guid：FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC，NvramFdfFileStatement.txt中指定的File Guid：CEF5B9A3-476D-497f-9FDC-E98143E0422C；用UEFITool加载Bios Rom image，第一个FFS(就是FV.Nvram)的Volume GUID: FA4974FC-AF1D-4E5D-BDC5-DACD6D27BAEC；再展开FFS，其中包含的唯一的文件的File Guid: CEF5B9A3-476D-497F-9FDC-E98143E0422C，这些值和FDF中的Fv Guid以及File Guid是一致的。<br>除了File Guid是一致的，用UEFITool解压后得到的Nvram.bin和原始的Nvram.bin的内容也是一致的：</p>
-<p>以上是简单的FV的情况，有些复杂的FV中可以嵌套其它的FV的操作，如FDF中的FV.FV_MAIN_WRAPPER，</p>
-<pre class="line-numbers language-none"><code class="language-none">#FV Section
-[FV.FV_MAIN_WRAPPER]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x870
-......
-!include AmiPkg&#x2F;Configuration&#x2F;NestedFvMainFdfFileStatement.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>FV.FV_MAIN_WRAPPER节中内容不多，仅仅含有若干条!include语句，但是FV.FV_MAIN_WRAPPER节占据BIOS Rom Image很大一块空间：BlockSize<em>NumBlocks=0x1000</em>0x870=0x870000。它占用如此多空间的原因是NestedFvMainFdfFileStatement.txt通过FILE指令包含了一块压缩的FV文件，而该FV文件是Dxe阶段的代码</p>
-<p>NestedFvMainFdfFileStatement.txt的内容如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">#Includes FVMAIN FV image
-FILE FV_IMAGE &#x3D; 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 $(FFS_FILE_CHECKSUM_KEYWORD) &#123;
-  SECTION $(PEI_COMPRESSION_SECTION) &#123;
-    SECTION FV_IMAGE &#x3D; FV_MAIN
-  &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>FV_MAIN节内容如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">#FV Section
-[FV.FV_MAIN]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0x0
-FvAlignment &#x3D; 16
-......
-INF AmiModulePkg&#x2F;RomLayout&#x2F;RomLayoutDxe.inf
-INF MdeModulePkg&#x2F;Core&#x2F;Dxe&#x2F;DxeMain.inf
-INF AmiModulePkg&#x2F;Bds&#x2F;Bds.inf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>前面找到Dxe阶段的代码，那Sec和Pei阶段的代码在哪？platform.fdf文件[fd]节中设定FV_BB节位于Bios Rom image的尾部，因此，我们可以猜测并验证Sec模块和Pei模块也位于FV_BB中：</p>
-<pre class="line-numbers language-none"><code class="language-none">
-[FV.FV_BB]
-BlockSize &#x3D; 0x1000
-NumBlocks &#x3D; 0xa0
-...
-APRIORI PEI &#123; ;PEI阶段的APRIORI文件
-	INF AmiModulePkg&#x2F;AmiStatusCode&#x2F;StatusCodePei.inf
-    ...
-&#125;
-...
-INF MdeModulePkg&#x2F;Core&#x2F;Pei&#x2F;PeiMain.inf ;Pei阶段入口
-...
-INF UefiCpuPkg&#x2F;SecCore&#x2F;SecCore.inf ;Sec阶段入口
-...
-INF UefiCpuPkg&#x2F;CpuIoPei&#x2F;CpuIoPei.inf
-INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingleSegmentPciCfg2Pei.inf
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">pragma</span> <span class="token expression"><span class="token function">pack</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span></span></span>
+<span class="token comment">///</span>
+<span class="token comment">/// MBR Partition Entry</span>
+<span class="token comment">///</span>
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+UINT8 BootIndicator<span class="token punctuation">;</span>
+UINT8 StartHead<span class="token punctuation">;</span>
+UINT8 StartSector<span class="token punctuation">;</span>
+UINT8 StartTrack<span class="token punctuation">;</span>
+UINT8 OSIndicator<span class="token punctuation">;</span>
+UINT8 EndHead<span class="token punctuation">;</span>
+UINT8 EndSector<span class="token punctuation">;</span>
+UINT8 EndTrack<span class="token punctuation">;</span>
+UINT8 StartingLBA<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+UINT8 SizeInLBA<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> MBR_PARTITION_RECORD<span class="token punctuation">;</span>
+<span class="token comment">///</span>
+<span class="token comment">/// MBR Partition Table</span>
+<span class="token comment">///</span>
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+UINT8 BootStrapCode<span class="token punctuation">[</span><span class="token number">440</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+UINT8 UniqueMbrSignature<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+UINT8 Unknown<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+MBR_PARTITION_RECORD Partition<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+UINT16 Signature<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> MASTER_BOOT_RECORD<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">pragma</span> <span class="token expression"><span class="token function">pack</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>虽然，我们已经确定Sec模块和Pei模块位于FV_BB块中，但是有个问题随之出现：SecCore.inf并不是FV_BB中最后一个模块(夹在其他模块之间)，所以一眼看去感觉开机时执行的第一条指令并不在SecCore模块中，这明显与EFI Spec相悖。更何况SecCore.inf含有ResetVector：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391678324.png" alt="SecCore.inf部分内容"></p>
-<p>另外，UEFITool也明显显示SecCore位于Bios Rom image尾部</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391761934.png"></p>
-<p>fdf的设定和实际现象有差异，那一定是GenFv在生成Bios Rom image时有特殊处理。和GenFv Build Bios相关的只能查看Build.log，它记录了从源码到制成Rom Image的全过程，在Build.log的结尾，记录了各个模块在Bios Rom Image的排列位置，有个特殊的Firmware Volumon:08 No.049 类型是SECC—-SecCore，属性被标记为VTF，Bios Rom Image中其他FV中任何模块都不具有该属性：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604391860137.png"></p>
-<p>在PI spec Vol3中提到：</p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392019507.png"></p>
-<p><img src="http://tc.holychen.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1604392038413.png"></p>
-<p>VTF是Volume Top File的缩写，PI spec规定VTF的File Guid为EFI_FFS_VOLUME_TOP_FILE_GUID（1BA0062E-C779-4582-8566-336AE8F78F09），必须位于firmware volume的最后一个字节。而SecCore.inf的FILE_GUID = 1BA0062E-C779-4582-8566-336AE8F78F09。猜测只要某个inf指定自己FILE_GUID为EFI_FFS_VOLUME_TOP_FILE_GUID就有机会被安排在最开始执行。</p>
+<p><img src="http://tc.holychen.cn/image/image-20210811190908454.png" alt="image-20210811190908454"></p>
+<h2 id="汇编实例"><a href="#汇编实例" class="headerlink" title="汇编实例"></a>汇编实例</h2><blockquote>
+<p>一直对Legacy感受不深，写一个汇编程序，研究下Legacy Boot，利用<a target="_blank" rel="noopener" href="https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/win64/">NASM</a>编译Start.asm为bin文件，再用<a target="_blank" rel="noopener" href="https://mh-nexus.de/en/hxd/">HXD</a>将二进制数据拷贝到U盘扇区0，BIOS设为Legacy启动</p>
+</blockquote>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">mov ax<span class="token punctuation">,</span><span class="token number">0</span>b800h
+mov ds<span class="token punctuation">,</span>ax
+
+mov byte <span class="token punctuation">[</span><span class="token number">0x00</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'A'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x02</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'s'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x04</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'m'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x06</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">' '</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x08</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'T'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x0a</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'e'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x0c</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'s'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x0e</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'t'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x10</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">' '</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x12</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'F'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x14</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'o'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x16</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'r'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x18</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">' '</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x1a</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'L'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x1c</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'e'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x1e</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'g'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x20</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'a'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x22</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'c'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x24</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'y'</span>
+mov byte <span class="token punctuation">[</span><span class="token number">0x26</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">' '</span>
+
+jmp $
+times <span class="token number">510</span> <span class="token operator">-</span> <span class="token punctuation">(</span>$<span class="token operator">-</span>$$<span class="token punctuation">)</span> db <span class="token number">0</span>
+db  <span class="token number">0x55</span><span class="token punctuation">,</span><span class="token number">0xaa</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><code>编译command </code></p>
+<pre class="line-numbers language-none"><code class="language-none">nasm -f bin Start.asm -o Start.bin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="刻录到U盘"><a href="#刻录到U盘" class="headerlink" title="刻录到U盘"></a>刻录到U盘</h2><ul>
+<li><p>插入U盘格式化Fat32(文件系统没试过是否有影响)</p>
+</li>
+<li><p>HxD -&gt; 工具 -&gt; 读取硬盘 -&gt; 物理地址 -&gt; 实际U盘</p>
+</li>
+<li><p>文件 -&gt; 打开 -&gt; 选择编译的bin文件 </p>
+</li>
+<li><p>将bin文件的非00字节拷贝到U盘0扇区</p>
+</li>
+</ul>
+<p><img src="http://tc.holychen.cn/image/image-20210811180551621.png" alt="image-20210811180551621"></p>
+<h2 id="BIOS设置"><a href="#BIOS设置" class="headerlink" title="BIOS设置"></a>BIOS设置</h2><blockquote>
+<p>Legacy是比较古老的东西，Intel也说过将不支持Legacy，淘汰掉这个古老的玩意，所以新的主板可能只支持UEFI启动，如果支持Legacy的话，需要在BIOS下改点东西，才可以支持程序的运行</p>
+</blockquote>
+<p><img src="http://tc.holychen.cn/image/image-20210811175216393.png" alt="image-20210811175216393"></p>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://tc.holychen.cn/image/image-20210811175244711.png" alt="image-20210811175244711"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>U盘没有做成DOS和Shell盘，Legacy Boot时还是会有Boot Option，校验0扇区Signature后，会去执行前440字节存放的二进制代码，本例中没有效用完440 byte，看来Legacy Boot时0扇区这一段代码是用来跳转寻找OS BootLoader的</p>
+</blockquote>
 
             </div>
             <hr/>
@@ -762,7 +518,7 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://holychen.cn/2021/08/01/BIOS%20ROM%20Image/">http://holychen.cn/2021/08/01/BIOS%20ROM%20Image/</a>
+                    <a href="http://holychen.cn/2021/08/11/Legacy%20Boot%E8%AF%95%E9%AA%8C/">http://holychen.cn/2021/08/11/Legacy%20Boot%E8%AF%95%E9%AA%8C/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -800,8 +556,8 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Flash-Layout-FV/">
-                                    <span class="chip bg-color">Flash, Layout, FV</span>
+                                <a href="/tags/HxD-Legacy-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80-MBR/">
+                                    <span class="chip bg-color">HxD, Legacy, 内存布局, MBR</span>
                                 </a>
                             
                         </div>
@@ -843,17 +599,18 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/08/03/C%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
+                <a href="/2021/08/11/Legacy%20Boot%E8%AF%95%E9%AA%8C/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="C基本语法">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Legacy Boots试验">
                         
-                        <span class="card-title">C基本语法</span>
+                        <span class="card-title">Legacy Boots试验</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -863,9 +620,9 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -874,11 +631,12 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%88%86%E6%94%AF-%E5%BE%AA%E7%8E%AF/">
-                        <span class="chip bg-color">数据类型, 分支, 循环</span>
+                    <a href="/tags/HxD-Legacy-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80-MBR/">
+                        <span class="chip bg-color">HxD, Legacy, 内存布局, MBR</span>
                     </a>
                     
                 </div>
@@ -892,13 +650,13 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/01/OemWmi%20Demo/">
+                <a href="/2021/08/05/%E8%8A%AF%E7%89%87%E8%A1%8C%E4%B8%9A%E7%BB%86%E5%88%86%E9%A2%86%E5%9F%9F%E4%BC%81%E4%B8%9A/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="OemWmi Demo">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="芯片行业细分领域企业">
                         
-                        <span class="card-title">OemWmi Demo</span>
+                        <span class="card-title">芯片行业细分领域企业</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -909,7 +667,7 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-05
                             </span>
                         <span class="publish-author">
                             
@@ -922,8 +680,8 @@ INF MdeModulePkg&#x2F;Universal&#x2F;PcatSingleSegmentPciCfg2Pei&#x2F;PcatSingle
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MOF-ASL-VB-Script/">
-                        <span class="chip bg-color">MOF, ASL, VB Script</span>
+                    <a href="/tags/BIOS-CPU-GPU-DSP-FPGA-%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/">
+                        <span class="chip bg-color">BIOS, CPU, GPU, DSP, FPGA, 存储芯片</span>
                     </a>
                     
                 </div>
